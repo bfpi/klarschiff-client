@@ -1,0 +1,13 @@
+development:
+  city_sdk: &defaults
+    site: "http://192.168.178.30:3000/"
+    format: :json
+
+consolidation:
+  city_sdk:
+    <<: *defaults
+    site: "https://klarschiff-test/citysdk/"
+
+production:
+  city_sdk:
+    <<: *defaults

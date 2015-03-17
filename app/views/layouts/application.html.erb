@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>KlarschiffFieldService</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KlarschiffFieldService</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li><a href="#"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Standort aktualisieren</a></li>
+              <li>
+                <%= link_to(places_path, remote: true, class: :places) do %>
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Standortsuche
+                <% end %>
+              </li>
+              <li><a href="#" class="layer-switcher"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Kartenhintergrund ändern</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Problem melden</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Idee melden</a></li>
+              <li>
+                <%= link_to(requests_path, remote: true, class: :requests) do %>
+                  <span class="glyphicon glyphicon-list" aria-hidden="true"></span>Auftragsliste
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+    </nav>
+    <div id="ol-map"></div>
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
 </html>
