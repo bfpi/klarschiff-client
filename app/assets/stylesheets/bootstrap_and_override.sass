@@ -1,5 +1,24 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
-span.glyphicon
+nav .glyphicon
   padding-right: 0.5em
+
+.has-feedback.has-clear
+  /* Remove Internet Explorer native clear button */
+  input::-ms-clear
+    display: none
+
+  /*
+   * Enable pointer events as they have been disabled since Bootstrap 3.3
+   * See https://github.com/twbs/bootstrap/pull/14104
+   */
+  .form-control-clear
+    color: #bbb
+    color: rgba(0, 0, 0, 0.4)
+    pointer-events: auto
+
+    &:hover
+      color: #777
+      color: rgba(0, 0, 0, 0.7)
+      cursor: pointer

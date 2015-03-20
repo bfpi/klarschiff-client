@@ -1,3 +1,30 @@
 <div class="places">
-  Suche
+  <%= form_for(:places, method: :get, remote: true) do |f| %>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="form-group has-feedback has-clear">
+          <div class="input-group">
+            <span class="glyphicon glyphicon-search input-group-addon" aria-hidden="true"></span>
+            <%= text_field_tag(:pattern, @pattern, class: 'form-control', placeholder: 'Stadteil/Straße/Adresse eingeben...', id: 'places-search-pattern') %>
+          </div>
+          <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="col-md-3 form-group">
+        <%= f.button('Suchen', class: 'btn btn-default btn-block') %>
+      </div>
+    </div>
+  <% end %>
+  <% if @places -%>
+    <div class="panel panel-default result">
+      <div class="panel-heading">Ergebnisse</div>
+        <div class="list-group">
+          <% @places.each do |place| -%>
+            <%= link_to(map_path(bbox: place.bbox), remote: true, class: 'list-group-item') do %>
+              <%= place.label %><span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+            <% end %>
+          <% end -%>
+        </div>
+    </div>
+  <% end -%>
 </div>
