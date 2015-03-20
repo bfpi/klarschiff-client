@@ -11,7 +11,9 @@ class PlacesController < ApplicationController
         end
       end
     end
-    logger.info @places.inspect
-    #head :ok
+    respond_to do |format|
+      format.html { head :forbidden }
+      format.js
+    end
   end
 end
