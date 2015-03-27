@@ -20,6 +20,7 @@ gem 'therubyracer'
 gem 'bootstrap-sass'
 
 gem 'passenger'
+gem 'net-ldap'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
