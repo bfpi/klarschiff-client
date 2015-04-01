@@ -1,3 +1,31 @@
-<div class="requests">Auftragslisten
-<%= debug @requests %>
+<div class="requests">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="clickable" data-target="<%= requests_path %>">
+        <%= t('.title') %>
+        <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+      </div>
+    </div>
+    <% if @requests.present? -%>
+      <div class="list-group">
+        <!--<div class="list-group-item">
+          <div class="row">
+            <div class="col-md-1 col-md-offset-1">#</div>
+            <div class="col-md-10">Titel</div>
+          </div>
+        </div>-->
+        <% @requests.each do |req| -%>
+          <%= link_to(req, remote: true, class: 'list-group-item') do %>
+            <%= image_tag(image_path(req.icon), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
+            #<%= req.id %>: <%= req.title %>
+            <%= mark_photo_required(req) %>
+            <%= mark_trust(req) %>
+            <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+          <% end %>
+        <% end -%>
+      </div>
+    <% else -%>
+      <div class="panel-body"><%= t('.empty_result') %></div>
+    <% end -%>
+  </div>
 </div>

@@ -1,0 +1,44 @@
+de:
+  activemodel:
+    attributes:
+      request:
+        description: Details
+        media_url: Foto
+        status_notes: Info der Verwaltung
+        title: Betreff
+      service:
+        group: Hauptkategorie
+        service_name: Unterkategorie
+
+  buttons:
+    cancel: Abbrechen
+    search: Suchen
+    submit: Senden
+
+  placeholder:
+    email: Bitte geben Sie Ihre E-Mail-Adresse an.
+    places_search: Stadteil/Straße/Adresse eingeben…
+
+  places:
+    index:
+      results: Ergebnisse
+
+  requests:
+    index:
+      empty_result: Keine Aufträge für heute geplant
+      title: Aufträge
+    show:
+      abuse: Missbrauch
+      comment: Lob/Hinweise/Kritik
+      edit: Vorgang Bearbeiten
+      vote: Unterstützung
+      hint_photo_required: "Hinweis der Verwaltung: Für diesen Vorgang wird ein neues Foto gewünscht!"
+
+  votes:
+    create:
+      success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+      title:
+        error: Fehler bei Unterstützungsmeldung
+        success: Unterstützungsmeldung erfolgreich abgesetzt!
+    new:
+      title: Unterstützung

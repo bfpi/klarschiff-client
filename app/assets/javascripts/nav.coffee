@@ -20,5 +20,11 @@ class KS.Nav
 
 $ ->
   KS.nav = new KS.Nav
+
   KS.nav.bar.on 'click', 'a.layer-switcher', ->
     KS.layers.toggle()
+
+  KS.content().on 'click', '.clickable[data-target]', ->
+    $.ajax
+      url: $(@).data('target'),
+      dataType: 'script'
