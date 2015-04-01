@@ -1,6 +1,6 @@
 class KS.Nav
   constructor: ->
-    @bar = $('nav .nav')
+    @bar = $('body > nav .nav')
 
   switchTo: (view, content) ->
     return unless view? && parent = KS.content()
