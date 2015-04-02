@@ -1,0 +1,13 @@
+versions:
+  ol: v3.4.0
+  proj4: 2.3.3
+
+javascripts:
+  OpenLayers.js: http://openlayers.org/en/<%= versions[:ol] %>/build/ol-debug.js
+  OpenLayers.min.js: http://openlayers.org/en/<%= versions[:ol] %>/build/ol.js
+  proj4js.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4-src.js
+  proj4js.min.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4.js
+
+stylesheets:
+  OpenLayers.css: https://raw.githubusercontent.com/openlayers/ol3/<%= versions[:ol] %>/css/ol.css
+  OpenLayers.min.css: http://openlayers.org/en/<%= versions[:ol] %>/css/ol.css
