@@ -3,5 +3,8 @@ Rails.application.routes.draw do
 
   resource :map, only: :show
   resources :places, only: [:index, :show]
-  resources :requests
+  resources :requests do
+    resources :abuses, only: [:new, :create]
+    resources :votes, only: [:new, :create]
+  end
 end
