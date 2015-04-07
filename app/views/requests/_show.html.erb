@@ -24,12 +24,7 @@
       </div>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
-        <p class="list-group-item-text">
-          <% status = @request.extended_attributes.detailed_status -%>
-          <% status << " (seit #{ l(@request.extended_attributes.detailed_status_datetime.to_date) })" if @request.extended_attributes.detailed_status_datetime -%>
-          <% status << ", aktuell bei #{ @request.agency_responsible }" -%>
-          <%= status %>
-        </p>
+        <p class="list-group-item-text"><%= status(@request) %></p>
       </div>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:title) %></h4>
@@ -64,7 +59,7 @@
     <div class="container">
       <div class="btn-group btn-group-justified" role="group">
         <%= link_to(t('.vote'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.abuse'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.abuse'), new_request_abuse_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
         <%= link_to(t('.comment'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
       </div>
     </div>
