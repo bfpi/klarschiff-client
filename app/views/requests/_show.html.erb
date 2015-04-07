@@ -60,7 +60,7 @@
       <div class="btn-group btn-group-justified" role="group">
         <%= link_to(t('.vote'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
         <%= link_to(t('.abuse'), new_request_abuse_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.comment'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.comment'), new_request_comment_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
       </div>
     </div>
   </nav>

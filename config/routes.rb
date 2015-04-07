@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]
+    resources :comments, only: [:index, :new, :create]
     resources :votes, only: [:new, :create]
   end
 end

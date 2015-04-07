@@ -31,6 +31,7 @@ de:
     requests: Aufträge
 
   placeholder:
+    comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
@@ -51,6 +52,14 @@ de:
         warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
           <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
           unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
+
+  comments:
+    create:
+      error: Fehler bei Lob, Hinweise oder Kritik
+      success: Lob, Hinweise oder Kritik erfolgreich abgesetzt.
+      success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
+    new:
+      title: Lob / Hinweise / Kritik
 
   places:
     index:
