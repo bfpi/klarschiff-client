@@ -10,6 +10,14 @@ de:
         group: Hauptkategorie
         service_name: Unterkategorie
 
+  # Statuses
+  status:
+    in_process: In Bearbeitung
+    pending: Gemeldet
+    processed: Abgeschlossen
+    recieved: Offen
+    rejected: Wird nicht bearbeitet
+
   # General view contents
   buttons:
     cancel: Abbrechen
