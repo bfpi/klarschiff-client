@@ -1,6 +1,6 @@
 <div class="modal-header text-<%= @errors ? :warning : :success %>">
   <span class="glyphicon glyphicon-<%= @errors ? :alert : 'ok-sign' %>"></span>
-  <%= t(".title.#{ @errors ? :error : :success }") %>
+  <%= t("#{ controller_name }.#{ action_name }.#{ @errors ? :error : :success }") %>
 </div>
 <div class="modal-body">
   <% if @errors.present? -%>
@@ -8,7 +8,7 @@
       <p><%= msg.html_safe %></p>
     <% end -%>
   <% else -%>
-    <%= t('.success') %>
+    <%= t('messages.success') %>
   <% end -%>
 </div>
 <div class="modal-footer">

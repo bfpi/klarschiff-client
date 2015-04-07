@@ -27,6 +27,18 @@ module ActiveResource
       end
 
       alias_method_chain :find, :extended_default_query_options
+
+      def collection_path_with_citysdk_url_format(prefix_options = {}, query_options = nil)
+        if prefix_options.blank?
+          collection_path_without_citysdk_url_format prefix_options, query_options
+        else
+          check_prefix_options(prefix_options)
+          prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+          "#{ prefix(prefix_options) }#{ format_extension }#{ query_string(query_options) }"
+        end
+      end
+
+      alias_method_chain :collection_path, :citysdk_url_format
     end
 
     def load_with_citysdk_array_structure(attributes, remove_root = false, persisted = false)

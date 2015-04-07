@@ -10,14 +10,39 @@ de:
         group: Hauptkategorie
         service_name: Unterkategorie
 
+  # General view contents
   buttons:
     cancel: Abbrechen
     search: Suchen
     submit: Senden
 
+  messages:
+    success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+
+  nav:
+    requests: Aufträge
+
   placeholder:
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     places_search: Stadteil/Straße/Adresse eingeben…
+    reason: Bitte geben Sie eine Begründung an.
+
+  # Views
+  abuses:
+    create:
+      error: Fehler bei Missbrauchsmeldung
+      success: Missbrauchsmeldung erfolgreich abgesetzt.
+    new:
+      title: Missbrauch
+      hint:
+        label: Hinweis
+        text: >
+          Einen Missbrauch können und sollten Sie dann melden, wenn durch Betreff, Details
+          oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter
+          oder Kfz-Kennzeichen zu erkennen sind).
+        warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
+          <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
+          unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
 
   places:
     index:
@@ -36,9 +61,7 @@ de:
 
   votes:
     create:
-      success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
-      title:
-        error: Fehler bei Unterstützungsmeldung
-        success: Unterstützungsmeldung erfolgreich abgesetzt!
+      error: Fehler bei Unterstützungsmeldung
+      success: Unterstützungsmeldung erfolgreich abgesetzt!
     new:
       title: Unterstützung
