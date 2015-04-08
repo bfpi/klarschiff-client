@@ -1,0 +1,1 @@
+KS.nav.switchTo 'map'
