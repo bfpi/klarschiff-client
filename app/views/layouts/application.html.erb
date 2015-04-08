@@ -21,28 +21,52 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Standort aktualisieren</a></li>
             <li>
-              <%= link_to(places_path, remote: true, class: :places) do %>
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Standortsuche
-              <% end %>
-            </li>
-            <li><a href="#" class="layer-switcher"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Kartenhintergrund ändern</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Problem melden</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Idee melden</a></li>
-            <li>
-              <%= link_to(map_path, remote: true, class: :map) do %>
-                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Karte
-              <% end %>
+              <a href="#" title="Standort aktualisieren">
+                <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Standort aktualisieren</span>
+              </a>
             </li>
             <li>
-              <%= link_to(map_path, remote: true, class: :map) do %>
-                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>Karte
+              <%= link_to(places_path, remote: true, class: :places, title: "Standortsuche") do %>
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Standortsuche</span>
               <% end %>
             </li>
             <li>
-              <%= link_to(requests_path, remote: true, class: :requests) do %>
-                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>Aufträge
+              <a href="#" class="layer-switcher" title="Kartenhintergrund ändern">
+                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Kartenhintergrund ändern</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" title="Problem melden">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Problem melden</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" title="Idee melden">
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Idee melden</span>
+              </a>
+            </li>
+            <li>
+              <%= link_to(map_path, remote: true, class: :map, title: "Karte") do %>
+                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Karte</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(map_path, remote: true, class: :map, title: "Karte") do %>
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Karte</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(requests_path, remote: true, class: :requests, title: "Aufträge") do %>
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md">Aufträge</span>
               <% end %>
             </li>
           </ul>

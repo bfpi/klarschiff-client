@@ -1,12 +1,13 @@
 development:
   city_sdk: &defaults
-    site: "http://192.168.178.30:3000/"
+    site: http://192.168.178.30:3000/
     format: :json
+    api_key: <API-Key>
 
 consolidation:
   city_sdk:
     <<: *defaults
-    site: "https://klarschiff-test/citysdk/"
+    site: https://klarschiff-test/citysdk/
 
 production:
   city_sdk:

@@ -1,3 +1,4 @@
+$screen-sm-min: 600px
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
@@ -6,9 +7,15 @@ h4,
   font-size: 16px
   font-weight: bold
 
-nav .glyphicon,
 .modal-header .glyphicon
   padding-right: 0.5em
+
+nav .glyphicon
+  padding-right: 0.5em
+
+  @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
+    padding-left: 1em
+    padding-right: 1em
 
 nav.navbar-fixed-bottom .btn-group
   padding-top: 0.5em

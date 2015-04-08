@@ -24,6 +24,10 @@ $ ->
   KS.nav.bar.on 'click', 'a.layer-switcher', ->
     KS.layers.toggle()
 
+  KS.nav.bar.on 'click', 'a', ->
+    if($('.navbar-toggle').css('display') != 'none')
+      $(".navbar-toggle").trigger "click"
+
   KS.content().on 'click', '.clickable[data-target]', ->
     $.ajax
       url: $(@).data('target'),
