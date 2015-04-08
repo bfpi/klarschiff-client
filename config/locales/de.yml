@@ -1,4 +1,8 @@
 de:
+  time:
+    formats:
+      default: "%d. %B %Y, %H:%M Uhr"
+
   activemodel:
     attributes:
       request:
@@ -9,6 +13,8 @@ de:
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
+    models:
+      comment: Lob/Hinweise/Kritik
 
   # Statuses
   status:
@@ -70,11 +76,13 @@ de:
       empty_result: Keine Aufträge für heute geplant
       title: Aufträge
     show:
-      abuse: Missbrauch
-      comment: Lob/Hinweise/Kritik
-      edit: Vorgang Bearbeiten
+      actions:
+        abuse: Missbrauch
+        comment: Lob/Hinweise/Kritik
+        edit: Vorgang Bearbeiten
+        reload: Aktualisieren
+        vote: Unterstützung
       hint_photo_required: "Hinweis der Verwaltung: Für diesen Vorgang wird ein neues Foto gewünscht!"
-      vote: Unterstützung
     status:
       currently: aktuell bei
       since: seit
