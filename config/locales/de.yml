@@ -1,4 +1,8 @@
 de:
+  time:
+    formats:
+      default: "%d. %B %Y, %H:%M Uhr"
+
   activemodel:
     attributes:
       request:
@@ -9,15 +13,59 @@ de:
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
+    models:
+      comment: Lob/Hinweise/Kritik
 
+  # Statuses
+  status:
+    in_process: In Bearbeitung
+    pending: Gemeldet
+    processed: Abgeschlossen
+    recieved: Offen
+    rejected: Wird nicht bearbeitet
+
+  # General view contents
   buttons:
     cancel: Abbrechen
     search: Suchen
     submit: Senden
 
+  messages:
+    success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+
+  nav:
+    requests: Aufträge
+
   placeholder:
+    comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     places_search: Stadteil/Straße/Adresse eingeben…
+    reason: Bitte geben Sie eine Begründung an.
+
+  # Views
+  abuses:
+    create:
+      error: Fehler bei Missbrauchsmeldung
+      success: Missbrauchsmeldung erfolgreich abgesetzt.
+    new:
+      title: Missbrauch
+      hint:
+        label: Hinweis
+        text: >
+          Einen Missbrauch können und sollten Sie dann melden, wenn durch Betreff, Details
+          oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter
+          oder Kfz-Kennzeichen zu erkennen sind).
+        warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
+          <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
+          unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
+
+  comments:
+    create:
+      error: Fehler bei Lob, Hinweise oder Kritik
+      success: Lob, Hinweise oder Kritik erfolgreich abgesetzt.
+      success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
+    new:
+      title: Lob / Hinweise / Kritik
 
   places:
     index:
@@ -28,17 +76,20 @@ de:
       empty_result: Keine Aufträge für heute geplant
       title: Aufträge
     show:
-      abuse: Missbrauch
-      comment: Lob/Hinweise/Kritik
-      edit: Vorgang Bearbeiten
-      vote: Unterstützung
+      actions:
+        abuse: Missbrauch
+        comment: Lob/Hinweise/Kritik
+        edit: Vorgang Bearbeiten
+        reload: Aktualisieren
+        vote: Unterstützung
       hint_photo_required: "Hinweis der Verwaltung: Für diesen Vorgang wird ein neues Foto gewünscht!"
+    status:
+      currently: aktuell bei
+      since: seit
 
   votes:
     create:
-      success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
-      title:
-        error: Fehler bei Unterstützungsmeldung
-        success: Unterstützungsmeldung erfolgreich abgesetzt!
+      error: Fehler bei Unterstützungsmeldung
+      success: Unterstützungsmeldung erfolgreich abgesetzt!
     new:
       title: Unterstützung

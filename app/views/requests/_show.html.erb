@@ -1,17 +1,15 @@
 <div class="request">
   <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="clickable" data-target="<%= request_path(@request) %>">
-        <h4>
-          <%= image_tag(image_path(@request.icon), alt: "#{ @request.service.type }, #{ @request.extended_attributes.detailed_status }") %>
-          <%= @request.service.type.humanize %>
-          #<%= @request.id %>
-          (<%= l(@request.requested_datetime.to_date) %>)
-          <%= label_photo_required = mark_photo_required(@request) %>
-          <%= mark_trust(@request) %>
-          <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
-        </h4>
-      </div>
+    <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
+      <h4>
+        <%= image_tag(image_path(@request.icon), alt: "#{ @request.service.type }, #{ @request.extended_attributes.detailed_status }") %>
+        <%= @request.service.type.humanize %>
+        #<%= @request.id %>
+        (<%= l(@request.requested_datetime.to_date) %>)
+        <%= label_photo_required = mark_photo_required(@request) %>
+        <%= mark_trust(@request) %>
+        <span class="hidden-xs badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+      </h4>
     </div>
     <div class="list-group">
       <div class="list-group-item">
@@ -24,12 +22,7 @@
       </div>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
-        <p class="list-group-item-text">
-          <% status = @request.extended_attributes.detailed_status -%>
-          <% status << " (seit #{ l(@request.extended_attributes.detailed_status_datetime.to_date) })" if @request.extended_attributes.detailed_status_datetime -%>
-          <% status << ", aktuell bei #{ @request.agency_responsible }" -%>
-          <%= status %>
-        </p>
+        <p class="list-group-item-text"><%= status(@request) %></p>
       </div>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:title) %></h4>
@@ -48,7 +41,7 @@
             <% end -%>
           </h4>
           <p class="list-group-item-text">
-            <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded" />
+            <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
           </p>
         </div>
       <% end -%>
@@ -58,14 +51,28 @@
           <p class="list-group-item-text"><%= notes %></p>
         </div>
       <% end -%>
+      <% if (comments = @request.comments).present? -%>
+        <div class="list-group-item">
+          <h4 class="list-group-item-heading"><%= Comment.model_name.human %></h4>
+          <div class="list-group-item-text">
+            <% comments.each do |comment| -%>
+              <div class="panel panel-default">
+                <div class="panel-heading"><%= comment.author %>, <%= l(comment.datetime.to_time) %></div>
+                <div class="panel-body"><%= comment.comment %></div>
+              </div>
+            <% end -%>
+          </div>
+        </div>
+      <% end -%>
     </div>
   </div>
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
       <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('.vote'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.abuse'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.comment'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.actions.vote'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.actions.abuse'), new_request_abuse_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.actions.comment'), new_request_comment_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.actions.edit'), [:edit, @request], remote: true, class: 'btn btn-default', role: :button) %>
       </div>
     </div>
   </nav>

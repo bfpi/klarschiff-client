@@ -13,44 +13,41 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li><a href="#"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Standort aktualisieren</a></li>
-              <li>
-                <%= link_to(places_path, remote: true, class: :places) do %>
-                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                  <span class="hidden-xs hidden-sm">Standortsuche</span>
-                <% end %>
-              </li>
-              <li><a href="#" class="layer-switcher"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Kartenhintergrund ändern</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Problem melden</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Idee melden</a></li>
-              <li>
-                <%= link_to(map_path, remote: true, class: :map) do %>
-                  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Karte
-                <% end %>
-              </li>
-              <li>
-                <%= link_to(map_path, remote: true, class: :map) do %>
-                  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>Karte
-                <% end %>
-              </li>
-              <li>
-                <%= link_to(requests_path, remote: true, class: :requests) do %>
-                  <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>Aufträge
-                <% end %>
-              </li>
-            </ul>
-          </div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#"><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>Standort aktualisieren</a></li>
+            <li>
+              <%= link_to(places_path, remote: true, class: :places) do %>
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Standortsuche
+              <% end %>
+            </li>
+            <li><a href="#" class="layer-switcher"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Kartenhintergrund ändern</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Problem melden</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>Idee melden</a></li>
+            <li>
+              <%= link_to(map_path, remote: true, class: :map) do %>
+                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Karte
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(map_path, remote: true, class: :map) do %>
+                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>Karte
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(requests_path, remote: true, class: :requests) do %>
+                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>Aufträge
+              <% end %>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
     <div class="modal fade" id="flash" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog"><div class="modal-content"></div></div>

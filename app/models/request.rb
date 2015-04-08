@@ -7,6 +7,11 @@ class Request < ActiveResource::Base
 
   alias_attribute :id, :service_request_id
 
+  # Workaround, to overcome the missing foreign_key option when defining has_many
+  def comments
+    @comments ||= Comment.where(service_request_id: id)
+  end
+
   def icon
     "icons/list/png/#{ service.type }-" << case extended_attributes.detailed_status
     when 'IN_PROCESS'
@@ -23,7 +28,8 @@ class Request < ActiveResource::Base
   end
 
   class ExtendedAttributes < Request
-    def trust # overwrite Object#trust
+    # Overwrite Object#trust
+    def trust
       attributes[:trust]
     end
   end

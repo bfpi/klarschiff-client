@@ -1,0 +1,43 @@
+<div class="abuse">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= t('.title') %>
+    </div>
+    <div class="panel-body">
+      <%= form_for([:request, @abuse], remote: true) do |f| %>
+        <div class="form-group">
+          <span class="helper-block">
+            <strong><%= t('.hint.label') %>:</strong>
+            <%= t('.hint.text') %>
+            <em class="text-danger"><%= t('.hint.warning_html') %></em>
+          </span>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
+            <%= f.text_area(:comment, rows: 4, class: 'form-control', placeholder: t('placeholder.reason')) %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="form-group has-feedback has-clear">
+              <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <%= f.text_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
+              </div>
+              <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <div class="btn-group btn-group-justified" role="group">
+              <div class="btn-group" role="group">
+                <%= f.submit(t('buttons.submit'), class: 'btn btn-default btn-primary') %>
+              </div>
+              <%= link_to(t('buttons.cancel'), @request, remote: true, class: 'btn btn-default', role: :button) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
