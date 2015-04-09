@@ -1,5 +1,5 @@
 //$font-size-base: 12px
-$screen-sm-min: 600px
+$screen-sm-min: 610px
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
@@ -28,6 +28,10 @@ nav
     @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
       padding-left: 1em
       padding-right: 1em
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
+  .container
+    width: 100%
 
 .has-feedback.has-clear
   /* Remove Internet Explorer native clear button */
