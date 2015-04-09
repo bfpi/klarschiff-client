@@ -39,6 +39,7 @@ de:
 
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
+    note: Bitte tragen Sie hier Ihre internen Hinweise zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
@@ -68,6 +69,14 @@ de:
     new:
       title: Lob / Hinweise / Kritik
 
+  notes:
+    create:
+      error: Fehler bei internem Kommentar
+      success: Internen Kommentar erfolgreich abgesetzt!
+      success_text: Ihr Kommentar wurde zum Vorgang hinzugefügt.
+    new:
+      title: Interner Kommentar
+
   places:
     index:
       results: Ergebnisse
@@ -81,6 +90,7 @@ de:
         abuse: Missbrauch
         comment: Lob/Hinweise/Kritik
         edit: Vorgang Bearbeiten
+        note: Neuer interner Kommentar
         reload: Aktualisieren
         vote: Unterstützung
       hint_photo_required: "Hinweis der Verwaltung: Für diesen Vorgang wird ein neues Foto gewünscht!"

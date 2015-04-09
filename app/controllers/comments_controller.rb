@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     if comment.persisted?
       @success = I18n.t(:success_text, scope: 'comments.create')
     else
-    @errors = comment.errors
+      @errors = comment.errors
     end
   end
 end
