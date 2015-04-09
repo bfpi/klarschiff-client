@@ -2,7 +2,19 @@ require 'active_resource/base'
 require 'active_resource/validations'
 
 module ActiveResource
+  module ValidationsWithCitySDKErrorResponseCodes
+    def save(options = {})
+      super
+    rescue BadRequest, UnauthorizedAccess => error
+      @remote_errors = error
+      load_remote_errors(@remote_errors, true)
+      false
+    end
+  end
+
   class Base
+    prepend ValidationsWithCitySDKErrorResponseCodes
+
     class << self
       mattr_accessor :api_key
 
@@ -49,8 +61,8 @@ module ActiveResource
     alias_method_chain :load, :citysdk_array_structure
   end
 
-  class Errors
-    def from_json_with_citysdk_array_structure(json, save_cache = false)
+  module ErrorsWithCitySDKArrayStructure
+    def from_json(json, save_cache = false)
       decoded = ActiveSupport::JSON.decode(json) || {} rescue {}
       if decoded.kind_of?(Array) && decoded.first.kind_of?(Hash)
         clear unless save_cache
@@ -58,10 +70,10 @@ module ActiveResource
           self[:base] << error['description']
         }
       else
-        from_json_without_citysdk_structure json, save_cache
+        super
       end
     end
-
-    alias_method_chain :from_json, :citysdk_array_structure
   end
+
+  Errors.prepend ErrorsWithCitySDKArrayStructure
 end
