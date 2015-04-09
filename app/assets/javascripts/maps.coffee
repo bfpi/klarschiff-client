@@ -15,67 +15,56 @@ KS.projection = ->
 class KS.Map
   constructor: (@projection = KS.projection()) ->
     @olMap = new ol.Map
-      target: 'ol-map',
+      target: 'ol-map'
       view: new ol.View
-        projection: @projection,
-        center: [313356.88711652, 6002555.7959791],
-        zoom: 2,
-        extent: @projection.getExtent
+        projection: @projection
+        center: [313356.88711652, 6002555.7959791]
+        zoom: 2
         maxZoom: 10
 
     KS.layers = new KS.Layers(@olMap)
-    addControls(@olMap)
-    return @olMap
 
 
   addControls = (map) ->
     map.addControl new ol.control.MousePosition
-      coordinateFormat: ol.coordinate.createStringXY(4),
-      projection: @projection,
+      coordinateFormat: ol.coordinate.createStringXY(4)
+      projection: @projection
       undefinedHTML: '?,?'
 
     map.addControl new ol.control.MousePosition
-      className: 'll-mouse-position',
-      target: document.getElementById('ol-overlaycontainer-stopevent'),
-      coordinateFormat: ol.coordinate.createStringXY(6),
-      projection: 'EPSG:4326',
+      className: 'll-mouse-position'
+      target: document.getElementById('ol-overlaycontainer-stopevent')
+      coordinateFormat: ol.coordinate.createStringXY(6)
+      projection: 'EPSG:4326'
       undefinedHTML: '?,?'
 
     map.addControl new ol.control.ScaleLine
 
 
 class KS.Layers
-  constructor: (map, projection) ->
+  constructor: (map) ->
     @active = 0
     @layers = [
       new ol.layer.Tile
-        title: "Stadtplan",
-        projection: projection,
         source: new ol.source.TileWMS
-          url: "http:\/\/geo.sv.rostock.de\/geodienste\/stadtplan\/ows?",
+          url: "http:\/\/geo.sv.rostock.de\/geodienste\/stadtplan\/ows?"
           params:
-            "LAYERS": "stadtplan",
-            "FORMAT": "image/png",
-            "VERSION": "1.1.1",
-            "SRC": "EPSG:25833"
+            "LAYERS": "stadtplan"
+            "FORMAT": "image/png"
           attributions: [
             new ol.Attribution
-              html: "Kartenbild © Hansestadt Rostock (<a href=\"http://creativecommons.org/licenses/by/3.0/deed.de\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">CC BY 3.0</a>) | Kartendaten © <a href=\"http://www.openstreetmap.org/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">OpenStreetMap</a> (<a href=\"http://opendatacommons.org/licenses/odbl/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">ODbL</a>) und <a href=\"https://geo.sv.rostock.de/uvgb.html\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">uVGB-MV</a>",
+              html: "Kartenbild © Hansestadt Rostock (<a href=\"http://creativecommons.org/licenses/by/3.0/deed.de\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">CC BY 3.0</a>) | Kartendaten © <a href=\"http://www.openstreetmap.org/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">OpenStreetMap</a> (<a href=\"http://opendatacommons.org/licenses/odbl/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">ODbL</a>) und <a href=\"https://geo.sv.rostock.de/uvgb.html\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">uVGB-MV</a>"
           ]
         visible: true,
       new ol.layer.Tile
-        title: "Luftbild",
-        projection: projection,
         source: new ol.source.TileWMS
-          url: "http:\/\/geo.sv.rostock.de\/geodienste\/luftbild\/ows?",
+          url: "http:\/\/geo.sv.rostock.de\/geodienste\/luftbild\/ows?"
           params:
-            "LAYERS": "luftbild",
-            "FORMAT": "image/png",
-            "VERSION": "1.1.1",
-            "SRC": "EPSG:900913",
+            "LAYERS": "luftbild"
+            "FORMAT": "image/png"
           attributions: [
             new ol.Attribution
-              html: "© GeoBasis-DE/M-V",
+              html: "© GeoBasis-DE/M-V"
           ]
         visible: false
     ]
