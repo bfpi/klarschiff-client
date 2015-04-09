@@ -51,7 +51,7 @@
           <p class="list-group-item-text"><%= notes %></p>
         </div>
       <% end -%>
-      <% if (comments = @request.comments).present? -%>
+      <% if (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading"><%= Comment.model_name.human %></h4>
           <div class="list-group-item-text">
@@ -64,15 +64,33 @@
           </div>
         </div>
       <% end -%>
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading clickable" data-target="<%= request_path(@request) %>">
+          <%= Note.model_name.human %>
+          <span class="badge pull-right"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span>
+        </h4>
+        <div class="list-group-item-text">
+          <% @request.notes.each do |note| -%>
+            <div class="panel panel-default">
+              <div class="panel-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></div>
+              <div class="panel-body"><%= note.comment %></div>
+            </div>
+          <% end -%>
+        </div>
+      </div>
     </div>
   </div>
   <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
+      <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
       <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('.actions.vote'), new_request_vote_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.actions.abuse'), new_request_abuse_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.actions.comment'), new_request_comment_path(@request), remote: true, class: 'btn btn-default', role: :button) %>
-        <%= link_to(t('.actions.edit'), [:edit, @request], remote: true, class: 'btn btn-default', role: :button) %>
+        <%= link_to(t('.actions.vote'), [:new, @request, :vote], options) %>
+        <%= link_to(t('.actions.abuse'), [:new, @request, :abuse], options) %>
+        <%= link_to(t('.actions.comment'), [:new, @request, :comment], options.merge(class: 'btn btn-default btn-xs')) %>
+      </div>
+      <div class="btn-group btn-group-justified" role="group">
+        <%= link_to(t('.actions.edit'), [:edit, @request], options) %>
+        <%= link_to(t('.actions.note'), [:new, @request, :note], options) %>
       </div>
     </div>
   </nav>

@@ -1,24 +1,33 @@
+//$font-size-base: 12px
 $screen-sm-min: 600px
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
 h4,
 .h4
-  font-size: 16px
+  font-size: $font-size-h4 - 2
   font-weight: bold
 
 .modal-header .glyphicon
   padding-right: 0.5em
 
-nav .glyphicon
-  padding-right: 0.5em
+nav
+  //&.navbar-fixed-top
+    font-size: $font-size-large
 
-  @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
-    padding-left: 1em
-    padding-right: 1em
+  &.navbar-fixed-bottom
+    .btn-group
+      padding-top: 0.5em
 
-nav.navbar-fixed-bottom .btn-group
-  padding-top: 0.5em
+      &:last-child
+        padding-bottom: 0.5em
+
+  .glyphicon
+    padding-right: 0.4em
+
+    @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
+      padding-left: 1em
+      padding-right: 1em
 
 .has-feedback.has-clear
   /* Remove Internet Explorer native clear button */

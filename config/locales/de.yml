@@ -14,6 +14,7 @@ de:
         group: Hauptkategorie
         service_name: Unterkategorie
     models:
+      note: Interner Kommentar
       comment: Lob/Hinweise/Kritik
 
   # Statuses

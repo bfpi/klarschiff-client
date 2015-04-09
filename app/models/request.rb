@@ -12,6 +12,11 @@ class Request < ActiveResource::Base
     @comments ||= Comment.where(service_request_id: id)
   end
 
+  # Workaround, to overcome the missing foreign_key option when defining has_many
+  def notes
+    @notes ||= Note.where(service_request_id: id)
+  end
+
   def icon
     "icons/list/png/#{ service.type }-" << case extended_attributes.detailed_status
     when 'IN_PROCESS'
