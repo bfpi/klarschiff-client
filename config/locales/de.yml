@@ -35,7 +35,14 @@ de:
     success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
 
   nav:
-    requests: Aufträge
+    job_map: Auftragskarte
+    jobs: Aufträge
+    location: Standort
+    map: Karte
+    map_background: Kartenhintergrund
+    places: Standortsuche
+    report_idea: Idee melden
+    report_problem: Problem melden
 
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
@@ -43,6 +50,11 @@ de:
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
+
+  service:
+    types:
+      idea: Idee
+      problem: Problem
 
   # Views
   abuses:
@@ -69,6 +81,11 @@ de:
     new:
       title: Lob / Hinweise / Kritik
 
+  jobs:
+    index:
+      empty_result: Keine Aufträge für heute geplant
+      title: Aufträge
+
   notes:
     create:
       error: Fehler bei internem Kommentar
@@ -83,8 +100,8 @@ de:
 
   requests:
     index:
-      empty_result: Keine Aufträge für heute geplant
-      title: Aufträge
+      empty_result: Keine Vorgänge vorhanden
+      title: Vorgänge
     show:
       actions:
         abuse: Missbrauch

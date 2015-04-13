@@ -2,8 +2,9 @@
   <div class="panel panel-default">
     <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
       <h4 class="panel-title">
-        <%= image_tag(image_path(@request.icon_list), alt: "#{ @request.service.type }, #{ @request.extended_attributes.detailed_status }") %>
-        <%= @request.service.type.humanize %>
+        <% type = t(@request.service.type, scope: 'service.types') %>
+        <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.extended_attributes.detailed_status }") %>
+        <%= type %>
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>

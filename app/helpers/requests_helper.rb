@@ -1,12 +1,13 @@
 module RequestsHelper
   def mark_trust(request)
+    trust = request.extended_attributes.trust - 1
     content_tag(:span, class: 'label label-default') do 
       content_tag(:span) do
-        (request.extended_attributes.trust - 1).times do
+        trust.times do
           concat content_tag(:span, nil, class: 'glyphicon glyphicon-star', "aria-hidden" => true)
         end
       end
-    end
+    end if trust > 0
   end
 
   def mark_photo_required(request)

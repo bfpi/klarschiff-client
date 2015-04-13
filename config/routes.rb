@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'maps#show'
 
+  resources :jobs, only: :index
   resource :map, only: :show
   resources :places, only: [:index, :show]
   resources :requests do

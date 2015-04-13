@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KlarschiffFieldService</title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -22,51 +22,51 @@
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li>
-              <a href="#" title="Standort aktualisieren">
+              <a href="#" title="<%= t("nav.location") %>">
                 <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Standort</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.location") %></span>
               </a>
             </li>
             <li>
-              <%= link_to(places_path, remote: true, class: :places, title: "Standortsuche") do %>
+              <%= link_to(places_path, remote: true, class: :places, title: t("nav.places")) do %>
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Standortsuche</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
               <% end %>
             </li>
             <li>
-              <a href="#" class="layer-switcher" title="Kartenhintergrund ändern">
+              <a href="#" class="layer-switcher" title="<%= t("nav.map_background") %>">
                 <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Kartenhintergrund</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.map_background") %></span>
               </a>
             </li>
             <li>
-              <a href="#" title="Problem melden">
+              <a href="#" title="<%= t("nav.report_problem") %>">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Problem melden</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
               </a>
             </li>
             <li>
-              <a href="#" title="Idee melden">
+              <a href="#" title="<%= t("nav.report_idea") %>">
                 <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Idee melden</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
               </a>
             </li>
             <li>
-              <%= link_to(map_path, remote: true, class: :map, title: "Karte") do %>
+              <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Karte</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
               <% end %>
             </li>
             <li>
-              <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: "Karte") do %>
-                <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Karte</span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(requests_path(type: :jobs), remote: true, class: :requests, title: "Aufträge") do %>
+              <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md">Aufträge</span>
+                <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: t("nav.job_map")) do %>
+                  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                  <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
               <% end %>
             </li>
           </ul>

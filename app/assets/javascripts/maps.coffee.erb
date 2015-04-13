@@ -133,14 +133,14 @@ class KS.Layers
         id: "features"
         source: new (ol.source.Cluster)(
           distance: 55
-          source: new KS.FeatureVector())
+          source: new KS.FeatureVector("/requests"))
         style: styles.featureStyle
         visible: true
       new (ol.layer.Vector)
         id: "jobs"
         source: new (ol.source.Cluster)(
           distance: 55
-          source: new KS.FeatureVector("jobs"))
+          source: new KS.FeatureVector("/jobs"))
         style: styles.featureStyle
         visible: true
     ]
@@ -162,11 +162,11 @@ class KS.Layers
 
 
 class KS.FeatureVector
-  constructor: (type) ->
+  constructor: (controller) ->
     return vector = new ol.source.ServerVector
       format: new (ol.format.TopoJSON)
       loader: (extent, resolution, projection) ->
-        $.ajax(url: "/requests", dataType: 'json', data: { type: type }).done (response) ->
+        $.ajax(url: controller, dataType: 'json').done (response) ->
           features = new Array
           $.each response, (index, elem) ->
             coord = ol.proj.transform([elem.long, elem.lat], 'EPSG:4326', 'EPSG:25833')
