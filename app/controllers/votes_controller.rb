@@ -11,6 +11,7 @@ class VotesController < ApplicationController
   def create
     vote = Vote.create(params.require(:vote).permit(:author).merge(
       service_request_id: params[:request_id]))
+    @redirect = request_url(params[:request_id])
     @errors = vote.errors unless vote.persisted?
   end
 end

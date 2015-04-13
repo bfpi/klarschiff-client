@@ -11,6 +11,7 @@ class AbusesController < ApplicationController
   def create
     abuse = Abuse.create(params.require(:abuse).permit(:author, :comment).merge(
       service_request_id: params[:request_id]))
+    @redirect = request_url(params[:request_id])
     @errors = abuse.errors unless abuse.persisted?
   end
 end
