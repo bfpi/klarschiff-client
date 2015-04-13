@@ -1,7 +1,8 @@
 class RequestsController < ApplicationController
   def index
-    conditions = { agency_responsible: @user.field_service_team }
-    conditions[:negation] = "agency_responsible" unless params[:type].eql? "jobs"
+    conditions = { agency_responsible: @user.field_service_team}
+    conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+    conditions[:negation] = "agency_responsible" unless params[:type].eql?("jobs")
     @requests = Request.where(conditions)
     @requests = @requests.try(:to_a)
     respond_to do |format|
