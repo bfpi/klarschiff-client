@@ -1,0 +1,161 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+KS.projection = ->
+  if typeof proj4 is 'function'
+    proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
+    proj4.defs 'urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833')
+    projection_25833 = ol.proj.get 'EPSG:25833'
+    #projection_25833.setExtent [304094, 5993070, 323567, 6014340]
+    projection_25833.setExtent [380000, 5980000, 410000, 6010000]
+    return projection_25833
+  else
+    console.log 'Proj4J ist nicht geladen!'
+
+class KS.Map
+  constructor: (@projection = KS.projection()) ->
+    @olMap = new ol.Map
+      target: 'ol-map'
+      view: new ol.View
+        projection: @projection
+        center: [395965.1854276612, 5994624.339351959] #[313356.88711652, 6002555.7959791]
+        zoom: 2
+        maxZoom: 10
+
+    KS.layers = new KS.Layers(@olMap)
+    addControls(@olMap)
+    return @olMap
+
+
+  addControls = (map) ->
+    map.addControl new ol.control.MousePosition
+      coordinateFormat: ol.coordinate.createStringXY(4)
+      projection: @projection
+      undefinedHTML: '?,?'
+
+    map.addControl new ol.control.MousePosition
+      className: 'll-mouse-position'
+      target: document.getElementById('ol-overlaycontainer-stopevent')
+      coordinateFormat: ol.coordinate.createStringXY(6)
+      projection: 'EPSG:4326'
+      undefinedHTML: '?,?'
+
+    map.addControl new ol.control.ScaleLine
+
+
+class KS.Styles
+  featureStyle: (features) ->
+    size = features.get('features').length
+    if size == 1
+      feature = features.get('features')[0]
+      features.setStyle new (ol.style.Style)(image: new (ol.style.Icon)(
+        anchorXUnits: 'pixels'
+        anchorYUnits: 'pixels'
+        anchor: [
+          6
+          40
+        ]
+        src: 'assets/' + feature.get('icon')))
+    else
+      features.setStyle new (ol.style.Style)(
+        image: new (ol.style.Icon)(
+          anchorXUnits: 'pixels'
+          anchorYUnits: 'pixels'
+          anchor: [
+            22
+            22
+          ]
+          src: 'assets/icons/map/cluster/png/cluster.png')
+        text: new (ol.style.Text)(
+          text: size.toString()
+          font: 'bold 20px Verdana'
+          fill: new (ol.style.Fill)(color: '#000000')))
+
+
+class KS.Layers
+  constructor: (map, styles = new KS.Styles) ->
+    @active = 0
+    @layers = [
+      new ol.layer.Tile
+        source: new ol.source.TileWMS
+          url: "http:\/\/geo.sv.rostock.de\/geodienste\/stadtplan\/ows?"
+          params:
+            "LAYERS": "stadtplan"
+            "FORMAT": "image/png"
+          attributions: [
+            new ol.Attribution
+              html: "Kartenbild © Hansestadt Rostock (<a href=\"http://creativecommons.org/licenses/by/3.0/deed.de\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">CC BY 3.0</a>) | Kartendaten © <a href=\"http://www.openstreetmap.org/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">OpenStreetMap</a> (<a href=\"http://opendatacommons.org/licenses/odbl/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">ODbL</a>) und <a href=\"https://geo.sv.rostock.de/uvgb.html\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">uVGB-MV</a>"
+          ]
+        visible: true,
+      new ol.layer.Tile
+        source: new ol.source.TileWMS
+          url: "http:\/\/geo.sv.rostock.de\/geodienste\/luftbild\/ows?"
+          params:
+            "LAYERS": "luftbild"
+            "FORMAT": "image/png"
+          attributions: [
+            new ol.Attribution
+              html: "© GeoBasis-DE/M-V"
+          ]
+        visible: false
+      new ol.layer.Tile
+        maxResolution: 600
+        source: new ol.source.TileWMS
+          url: "http:\/\/geo.sv.rostock.de\/geodienste\/klarschiff_poi\/ows?"
+          params:
+            "LAYERS": "abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten"
+            "FORMAT": "image/png"
+        visible: true
+      new (ol.layer.Vector)
+        id: "features"
+        source: new (ol.source.Cluster)(
+          distance: 55
+          source: new KS.FeatureVector())
+        style: styles.featureStyle
+        visible: true
+      new (ol.layer.Vector)
+        id: "jobs"
+        source: new (ol.source.Cluster)(
+          distance: 55
+          source: new KS.FeatureVector("jobs"))
+        style: styles.featureStyle
+        visible: true
+    ]
+    map.addLayer layer for layer in @layers
+
+  toggle: ->
+      @active = (@active + 1) % 2
+      layer.setVisible(i > 1 || i == @active) for layer, i in @layers
+
+  findById: (id) ->
+    layers = KS.olMap.getLayers()
+    i = 0
+    while i < layers.getLength()
+      tmp = layers.item(i)
+      if tmp.get('id') == id
+        return tmp
+      i++
+    null
+
+
+class KS.FeatureVector
+  constructor: (type) ->
+    return vector = new ol.source.ServerVector
+      format: new (ol.format.TopoJSON)
+      loader: (extent, resolution, projection) ->
+        $.ajax(url: "/requests", dataType: 'json', data: { type: type }).done (response) ->
+          features = new Array
+          $.each response, (index, elem) ->
+            coord = ol.proj.transform([elem.long, elem.lat], 'EPSG:4326', 'EPSG:25833')
+            features.push new (ol.Feature)(
+              geometry: new (ol.geom.Point)(coord)
+              icon: elem.icon_map
+            )
+          vector.clear true
+          vector.addFeatures features
+      projection: 'EPSG:25833'
+
+
+$ ->
+  KS.olMap = new KS.Map

@@ -14,7 +14,7 @@
         </div>-->
         <% @requests.each do |req| -%>
           <%= link_to(req, remote: true, class: 'list-group-item') do %>
-            <%= image_tag(image_path(req.icon), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
+            <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
             #<%= req.id %>: <%= req.title %>
             <%= mark_photo_required(req) %>
             <%= mark_trust(req) %>

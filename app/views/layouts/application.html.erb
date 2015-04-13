@@ -58,7 +58,7 @@
               <% end %>
             </li>
             <li>
-              <%= link_to(map_path, remote: true, class: :map, title: "Karte") do %>
+              <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: "Karte") do %>
                 <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md">Karte</span>
               <% end %>

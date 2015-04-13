@@ -17,25 +17,41 @@ class Request < ActiveResource::Base
     @notes ||= Note.where(service_request_id: id)
   end
 
+  def icon_list
+    "icons/list/" << icon << "-22px.png"
+  end
+
+  def icon_map
+    "icons/map/inactive/" << icon << ".png"
+  end
+
   def icon
-    "icons/list/png/#{ service.type }-" << case extended_attributes.detailed_status
+    "png/#{ service.type }-" << case extended_attributes.detailed_status
     when 'IN_PROCESS'
       "yellow"
     when 'PENDING'
       "gray"
     when 'PROCESSED'
       "green"
-    when 'RECIEVED'
+    when 'RECEIVED'
       "red"
     when 'REJECTED'
       "yellowgreen"
-    end << "-22px.png"
+    end
+  end
+
+  def as_json(options = {})
+    serializable_hash options.merge(methods: :icon_map)
   end
 
   class ExtendedAttributes < Request
     # Overwrite Object#trust
     def trust
       attributes[:trust]
+    end
+
+    def as_json(options = {})
+      serializable_hash options.merge(methods: nil)
     end
   end
 end
