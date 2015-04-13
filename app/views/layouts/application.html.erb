@@ -64,7 +64,7 @@
               <% end %>
             </li>
             <li>
-              <%= link_to(requests_path, remote: true, class: :requests, title: "Aufträge") do %>
+              <%= link_to(requests_path(type: :jobs), remote: true, class: :requests, title: "Aufträge") do %>
                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md">Aufträge</span>
               <% end %>
