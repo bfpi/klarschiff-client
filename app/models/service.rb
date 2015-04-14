@@ -7,6 +7,6 @@ class Service < ActiveResource::Base
   end
 
   def type
-    keywords.split(';').first
+    (t = keywords.split(';').first) && t == "idee" ? "idea" : t
   end
 end

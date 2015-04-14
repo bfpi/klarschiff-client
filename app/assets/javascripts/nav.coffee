@@ -23,6 +23,7 @@ $ ->
 
   KS.nav.bar.on 'click', 'a.layer-switcher', ->
     KS.layers.toggle()
+    false
 
   KS.nav.bar.on 'click', 'a', ->
     if($('.navbar-toggle').css('display') != 'none')

@@ -1,0 +1,23 @@
+<div class="requests">
+  <div class="panel panel-default">
+    <div class="panel-heading clickable" data-target="<%= jobs_path %>">
+      <%= t('.title') %>
+      <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+    </div>
+    <% if @jobs.present? -%>
+      <div class="list-group">
+        <% @jobs.each do |job| -%>
+          <%= link_to(request_path(job.id), remote: true, method: :get, class: 'list-group-item') do %>
+            <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+            #<%= job.id %>: <%= job.title %>
+            <%= mark_photo_required(job) %>
+            <%= mark_trust(job) %>
+            <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+          <% end %>
+        <% end -%>
+      </div>
+    <% else -%>
+      <div class="panel-body"><%= t('.empty_result') %></div>
+    <% end -%>
+  </div>
+</div>
