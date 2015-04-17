@@ -7,6 +7,7 @@ de:
     attributes:
       request:
         description: Details
+        media: Foto
         media_url: Foto
         status_notes: Info der Verwaltung
         title: Betreff
@@ -28,11 +29,14 @@ de:
   # General view contents
   buttons:
     cancel: Abbrechen
+    save: Speichern
     search: Suchen
     submit: Senden
 
   messages:
-    success: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+    success:
+      confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+      request_update: Ihre Änderungen wurden erfolgreich übertragen.
 
   nav:
     job_map: Auftragskarte
@@ -99,6 +103,9 @@ de:
       results: Ergebnisse
 
   requests:
+    update:
+      error: Fehler beim Speichern des Vorgangs
+      success: Vorgang gespeichert
     index:
       empty_result: Keine Vorgänge vorhanden
       title: Vorgänge

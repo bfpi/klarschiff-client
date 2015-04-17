@@ -1,0 +1,64 @@
+<div class="request">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <%= image_tag(image_path(@request.icon_list), alt: "#{ @request.service.type }, #{ @request.extended_attributes.detailed_status }") %>
+        <%= @request.service.type.humanize %>
+        #<%= @request.id %>
+        (<%= l(@request.requested_datetime.to_date) %>)
+        <%= label_photo_required = mark_photo_required(@request) %>
+        <%= mark_trust(@request) %>
+      </h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(@request, remote: true, authenticity_token: true,  html: { class: 'form-horizontal' }) do |f| %>
+        <div class="form-group">
+          <label for="request_category" class="col-md-2 control-label"><%= Service.human_attribute_name(:group) %></label>
+          <div class="col-md-10">
+            <%= select_tag(:request_category, categories(@request.service.type, @request.service.group), class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:service_code, Request.human_attribute_name(:service_code), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.select(:service_code, services(@request.service.group), {}, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:detailed_status, Request.human_attribute_name(:status), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.select(:detailed_status, statuses(), {}, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:title, Request.human_attribute_name(:title), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.text_field(:title, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:description, Request.human_attribute_name(:description), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.text_area(:description, rows: 5, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.file_field(:media, multiple: false, class: '') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <div class="btn-group btn-group-justified" role="group">
+              <div class="btn-group" role="group">
+                <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
+              </div>
+              <%= link_to(t('buttons.cancel'), @request, remote: true, class: 'btn btn-default', role: :button) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

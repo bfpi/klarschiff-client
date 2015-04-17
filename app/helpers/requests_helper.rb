@@ -17,10 +17,25 @@ module RequestsHelper
   end
 
   def status(request)
-    status = t(request.extended_attributes.detailed_status.downcase, scope: :status)
+    status = t(request.detailed_status.downcase, scope: :status)
     if date = request.extended_attributes.detailed_status_datetime
       status << " (#{ t('requests.status.since') } #{ l(date.to_date) })"
     end
     status << ", #{ t('requests.status.currently') } #{ request.agency_responsible }"
+  end
+
+  def statuses
+    %w(pending received in_process processed rejected).map { |st|
+      [t(st, scope: :status), st.upcase]
+    }
+  end
+
+  def categories(type, current)
+    options_for_select(Service.all.select { |s| s.type == type }.map(&:group).uniq.sort,
+                       current)
+  end
+
+  def services(category)
+    Service.all.select { |s| s.group == category }.map { |s| [s.service_name, s.service_code] }
   end
 end

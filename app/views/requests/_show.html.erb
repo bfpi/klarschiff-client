@@ -3,7 +3,7 @@
     <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
       <h4 class="panel-title">
         <% type = t(@request.service.type, scope: 'service.types') %>
-        <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.extended_attributes.detailed_status }") %>
+        <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
         <%= type %>
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
