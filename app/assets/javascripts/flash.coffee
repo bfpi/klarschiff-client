@@ -4,7 +4,10 @@ class KS.Flash
 
   show: (content, target) ->
     return unless content?
-    @modal.data('target', target) if target?
+    if target?
+      @modal.data 'target', target
+    else
+      @modal.removeData 'target'
     @modal.find('.modal-content').html(content)
     @modal.modal 'show'
 
@@ -15,5 +18,3 @@ $ ->
       $.ajax
         url: target,
         dataType: 'script'
-    else
-      KS.nav.switchTo 'map'
