@@ -78,6 +78,16 @@ class KS.Map
 
 
 class KS.Styles
+  jobStyle: (features) ->
+    feature = features.get('features')[0]
+    features.setStyle new (ol.style.Style)(image: new (ol.style.Icon)(
+      anchorXUnits: 'pixels'
+      anchorYUnits: 'pixels'
+      anchor: [
+        16
+        50
+      ]
+      src: 'assets/' + feature.get('icon')))
   featureStyle: (features) ->
     size = features.get('features').length
     if size == 1
@@ -152,7 +162,7 @@ class KS.Layers
         source: new (ol.source.Cluster)(
           distance: 0
           source: new KS.FeatureVector("/jobs"))
-        style: styles.featureStyle
+        style: styles.jobStyle
         visible: true
     ]
     map.addLayer layer for layer in @layers

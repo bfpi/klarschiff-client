@@ -7,7 +7,7 @@ class Request < ActiveResource::Base
 
   alias_attribute :id, :service_request_id
 
-  delegate :detailed_status, :detailed_status=, to: :extended_attributes
+  delegate :detailed_status, :detailed_status=, :job_status, to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
   def comments
@@ -20,11 +20,11 @@ class Request < ActiveResource::Base
   end
 
   def icon_list
-    "icons/list/" << icon << "-22px.png"
+    "icons/list/#{ icon }-22px.png"
   end
 
   def icon_map
-    "icons/map/inactive/" << icon << ".png"
+    "icons/map/#{ icon_folder }/#{ icon }.png"
   end
 
   def icon
@@ -44,6 +44,15 @@ class Request < ActiveResource::Base
 
   def as_json(options = {})
     serializable_hash options.merge(methods: :icon_map)
+  end
+
+  private
+  def icon_folder
+    if expected_datetime.try(:to_date) == Date.today
+      "task-#{ job_status.downcase.dasherize }"
+    else
+      "inactive"
+    end
   end
 
   class ExtendedAttributes < ActiveResource::Base
