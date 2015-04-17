@@ -7,6 +7,8 @@ class Request < ActiveResource::Base
 
   alias_attribute :id, :service_request_id
 
+  delegate :detailed_status, :detailed_status=, to: :extended_attributes
+
   # Workaround, to overcome the missing foreign_key option when defining has_many
   def comments
     @comments ||= Comment.where(service_request_id: id)
@@ -26,7 +28,7 @@ class Request < ActiveResource::Base
   end
 
   def icon
-    "png/#{ service.type }-" << case extended_attributes.detailed_status
+    "png/#{ service.type }-" << case detailed_status
     when 'IN_PROCESS'
       "yellow"
     when 'PENDING'
@@ -44,14 +46,13 @@ class Request < ActiveResource::Base
     serializable_hash options.merge(methods: :icon_map)
   end
 
-  class ExtendedAttributes < Request
+  class ExtendedAttributes < ActiveResource::Base
+    include ResourceClient
+    self.set_server_connection :city_sdk
+
     # Overwrite Object#trust
     def trust
       attributes[:trust]
-    end
-
-    def as_json(options = {})
-      serializable_hash options.merge(methods: nil)
     end
   end
 end
