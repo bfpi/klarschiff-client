@@ -76,4 +76,23 @@ module ActiveResource
   end
 
   Errors.prepend ErrorsWithCitySDKArrayStructure
+
+  module ConnectionWithAdditionalRequestResponseRescues
+    private
+    def request(method, path, *arguments)
+      super
+    rescue ResourceInvalid => e
+      Rails.logger.error "CitySDKError: " << 
+        Base.new.tap { |base| base.load_remote_errors e }.errors.full_messages.join(', ')
+      e.response
+    rescue BadRequest, UnauthorizedAccess => e
+      Base.new.tap { |base| base.load_remote_errors e }
+    rescue ServerError => e
+      e.response.tap { |r| 
+        r.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{ e }") }])
+      }
+    end
+  end
+
+  Connection.prepend ConnectionWithAdditionalRequestResponseRescues
 end
