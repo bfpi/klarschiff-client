@@ -2,6 +2,10 @@ class RequestsController < ApplicationController
   def index
     conditions = { agency_responsible: @user.field_service_team, negation: "agency_responsible" }
     conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+    if (center = params[:center]).present?
+      conditions.update lat: center[0], long: center[1]
+    end
+    conditions[:radius] = params[:radius] if params[:radius]
     @requests = Request.where(conditions).try(:to_a)
     respond_to do |format|
       format.html { head :forbidden }
