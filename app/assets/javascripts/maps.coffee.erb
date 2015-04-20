@@ -65,7 +65,6 @@ class KS.Map
 
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
-        #console.log "moved"
         extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
         new KS.FeatureData("/requests", extent, KS.layers.findById("features").getSource().getSource())
         new KS.FeatureData("/jobs", extent, KS.layers.findById("jobs").getSource().getSource())
@@ -73,7 +72,6 @@ class KS.Map
       KS.zoomEvent = false if KS.zoomEvent
 
     map.getView().on 'change:resolution', (e) ->
-      #console.log "view change:resolution"
       KS.zoomEvent = true
 
 
@@ -114,6 +112,21 @@ class KS.Styles
           text: size.toString()
           font: 'bold 20px Verdana'
           fill: new (ol.style.Fill)(color: '#000000')))
+  location: ->
+    styles = [ new (ol.style.Style)
+      fill: new ol.style.Fill
+        color: 'rgba(200,0,255,0.2)'
+      stroke: new (ol.style.Stroke)
+        color: '#c800ff'
+        width: 1
+      image: new (ol.style.Circle)
+        fill: new ol.style.Fill
+          color: '#c800ff'
+        stroke: new (ol.style.Stroke)
+          color: '#c800ff'
+          width: 2
+        radius: 6
+    ]
 
 
 class KS.Layers
@@ -190,6 +203,7 @@ class KS.FeatureVector
         new KS.FeatureData(controller, extent, vector)
       projection: KS.projection()
 
+
 class KS.FeatureData
   constructor: (controller, extent, vector) ->
     ls = new ol.geom.LineString([ol.extent.getBottomLeft(extent), ol.extent.getTopRight(extent)])
@@ -208,6 +222,36 @@ class KS.FeatureData
         )
       vector.clear true
       vector.addFeatures features
+
+
+class KS.Geolocation
+  constructor: (styles = new KS.Styles) ->
+    geolocation = new (ol.Geolocation)
+      tracking: true
+      projection: KS.olMap.getView().getProjection().getCode()
+
+    geolocation.once 'change:position', ->
+
+      position = geolocation.getPosition()
+      accuracy_feature = new (ol.Feature)
+      accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
+      accuracy_feature.setStyle styles.location()
+
+      position_feature = new (ol.Feature)
+        geometry: new ol.geom.Point(position)
+      position_feature.setStyle styles.location()
+
+      featuresOverlay = new ol.FeatureOverlay
+        features: [
+          accuracy_feature
+          position_feature
+        ]
+
+      KS.olMap.removeOverlay overlay for overlay in KS.olMap.getOverlays().getArray()
+
+      KS.olMap.addOverlay featuresOverlay
+      KS.olMap.getView().setCenter(position)
+
 
 $ ->
   KS.olMap = new KS.Map

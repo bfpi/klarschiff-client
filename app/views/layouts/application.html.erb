@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li>
-              <a href="#" title="<%= t("nav.location") %>">
+              <a href="#" title="<%= t("nav.location") %>" onclick="new KS.Geolocation(); return false;">
                 <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.location") %></span>
               </a>
