@@ -67,8 +67,8 @@ class KS.Map
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
         #console.log "moved"
         extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-        KS.featureData("/requests", extent, KS.layers.findById("features").getSource().getSource())
-        KS.featureData("/jobs", extent, KS.layers.findById("jobs").getSource().getSource())
+        new KS.FeatureData("/requests", extent, KS.layers.findById("features").getSource().getSource())
+        new KS.FeatureData("/jobs", extent, KS.layers.findById("jobs").getSource().getSource())
 
       KS.zoomEvent = false if KS.zoomEvent
 
@@ -185,12 +185,12 @@ class KS.Layers
 class KS.FeatureVector
   constructor: (controller) ->
     return vector = new ol.source.ServerVector
-      format: new (ol.format.TopoJSON)
+      format: new ol.format.TopoJSON
       loader: (extent, resolution, projection) ->
-        KS.featureData(controller, extent, vector)
+        new KS.FeatureData(controller, extent, vector)
       projection: KS.projection()
 
-class KS.featureData
+class KS.FeatureData
   constructor: (controller, extent, vector) ->
     ls = new ol.geom.LineString([ol.extent.getBottomLeft(extent), ol.extent.getTopRight(extent)])
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
