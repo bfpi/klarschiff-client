@@ -40,4 +40,8 @@ class RequestsController < ApplicationController
       @errors = result.errors
     end
   end
+
+  def new
+    @request = Request.new
+  end
 end

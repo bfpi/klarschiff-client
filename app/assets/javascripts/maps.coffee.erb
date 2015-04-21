@@ -25,6 +25,9 @@ class KS.Map
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
     KS.geolocation = new KS.Geolocation(@olMap)
+    KS.newFeatureOverlay = new ol.FeatureOverlay(
+      map: @olMap
+    )
     return @olMap
 
 
@@ -112,6 +115,15 @@ class KS.Styles
           text: size.toString()
           font: 'bold 20px Verdana'
           fill: new (ol.style.Fill)(color: '#000000')))
+  newFeature: (type) ->
+    new (ol.style.Style)(image: new (ol.style.Icon)(
+      anchorXUnits: 'pixels'
+      anchorYUnits: 'pixels'
+      anchor: [
+        16
+        50
+      ]
+      src: 'assets/icons/map/active/png/' + type + '-gray.png'))
   location: ->
     styles = [ new (ol.style.Style)
       fill: new ol.style.Fill
@@ -246,7 +258,11 @@ class KS.Geolocation
 
       map.removeOverlay overlay for overlay in map.getOverlays().getArray()
       map.addOverlay featuresOverlay
-      center map
+
+      unless KS.position
+        center map
+      KS.position = geolocation.getPosition()
+
 
   center = (map) ->
     KS.geolocation.center(map) if KS.geolocation?
@@ -257,6 +273,31 @@ class KS.Geolocation
       map.getView().fitExtent(
         overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize()
       )
+
+
+KS.createFeature= (type, styles = new KS.Styles) ->
+
+  KS.newFeatureOverlay.setStyle styles.newFeature(type)
+  KS.clearNewFeature()
+
+  position = KS.olMap.getView().getCenter()
+  if KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
+          KS.olMap.getSize()), KS.position)
+    position = KS.position
+
+  feature = new ol.Feature(
+    geometry: new ol.geom.Point(position)
+  )
+
+  KS.olMap.addInteraction new ol.interaction.Modify(
+    features: new ol.Collection([feature])
+    pixelTolerance: 50
+    style: KS.newFeatureOverlay.getStyle()
+  )
+  KS.newFeatureOverlay.addFeature feature
+
+KS.clearNewFeature= () ->
+  KS.newFeatureOverlay.removeFeature feature for feature in KS.newFeatureOverlay.getFeatures().getArray()
 
 
 $ ->

@@ -29,6 +29,7 @@ de:
   # General view contents
   buttons:
     cancel: Abbrechen
+    describe: Beschreiben
     save: Speichern
     search: Suchen
     submit: Senden

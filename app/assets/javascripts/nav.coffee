@@ -21,13 +21,16 @@ class KS.Nav
 $ ->
   KS.nav = new KS.Nav
 
+  KS.nav.bar.close= () ->
+    if($('.navbar-toggle').css('display') != 'none')
+      $(".navbar-toggle").trigger "click"
+
   KS.nav.bar.on 'click', 'a.layer-switcher', ->
     KS.layers.toggle()
     false
 
   KS.nav.bar.on 'click', 'a', ->
-    if($('.navbar-toggle').css('display') != 'none')
-      $(".navbar-toggle").trigger "click"
+    KS.nav.bar.close()
 
   KS.content().on 'click', '.clickable[data-target]', ->
     $.ajax

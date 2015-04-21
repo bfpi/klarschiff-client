@@ -40,16 +40,16 @@
               </a>
             </li>
             <li>
-              <a href="#" title="<%= t("nav.report_problem") %>">
+              <%= link_to positioning_map_path(type: :problem), remote: true, title: t("nav.report_problem") do %>
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
-              </a>
+                <% end %>
             </li>
             <li>
-              <a href="#" title="<%= t("nav.report_idea") %>">
+              <%= link_to positioning_map_path(type: :idea), remote: true, title: t("nav.report_idea") do %>
                 <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
-              </a>
+              <% end %>
             </li>
             <li>
               <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
@@ -76,7 +76,10 @@
     <div class="modal fade" id="flash" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
       <div class="modal-dialog"><div class="modal-content"></div></div>
     </div>
-    <div id="ol-map"></div>
+    <div id="ol-map">
+      <nav class="navbar navbar-default navbar-fixed-bottom actions hidden">
+      </nav>
+    </div>
     <div id="content" class="container">
       <%= yield %>
     </div>
