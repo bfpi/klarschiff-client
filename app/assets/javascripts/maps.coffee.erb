@@ -25,6 +25,7 @@ class KS.Map
 
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
+    KS.geolocation = new KS.Geolocation(@olMap)
     return @olMap
 
 
@@ -215,30 +216,27 @@ class KS.FeatureData
       features = new Array
       $.each response, (index, elem) ->
         coord = ol.proj.transform([elem.long, elem.lat], KS.projectionWGS84, KS.projection())
-        features.push new (ol.Feature)(
+        features.push new ol.Feature
           id: elem.service_request_id
           geometry: new (ol.geom.Point)(coord)
           icon: elem.icon_map
-        )
       vector.clear true
       vector.addFeatures features
 
 
 class KS.Geolocation
-  constructor: (styles = new KS.Styles) ->
+  constructor: (map, styles = new KS.Styles) ->
     geolocation = new (ol.Geolocation)
       tracking: true
-      projection: KS.olMap.getView().getProjection().getCode()
+      projection: map.getView().getProjection().getCode()
 
-    geolocation.once 'change:position', ->
-
-      position = geolocation.getPosition()
-      accuracy_feature = new (ol.Feature)
+    geolocation.on 'change', ->
+      accuracy_feature = new ol.Feature
       accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
       accuracy_feature.setStyle styles.location()
 
-      position_feature = new (ol.Feature)
-        geometry: new ol.geom.Point(position)
+      position_feature = new ol.Feature
+        geometry: new ol.geom.Point(geolocation.getPosition())
       position_feature.setStyle styles.location()
 
       featuresOverlay = new ol.FeatureOverlay
@@ -247,10 +245,19 @@ class KS.Geolocation
           position_feature
         ]
 
-      KS.olMap.removeOverlay overlay for overlay in KS.olMap.getOverlays().getArray()
+      map.removeOverlay overlay for overlay in map.getOverlays().getArray()
+      map.addOverlay featuresOverlay
+      center map
 
-      KS.olMap.addOverlay featuresOverlay
-      KS.olMap.getView().setCenter(position)
+  center = (map) ->
+    KS.geolocation.center(map) if KS.geolocation?
+
+  center: (map) ->
+    overlays = map.getOverlays().getArray()
+    if(overlays.length > 0)
+      map.getView().fitExtent(
+        overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize()
+      )
 
 
 $ ->
