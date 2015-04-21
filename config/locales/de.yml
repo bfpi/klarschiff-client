@@ -50,10 +50,12 @@ de:
 
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
-    note: Bitte tragen Sie hier Ihre internen Hinweise zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
+    note: Bitte tragen Sie hier Ihre internen Hinweise zur Meldung ein.
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
+    select:
+      service: Bitte Kategorie auswählen
 
   service:
     types:
@@ -113,7 +115,7 @@ de:
       actions:
         abuse: Missbrauch
         comment: Lob/Hinweise/Kritik
-        edit: Vorgang Bearbeiten
+        edit: Vorgang bearbeiten
         note: Neuer interner Kommentar
         reload: Aktualisieren
         vote: Unterstützung

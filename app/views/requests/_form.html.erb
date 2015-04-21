@@ -11,17 +11,20 @@
       </h4>
     </div>
     <div class="panel-body">
-      <%= form_for(@request, remote: true, authenticity_token: true,  html: { class: 'form-horizontal' }) do |f| %>
+      <%= form_for(@request, remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
         <div class="form-group">
           <label for="request_category" class="col-md-2 control-label"><%= Service.human_attribute_name(:group) %></label>
           <div class="col-md-10">
-            <%= select_tag(:request_category, categories(@request.service.type, @request.service.group), class: 'form-control') %>
+            <%= select_tag(:request_category, categories(@request.service.type, @request.service.group), 
+                           class: 'form-control', data: { update: :request_service_code }) %>
           </div>
         </div>
         <div class="form-group">
           <%= f.label(:service_code, Request.human_attribute_name(:service_code), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
-            <%= f.select(:service_code, services(@request.service.group), {}, class: 'form-control') %>
+            <%= f.select(:service_code, services(@request.service.group), {}, class: 'form-control',
+                         data: { src: services_path(type: @request.service.type),
+                           placeholder: t('placeholder.select.service') }) %>
           </div>
         </div>
         <div class="form-group">

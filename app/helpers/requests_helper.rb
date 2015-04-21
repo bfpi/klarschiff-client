@@ -31,11 +31,13 @@ module RequestsHelper
   end
 
   def categories(type, current)
-    options_for_select(Service.all.select { |s| s.type == type }.map(&:group).uniq.sort,
+    options_for_select(Service.collection.select { |s| s.type == type }.map(&:group).uniq.sort,
                        current)
   end
 
   def services(category)
-    Service.all.select { |s| s.group == category }.map { |s| [s.service_name, s.service_code] }
+    Service.collection.select { |s| s.group == category }.map { |s|
+      [s.service_name, s.service_code]
+    }.insert 0, [t('placeholder.select.service'), disabled: true, style: "display: none"]
   end
 end

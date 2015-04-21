@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'maps#show'
 
-  resources :jobs, only: :index
   resource :map, only: :show
+
+  resources :jobs, only: :index
   resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]
@@ -10,4 +11,5 @@ Rails.application.routes.draw do
     resources :notes, only: [:index, :new, :create]
     resources :votes, only: [:new, :create]
   end
+  resources :services, only: :index
 end
