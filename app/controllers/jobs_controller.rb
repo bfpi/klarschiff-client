@@ -1,7 +1,10 @@
 class JobsController < ApplicationController
   def index
     conditions = { agency_responsible: @user.field_service_team}
-    #conditions[:negation] = "agency_responsible"
+    if (center = params[:center]).present?
+      conditions.update lat: center[0], long: center[1]
+    end
+    conditions[:radius] = params[:radius] if params[:radius]
     @jobs = Request.where(conditions)
     @jobs = @jobs.try(:to_a)
     respond_to do |format|
