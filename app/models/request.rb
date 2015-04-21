@@ -3,8 +3,6 @@ class Request < ActiveResource::Base
   self.set_server_connection :city_sdk
   default_query_options[:extensions] = true
 
-  belongs_to :service, foreign_key: 'service_code'
-
   alias_attribute :id, :service_request_id
 
   delegate :detailed_status, :detailed_status=, :job_status, to: :extended_attributes
@@ -17,6 +15,10 @@ class Request < ActiveResource::Base
   # Workaround, to overcome the missing foreign_key option when defining has_many
   def notes
     @notes ||= Note.where(service_request_id: id)
+  end
+
+  def service
+    @service ||= Service.collection.find { |s| s.service_code = service_code }
   end
 
   def icon_list
