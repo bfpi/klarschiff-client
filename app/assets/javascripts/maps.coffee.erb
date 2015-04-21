@@ -3,8 +3,7 @@ KS.projection = ->
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
     proj4.defs 'urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833')
     projection_25833 = ol.proj.get 'EPSG:25833'
-    #projection_25833.setExtent [304094, 5993070, 323567, 6014340]
-    projection_25833.setExtent [380000, 5980000, 410000, 6010000]
+    projection_25833.setExtent [304094, 5993070, 323567, 6014340]
     return projection_25833
   else
     console.log 'Proj4J ist nicht geladen!'
@@ -19,7 +18,7 @@ class KS.Map
       target: 'ol-map'
       view: new ol.View
         projection: @projection
-        center: [395965.1854276612, 5994624.339351959] #[313356.88711652, 6002555.7959791]
+        center: [313356.88711652, 6002555.7959791]
         zoom: 2
         maxZoom: KS.maxZoom
 
