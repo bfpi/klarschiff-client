@@ -1,1 +1,1 @@
-KS.nav.switchTo 'request', '<%= j render("form") %>'
+KS.nav.switchTo 'request', '<%= j render("edit") %>'
