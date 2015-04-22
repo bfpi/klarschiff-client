@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="form-group">
-          <%= f.label(:service_code, Request.human_attribute_name(:service_code), class: 'col-md-2 control-label') %>
+          <%= f.label(:service_code, Service.human_attribute_name(:service_name), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
             <%= f.select(:service_code, services(@request.service.group), {}, class: 'form-control',
                          data: { src: services_path(type: @request.service.type),

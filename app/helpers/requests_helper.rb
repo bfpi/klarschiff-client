@@ -30,14 +30,17 @@ module RequestsHelper
     }
   end
 
-  def categories(type, current)
-    options_for_select(Service.collection.select { |s| s.type == type }.map(&:group).uniq.sort,
-                       current)
+  def categories(type, current = nil)
+    categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq.sort
+    unless current
+      categories.insert 0, [t('placeholder.select.category'), disabled: true, selected: current.nil?, class: :placeholder]
+    end
+    options_for_select categories, current
   end
 
-  def services(category)
+  def services(category = nil)
     Service.collection.select { |s| s.group == category }.map { |s|
       [s.service_name, s.service_code]
-    }.insert 0, [t('placeholder.select.service'), disabled: true, style: "display: none"]
+    }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder]
   end
 end

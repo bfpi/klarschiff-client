@@ -1,0 +1,66 @@
+<div class="request">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <%= image_tag(image_path(@request.icon_list), alt: type = t(@request.type, scope: 'service.types')) %>
+        <%= type.humanize %>
+      </h4>
+    </div>
+    <div class="panel-body">
+      <%= form_for(@request, remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
+        <%= f.hidden_field(:lat) %>
+        <%= f.hidden_field(:long) %>
+        <div class="form-group">
+          <label for="request_category" class="col-md-2 control-label"><%= Service.human_attribute_name(:group) %></label>
+          <div class="col-md-10">
+            <%= select_tag(:request_category, categories(@request.type), 
+                           class: 'form-control', data: { update: :request_service_code }) %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:service_code, Service.human_attribute_name(:service_name), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.select(:service_code, services(), {}, class: 'form-control',
+                         data: { src: services_path(type: @request.type),
+                           placeholder: t('placeholder.select.service') }) %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:title, Request.human_attribute_name(:title), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.text_field(:title, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:description, Request.human_attribute_name(:description), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.text_area(:description, rows: 5, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.file_field(:media, multiple: false, class: '') %>
+            <span class="help-block"><span class="text-danger"><%= t('.hint.max_file_size') %></span></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label"><%= t('.hint.label') %></label>
+          <div class="col-md-10">
+            <p class="form-control-static"><%= t('.hint.text') %></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <div class="btn-group btn-group-justified" role="group">
+              <div class="btn-group" role="group">
+                <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
+              </div>
+              <%= link_to(t('buttons.cancel'), map_path, remote: true, class: 'btn btn-default', role: :button) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

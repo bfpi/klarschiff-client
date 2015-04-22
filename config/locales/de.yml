@@ -38,6 +38,7 @@ de:
     success:
       confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
       request_update: Ihre Änderungen wurden erfolgreich übertragen.
+      request_create: Ihr %{type} wurde erfolgreich angelegt.
 
   nav:
     job_map: Auftragskarte
@@ -56,6 +57,7 @@ de:
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
     select:
+      category: Bitte Hauptkategorie auswählen
       service: Bitte Kategorie auswählen
 
   service:
@@ -106,12 +108,16 @@ de:
       results: Ergebnisse
 
   requests:
-    update:
-      error: Fehler beim Speichern des Vorgangs
-      success: Vorgang gespeichert
+    create:
+      success: Vorgang gemeldet
     index:
       empty_result: Keine Vorgänge vorhanden
       title: Vorgänge
+    new:
+      hint:
+        label: Hinweis
+        max_file_size: (Dateigröße maximal 2 MB!)
+        text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
     show:
       actions:
         abuse: Missbrauch
@@ -124,6 +130,9 @@ de:
     status:
       currently: aktuell bei
       since: seit
+    update:
+      error: Fehler beim Speichern des Vorgangs
+      success: Vorgang gespeichert
 
   votes:
     create:

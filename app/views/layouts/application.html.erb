@@ -40,13 +40,13 @@
               </a>
             </li>
             <li>
-              <%= link_to positioning_map_path(type: :problem), remote: true, title: t("nav.report_problem") do %>
+              <%= link_to(new_request_path(type: :problem), remote: true, class: :places, title: t("nav.places")) do %>
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
-                <% end %>
+              <% end %>
             </li>
             <li>
-              <%= link_to positioning_map_path(type: :idea), remote: true, title: t("nav.report_idea") do %>
+              <%= link_to(new_request_path(type: :idea), remote: true, title: t("nav.report_idea")) do %>
                 <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
               <% end %>

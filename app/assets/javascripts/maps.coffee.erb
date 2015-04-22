@@ -275,6 +275,10 @@ class KS.Geolocation
       )
 
 
+KS.map =
+  actions: ->
+    $('#ol-map > nav.navbar.actions')
+
 KS.createFeature= (type, styles = new KS.Styles) ->
 
   KS.newFeatureOverlay.setStyle styles.newFeature(type)
@@ -305,3 +309,18 @@ KS.clearNewFeature= () ->
 
 $ ->
   KS.olMap = new KS.Map
+
+  KS.map.actions().on('click', 'a.describe', (event) ->
+    if KS.newFeatureOverlay.getFeatures().getArray().length > 0
+      $.ajax
+        url: $(@).attr('href')
+        data:
+          position: KS.newFeatureOverlay.getFeatures().getArray()[0].getGeometry().transform(
+            KS.projection(), KS.projectionWGS84).flatCoordinates
+        dataType: 'script'
+    return false
+  ).on('click', 'a.cancel', ->
+    KS.clearNewFeature()
+    KS.map.actions().addClass 'hidden'
+    return false
+  )

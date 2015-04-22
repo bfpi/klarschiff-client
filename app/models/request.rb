@@ -21,6 +21,14 @@ class Request < ActiveResource::Base
     @service ||= Service.collection.find { |s| s.service_code = service_code }
   end
 
+  def lat
+    attributes[:lat] ||= attributes[:position].try(:first).presence
+  end
+
+  def long
+    attributes[:long] ||= attributes[:position].try(:last).presence
+  end
+
   def icon_list
     "icons/list/#{ icon }-22px.png"
   end
@@ -29,8 +37,17 @@ class Request < ActiveResource::Base
     "icons/map/#{ icon_folder }/#{ icon }.png"
   end
 
+  def as_json(options = {})
+    serializable_hash options.merge(methods: :icon_map)
+  end
+
+  private
   def icon
-    "png/#{ service.type }-" << case detailed_status
+    "png/#{ attributes[:type] || service.type }-#{ icon_color }"
+  end
+
+  def icon_color
+    case detailed_status
     when 'IN_PROCESS'
       "yellow"
     when 'PENDING'
@@ -42,18 +59,23 @@ class Request < ActiveResource::Base
     when 'REJECTED'
       "yellowgreen"
     end
+  rescue
+    "gray"
   end
 
-  def as_json(options = {})
-    serializable_hash options.merge(methods: :icon_map)
-  end
-
-  private
   def icon_folder
     if expected_datetime.try(:to_date) == Date.today
       "task-#{ job_status.downcase.dasherize }"
     else
       "inactive"
+    end
+  end
+
+  def method_missing(name, *args, &block)
+    if name =~ /=$/
+      super
+    else
+      attributes[name].presence
     end
   end
 

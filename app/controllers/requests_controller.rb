@@ -26,15 +26,10 @@ class RequestsController < ApplicationController
 
   def update
     return head(:not_found) unless (id = params[:id]).present?
-    req = Request.find(id)
-    options = { api_key: Request.api_key, email: @user.email }
-    data = params.require(:request).permit(:service_code, :detailed_status, :title, :description)
-    if (img = params[:request][:media]).present?
-      data[:media] = Base64.encode64(img.read)
-    end
-    result = Request.patch(req.id, options, Request.format.encode(data))
+    result = Request.patch(id, { api_key: Request.api_key, email: @user.email },
+                           Request.format.encode(permissable_params))
     if result.is_a?(Net::HTTPOK)
-      @redirect = request_path(req)
+      @redirect = request_path(id)
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors
@@ -42,6 +37,35 @@ class RequestsController < ApplicationController
   end
 
   def new
-    @request = Request.new
+    @request = Request.new(params.permit(:type, position: []))
+    unless @request.try(:lat).present? && @request.try(:long).present?
+      return render :new_position
+    end
+  end
+
+  def create
+    result = Request.connection.post(
+      Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
+      Request.format.encode(permissable_params))
+    if result.is_a?(Net::HTTPCreated)
+      request = Request.find(Request.new.load(Request.format.decode(result.body)).id)
+      @redirect = request_path(request)
+      @success = I18n.t('messages.success.request_create', 
+                        type: I18n.t(request.service.type, scope: 'service.types'))
+    else
+      @errors = result.errors
+    end
+  end
+
+  private
+  def permissable_params
+    keys = [:service_code, :title, :description]
+    keys << :detailed_status if action_name == 'update'
+    keys |= [:lat, :long] if action_name == 'create'
+    data = params.require(:request).permit(keys)
+    if (img = params[:request][:media]).present?
+      data[:media] = Base64.encode64(img.read)
+    end
+    data
   end
 end
