@@ -7,6 +7,8 @@ class JobsController < ApplicationController
     conditions[:radius] = params[:radius] if params[:radius]
     @jobs = Request.where(conditions)
     @jobs = @jobs.try(:to_a)
+    session[:list] = params
+    session[:id_list] = @jobs.map &:id
     respond_to do |format|
       format.js
       format.json { render json: @jobs }

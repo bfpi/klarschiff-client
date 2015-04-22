@@ -1,4 +1,27 @@
 <div class="request">
+  <div class="browse">
+    <% unless session[:id_list].blank? -%>
+      <div class="btn-group btn-group-justified" role="group">
+        <% if session[:id_list].first == @request.id -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
+        <% else -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
+                      request_path(session[:id_list][session[:id_list].index(@request.id) - 1]),
+                      remote: true, class: 'btn btn-default') %>
+        <% end -%>
+        <%= link_to(t('.actions.list'), url_for(session[:list]),
+                    remote: true, class: 'btn btn-default') %>
+        <% if session[:id_list].last == @request.id -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
+        <% else -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
+                        request_path(session[:id_list][session[:id_list].index(@request.id) + 1]),
+                        remote: true, class: 'btn btn-default') %>
+        <% end -%>
+      </div>
+    <% end -%>
+  </div>
+
   <div class="panel panel-default">
     <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
       <h4 class="panel-title">

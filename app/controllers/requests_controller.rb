@@ -7,6 +7,8 @@ class RequestsController < ApplicationController
     end
     conditions[:radius] = params[:radius] if params[:radius]
     @requests = Request.where(conditions).try(:to_a)
+    session[:list] = params
+    session[:id_list] = @requests.map &:id
     respond_to do |format|
       format.html { head :not_acceptable }
       format.js
