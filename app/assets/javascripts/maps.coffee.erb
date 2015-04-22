@@ -289,15 +289,18 @@ KS.createFeature= (type, styles = new KS.Styles) ->
     geometry: new ol.geom.Point(position)
   )
 
-  KS.olMap.addInteraction new ol.interaction.Modify(
+  KS.newFeatureInteraction = new ol.interaction.Modify(
     features: new ol.Collection([feature])
     pixelTolerance: 50
     style: KS.newFeatureOverlay.getStyle()
   )
+  KS.olMap.addInteraction KS.newFeatureInteraction
   KS.newFeatureOverlay.addFeature feature
 
 KS.clearNewFeature= () ->
   KS.newFeatureOverlay.removeFeature feature for feature in KS.newFeatureOverlay.getFeatures().getArray()
+  if KS.newFeatureInteraction
+    KS.olMap.removeInteraction KS.newFeatureInteraction
 
 
 $ ->
