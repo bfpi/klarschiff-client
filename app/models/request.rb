@@ -18,7 +18,7 @@ class Request < ActiveResource::Base
   end
 
   def service
-    @service ||= Service.collection.find { |s| s.service_code = service_code }
+    @service ||= Service.collection.find { |s| s.service_code == service_code }
   end
 
   def lat
