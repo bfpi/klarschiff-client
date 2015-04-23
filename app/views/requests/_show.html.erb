@@ -1,6 +1,6 @@
 <div class="request">
   <div class="browse">
-    <% unless session[:id_list].blank? -%>
+    <% unless session[:id_list].blank? || session[:id_list].include?(@request.id) -%>
       <div class="btn-group btn-group-justified" role="group">
         <% if session[:id_list].first == @request.id -%>
           <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
