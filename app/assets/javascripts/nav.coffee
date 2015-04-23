@@ -8,6 +8,7 @@ class KS.Nav
     if view == 'map'
       parent.hide()
       $('#ol-map').show()
+      KS.olMap.updateSize()
     else
       $('#ol-map').hide()
       if content? && (div = KS.content(view))?
