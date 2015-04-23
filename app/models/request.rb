@@ -22,11 +22,11 @@ class Request < ActiveResource::Base
   end
 
   def lat
-    attributes[:lat] ||= attributes[:position].try(:first).presence
+    attributes[:lat] ||= attributes[:position].try(:last).presence
   end
 
   def long
-    attributes[:long] ||= attributes[:position].try(:last).presence
+    attributes[:long] ||= attributes[:position].try(:first).presence
   end
 
   def icon_list
