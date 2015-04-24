@@ -4,11 +4,9 @@ class JobsController < ApplicationController
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
     end
-    conditions[:radius] = params[:radius] if params[:radius]
-    @jobs = Request.where(conditions)
-    @jobs = @jobs.try(:to_a)
-    session[:list] = params
-    session[:id_list] = @jobs.map &:id
+    @jobs = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
+    session[:referer_params] = params.slice(:controller, :action, :ids)
+    session[:id_list] = @jobs.map(&:id)
     respond_to do |format|
       format.js
       format.json { render json: @jobs }
