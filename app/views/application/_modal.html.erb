@@ -1,14 +1,21 @@
 <div class="modal-header text-<%= @errors ? :warning : :success %>">
   <span class="glyphicon glyphicon-<%= @errors ? :alert : 'ok-sign' %>"></span>
-  <%= t("#{ controller_name }.#{ action_name }.#{ @errors ? :error : :success }") %>
+  <%= t("#{ controller_name }.#{ action_name }.#{ @errors ? :error : :success }", @modal_title_options || {}) %>
 </div>
 <div class="modal-body">
-  <% if @errors.present? -%>
-    <% @errors.full_messages.each do |msg| -%>
-      <p><%= msg.html_safe %></p>
+  <% if (messages = @errors.try(:full_messages)).present? -%>
+    <% if messages.size > 1 -%>
+      <ul>
+        <% messages.each do |message| -%>
+          </li><%= message.html_safe %></li>
+        <% end -%>
+      </ul>
+    <% else -%>
+      <p><%= messages.first.html_safe %></p>
     <% end -%>
-  <% else -%>
-    <%= @success %>
+  <% end -%>
+  <% if @success.present? -%>
+    <p class="text-success"><%= @success %></p>
   <% end -%>
 </div>
 <div class="modal-footer">

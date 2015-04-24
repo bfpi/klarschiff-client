@@ -25,7 +25,7 @@
   <div class="panel panel-default">
     <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
       <h4 class="panel-title">
-        <% type = t(@request.service.type, scope: 'service.types') %>
+        <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
         <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
         <%= type %>
         #<%= @request.id %>

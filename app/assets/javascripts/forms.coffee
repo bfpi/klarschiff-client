@@ -13,3 +13,11 @@ $ ->
   KS.content().on 'submit', 'form.fileupload', ->
     $(@).ajaxSubmit dataType: 'script'
     return false
+
+  KS.content().on 'click', 'form .category a[data-action]', ->
+    if $(@).data('action') == 'show'
+      category = $($(@).attr('href')).removeClass('hidden').find('select').first()
+      category.val category.children(':first').val()
+    else
+      $($(@).attr('href')).addClass('hidden').find('select').val null
+    return false

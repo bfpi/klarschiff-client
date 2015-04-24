@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <%= image_tag(image_path(@request.icon_list), alt: type = t(@request.type, scope: 'service.types')) %>
+        <%= image_tag(image_path(@request.icon_list), alt: type = t(@request.type, scope: 'service.types', count: 1)) %>
         <%= type.humanize %>
       </h4>
     </div>
@@ -10,19 +10,65 @@
       <%= form_for(@request, remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
         <%= f.hidden_field(:lat) %>
         <%= f.hidden_field(:long) %>
-        <div class="form-group">
-          <label for="request_category" class="col-md-2 control-label"><%= Service.human_attribute_name(:group) %></label>
-          <div class="col-md-10">
-            <%= select_tag(:request_category, categories(@request.type), 
-                           class: 'form-control', data: { update: :request_service_code }) %>
+        <div id="request-category-1" class="form-group category">
+          <label for="request_category_1" class="col-md-2 control-label"><%= Request.human_attribute_name(:category) %></label>
+          <div class="col-md-4">
+            <%= select_tag(:request_category, categories(@request.type), id: :request_category_1,
+                           class: 'form-control', data: { update: :request_service_code_1 }) %>
+          </div>
+          <div class="col-md-4">
+            <%= f.select(:service_code, services(), {}, id: :request_service_code_1,
+                         class: 'form-control', name: 'request[service_code][]',
+                         data: { src: services_path(type: @request.type),
+                                 placeholder: t('placeholder.select.service') }) %>
+          </div>
+          <div class="col-md-2">
+            <div class="btn-group btn-group-justified" role="group">
+              <a href="#request-category-2" class="btn btn-default" role="button" data-action="show">
+                <span class="glyphicon glyphicon-plus"></span>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <%= f.label(:service_code, Service.human_attribute_name(:service_name), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
-            <%= f.select(:service_code, services(), {}, class: 'form-control',
+        <div id="request-category-2" class="form-group category hidden">
+          <div class="col-md-4 col-md-offset-2">
+            <%= select_tag(:request_category, categories(@request.type), id: :request_category_2,
+                           class: 'form-control', data: { update: :request_service_code_2 }) %>
+          </div>
+          <div class="col-md-4">
+            <%= f.select(:service_code, services(), {}, id: :request_service_code_2,
+                         class: 'form-control', name: 'request[service_code][]',
                          data: { src: services_path(type: @request.type),
-                           placeholder: t('placeholder.select.service') }) %>
+                                 placeholder: t('placeholder.select.service') }) %>
+          </div>
+          <div class="col-md-2">
+            <div class="btn-group btn-group-justified" role="group">
+              <a href="#request-category-3" class="btn btn-default" role="button" data-action="show">
+                <span class="glyphicon glyphicon-plus"></span>
+              </a>
+              <a href="#request-category-2" class="btn btn-default" role="button" data-action="hide">
+                <span class="glyphicon glyphicon-minus"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="request-category-3" class="form-group category hidden">
+          <div class="col-md-4 col-md-offset-2">
+            <%= select_tag(:request_category, categories(@request.type), id: :request_category_3,
+                           class: 'form-control', data: { update: :request_service_code_3 }) %>
+          </div>
+          <div class="col-md-4">
+            <%= f.select(:service_code, services(), {}, id: :request_service_code_3,
+                         class: 'form-control', name: 'request[service_code][]',
+                         data: { src: services_path(type: @request.type),
+                                 placeholder: t('placeholder.select.service') }) %>
+          </div>
+          <div class="col-md-2">
+            <div class="btn-group btn-group-justified" role="group">
+              <a href="#request-category-3" class="btn btn-default" role="button" data-action="hide">
+                <span class="glyphicon glyphicon-minus"></span>
+              </a>
+            </div>
           </div>
         </div>
         <div class="form-group">

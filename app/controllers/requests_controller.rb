@@ -34,6 +34,7 @@ class RequestsController < ApplicationController
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors
+      @modal_title_options = { count: 1 }
     end
   end
 
@@ -45,16 +46,40 @@ class RequestsController < ApplicationController
   end
 
   def create
-    result = Request.connection.post(
-      Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
-      Request.format.encode(permissable_params))
-    if result.is_a?(Net::HTTPCreated)
-      request = Request.find(Request.new.load(Request.format.decode(result.body)).id)
-      @redirect = request_path(request)
-      @success = I18n.t('messages.success.request_create', 
-                        type: I18n.t(request.service.type, scope: 'service.types'))
+    ids = []
+    if (codes = params[:request][:service_code]).present?
+      (codes = codes.map(&:to_i).reject { |code| code == 0 }).each do |service_code|
+        result = Request.connection.post(
+          Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
+          Request.format.encode(permissable_params))
+        if result.is_a?(Net::HTTPCreated)
+          ids << Request.new.load(Request.format.decode(result.body)).id
+        else
+          (@errors ||= []) << result.errors
+          break unless ids.present?
+        end
+      end
     else
-      @errors = result.errors
+      @errors = Request.new.errors.tap { |errors| errors.add :service_code, :blank }
+      @modal_title_options = { count: 1 }
+    end
+    if ids.present?
+      @redirect = requests_path(id: ids)
+      @modal_title_options = { count: ids.size } if @errors.blank?
+      @success = I18n.t('messages.success.request_create', count: ids.size,
+                        type: I18n.t(request.service.type, scope: 'service.types', count: ids.size))
+    end
+    @modal_title_options ||= { count: codes.size }
+    if (errors = @errors.try(:dup)).is_a? Array
+      @errors = Request.new.errors.tap { |e|
+        errors.map(&:messages).each do |messages|
+          messages.each do |key, values|
+            values.uniq.each do |message|
+              e.add(key, message) unless e.added? key, message
+            end
+          end
+        end
+      }
     end
   end
 

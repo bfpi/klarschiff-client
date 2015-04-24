@@ -6,14 +6,23 @@ de:
   activemodel:
     attributes:
       request:
+        category: Kategorie
         description: Details
         media: Foto
         media_url: Foto
+        service_code: Kategorie
         status_notes: Info der Verwaltung
         title: Betreff
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
+    errors:
+      messages:
+        blank: muss angegeben werden
+        #request:
+          #attributes:
+            #service_code:
+              #blank: Es wurde keine Kategorie ausgewählt
     models:
       note: Interner Kommentar
       comment: Lob/Hinweise/Kritik
@@ -38,7 +47,9 @@ de:
     success:
       confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
       request_update: Ihre Änderungen wurden erfolgreich übertragen.
-      request_create: Ihr %{type} wurde erfolgreich angelegt.
+      request_create:
+        one: "1 %{type} wurde erfolgreich angelegt."
+        other: "%{count} %{type} wurden erfolgreich angelegt."
 
   nav:
     job_map: Auftragskarte
@@ -58,12 +69,16 @@ de:
     reason: Bitte geben Sie eine Begründung an.
     select:
       category: Bitte Hauptkategorie auswählen
-      service: Bitte Kategorie auswählen
+      service: Bitte Unterkategorie auswählen
 
   service:
     types:
-      idea: Idee
-      problem: Problem
+      idea:
+        one: Idee
+        other: Ideen
+      problem:
+        one: Problem
+        other: Probleme
 
   # Views
   abuses:
@@ -109,7 +124,12 @@ de:
 
   requests:
     create:
-      success: Vorgang gemeldet
+      error:
+        one: Fehler bei neuer Meldung
+        other: Fehler bei neuen Meldungen
+      success:
+        one: Neue Meldung gesendet
+        other: "%{count} neue Meldungen gesendet"
     index:
       empty_result: Keine Vorgänge vorhanden
       title: Vorgänge
