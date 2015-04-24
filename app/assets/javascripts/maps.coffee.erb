@@ -30,7 +30,6 @@ class KS.Map
     )
     return @olMap
 
-
   addControls = (map) ->
     map.addControl new ol.control.MousePosition
       coordinateFormat: ol.coordinate.createStringXY(4)
@@ -78,63 +77,84 @@ class KS.Map
       KS.zoomEvent = true
 
 
-class KS.Styles
+KS.styles =
+  featureAttribution: (feature) ->
+    new ol.style.Text
+      text: feature.get("attribution")
+      font: '15px Glyphicons Halflings'
+      offsetX: 28
+      offsetY: -22
+      rotation: Math.PI / -2
+      fill: new ol.style.Fill
+        color: '#ffffff'
+      stroke: new ol.style.Stroke
+        color: '#000000'
+        width: 3
+
   jobStyle: (features) ->
     feature = features.get('features')[0]
-    features.setStyle new (ol.style.Style)(image: new (ol.style.Icon)(
-      anchorXUnits: 'pixels'
-      anchorYUnits: 'pixels'
-      anchor: [
-        16
-        50
-      ]
-      src: 'assets/' + feature.get('icon')))
-  featureStyle: (features) ->
-    size = features.get('features').length
-    if size == 1
-      feature = features.get('features')[0]
-      features.setStyle new (ol.style.Style)(image: new (ol.style.Icon)(
+    features.setStyle new ol.style.Style
+      image: new ol.style.Icon
         anchorXUnits: 'pixels'
         anchorYUnits: 'pixels'
         anchor: [
-          6
-          40
+          16
+          50
         ]
-        src: 'assets/' + feature.get('icon')))
+        src: 'assets/' + feature.get('icon')
+      text: KS.styles.featureAttribution(feature)
+
+  featureStyle: (features) ->
+    if (size = features.get('features').length) == 1
+      feature = features.get('features')[0]
+      features.setStyle new ol.style.Style
+        image: new ol.style.Icon
+          anchorXUnits: 'pixels'
+          anchorYUnits: 'pixels'
+          anchor: [
+            6
+            40
+          ]
+          src: 'assets/' + feature.get('icon')
+        text: KS.styles.featureAttribution(feature)
     else
-      features.setStyle new (ol.style.Style)(
-        image: new (ol.style.Icon)(
+      features.setStyle new ol.style.Style
+        image: new ol.style.Icon
           anchorXUnits: 'pixels'
           anchorYUnits: 'pixels'
           anchor: [
             22
             22
           ]
-          src: 'assets/icons/map/cluster/png/cluster.png')
-        text: new (ol.style.Text)(
+          src: 'assets/icons/map/cluster/png/cluster.png'
+        text: new ol.style.Text
           text: size.toString()
           font: 'bold 20px Verdana'
-          fill: new (ol.style.Fill)(color: '#000000')))
+          fill: new ol.style.Fill
+            color: '#000000'
+
   newFeature: (type) ->
-    new (ol.style.Style)(image: new (ol.style.Icon)(
-      anchorXUnits: 'pixels'
-      anchorYUnits: 'pixels'
-      anchor: [
-        16
-        50
-      ]
-      src: 'assets/icons/map/active/png/' + type + '-gray.png'))
+    new ol.style.Style
+      image: new ol.style.Icon
+        anchorXUnits: 'pixels'
+        anchorYUnits: 'pixels'
+        anchor: [
+          16
+          50
+        ]
+        src: 'assets/icons/map/active/png/' + type + '-gray.png'
+
   location: ->
-    styles = [ new (ol.style.Style)
+    styles = [ new ol.style.Style
       fill: new ol.style.Fill
         color: 'rgba(200,0,255,0.2)'
-      stroke: new (ol.style.Stroke)
+      stroke: new ol.style.Stroke
         color: '#c800ff'
         width: 1
-      image: new (ol.style.Circle)
+      image: new ol.style.Circle
         fill: new ol.style.Fill
           color: '#c800ff'
-        stroke: new (ol.style.Stroke)
+        stroke: new ol.style.Stroke
           color: '#c800ff'
           width: 2
         radius: 6
@@ -142,7 +162,7 @@ class KS.Styles
 
 
 class KS.Layers
-  constructor: (map, styles = new KS.Styles) ->
+  constructor: (map) ->
     @active = 0
     @layers = [
       new ol.layer.Tile
@@ -175,19 +195,19 @@ class KS.Layers
             "LAYERS": "abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten"
             "FORMAT": "image/png"
         visible: true
-      new (ol.layer.Vector)
+      new ol.layer.Vector
         id: "features"
-        source: new (ol.source.Cluster)(
+        source: new ol.source.Cluster
           distance: 55
-          source: new KS.FeatureVector("/requests"))
-        style: styles.featureStyle
+          source: new KS.FeatureVector("/requests")
+        style: KS.styles.featureStyle
         visible: true
-      new (ol.layer.Vector)
+      new ol.layer.Vector
         id: "jobs"
-        source: new (ol.source.Cluster)(
+        source: new ol.source.Cluster
           distance: 0
-          source: new KS.FeatureVector("/jobs"))
-        style: styles.jobStyle
+          source: new KS.FeatureVector("/jobs")
+        style: KS.styles.jobStyle
         visible: true
     ]
     map.addLayer layer for layer in @layers
@@ -226,29 +246,39 @@ class KS.FeatureData
     }).done (response) ->
       features = new Array
       $.each response, (index, elem) ->
+        attribution = ""
+        attribution = "" if elem.extended_attributes.photo_required
+
+        count = 1
+        while count < elem.extended_attributes.trust
+          attribution += ""
+          count++
+
         coord = ol.proj.transform([elem.long, elem.lat], KS.projectionWGS84, KS.projection())
-        features.push new ol.Feature
+        f = new ol.Feature
           id: elem.service_request_id
-          geometry: new (ol.geom.Point)(coord)
+          geometry: new ol.geom.Point(coord)
           icon: elem.icon_map
+          attribution: attribution
+        features.push f
       vector.clear true
       vector.addFeatures features
 
 
 class KS.Geolocation
-  constructor: (map, styles = new KS.Styles) ->
-    geolocation = new (ol.Geolocation)
+  constructor: (map) ->
+    geolocation = new ol.Geolocation
       tracking: true
       projection: map.getView().getProjection().getCode()
 
     geolocation.on 'change', ->
       accuracy_feature = new ol.Feature
       accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
-      accuracy_feature.setStyle styles.location()
+      accuracy_feature.setStyle KS.styles.location()
 
       position_feature = new ol.Feature
         geometry: new ol.geom.Point(geolocation.getPosition())
-      position_feature.setStyle styles.location()
+      position_feature.setStyle KS.styles.location()
 
       featuresOverlay = new ol.FeatureOverlay
         features: [
@@ -260,12 +290,8 @@ class KS.Geolocation
       map.addOverlay featuresOverlay
 
       unless KS.position
-        center map
+        KS.geolocation.center(map) if KS.geolocation?
       KS.position = geolocation.getPosition()
-
-
-  center = (map) ->
-    KS.geolocation.center(map) if KS.geolocation?
 
   center: (map) ->
     overlays = map.getOverlays().getArray()
@@ -279,9 +305,9 @@ KS.map =
   actions: ->
     $('#ol-map > nav.navbar.actions')
 
-KS.createFeature= (type, styles = new KS.Styles) ->
+KS.createFeature= (type) ->
 
-  KS.newFeatureOverlay.setStyle styles.newFeature(type)
+  KS.newFeatureOverlay.setStyle KS.styles.newFeature(type)
   KS.clearNewFeature()
 
   position = KS.olMap.getView().getCenter()
