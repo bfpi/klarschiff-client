@@ -18,6 +18,7 @@ config/initializers/secret_token.rb
 config/ldap.yml
 config/resource_servers.yml
 config/secrets.yml
+config/settings.yml
 
 ## Environment normalisation:
 /.bundle

@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
           return head(:ok) if params[:pattern]
         else
           require 'open-uri'
-          uri = URI(KS_FRONTEND_SEARCH_URL)
+          uri = URI(Settings.ks_frontend_search_url)
           uri.query = URI.encode_www_form(searchtext: @pattern)
 
           if (res = open(uri)) && res.status.include?('OK')

@@ -36,5 +36,3 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
-
-KS_FRONTEND_SEARCH_URL = 'http://klarschiff-hro.de/pc/search/server.php'
