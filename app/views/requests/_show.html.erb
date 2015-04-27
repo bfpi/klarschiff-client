@@ -113,7 +113,7 @@
       </div>
       <div class="btn-group btn-group-justified" role="group">
         <%= link_to(t('.actions.edit'), [:edit, @request], options) %>
-        <%= link_to(t('.actions.note'), [:new, @request, :note], options) %>
+        <%= link_to(t('.actions.note'), [:new, @request, :note], options.merge(class: 'btn btn-default btn-xs')) %>
       </div>
     </div>
   </nav>
