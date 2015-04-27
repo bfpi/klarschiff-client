@@ -47,11 +47,13 @@ class RequestsController < ApplicationController
 
   def create
     ids = []
+    service = nil
     if (codes = params[:request][:service_code]).present?
       (codes = codes.map(&:to_i).reject { |code| code == 0 }).each do |service_code|
+        service ||= Service[service_code]
         result = Request.connection.post(
           Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
-          Request.format.encode(permissable_params))
+          Request.format.encode(permissable_params.merge(service_code: service_code)))
         if result.is_a?(Net::HTTPCreated)
           ids << Request.new.load(Request.format.decode(result.body)).id
         else
@@ -63,11 +65,12 @@ class RequestsController < ApplicationController
       @errors = Request.new.errors.tap { |errors| errors.add :service_code, :blank }
       @modal_title_options = { count: 1 }
     end
-    if ids.present?
-      @redirect = requests_path(id: ids)
+    if ids.present? && !service.nil?
+      @redirect = requests_path(ids: ids)
+      logger.info "@redirect: #{ @redirect }"
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
-                        type: I18n.t(request.service.type, scope: 'service.types', count: ids.size))
+                        type: I18n.t(service.type, scope: 'service.types', count: ids.size))
     end
     @modal_title_options ||= { count: codes.size }
     if (errors = @errors.try(:dup)).is_a? Array

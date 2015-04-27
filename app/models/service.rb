@@ -8,6 +8,10 @@ class Service < ActiveResource::Base
 
   alias_attribute :category, :group
 
+  def self.[](code)
+    collection.find { |s| s.service_code == code.to_i }
+  end
+
   def to_s
     service_name
   end
