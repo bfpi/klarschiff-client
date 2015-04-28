@@ -7,6 +7,8 @@ javascripts:
   OpenLayers.min.js: http://openlayers.org/en/<%= versions[:ol] %>/build/ol.js
   proj4js.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4-src.js
   proj4js.min.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4.js
+  jquery.ui.touch-punch.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js
+  jquery.ui.touch-punch.min.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js
 
 stylesheets:
   OpenLayers.css: https://raw.githubusercontent.com/openlayers/ol3/<%= versions[:ol] %>/css/ol.css

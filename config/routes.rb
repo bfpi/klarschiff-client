@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resource :map, only: :show
 
-  resources :jobs, only: :index
+  resources :jobs, only: [:index, :update]
   resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]

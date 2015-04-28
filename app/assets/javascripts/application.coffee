@@ -13,6 +13,9 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.form
+#= require jquery.sortable
+#= require jquery-ui
+#= require jquery.ui.touch-punch
 #= require turbolinks
 #= require bootstrap-sprockets
 #= require proj4js

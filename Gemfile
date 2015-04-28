@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
+gem 'jquery-sortable-rails'
 gem 'therubyracer'
 gem 'bootstrap-sass'
 

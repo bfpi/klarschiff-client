@@ -10,7 +10,7 @@
                       remote: true, class: 'btn btn-default') %>
         <% end -%>
         <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
-                    remote: true, class: 'btn btn-default') %>
+                    remote: true, class: 'btn btn-default btn-xs') %>
         <% if id_list.last == @request.id -%>
             <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
         <% else -%>
@@ -24,7 +24,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
-      <h4 class="panel-title">
+      <h4 class="hidden-xs panel-title">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
         <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
         <%= type %>
@@ -32,7 +32,21 @@
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>
         <%= mark_trust(@request) %>
-        <span class="hidden-xs badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+        <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+      </h4>
+      <h4 class="visible-xs panel-title">
+        <div class="list-group-item-heading">
+          <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
+          <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
+          #<%= @request.id %>
+          <%= mark_trust(@request) %>
+          <%= label_photo_required = mark_photo_required(@request) %>
+          <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+        </div>
+        <div class="list-group-item-text">
+          <%= type %>
+          (<%= l(@request.requested_datetime.to_date) %>)
+        </div>
       </h4>
     </div>
     <div class="list-group">
@@ -77,27 +91,45 @@
       <% end -%>
       <% if (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
-          <h4 class="list-group-item-heading"><%= Comment.model_name.human %></h4>
-          <div class="list-group-item-text">
-            <% comments.each do |comment| -%>
-              <div class="panel panel-default">
-                <div class="panel-heading"><%= comment.author %>, <%= l(comment.datetime.to_time) %></div>
-                <div class="panel-body"><%= comment.comment %></div>
-              </div>
-            <% end -%>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                <a data-toggle="collapse" href="#comments" aria-controls="comments">
+                  <%= Comment.model_name.human %>
+                  <span class="caret"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="comments" class="panel-body list-group collapse">
+              <% comments.each do |comment| -%>
+                <div class="list-group-item">
+                  <h5 class="list-group-item-heading"><%= comment.author %>, <%= l(comment.datetime.to_time) %></h5>
+                  <div class="list-group-item-text"><%= comment.comment %></div>
+                </div>
+              <% end -%>
+            </div>
           </div>
         </div>
       <% end -%>
       <% if (notes = @request.notes.to_a).present? -%>
         <div class="list-group-item">
-          <h4 class="list-group-item-heading"><%= Note.model_name.human %></h4>
-          <div class="list-group-item-text">
-            <% notes.each do |note| -%>
-              <div class="panel panel-default">
-                <div class="panel-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></div>
-                <div class="panel-body"><%= note.comment %></div>
-              </div>
-            <% end -%>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>
+                <a data-toggle="collapse" href="#notes" aria-controls="notes">
+                  <%= Note.model_name.human %>
+                  <span class="caret"></span>
+                </a>
+              </h4>
+            </div>
+            <div id="notes" class="panel-body list-group collapse">
+              <% notes.each do |note| -%>
+                <div class="list-group-item">
+                  <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
+                  <div class="list-group-item-text"><%= note.comment %></div>
+                </div>
+              <% end -%>
+            </div>
           </div>
         </div>
       <% end -%>

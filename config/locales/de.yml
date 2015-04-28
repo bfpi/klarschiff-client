@@ -3,6 +3,8 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
 
+  pagetitle: Prüf- und Protokollclient
+
   activemodel:
     attributes:
       request:
@@ -50,6 +52,8 @@ de:
       request_create:
         one: "1 %{type} wurde erfolgreich angelegt."
         other: "%{count} %{type} wurden erfolgreich angelegt."
+    errors:
+      update_sorting: Beim Aktualisieren der Sortierung ist ein Fehler aufgetreten.
 
   nav:
     job_map: Auftragskarte

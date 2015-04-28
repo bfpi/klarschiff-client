@@ -1,0 +1,23 @@
+KS.makeJobsListSortable = ->
+  error_text = "<%= I18n.t('messages.errors.update_sorting') %>"
+  $('.list-group').sortable(
+    handle: '.sort-handle'
+    stop: (event, ui) ->
+      item = $(ui.item)
+      uiSortable = item.parent('.ui-sortable')
+      job_id = item.data('job-id')
+      updateurl = uiSortable.data('update-url')
+      if updateurl != undefined
+        index = uiSortable.find('[data-job-id]').index(item)
+        $.ajax
+          dataType: 'json'
+          type: 'PUT'
+          url: updateurl + '/' + job_id
+          data: index: index
+          success: (text) ->
+            if text != true
+              alert error_text
+          error: (text) ->
+            if text != true
+              alert error_text
+  ).disableSelection()
