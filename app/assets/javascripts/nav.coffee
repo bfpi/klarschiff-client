@@ -30,6 +30,11 @@ $ ->
     KS.layers.toggle()
     false
 
+  KS.nav.bar.on 'click', 'a.geolocator', ->
+    KS.nav.switchTo 'map'
+    KS.geolocation.center(KS.olMap)
+    false
+
   KS.nav.bar.on 'click', 'a', ->
     KS.nav.bar.close()
 
