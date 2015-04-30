@@ -37,6 +37,17 @@ class Request < ActiveResource::Base
     "icons/map/#{ icon_folder }/#{ icon }.png"
   end
 
+  def flag_color_class
+    "job-status " << case job_status
+      when 'NOT_CHECKABLE'
+        "not-checkable"
+      when 'CHECKED'
+        "checked"
+      else
+        "unchecked"
+    end
+  end
+
   def as_json(options = {})
     serializable_hash options.merge(methods: :icon_map)
   end

@@ -23,6 +23,9 @@ h5,
 .modal-header .glyphicon
   padding-right: 0.5em
 
+.panel-title
+  line-height: 2em
+
 .panel-body.list-group
   padding: 0
 
@@ -30,17 +33,18 @@ h5,
   > .badge
     float: right
 
-    + .badge
+    + .badge,
+    + .btn-group
       margin-right: 5px
 
+.list-group-item.actions
+  .btn-group
+    padding-bottom: 0.5em
+
+    &:last-child
+      padding-bottom: 0
+
 nav
-  &.navbar-fixed-bottom
-    .btn-group
-      padding-top: 0.5em
-
-      &:last-child
-        padding-bottom: 0.5em
-
   .glyphicon
     padding-right: 0.4em
 

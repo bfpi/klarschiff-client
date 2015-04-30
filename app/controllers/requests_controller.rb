@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
     end
     @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :ids)
-    session[:id_list] = @requests.map(&:id) if params[:ids]
+    #session[:id_list] = @requests.map(&:id) if params[:ids]
     respond_to do |format|
       format.html { head :not_acceptable }
       format.js
@@ -18,6 +18,7 @@ class RequestsController < ApplicationController
   def show
     return head(:not_found) unless (id = params[:id]).present?
     @request = Request.find(id)
+    @id_list = params[:id_list].try(:map, &:to_i).presence
   end
 
   def edit
@@ -89,7 +90,7 @@ class RequestsController < ApplicationController
   private
   def permissable_params
     keys = [:service_code, :title, :description]
-    keys << :detailed_status if action_name == 'update'
+    keys += [:detailed_status, :job_status] if action_name == 'update'
     keys |= [:lat, :long] if action_name == 'create'
     data = params.require(:request).permit(keys)
     if (img = params[:request][:media]).present?

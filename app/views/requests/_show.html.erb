@@ -1,29 +1,6 @@
 <div class="request">
-  <div class="browse">
-    <% if (id_list = session[:id_list]).try(:include?, @request.id) -%>
-      <div class="btn-group btn-group-justified" role="group">
-        <% if id_list.first == @request.id -%>
-          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
-        <% else -%>
-          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
-                      request_path(id_list[id_list.index(@request.id) - 1]),
-                      remote: true, class: 'btn btn-default') %>
-        <% end -%>
-        <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
-                    remote: true, class: 'btn btn-default btn-xs') %>
-        <% if id_list.last == @request.id -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
-        <% else -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
-                        request_path(id_list[id_list.index(@request.id) + 1]),
-                        remote: true, class: 'btn btn-default') %>
-        <% end -%>
-      </div>
-    <% end -%>
-  </div>
-
   <div class="panel panel-default">
-    <div class="panel-heading clickable" data-target="<%= request_path(@request) %>">
+    <div class="panel-heading">
       <h4 class="hidden-xs panel-title">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
         <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
@@ -32,7 +9,7 @@
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>
         <%= mark_trust(@request) %>
-        <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+        <%= render partial: 'show_panel_title_buttons', locals: { request: @request } %>
       </h4>
       <h4 class="visible-xs panel-title">
         <div class="list-group-item-heading">
@@ -41,7 +18,7 @@
           #<%= @request.id %>
           <%= mark_trust(@request) %>
           <%= label_photo_required = mark_photo_required(@request) %>
-          <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+          <%= render partial: 'show_panel_title_buttons', locals: { request: @request } %>
         </div>
         <div class="list-group-item-text">
           <%= type %>
@@ -111,42 +88,65 @@
           </div>
         </div>
       <% end -%>
-      <% if (notes = @request.notes.to_a).present? -%>
-        <div class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4>
-                <a data-toggle="collapse" href="#notes" aria-controls="notes">
-                  <%= Note.model_name.human %>
-                  <span class="caret"></span>
-                </a>
-              </h4>
-            </div>
-            <div id="notes" class="panel-body list-group collapse">
-              <% notes.each do |note| -%>
-                <div class="list-group-item">
-                  <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
-                  <div class="list-group-item-text"><%= note.comment %></div>
-                </div>
-              <% end -%>
-            </div>
+      <div class="list-group-item">
+        <div class="panel panel-default">
+          <% notes = @request.notes.to_a %>
+          <div class="panel-heading">
+            <h4>
+              <a data-toggle="collapse" href="#notes" aria-controls="notes">
+                <%= Note.model_name.human %> (<%= notes.size %>)
+                <span class="caret"></span>
+              </a>
+              <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request) %>">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              </span>
+            </h4>
+          </div>
+          <div id="notes" class="panel-body list-group collapse">
+            <% notes.each do |note| -%>
+              <div class="list-group-item">
+                <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
+                <div class="list-group-item-text"><%= note.comment %></div>
+              </div>
+            <% end -%>
           </div>
         </div>
-      <% end -%>
+      </div>
+      <div class="list-group-item actions">
+        <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
+        <div class="btn-group btn-group-justified" role="group">
+          <%= link_to(t('.actions.vote'), [:new, @request, :vote], options) %>
+          <%= link_to(t('.actions.abuse'), [:new, @request, :abuse], options) %>
+        </div>
+        <div class="btn-group btn-group-justified" role="group">
+          <%= link_to(t('.actions.comment'), [:new, @request, :comment], options.merge(class: 'btn btn-default')) %>
+          <%= link_to(t('.actions.kod'), "#", options.merge(class: 'btn btn-default disabled')) %>
+        </div>
+      </div>
     </div>
   </div>
-  <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container">
-      <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
-      <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('.actions.vote'), [:new, @request, :vote], options) %>
-        <%= link_to(t('.actions.abuse'), [:new, @request, :abuse], options) %>
-        <%= link_to(t('.actions.comment'), [:new, @request, :comment], options.merge(class: 'btn btn-default btn-xs')) %>
+  <% if @id_list.try(:include?, @request.id) -%>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <div class="btn-group btn-group-justified" role="group">
+          <% if @id_list.first == @request.id -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
+          <% else -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
+                        request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list),
+                        remote: true, class: 'btn btn-default') %>
+          <% end -%>
+          <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
+                      remote: true, class: 'btn btn-default btn-xs') %>
+          <% if @id_list.last == @request.id -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
+          <% else -%>
+            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
+                        request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list),
+                        remote: true, class: 'btn btn-default') %>
+          <% end -%>
+        </div>
       </div>
-      <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('.actions.edit'), [:edit, @request], options) %>
-        <%= link_to(t('.actions.note'), [:new, @request, :note], options.merge(class: 'btn btn-default btn-xs')) %>
-      </div>
-    </div>
-  </nav>
+    </nav>
+  <% end -%>
 </div>

@@ -7,9 +7,10 @@
     <% if @jobs.present? -%>
       <div class="list-group" data-update-url="<%= url_for(jobs_path) %>">
         <% @jobs.each do |job| -%>
-          <%= link_to(request_path(job.id), remote: true, method: :get, class: 'list-group-item', 'data-job-id': job.id) do %>
+          <%= link_to(request_path(job.id, id_list: @jobs.map(&:id)), remote: true, method: :get, class: 'list-group-item', 'data-job-id': job.id) do %>
             <div class="hidden-xs right-badges">
               <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+              <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
               #<%= job.id %>: <%= job.title %>
               <%= mark_photo_required(job) %>
               <%= mark_trust(job) %>
@@ -22,6 +23,7 @@
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">
                 <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+                <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
                 #<%= job.id %>
                 <%= mark_photo_required(job) %>
                 <%= mark_trust(job) %>
@@ -31,6 +33,7 @@
                 <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
               </span>
               <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+
               <div class="list-group-item-text heading">
                 <%= job.title %>
               </div>
