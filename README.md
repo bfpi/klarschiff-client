@@ -77,7 +77,7 @@ Klarschiff mobile client with additional functions supporting the field service
     rake assets:precompile
     ```
 - Konfiguration der Applikation (Anpassung an die entsprechende Umgebung)
-  - Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sampla.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` bennant werden.
+  - Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` bennant werden.
   - Konfigurationen in der `config/settings.yml`
     - LDAP erfolgt in dem Block `ldap`
     - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
