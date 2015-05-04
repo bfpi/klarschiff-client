@@ -6,6 +6,7 @@ ldap:
   username: uid=admin
   password: admin
   port: 389
+  base:
     users: ou=users,ou=klarschiff,ou=SV
     groups: ou=groups,ou=klarschiff,ou=SV
   group_search_pattern: (&(objectClass=groupOfNames)(o=<groupname>)(member=%s))
