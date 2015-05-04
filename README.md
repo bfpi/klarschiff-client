@@ -23,7 +23,12 @@ Klarschiff mobile client with additional functions supporting the field service
   cd /var/rails
   git clone https://github.com/bfpi/klarschiff-field_service.git
   ```
-  
+- Intitialisierung und Datenholung der Git-Submodule in dem gerade angelegtem Verzeichnis
+
+  ```bash
+  git submodule init
+  git submodule update
+  ```
 - Installation der notwendigen Rubyversion und des Gemsets
   - Bei Wechsel in das Repository-Verzeichnis hilft RVM mit der Einrichtung
   - Gegebenenfalls muss das entsprechende Ruby installiert werden:
