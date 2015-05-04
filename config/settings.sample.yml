@@ -8,4 +8,4 @@ ldap:
   port: 389
     users: ou=users,ou=klarschiff,ou=SV
     groups: ou=groups,ou=klarschiff,ou=SV
-  group_search_pattern: (&(objectClass=groupOfNames)(o=groupname)(member=%s))
+  group_search_pattern: (&(objectClass=groupOfNames)(o=<groupname>)(member=%s))
