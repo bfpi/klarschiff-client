@@ -16,7 +16,7 @@ Klarschiff mobile client with additional functions supporting the field service
     ```
 
 ### Vorbereitungen
-- checkout / clone des Repositories in ein lokales Verzeichnis:
+- checkout / clone des Repositories in ein lokales Verzeichnis. Z.B.:
 
   ```bash
   sudo mkdir -p /var/rails
