@@ -2,8 +2,8 @@ module ResourceClient
   extend ActiveSupport::Concern
 
   class Config
-    conf_file = File.join(Rails.root, %w(config resource_servers.yml))
-    @@config = File.open(conf_file) { |file| YAML::load file }[Rails.env || 'development']
+    @@config = File.open(Rails.root.join('config', 'settings.yml')) { |file|
+      YAML::load file }['resource_servers']
     def self.[](key)
       @@config[key.to_s]
     end
