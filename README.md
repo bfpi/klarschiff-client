@@ -14,7 +14,9 @@ Klarschiff mobile client with additional functions supporting the field service
     ```bash
     rvmsudo rvm get stable
     ```
-
+- Passenger-Apache-Modul installieren:
+  Hierzu am besten der offiziellen Anleitung unter https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html#installation folgen.
+  
 ### Vorbereitungen
 - checkout / clone des Repositories in ein lokales Verzeichnis. Z.B.:
 
@@ -57,20 +59,7 @@ Klarschiff mobile client with additional functions supporting the field service
     ```bash
     rake assets:libs
     ```
-  - Passenger-Apache-Modul installieren
   
-    ```bash
-    passenger-install-apache2-module
-    ```
-    Die Ausgabe dieses Vorgangs lierfert die Angaben für die Integration in der Apache-Konfiguration. Z.B.:
-    
-    ```
-    LoadModule passenger_module /usr/local/rvm/gems/ruby-2.2.2@klarschiff-field_service_r01/gems/passenger-5.0.6/buildout/apache2/mod_passenger.so
-    <IfModule mod_passenger.c>
-      PassengerRoot /usr/local/rvm/gems/ruby-2.2.2@klarschiff-field_service_r01/gems/passenger-5.0.6
-      PassengerDefaultRuby /usr/local/rvm/gems/ruby-2.2.2@klarschiff-field_service_r01/wrappers/ruby
-    </IfModule>
-    ```
   - Precompilieren der Assets (Bilder, JS, Stylesheets)
   
     ```bash
