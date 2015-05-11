@@ -66,12 +66,10 @@ Klarschiff mobile client with additional functions supporting the field service
     rake assets:precompile
     ```
 - Konfiguration der Applikation (Anpassung an die entsprechende Umgebung)
-  - Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` bennant werden.
+  - Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden.
   - Konfigurationen in der `config/settings.yml`
     - LDAP erfolgt in dem Block `ldap`
     - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
     - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
   - Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
-    - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung, `consolidation` in der Demo-Umgebung, usw.
-  - 
-  
+    - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
