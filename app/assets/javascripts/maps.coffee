@@ -240,9 +240,10 @@ class KS.FeatureData
   constructor: (controller, extent, vector) ->
     ls = new ol.geom.LineString([ol.extent.getBottomLeft(extent), ol.extent.getTopRight(extent)])
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
+    wgs84Sphere = new ol.Sphere(6378137)
     $.ajax(url: controller, dataType: 'json', data: {
       center: ol.extent.getCenter(extent),
-      radius: ol.sphere.WGS84.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
+      radius: wgs84Sphere.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
     }).done (response) ->
       features = new Array
       $.each response, (index, elem) ->
