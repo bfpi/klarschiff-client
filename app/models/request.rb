@@ -76,7 +76,7 @@ class Request < ActiveResource::Base
 
   def icon_folder
     if expected_datetime.try(:to_date) == Date.today
-      "task-#{ job_status.downcase.dasherize }"
+      "task-#{ extended_attributes.respond_to?(:job_status) ? job_status.downcase.dasherize : 'unchecked' }"
     else
       "inactive"
     end
