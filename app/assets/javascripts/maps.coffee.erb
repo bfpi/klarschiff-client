@@ -3,14 +3,17 @@ KS.projection = ->
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
     proj4.defs 'urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833')
     projection_25833 = ol.proj.get 'EPSG:25833'
-    projection_25833.setExtent [304094, 5993070, 323567, 6014340]
+    projection_25833.setExtent <%= Settings::Map.extent %>
     return projection_25833
   else
     console.log 'Proj4J ist nicht geladen!'
 
-KS.maxZoom = 10
+KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
+KS.requests_path = "<%= Settings::Route.requests_path %>/"
+KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
+KS.assets_path = "/assets/" #"<%#= TODO: Settings::Route.assets_path %>"
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -18,8 +21,8 @@ class KS.Map
       target: 'ol-map'
       view: new ol.View
         projection: @projection
-        center: [313356.88711652, 6002555.7959791]
-        zoom: 2
+        center: <%= Settings::Map.center %>
+        zoom: <%= Settings::Map.zoom[:initial] %>
         maxZoom: KS.maxZoom
 
     KS.layers = new KS.Layers(@olMap)
@@ -47,16 +50,16 @@ class KS.Map
 
     map.on 'click', (e) ->
       map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
-        if layer and (layer.get('id') == 'features' or layer.get('id') == 'jobs')
+        if layer and layer.get('id') in ['features', 'jobs']
           features = feature.get('features')
           if features.length == 1
             # Single feature -> show
-            $.ajax(url: "/requests/" + features[0].get("id"), dataType: 'script')
+            $.ajax(url: KS.requests_path + features[0].get("id"), dataType: 'script')
           else if map.getView().getZoom() == KS.maxZoom
             ids = Array()
             $(features).each (ix, feature) ->
               ids.push feature.get('id')
-            $.ajax(url: "/requests", dataType: 'script', data: { ids: ids })
+            $.ajax(url: KS.requests_path, dataType: 'script', data: { ids: ids })
           else
             # Zoom in
             map.getView().setCenter e.coordinate
@@ -68,8 +71,8 @@ class KS.Map
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
         extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-        new KS.FeatureData("/requests", extent, KS.layers.findById("features").getSource().getSource())
-        new KS.FeatureData("/jobs", extent, KS.layers.findById("jobs").getSource().getSource())
+        new KS.FeatureData(KS.requests_path, extent, KS.layers.findById("features").getSource().getSource())
+        new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
       KS.zoomEvent = false if KS.zoomEvent
 
@@ -101,7 +104,7 @@ KS.styles =
           16
           50
         ]
-        src: 'assets/' + feature.get('icon')
+        src: KS.assets_path + feature.get('icon')
       text: KS.styles.featureAttribution(feature)
 
   featureStyle: (features) ->
@@ -115,7 +118,7 @@ KS.styles =
             6
             40
           ]
-          src: 'assets/' + feature.get('icon')
+          src: KS.assets_path + feature.get('icon')
         text: KS.styles.featureAttribution(feature)
     else
       features.setStyle new ol.style.Style
@@ -126,7 +129,7 @@ KS.styles =
             22
             22
           ]
-          src: 'assets/icons/map/cluster/png/cluster.png'
+          src: KS.assets_path + 'icons/map/cluster/png/cluster.png'
         text: new ol.style.Text
           text: size.toString()
           font: 'bold 20px Verdana'
@@ -142,7 +145,7 @@ KS.styles =
           16
           50
         ]
-        src: 'assets/icons/map/active/png/' + type + '-gray.png'
+        src: KS.assets_path + 'icons/map/active/png/' + type + '-gray.png'
 
   location: ->
     styles = [ new ol.style.Style
@@ -164,52 +167,38 @@ KS.styles =
 class KS.Layers
   constructor: (map) ->
     @active = 0
-    @layers = [
-      new ol.layer.Tile
-        source: new ol.source.TileWMS
-          url: "http:\/\/geo.sv.rostock.de\/geodienste\/stadtplan\/ows?"
-          params:
-            "LAYERS": "stadtplan"
-            "FORMAT": "image/png"
-          attributions: [
-            new ol.Attribution
-              html: "Kartenbild © Hansestadt Rostock (<a href=\"http://creativecommons.org/licenses/by/3.0/deed.de\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">CC BY 3.0</a>) | Kartendaten © <a href=\"http://www.openstreetmap.org/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">OpenStreetMap</a> (<a href=\"http://opendatacommons.org/licenses/odbl/\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">ODbL</a>) und <a href=\"https://geo.sv.rostock.de/uvgb.html\" target=\"_blank\" style=\"color:#006CB7;text-decoration:none;\">uVGB-MV</a>"
-          ]
-        visible: true,
-      new ol.layer.Tile
-        source: new ol.source.TileWMS
-          url: "http:\/\/geo.sv.rostock.de\/geodienste\/luftbild\/ows?"
-          params:
-            "LAYERS": "luftbild"
-            "FORMAT": "image/png"
-          attributions: [
-            new ol.Attribution
-              html: "© GeoBasis-DE/M-V"
-          ]
-        visible: false
-      new ol.layer.Tile
-        maxResolution: 600
-        source: new ol.source.TileWMS
-          url: "http:\/\/geo.sv.rostock.de\/geodienste\/klarschiff_poi\/ows?"
-          params:
-            "LAYERS": "abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten"
-            "FORMAT": "image/png"
-        visible: true
-      new ol.layer.Vector
-        id: "features"
-        source: new ol.source.Cluster
-          distance: 55
-          source: new KS.FeatureVector("/requests")
-        style: KS.styles.featureStyle
-        visible: true
-      new ol.layer.Vector
-        id: "jobs"
-        source: new ol.source.Cluster
-          distance: 0
-          source: new KS.FeatureVector("/jobs")
-        style: KS.styles.jobStyle
-        visible: true
-    ]
+    @layers = []
+    for layer in <%= Settings::Map.wms_layers.to_json %>
+      do (layer, @layers) ->
+        @layers.push new ol.layer.Tile
+          maxResolution: layer.max_resolution
+          source: new ol.source.TileWMS
+            url: layer.url
+            params:
+              "LAYERS": layer.content
+              "FORMAT": layer.format
+            attributions: [
+              new ol.Attribution
+                html: layer.attribution
+            ]
+          visible: layer.visible
+
+    @layers.push new ol.layer.Vector
+      id: "features"
+      source: new ol.source.Cluster
+        distance: 55
+        source: new KS.FeatureVector(KS.requests_path)
+      style: KS.styles.featureStyle
+      visible: true
+
+    @layers.push new ol.layer.Vector
+      id: "jobs"
+      source: new ol.source.Cluster
+        distance: 0
+        source: new KS.FeatureVector(KS.jobs_path)
+      style: KS.styles.jobStyle
+      visible: true
+
     map.addLayer layer for layer in @layers
 
   toggle: ->
@@ -270,6 +259,10 @@ class KS.Geolocation
   constructor: (map) ->
     geolocation = new ol.Geolocation
       tracking: true
+      trackingOptions:
+        enableHighAccuracy: <%= Settings::Map.tracking_options[:enable_high_accuracy] %>
+        timeout: <%= Settings::Map.tracking_options[:timeout] %>
+        maximumAge: <%= Settings::Map.tracking_options[:maximum_age] %>
       projection: map.getView().getProjection().getCode()
 
     geolocation.on 'change', ->

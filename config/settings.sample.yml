@@ -1,18 +1,56 @@
-global:
+urls:
   ks_frontend_search_url: http://demo.klarschiff.de/search
 
 ldap:
   host: klarschiff-test
   username: uid=admin
   password: admin
-  port: 389
-  base:
-    users: ou=users,ou=klarschiff,ou=SV
-    groups: ou=groups,ou=klarschiff,ou=SV
-  group_search_pattern: (&(objectClass=groupOfNames)(o=<groupname>)(member=%s))
+  port: 636
+  encryption: :simple_tls
+  users:
+    attributes_mapping: id=uid,name=cn,email=mail
+    base: ou=users,ou=klarschiff,ou=SV
+  groups:
+    base: ou=groups,ou=klarschiff,ou=SV
+    search_pattern: (&(objectClass=groupOfNames)(o=<groupname>)(member=%s))
 
 resource_servers:
   city_sdk:
     site: https://klarschiff-test/citysdk/
     format: :json
     api_key: <API-Key>
+
+map:
+  center: [313356.88711652, 6002555.7959791]
+  extent: [304094, 5993070, 323567, 6014340]
+  wms_layers:
+    -
+      content: stadtplan
+      url: http://geo.sv.rostock.de/geodienste/stadtplan/ows?
+      format: image/png
+      visible: true
+      attribution: >
+        Kartenbild © Hansestadt Rostock
+        (<a href="http://creativecommons.org/licenses/by/3.0/deed.de" target="_blank" style="color: #006CB7; text-decoration:none;">CC BY 3.0</a>) |
+        Kartendaten © <a href="http://www.openstreetmap.org/" target="_blank" style="color: #006CB7; text-decoration: none;">OpenStreetMap</a>
+        (<a href="http://opendatacommons.org/licenses/odbl/" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
+        und <a href="https://geo.sv.rostock.de/uvgb.html" target="_blank" style="color: #006CB7; text-decoration:none;">uVGB-MV</a>
+    -
+      content: luftbild
+      url: http://geo.sv.rostock.de/geodienste/luftbild/ows?
+      format: image/png
+      visible: false
+      attribution: © GeoBasis-DE/M-V
+    -
+      content: abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten
+      url: http://geo.sv.rostock.de/geodienste/klarschiff_poi/ows?
+      format: image/png
+      visible: true
+      max_resolution: 600
+  tracking_options:
+    enable_high_accuracy: true
+    timeout: 3000
+    maximum_age: 5000
+  zoom:
+    initial: 2
+    max: 10

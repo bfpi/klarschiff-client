@@ -1,33 +1,45 @@
 class Ldap
   class << self
     def config
-      @@config ||= File.open(Rails.root.join('config', 'settings.yml')) { |file|
-        YAML::load file }['ldap'].with_indifferent_access
+      @@config ||= Settings::Ldap
     end
 
     def login(username, pwd)
-      ldap = Net::LDAP.new(config.slice(:host, :port, :encryption))
-      ldap.auth "cn=#{ username },#{ config[:base][:users] }", pwd
+      ldap = conn
+      ldap.auth "cn=#{ username },#{ config.users[:base] }", pwd
       if ldap.bind && (
-          obj = ldap.search(base: config[:base][:users], filter: "cn=#{ username }").try(:first))
+          obj = ldap.search(base: config.users[:base], filter: "cn=#{ username }").try(:first))
         return user(ldap, obj)
       end
     end
 
     def login2(name)
-      ldap = Net::LDAP.new(config.slice(:host, :port, :encryption))
-      ldap.auth *config.slice(:username, :password).values
+      ldap = conn
+      ldap.auth config.username, config.password
       if ldap.bind && (
-          obj = ldap.search(base: config[:base][:users], filter: "displayname=#{ name }").try(:first))
+          obj = ldap.search(base: config.users[:base], filter: "#{ mapping(:name) }=#{ name }").try(:first))
         return user(ldap, obj)
       end
     end
 
     def user(ldap, obj)
-      User.new name: obj.displayname.first, email: obj.mail.first,
-        field_service_team: ldap.search(base: config[:base][:groups],
-                                        filter: config[:group_search_pattern] % obj.dn
+      User.new name: obj.send(mapping(:name)).try(:first), email: obj.send(mapping(:email)).try(:first),
+        field_service_team: ldap.search(base: config.groups[:base],
+                                        filter: config.groups[:search_pattern] % obj.dn
                                        ).try(:first).try(:cn).try(:first).presence
+    end
+
+    private
+    def conn
+      Net::LDAP.new host: config.host, port: config.port, encryption: config.encryption
+    end
+
+    def mapping(name)
+      (@@mapping ||= {}.with_indifferent_access.tap do |m|
+        config.users[:attributes_mapping].split(',').map { |v| v.split '=' }.each do |n, attr|
+          m[n] = attr.to_sym
+        end
+      end)[name]
     end
   end
 end
