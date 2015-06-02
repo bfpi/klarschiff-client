@@ -42,7 +42,7 @@ map:
       visible: false
       attribution: © GeoBasis-DE/M-V
     -
-      content: abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten
+      content: abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten,sperrmuelltermine
       url: http://geo.sv.rostock.de/geodienste/klarschiff_poi/ows?
       format: image/png
       visible: true
