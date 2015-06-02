@@ -28,9 +28,9 @@
               </a>
             </li>
             <li>
-              <%= link_to(places_path, remote: true, class: :places, title: t("nav.places")) do %>
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
+              <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
+                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
               <% end %>
             </li>
             <li>
@@ -40,7 +40,13 @@
               </a>
             </li>
             <li>
-              <%= link_to(new_request_path(type: :problem), remote: true, class: :places, title: t("nav.places")) do %>
+              <%= link_to(places_path, remote: true, class: :places, title: t("nav.places")) do %>
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(new_request_path(type: :problem), remote: true, title: t("nav.report_problem")) do %>
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
               <% end %>
@@ -49,12 +55,6 @@
               <%= link_to(new_request_path(type: :idea), remote: true, title: t("nav.report_idea")) do %>
                 <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
-                <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
               <% end %>
             </li>
             <li>
