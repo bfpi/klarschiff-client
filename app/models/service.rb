@@ -3,7 +3,7 @@ class Service < ActiveResource::Base
   self.set_server_connection :city_sdk
   
   cattr_reader :collection, instance_reader: false do
-    Service.all
+    Service.all.to_a
   end
 
   alias_attribute :category, :group
