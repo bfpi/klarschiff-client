@@ -15,7 +15,9 @@ class Ldap
 
     def login2(name)
       ldap = conn
-      ldap.auth config.username, config.password
+      if config.username.present? && config.password.present?
+        ldap.auth config.username, config.password
+      end
       if ldap.bind && (
           obj = ldap.search(base: config.users[:base], filter: "#{ mapping(:name) }=#{ name }").try(:first))
         return user(ldap, obj)
