@@ -13,7 +13,7 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
-KS.assets_path = "/assets/" #"<%#= TODO: Settings::Route.assets_path %>"
+KS.assets_path = "<%= Settings::Route.assets_path %>/"
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->

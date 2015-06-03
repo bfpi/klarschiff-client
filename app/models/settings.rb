@@ -14,8 +14,19 @@ class Settings
 
   module Route
     class << self
-      include Rails.application.routes.url_helpers
-      #include ActionView::Helpers::AssetUrlHelper
+      delegate :relative_url_root, to: 'Rails.configuration.action_controller'
+
+      def method_missing(method, *arguments, &block)
+        if method.to_sym == :assets_path
+          "#{ relative_url_root }/assets"
+        elsif method.to_s =~ /.*_path$/
+          Rails.application.routes.url_helpers.send(method, *arguments).tap do |path|
+            path.prepend relative_url_root unless path.start_with?(relative_url_root)
+          end
+        else
+          super
+        end
+      end
     end
   end
 end
