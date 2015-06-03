@@ -21,7 +21,9 @@ class Settings
           "#{ relative_url_root }/assets"
         elsif method.to_s =~ /.*_path$/
           Rails.application.routes.url_helpers.send(method, *arguments).tap do |path|
-            path.prepend relative_url_root unless path.start_with?(relative_url_root)
+            if relative_url_root.present?
+              path.prepend relative_url_root unless path.start_with?(relative_url_root)
+            end
           end
         else
           super
