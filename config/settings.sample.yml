@@ -21,6 +21,7 @@ resource_servers:
     api_key: <API-Key>
 
 map:
+  default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
   center: [313356.88711652, 6002555.7959791]
   extent: [304094, 5993070, 323567, 6014340]
   wms_layers:
