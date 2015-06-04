@@ -7,7 +7,6 @@ class RequestsController < ApplicationController
     end
     @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :ids)
-    #session[:id_list] = @requests.map(&:id) if params[:ids]
     respond_to do |format|
       format.html { head :not_acceptable }
       format.js
