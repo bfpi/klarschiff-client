@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
 
   def create
     comment = Comment.create(params.require(:comment).permit(:author, :comment).merge(
-      service_request_id: params[:request_id]))
+      api_key: Comment.api_key, service_request_id: params[:request_id]))
     @redirect = request_url(params[:request_id])
     if comment.persisted?
       @success = I18n.t(:success_text, scope: 'comments.create')
