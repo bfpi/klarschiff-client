@@ -1,2 +1,2 @@
-<% @success ||= t('messages.success.confirmation') %>
+<% @success ||= t('messages.success.confirmation') unless @errors %>
 <%= render 'modal' %>
