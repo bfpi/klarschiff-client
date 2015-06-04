@@ -4,15 +4,8 @@ KS.showThrobber = ->
     $('body').append("<img id='throbber-img' src='" + KS.assets_path + 'throbber.gif' + "' />")
 
   $('#throbber, #throbber-img').show();
-  return
-
-KS.hideThrobber = ->
-  $('#throbber, #throbber-img').hide();
-  return
 
 $(document).ajaxStart(->
   KS.showThrobber()
-  return
 ).ajaxStop ->
-  KS.hideThrobber()
-  return
+  $('#throbber, #throbber-img').hide()
