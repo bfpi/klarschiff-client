@@ -70,9 +70,7 @@ class KS.Map
 
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
-        extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-        new KS.FeatureData(KS.requests_path, extent, KS.layers.findById("features").getSource().getSource())
-        new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
+        KS.reloadFeatures()
 
       KS.zoomEvent = false if KS.zoomEvent
 
@@ -335,6 +333,10 @@ KS.clearNewFeature= () ->
   if KS.newFeatureInteraction
     KS.olMap.removeInteraction KS.newFeatureInteraction
 
+KS.reloadFeatures= () ->
+  extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
+  new KS.FeatureData(KS.requests_path, extent, KS.layers.findById("features").getSource().getSource())
+  new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
 $ ->
   KS.olMap = new KS.Map

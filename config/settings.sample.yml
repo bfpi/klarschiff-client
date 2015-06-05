@@ -56,3 +56,6 @@ map:
   zoom:
     initial: 2
     max: 10
+
+auto_refresh:
+  timeout: 60000
