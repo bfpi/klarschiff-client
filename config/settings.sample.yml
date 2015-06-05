@@ -24,7 +24,7 @@ map:
   default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
   center: [313356.88711652, 6002555.7959791]
   extent: [304094, 5993070, 323567, 6014340]
-  wms_layers:
+  wms_tile_layers:
     -
       content: stadtplan
       url: http://geo.sv.rostock.de/geodienste/stadtplan/ows?
@@ -42,12 +42,13 @@ map:
       format: image/png
       visible: false
       attribution: © GeoBasis-DE/M-V
+  wms_image_layers:
     -
       content: abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten,sperrmuelltermine
       url: http://geo.sv.rostock.de/geodienste/klarschiff_poi/ows?
       format: image/png
       visible: true
-      max_resolution: 600
+      max_resolution: 1100
   tracking_options:
     enable_high_accuracy: true
     timeout: 3000
