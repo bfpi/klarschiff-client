@@ -34,18 +34,6 @@ class KS.Map
     return @olMap
 
   addControls = (map) ->
-    map.addControl new ol.control.MousePosition
-      coordinateFormat: ol.coordinate.createStringXY(4)
-      projection: @projection
-      undefinedHTML: '?,?'
-
-    map.addControl new ol.control.MousePosition
-      className: 'll-mouse-position'
-      target: document.getElementById('ol-overlaycontainer-stopevent')
-      coordinateFormat: ol.coordinate.createStringXY(6)
-      projection: KS.projectionWGS84
-      undefinedHTML: '?,?'
-
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->

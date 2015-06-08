@@ -1,3 +1,5 @@
+@import "bootstrap/variables"
+
 *
   margin: 0
   padding: 0
@@ -10,34 +12,20 @@
   top: 50px
 
 .ol-control button
-  font-size: 2.3em
+  font-size: $font-size-h3
+
+  @media (max-width: $screen-sm-max)
+    font-size: $font-size-h1
+
+  @media (max-width: $screen-md-max)
+    font-size: $font-size-h2
 
 .ol-scale-line-inner
   font-weight: bold
 
-.ll-mouse-position,
-.ol-mouse-position
-  font-size: 10px
-  left: 8px
-  padding: 2px
-  position: absolute
-  top: auto
+.ol-attribution
+  ul
+    font-size: $font-size-small
 
-.ol-mouse-position
-  bottom: 36px
-
-.ll-mouse-position
-  bottom: 26px
-
-.ol-attribution ul
-  font-size: 0.9em
-
-.ol-attribution.ol-collapsed ul
-  display: block
-  max-width: 100%
-
-.ol-attribution.ol-collapsed ul li:first-child
-  display: none
-
-.ol-attribution button
-  display: none
+  button
+    font-size: $font-size-h5
