@@ -48,7 +48,7 @@
         <div class="form-group">
           <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
-            <%= f.file_field(:media, multiple: false, class: '') %>
+            <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
           </div>
         </div>
         <div class="form-group">
