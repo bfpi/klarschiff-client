@@ -5,6 +5,7 @@ class KS.Nav
   switchTo: (view, content) ->
     return unless view? && parent = KS.content()
     if view == 'map'
+      KS.reloadFeatures()
       parent.hide()
       $('#ol-map').show()
       KS.olMap.updateSize()
