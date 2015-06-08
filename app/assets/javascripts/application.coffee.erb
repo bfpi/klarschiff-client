@@ -24,8 +24,23 @@
 #= require_tree .
 
 window.KS ||= {}
+KS.auto_refresh_time = <%= Settings::AutoRefresh.timeout %>
+
 
 KS.content = (filter) ->
   root = $('div#content')
   return root unless filter?
   if (div = root.children("div.#{ filter }"))?.length > 0 then div else null
+
+
+$ ->
+  setTimeout(KS.autoRefresh, KS.auto_refresh_time)
+
+
+KS.autoRefresh = () ->
+  if $(KS.olMap.getViewport()).is(':visible')
+    KS.reloadFeatures()
+  else if KS.content().is(':visible')
+    KS.content().find('.glyphicon-refresh').parents(".clickable").click()
+
+  setTimeout(KS.autoRefresh, KS.auto_refresh_time)

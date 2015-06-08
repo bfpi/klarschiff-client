@@ -1,5 +1,3 @@
-KS.auto_refresh_time = <%= Settings::AutoRefresh.timeout %>
-
 class KS.Nav
   constructor: ->
     @bar = $('body > nav .nav')
@@ -18,15 +16,6 @@ class KS.Nav
         parent.append content
 
       parent.show().children("div.#{ view }").show().siblings().hide()
-
-
-KS.autoRefresh = () ->
-    if $(KS.olMap.getViewport()).is(':visible')
-        KS.reloadFeatures()
-    else if KS.content().is(':visible')
-        KS.content().find('.glyphicon-refresh').parents(".clickable").click()
-
-    setTimeout(KS.autoRefresh, KS.auto_refresh_time)
 
 
 $ ->
@@ -54,5 +43,3 @@ $ ->
     $.ajax
       url: $(@).data('target'),
       dataType: 'script'
-
-  setTimeout(KS.autoRefresh, KS.auto_refresh_time)
