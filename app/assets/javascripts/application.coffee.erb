@@ -38,9 +38,10 @@ $ ->
 
 
 KS.autoRefresh = () ->
+  glyphiconRefresh = KS.content().find('.requests').find('.glyphicon-refresh')
   if $(KS.olMap.getViewport()).is(':visible')
     KS.reloadFeatures()
-  else if KS.content().find('.glyphicon-refresh').is(':visible')
-      KS.content().find('.glyphicon-refresh').parents(".clickable").click()
+  else if glyphiconRefresh.is(':visible')
+    glyphiconRefresh.parents(".clickable").click()
 
   setTimeout(KS.autoRefresh, KS.auto_refresh_time)

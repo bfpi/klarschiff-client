@@ -26,6 +26,7 @@ class RequestsController < ApplicationController
   def edit
     return head(:not_found) unless (id = params[:id]).present?
     @request = Request.find(id)
+    @id_list = params[:id_list].try(:map, &:to_i).presence
   end
 
   def update
@@ -33,7 +34,8 @@ class RequestsController < ApplicationController
     result = Request.patch(id, { api_key: Request.api_key, email: @user.email },
                            Request.format.encode(permissable_params))
     if result.is_a?(Net::HTTPOK)
-      @redirect = request_path(id)
+      @redirect = request_path(id, id_list: params[:request][:id_list]).html_safe
+      puts @redirect.inspect
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors

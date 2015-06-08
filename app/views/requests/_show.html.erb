@@ -9,7 +9,7 @@
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>
         <%= mark_trust(@request) %>
-        <%= render partial: 'show_panel_title_buttons', locals: { request: @request } %>
+        <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
       </h4>
       <h4 class="visible-xs panel-title">
         <div class="list-group-item-heading">
@@ -18,7 +18,7 @@
           #<%= @request.id %>
           <%= mark_trust(@request) %>
           <%= label_photo_required = mark_photo_required(@request) %>
-          <%= render partial: 'show_panel_title_buttons', locals: { request: @request } %>
+          <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
         </div>
         <div class="list-group-item-text">
           <%= type %>

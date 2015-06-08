@@ -57,8 +57,11 @@
               <div class="btn-group" role="group">
                 <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
               </div>
-              <%= link_to(t('buttons.cancel'), @request, remote: true, class: 'btn btn-default', role: :button) %>
+              <%= link_to(t('buttons.cancel'), request_path(@request, id_list: @id_list), remote: true, class: 'btn btn-default', role: :button) %>
             </div>
+            <% @id_list.each do |idl| -%>
+              <%= f.hidden_field "id_list][", :value => idl %>
+            <% end -%>
           </div>
         </div>
       <% end %>
