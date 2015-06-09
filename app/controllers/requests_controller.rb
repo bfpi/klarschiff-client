@@ -58,13 +58,14 @@ class RequestsController < ApplicationController
     ids = []
     service = nil
     if (codes = params[:request][:service_code]).present?
+      payload = permissable_params
       (codes = codes.map(&:to_i).reject { |code| code == 0 }).each do |service_code|
         service ||= Service[service_code]
         result =
           begin
             Request.connection.post(
               Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
-              Request.format.encode(permissable_params.merge(service_code: service_code)))
+              Request.format.encode(payload.merge(service_code: service_code)))
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
           end
