@@ -31,11 +31,15 @@ class RequestsController < ApplicationController
 
   def update
     return head(:not_found) unless (id = params[:id]).present?
-    result = Request.patch(id, { api_key: Request.api_key, email: @user.email },
-                           Request.format.encode(permissable_params))
+    result =
+      begin
+        Request.patch(id, { api_key: Request.api_key, email: @user.email },
+                      Request.format.encode(permissable_params))
+      rescue ActiveResource::ResourceInvalid => e
+        e.base_object_with_errors
+      end
     if result.is_a?(Net::HTTPOK)
       @redirect = request_path(id, id_list: params[:request][:id_list]).html_safe
-      puts @redirect.inspect
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors
@@ -56,9 +60,14 @@ class RequestsController < ApplicationController
     if (codes = params[:request][:service_code]).present?
       (codes = codes.map(&:to_i).reject { |code| code == 0 }).each do |service_code|
         service ||= Service[service_code]
-        result = Request.connection.post(
-          Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
-          Request.format.encode(permissable_params.merge(service_code: service_code)))
+        result =
+          begin
+            Request.connection.post(
+              Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
+              Request.format.encode(permissable_params.merge(service_code: service_code)))
+          rescue ActiveResource::ResourceInvalid => e
+            e.base_object_with_errors
+          end
         if result.is_a?(Net::HTTPCreated)
           ids << Request.new.load(Request.format.decode(result.body)).id
         else
@@ -72,7 +81,6 @@ class RequestsController < ApplicationController
     end
     if ids.present? && !service.nil?
       @redirect = requests_path(ids: ids)
-      logger.info "@redirect: #{ @redirect }"
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
                         type: I18n.t(service.type, scope: 'service.types', count: ids.size))

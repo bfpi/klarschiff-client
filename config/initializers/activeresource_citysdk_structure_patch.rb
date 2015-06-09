@@ -82,12 +82,11 @@ module ActiveResource
     def request(method, path, *arguments)
       super
     rescue ResourceInvalid => e
-      Base.new.tap { |base|
-        base.load_remote_errors e
-        Rails.logger.error "CitySDKError: " << base.errors.full_messages.join(', ')
-      }
-    rescue BadRequest, UnauthorizedAccess => e
-      Base.new.tap { |base| base.load_remote_errors e }
+      def e.base_object_with_errors
+        Base.new.tap { |b| b.load_remote_errors self }
+      end
+      Rails.logger.error "CitySDKError: " << e.base_object_with_errors.errors.full_messages.join(', ')
+      raise e
     rescue ServerError => e
       e.response.tap { |r| 
         r.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{ e }") }])
