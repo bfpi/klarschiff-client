@@ -60,8 +60,8 @@
               <%= link_to(t('buttons.cancel'), request_path(@request, id_list: @id_list), remote: true, class: 'btn btn-default', role: :button) %>
             </div>
             <% @id_list.each do |idl| -%>
-              <%= f.hidden_field "id_list][", :value => idl %>
-            <% end -%>
+              <%= f.hidden_field "id_list][", :value => idl, id: nil %>
+            <% end if @id_list -%>
           </div>
         </div>
       <% end %>

@@ -97,7 +97,7 @@
                 <%= Note.model_name.human %> (<%= notes.size %>)
                 <span class="caret"></span>
               </a>
-              <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request) %>">
+              <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request, id_list: @id_list) %>">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </span>
             </h4>
@@ -115,11 +115,11 @@
       <div class="list-group-item actions">
         <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
         <div class="btn-group btn-group-justified" role="group">
-          <%= link_to(t('.actions.vote'), [:new, @request, :vote], options) %>
-          <%= link_to(t('.actions.abuse'), [:new, @request, :abuse], options) %>
+          <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) %>
+          <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) %>
         </div>
         <div class="btn-group btn-group-justified" role="group">
-          <%= link_to(t('.actions.comment'), [:new, @request, :comment], options.merge(class: 'btn btn-default')) %>
+          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) %>
           <%= link_to(t('.actions.kod'), "#", options.merge(class: 'btn btn-default disabled')) %>
         </div>
       </div>
