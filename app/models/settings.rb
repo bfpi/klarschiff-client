@@ -17,14 +17,14 @@ class Settings
       delegate :relative_url_root, to: 'Rails.configuration.action_controller'
 
       def method_missing(method, *arguments, &block)
-        if method.to_sym == :assets_path
-          "#{ relative_url_root }/assets"
-        elsif method.to_s =~ /.*_path$/
+        if method.to_s =~ /_path$/
           Rails.application.routes.url_helpers.send(method, *arguments).tap do |path|
             if relative_url_root.present?
               path.prepend relative_url_root unless path.start_with?(relative_url_root)
             end
           end
+        elsif method.to_s =~ /^path_to_/
+          ActionController::Base.helpers.send method, *arguments
         else
           super
         end

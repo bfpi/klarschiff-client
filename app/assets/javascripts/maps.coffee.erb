@@ -1,3 +1,5 @@
+<% require_asset "OpenLayers#{ '.min' unless Rails.env.development? }" %>
+
 KS.projection = ->
   if typeof proj4 is 'function'
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
@@ -13,7 +15,6 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
-KS.assets_path = "<%= Settings::Route.assets_path %>/"
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -90,7 +91,7 @@ KS.styles =
           16
           50
         ]
-        src: KS.assets_path + feature.get('icon')
+        src: feature.get('icon')
       text: KS.styles.featureAttribution(feature)
 
   featureStyle: (features) ->
@@ -104,7 +105,7 @@ KS.styles =
             6
             40
           ]
-          src: KS.assets_path + feature.get('icon')
+          src: feature.get('icon')
         text: KS.styles.featureAttribution(feature)
     else
       features.setStyle new ol.style.Style
@@ -115,7 +116,7 @@ KS.styles =
             22
             22
           ]
-          src: KS.assets_path + 'icons/map/cluster/png/cluster.png'
+          src: KS.imagePath('cluster')
         text: new ol.style.Text
           text: size.toString()
           font: 'bold 20px Verdana'
@@ -131,7 +132,7 @@ KS.styles =
           16
           50
         ]
-        src: KS.assets_path + 'icons/map/active/png/' + type + '-gray.png'
+        src: KS.imagePath("new-#{ type }")
 
   location: ->
     styles = [ new ol.style.Style
@@ -148,6 +149,10 @@ KS.styles =
           width: 2
         radius: 6
     ]
+
+
+KS.imagePath = (type) ->
+  $("#image-sources img##{ type }").attr 'src'
 
 
 class KS.Layers

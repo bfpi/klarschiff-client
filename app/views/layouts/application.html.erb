@@ -83,5 +83,14 @@
     <div id="content" class="container">
       <%= yield %>
     </div>
+    <div id="throbber">
+      <div id="throbber-bg"></div>
+      <img id="throbber-img" src="<%= image_path 'throbber.gif' %>" />
+    </div>
+    <div id="image-sources">
+      <img id="new-idea" src="<%= image_path 'icons/map/active/png/idea-gray.png' %>" />
+      <img id="new-problem" src="<%= image_path 'icons/map/active/png/problem-gray.png' %>" />
+      <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
+    </div>
   </body>
 </html>

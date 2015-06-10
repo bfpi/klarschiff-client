@@ -30,11 +30,11 @@ class Request < ActiveResource::Base
   end
 
   def icon_list
-    "icons/list/#{ icon }-22px.png"
+    Settings::Route.path_to_image "icons/list/#{ icon }-22px.png"
   end
 
   def icon_map
-    "icons/map/#{ icon_folder }/#{ icon }.png"
+    Settings::Route.path_to_image "icons/map/#{ icon_folder }/#{ icon }.png"
   end
 
   def flag_color_class

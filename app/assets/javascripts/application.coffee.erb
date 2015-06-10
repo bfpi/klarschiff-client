@@ -19,29 +19,26 @@
 #= require turbolinks
 #= require bootstrap-sprockets
 #= require proj4js
-#= require OpenLayers
 #= require_self
 #= require_tree .
 
 window.KS ||= {}
-KS.auto_refresh_time = <%= Settings::AutoRefresh.timeout %>
 
+KS.autoRefreshTime = <%= Settings::AutoRefresh.timeout %>
 
 KS.content = (filter) ->
   root = $('div#content')
   return root unless filter?
   if (div = root.children("div.#{ filter }"))?.length > 0 then div else null
 
-
-$ ->
-  setTimeout(KS.autoRefresh, KS.auto_refresh_time)
-
-
 KS.autoRefresh = () ->
   glyphiconRefresh = KS.content().find('.requests').find('.glyphicon-refresh')
-  if $(KS.olMap.getViewport()).is(':visible')
-    KS.reloadFeatures()
-  else if glyphiconRefresh.is(':visible')
-    glyphiconRefresh.parents(".clickable").click()
+  if (map = KS.olMap)?
+    if $(map.getViewport()).is(':visible')
+      KS.reloadFeatures()
+    else if glyphiconRefresh.is(':visible')
+      glyphiconRefresh.parents('.clickable').click()
+  setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
-  setTimeout(KS.autoRefresh, KS.auto_refresh_time)
+$ ->
+  setTimeout(KS.autoRefresh, KS.autoRefreshTime)
