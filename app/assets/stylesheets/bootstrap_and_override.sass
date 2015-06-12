@@ -1,4 +1,4 @@
-$screen-sm-min: 360px
+$screen-sm-min: 340px
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
@@ -75,14 +75,15 @@ nav
       padding-left: 0
       padding-right: 0
 
-  @media (min-width: 360px) and (max-width: 381px)
-    .container
+  .container,
+  .nav > li > a
+    @media (min-width: 360px) and (max-width: 381px)
       padding-left: 11px
       padding-right: 11px
 
-    .nav > li > a
-      padding-left: 11px
-      padding-right: 11px
+    @media (min-width: 340px) and (max-width: 359px)
+      padding-left: 10px
+      padding-right: 10px
 
 @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
   .container
