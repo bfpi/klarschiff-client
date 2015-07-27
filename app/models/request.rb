@@ -21,6 +21,10 @@ class Request < ActiveResource::Base
     @service ||= Service[service_code]
   end
 
+  def title
+    extended_attributes.respond_to?(:title) ? extended_attributes.title : nil
+  end
+
   def lat
     attributes[:lat] ||= attributes[:position].try(:last).presence
   end
