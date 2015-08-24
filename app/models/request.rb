@@ -22,7 +22,7 @@ class Request < ActiveResource::Base
   end
 
   def title
-    description.try :truncate, 60, separator: ' '
+    description.try(:split, /: ?/).try(:first).try :truncate, 60, separator: ' '
   end
 
   def lat
