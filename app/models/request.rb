@@ -22,7 +22,7 @@ class Request < ActiveResource::Base
   end
 
   def title
-    extended_attributes.respond_to?(:title) ? extended_attributes.title : nil
+    description.try :truncate, 60, separator: ' '
   end
 
   def lat

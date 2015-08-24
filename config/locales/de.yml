@@ -9,12 +9,12 @@ de:
     attributes:
       request:
         category: Kategorie
-        description: Details
+        description: Beschreibung
         media: Foto
         media_url: Foto
         service_code: Kategorie
         status_notes: Info der Verwaltung
-        title: Betreff
+        title: Titel
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
@@ -94,7 +94,7 @@ de:
       hint:
         label: Hinweis
         text: >
-          Einen Missbrauch können und sollten Sie dann melden, wenn durch Betreff, Details
+          Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung
           oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter
           oder Kfz-Kennzeichen zu erkennen sind).
         warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
