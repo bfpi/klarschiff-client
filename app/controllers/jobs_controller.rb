@@ -1,13 +1,11 @@
 class JobsController < ApplicationController
+  before_action :conditions
+
   def index
-    conditions = { agency_responsible: @user.field_service_team }
     if (center = params[:center]).present?
-      conditions.update lat: center[0], long: center[1]
+      @conditions.update lat: center[0], long: center[1]
     end
-    if (states = Settings::Map.default_requests_states).present?
-      conditions.update detailed_status: states
-    end
-    @jobs = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
+    @jobs = Request.where(@conditions.merge(params.slice(:radius))).try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :ids)
     session[:id_list] = @jobs.map(&:id)
     respond_to do |format|
@@ -17,8 +15,7 @@ class JobsController < ApplicationController
   end
 
   def update
-    conditions = { agency_responsible: @user.field_service_team }
-    jobs = Request.where(conditions).to_a
+    jobs = Request.where(@conditions).to_a
     job = jobs.select { |req| req.id == params[:id].to_i }.first
 
     jobs.delete_at jobs.index(job)
@@ -29,5 +26,14 @@ class JobsController < ApplicationController
     end
 
     return render text: true
+  end
+
+  private
+
+  def conditions
+    @conditions = { agency_responsible: @user.field_service_team }
+    if (states = Settings::Map.default_requests_states).present?
+      @conditions.update detailed_status: states
+    end
   end
 end
