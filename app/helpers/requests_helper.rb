@@ -26,7 +26,7 @@ module RequestsHelper
 
   def statuses(request)
     Settings::Map.default_requests_states.split(', ').select { |st|
-      st.in?(Settings::Request.permissable_states << request.detailed_status)
+      st.in?(Settings::Request.permissable_states | [request.detailed_status])
     }.map { |st| [t(st.downcase, scope: :status), st] }
   end
 
