@@ -30,7 +30,7 @@
         <div class="form-group">
           <%= f.label(:detailed_status, Request.human_attribute_name(:status), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
-            <%= f.select(:detailed_status, statuses(), {}, class: 'form-control') %>
+            <%= f.select(:detailed_status, statuses(@request), {}, class: 'form-control') %>
           </div>
         </div>
         <div class="form-group">

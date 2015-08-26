@@ -57,5 +57,11 @@ map:
     initial: 2
     max: 10
 
+request:
+  permissable_states:
+    - IN_PROCESS
+    - PROCESSED
+    - REJECTED
+
 auto_refresh:
   timeout: 60000

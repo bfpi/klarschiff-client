@@ -24,10 +24,10 @@ module RequestsHelper
     status << ", #{ t('requests.status.currently') } #{ request.agency_responsible }"
   end
 
-  def statuses
-    %w(pending received in_process processed rejected).map { |st|
-      [t(st, scope: :status), st.upcase]
-    }
+  def statuses(request)
+    Settings::Map.default_requests_states.split(', ').select { |st|
+      st.in?(Settings::Request.permissable_states << request.detailed_status)
+    }.map { |st| [t(st.downcase, scope: :status), st] }
   end
 
   def categories(type, current = nil)
