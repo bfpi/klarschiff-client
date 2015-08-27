@@ -11,7 +11,7 @@
             <div class="hidden-xs right-badges">
               <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
               <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
-              #<%= job.id %>: <%= job.title %>
+              #<%= job.id %> <%= job.service.group %> – <%= job.service_name %>
               <%= mark_photo_required(job) %>
               <%= mark_trust(job) %>
               <span class="badge sort-handle">
@@ -35,7 +35,7 @@
               <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
 
               <div class="list-group-item-text heading">
-                <%= job.title %>
+                <%= job.service_name %>
               </div>
             </div>
           <% end %>
