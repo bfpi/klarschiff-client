@@ -21,10 +21,11 @@ de:
     errors:
       messages:
         blank: muss angegeben werden
-        #request:
-          #attributes:
-            #service_code:
-              #blank: Es wurde keine Kategorie ausgewählt
+      models:
+        request:
+          attributes:
+            position:
+              outside: befindet sich außerhalb des gültigen Bereichs
     models:
       note: Interner Kommentar
       comment: Lob/Hinweise/Kritik
@@ -138,6 +139,7 @@ de:
       empty_result: Keine Vorgänge vorhanden
       title: Vorgänge
     new:
+      error: Fehler bei neuer Meldung
       hint:
         label: Hinweis
         max_file_size: (Dateigröße maximal 2 MB!)
