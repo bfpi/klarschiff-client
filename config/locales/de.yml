@@ -13,7 +13,7 @@ de:
         media: Foto
         media_url: Foto
         service_code: Kategorie
-        status_notes: Info der Verwaltung
+        status_notes: öffentliche Statusinformation
         title: Titel
       service:
         group: Hauptkategorie
@@ -27,24 +27,24 @@ de:
             position:
               outside: befindet sich außerhalb des gültigen Bereichs
     models:
-      note: Interner Kommentar
-      comment: Lob/Hinweise/Kritik
+      note: interne Kommentare
+      comment: Lob, Hinweise oder Kritik
 
   # Statuses
   status:
-    in_process: In Bearbeitung
-    pending: Gemeldet
-    processed: Abgeschlossen
-    received: Offen
-    rejected: Wird nicht bearbeitet
+    in_process: in Bearbeitung
+    pending: gemeldet
+    processed: abgeschlossen
+    received: offen
+    rejected: wird nicht bearbeitet
 
   # General view contents
   buttons:
-    cancel: Abbrechen
-    describe: Beschreiben
-    save: Speichern
-    search: Suchen
-    submit: Senden
+    cancel: abbrechen
+    describe: beschreiben
+    save: speichern
+    search: suchen
+    submit: senden
 
   messages:
     success:
@@ -69,12 +69,12 @@ de:
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
-    note: Bitte tragen Sie hier Ihre internen Hinweise zur Meldung ein.
+    note: Bitte tragen Sie hier Ihren internen Kommentar zur Meldung ein.
     places_search: Stadteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
     select:
-      category: Bitte Hauptkategorie auswählen
-      service: Bitte Unterkategorie auswählen
+      category: Hauptkategorie auswählen…
+      service: Unterkategorie auswählen…
 
   service:
     types:
@@ -89,14 +89,14 @@ de:
   abuses:
     create:
       error: Fehler bei Missbrauchsmeldung
-      success: Missbrauchsmeldung erfolgreich abgesetzt.
+      success: Missbrauchsmeldung erfolgreich abgesetzt
     new:
       title: Missbrauch
       hint:
         label: Hinweis
         text: >
           Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung
-          oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter
+          oder Foto Persönlichkeitsrechte verletzt werden (z.B. wenn auf dem Foto Gesichter
           oder Kfz-Kennzeichen zu erkennen sind).
         warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
           <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
@@ -105,23 +105,23 @@ de:
   comments:
     create:
       error: Fehler bei Lob, Hinweise oder Kritik
-      success: Lob, Hinweise oder Kritik erfolgreich abgesetzt.
+      success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
       success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
     new:
-      title: Lob / Hinweise / Kritik
+      title: Lob, Hinweise oder Kritik
 
   jobs:
     index:
-      empty_result: Keine Aufträge für heute geplant
+      empty_result: Für heute liegen keine Aufträge vor.
       title: Aufträge
 
   notes:
     create:
       error: Fehler bei internem Kommentar
-      success: Internen Kommentar erfolgreich abgesetzt!
-      success_text: Ihr Kommentar wurde zum Vorgang hinzugefügt.
+      success: Interner Kommentar erfolgreich abgesetzt
+      success_text: Ihr interner Kommentar wurde zur Meldung hinzugefügt.
     new:
-      title: Interner Kommentar
+      title: interner Kommentar
 
   places:
     index:
@@ -133,34 +133,33 @@ de:
         one: Fehler bei neuer Meldung
         other: Fehler bei neuen Meldungen
       success:
-        one: Neue Meldung gesendet
-        other: "%{count} neue Meldungen gesendet"
+        one: Neue Meldung erfolgreich abgesetzt
+        other: "%{count} neue Meldungen wurden hinzugefügt."
     index:
-      empty_result: Keine Vorgänge vorhanden
-      title: Vorgänge
+      empty_result: Es liegen keine Meldungen vor.
+      title: Meldungen
     new:
       error: Fehler bei neuer Meldung
       hint:
         label: Hinweis
-        max_file_size: (Dateigröße maximal 2 MB!)
         text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
     show:
       actions:
         abuse: Missbrauch
-        comment: Lob/Hinweise/Kritik
-        edit: Vorgang bearbeiten
+        comment: Lob, Hinweise oder Kritik
+        edit: Meldung bearbeiten
         kod: KOD-Formular
-        list: Zurück zur Liste
-        note: Neuer interner Kommentar
-        reload: Aktualisieren
+        list: zurück zur Liste
+        note: neuer interner Kommentar
+        reload: aktualisieren
         vote: Unterstützung
-      hint_photo_required: "Hinweis der Verwaltung: Für diesen Vorgang wird ein neues Foto gewünscht!"
+      hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
     status:
       currently: aktuell bei
       since: seit
     update:
-      error: Fehler beim Speichern des Vorgangs
-      success: Vorgang gespeichert
+      error: Fehler beim Speichern der Meldung
+      success: Meldung gespeichert
 
   votes:
     create:

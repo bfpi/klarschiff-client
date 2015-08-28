@@ -81,7 +81,6 @@
           <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
             <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
-            <span class="help-block"><span class="text-danger"><%= t('.hint.max_file_size') %></span></span>
           </div>
         </div>
         <div class="form-group">
