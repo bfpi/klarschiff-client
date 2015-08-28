@@ -52,6 +52,11 @@ class RequestsController < ApplicationController
     unless @request.try(:lat).present? && @request.try(:long).present?
       return render :new_position
     end
+    unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
+      @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
+      @redirect = new_request_path(type: @request.type)
+      return render :outside
+    end
   end
 
   def create

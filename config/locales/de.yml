@@ -26,10 +26,11 @@ de:
     errors:
       messages:
         blank: muss angegeben werden
-        #request:
-          #attributes:
-            #service_code:
-              #blank: Es wurde keine Kategorie ausgewählt
+      models:
+        request:
+          attributes:
+            position:
+              outside: befindet sich außerhalb des gültigen Bereichs
     models:
       note: interne Kommentare
       comment: Lob, Hinweise oder Kritik
@@ -152,6 +153,7 @@ de:
       empty_result: Es liegen keine Meldungen vor.
       title: Meldungen
     new:
+      error: Fehler bei neuer Meldung
       hint:
         label: Hinweis
         text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
