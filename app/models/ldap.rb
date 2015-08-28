@@ -25,7 +25,8 @@ class Ldap
     end
 
     def user(ldap, obj)
-      User.new name: obj.send(mapping(:name)).try(:first), email: obj.send(mapping(:email)).try(:first),
+      User.new name: obj.send(mapping(:name)).try(:first).force_encoding("UTF-8"),
+        email: obj.send(mapping(:email)).try(:first).force_encoding("UTF-8"),
         field_service_team: ldap.search(base: config.groups[:base],
                                         filter: config.groups[:search_pattern] % obj.dn
                                        ).try(:first).try(:cn).try(:first).presence

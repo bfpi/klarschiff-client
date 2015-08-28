@@ -4,9 +4,14 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
 
   pagetitle: Prüf- und Protokollclient
+  username: Benutzername
 
   activemodel:
     attributes:
+      protocol:
+        attachments: Anhänge
+        message_number: Meldungsnummer (Klarschiff.HRO)
+        process_number: Vorgangsnummer
       request:
         category: Kategorie
         description: Beschreibung
@@ -125,6 +130,15 @@ de:
   places:
     index:
       results: Ergebnisse
+
+  protocols:
+    create:
+      success: Protokoll erstellt
+      success_text: Ihr Protokoll wurde versendet.
+    new:
+      actions:
+        more_attachment: Weiterer Anhang
+        send: Protokoll versenden
 
   requests:
     create:

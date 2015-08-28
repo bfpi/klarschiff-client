@@ -118,7 +118,7 @@
         <% end -%>
         <div class="btn-group btn-group-justified" role="group">
           <%#= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) %>
-          <%= link_to(t('.actions.kod'), "#", options.merge(class: 'btn btn-default disabled')) %>
+          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) %>
         </div>
       </div>
     </div>

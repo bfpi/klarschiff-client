@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :abuses, only: [:new, :create]
     resources :comments, only: [:index, :new, :create]
     resources :notes, only: [:index, :new, :create]
+    resources :protocols, only: [:new, :create]
     resources :votes, only: [:new, :create]
   end
   resources :services, only: :index

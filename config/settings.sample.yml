@@ -1,5 +1,6 @@
 urls:
   ks_frontend_search_url: http://demo.klarschiff.de/search
+  ks_backend_vorgang_url: http://demo.klarschiff.de/vorgang/%s
 
 ldap:
   host: klarschiff-test
@@ -19,6 +20,10 @@ resource_servers:
     site: https://klarschiff-test/citysdk/
     format: :json
     api_key: <API-Key>
+
+protocol_mail:
+  recipient: recipient@klarschiff.de
+  sender: sender@klarschiff.de
 
 map:
   default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED

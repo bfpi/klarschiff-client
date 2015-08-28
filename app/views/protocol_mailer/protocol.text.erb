@@ -1,0 +1,5 @@
+<%= t("username") %>: <%= @protocol.user %>
+<%= Protocol.human_attribute_name(:process_number) %>: <%= @protocol.process_number %>
+<%= Protocol.human_attribute_name(:message_number) %>: <%= @protocol.message_number %>
+<% unless @protocol.process_number.blank? %><%= "#{ Settings::Url.ks_backend_vorgang_url % @protocol.process_number }" %><% end %>
+<%= Protocol.human_attribute_name(:text) %>: <%= @protocol.text %>

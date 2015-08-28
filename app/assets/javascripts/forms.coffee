@@ -21,3 +21,6 @@ $ ->
     else
       $($(@).attr('href')).addClass('hidden').find('select').val null
     return false
+
+  KS.content().on 'click', 'form .more_attachment a', ->
+    $('#attachments').append($('#attachment-prototype').children().clone())
