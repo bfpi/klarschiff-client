@@ -68,6 +68,14 @@ Rails.application.configure do
   # Disable Logging for ActionMailer
    config.action_mailer.logger = nil
 
+  # Configuration for SMTP-Server
+   config.action_mailer.smtp_settings = {
+     :address => Settings::ProtocolMail.smtp[:host],
+     :enable_starttls_auto => Settings::ProtocolMail.smtp[:starttls_enabled],
+     :user_name => Settings::ProtocolMail.smtp[:username],
+     :password => Settings::ProtocolMail.smtp[:password]
+   }
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
