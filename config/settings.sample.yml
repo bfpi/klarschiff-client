@@ -24,6 +24,11 @@ resource_servers:
 protocol_mail:
   recipient: recipient@klarschiff.de
   sender: sender@klarschiff.de
+  smtp:
+    host: smtp.klarschiff.de
+    starttls_enabled: false
+    username: benutzer
+    password: passwort
 
 map:
   default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED

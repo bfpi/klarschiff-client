@@ -1,7 +1,7 @@
 class ProtocolsController < ApplicationController
   def new
     @request = Request.find(params[:request_id])
-    @protocol = Protocol.new
+    @protocol = Protocol.new message_number: @request.id
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
