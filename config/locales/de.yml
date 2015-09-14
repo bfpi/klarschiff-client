@@ -10,15 +10,16 @@ de:
     attributes:
       protocol:
         attachments: Anhänge
-        message_number: Meldungsnummer (Klarschiff.HRO)
-        process_number: Vorgangsnummer
+        message_number: Meldung
+        process_number: KOD-Vorgang
+        recorder: Protokollant
       request:
         category: Kategorie
         description: Beschreibung
         media: Foto
         media_url: Foto
         service_code: Kategorie
-        status_notes: öffentliche Statusinformation
+        status_notes: Statusinformation
         title: Titel
       service:
         group: Hauptkategorie
@@ -75,7 +76,7 @@ de:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     note: Bitte tragen Sie hier Ihren internen Kommentar zur Meldung ein.
-    places_search: Stadteil/Straße/Adresse eingeben…
+    places_search: Ortsteil/Straße/Adresse eingeben…
     reason: Bitte geben Sie eine Begründung an.
     select:
       category: Hauptkategorie auswählen…
@@ -109,7 +110,7 @@ de:
 
   comments:
     create:
-      error: Fehler bei Lob, Hinweise oder Kritik
+      error: Fehler bei Lob, Hinweisen oder Kritik
       success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
       success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
     new:
@@ -134,12 +135,13 @@ de:
 
   protocols:
     create:
-      success: Protokoll erstellt
-      success_text: Ihr Protokoll wurde versendet.
+      success: KOD-Protokoll erfolgreich abgesetzt
+      success_text: Ihr KOD-Protokoll wurde erfolgreich gesendet.
     new:
+      title: KOD-Protokoll
       actions:
-        more_attachment: Weiterer Anhang
-        send: Protokoll versenden
+        more_attachment: Anhang hinzufügen
+        send: senden
 
   requests:
     create:
@@ -162,7 +164,7 @@ de:
         abuse: Missbrauch
         comment: Lob, Hinweise oder Kritik
         edit: Meldung bearbeiten
-        kod: KOD-Formular
+        kod: KOD-Protokoll
         list: zurück zur Liste
         note: neuer interner Kommentar
         reload: aktualisieren
