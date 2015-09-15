@@ -14,21 +14,14 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li>
-        <%= link_to request_path(request, 'request[job_status]': 'CHECKED'), method: :put, remote: true do %>
-            <span class="glyphicon glyphicon-flag job-status checked" aria-hidden="true"></span> abgehakt
-        <% end %>
-      </li>
-      <li>
-        <%= link_to request_path(request, 'request[job_status]': 'UNCHECKED'), method: :put, remote: true do %>
-            <span class="glyphicon glyphicon-flag job-status unchecked" aria-hidden="true"></span> nicht abgehakt
-        <% end %>
-      </li>
-      <li>
-        <%= link_to request_path(request, 'request[job_status]': 'NOT_CHECKABLE'), method: :put, remote: true do %>
-            <span class="glyphicon glyphicon-flag job-status not-checkable" aria-hidden="true"></span> nicht abarbeitbar
-        <% end %>
-      </li>
+      <% %w(checked unchecked not-checkable).each do |state| -%>
+        <li>
+          <%= link_to request_path(request, 'request[id_list]': id_list, 'request[job_status]': state.underscore.upcase), method: :put, remote: true do %>
+            <span class="glyphicon glyphicon-flag job-status <%= state %>" aria-hidden="true"></span>
+            <%= t(state.to_sym, scope: 'requests.job_status') %>
+          <% end -%>
+        </li>
+      <% end -%>
     </ul>
   </div>
 <% end -%>

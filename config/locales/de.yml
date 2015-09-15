@@ -177,6 +177,10 @@ de:
     update:
       error: Fehler beim Speichern der Meldung
       success: Meldung gespeichert
+    job_status:
+      checked: abgehakt
+      unchecked: nicht abgehakt
+      not-checkable: nicht abarbeitbar
 
   votes:
     create:
