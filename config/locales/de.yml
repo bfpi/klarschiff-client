@@ -48,6 +48,7 @@ de:
   buttons:
     cancel: abbrechen
     describe: beschreiben
+    ok: Ok
     save: speichern
     search: suchen
     submit: senden
