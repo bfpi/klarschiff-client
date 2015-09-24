@@ -91,6 +91,8 @@ GEM
     net-ldap (0.11)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oj (2.12.14)
+    oj_mimic_json (1.0.1)
     passenger (5.0.16)
       rack
       rake (>= 0.8.1)
@@ -179,6 +181,8 @@ DEPENDENCIES
   jquery-sortable-rails
   jquery-ui-rails
   net-ldap
+  oj
+  oj_mimic_json
   passenger
   rails (~> 4.2.0)
   rails-i18n

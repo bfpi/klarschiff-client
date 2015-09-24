@@ -22,6 +22,8 @@ gem 'bootstrap-sass'
 
 gem 'passenger'
 gem 'net-ldap'
+gem 'oj'
+gem 'oj_mimic_json'
 gem 'rails-i18n'
 gem 'responders'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
