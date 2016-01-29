@@ -36,8 +36,8 @@ map:
   extent: [304094, 5993070, 323567, 6014340]
   wms_tile_layers:
     -
-      content: stadtplan
-      url: http://geo.sv.rostock.de/geodienste/stadtplan/ows?
+      content: orkamv
+      url: http://www.orka-mv.de/geodienste/orkamv/wms?
       format: image/png
       visible: true
       attribution: >
@@ -47,15 +47,15 @@ map:
         (<a href="http://opendatacommons.org/licenses/odbl/" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
         und <a href="https://geo.sv.rostock.de/uvgb.html" target="_blank" style="color: #006CB7; text-decoration:none;">uVGB-MV</a>
     -
-      content: luftbild
-      url: http://geo.sv.rostock.de/geodienste/luftbild/ows?
+      content: hro.luftbild_mv-40.luftbild_mv-40
+      url: http://geo.sv.rostock.de/geodienste/luftbild_mv-40/wms?
       format: image/png
       visible: false
       attribution: © GeoBasis-DE/M-V
   wms_image_layers:
     -
-      content: abfallbehaelter,ampeln,beleuchtung,brunnen,denkmale,hundetoiletten,recyclingcontainer,sitzgelegenheiten,sperrmuelltermine
-      url: http://geo.sv.rostock.de/geodienste/klarschiff_poi/ows?
+      content: hro.klarschiff-poi.abfallbehaelter,hro.klarschiff-poi.ampeln,hro.klarschiff-poi.beleuchtung,hro.klarschiff-poi.brunnen,hro.klarschiff-poi.denkmale,hro.klarschiff-poi.hundetoiletten,hro.klarschiff-poi.recyclingcontainer,hro.klarschiff-poi.sitzgelegenheiten,hro.klarschiff-poi.sperrmuelltermine
+      url: http://geo.sv.rostock.de/geodienste/klarschiff-poi/wms?
       format: image/png
       visible: true
       max_resolution: 1100
