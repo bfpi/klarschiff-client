@@ -5,7 +5,7 @@ KS.projection = ->
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
     proj4.defs 'urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833')
     projection_25833 = ol.proj.get 'EPSG:25833'
-    projection_25833.setExtent <%= Settings::Map.extent %>
+    projection_25833.setExtent <%= Settings::Map.mv_bbox_25833 %>
     return projection_25833
   else
     console.log 'Proj4J ist nicht geladen!'
@@ -159,23 +159,31 @@ class KS.Layers
   constructor: (map) ->
     @active = 0
     @layers = []
-    for layer in <%= Settings::Map.wms_tile_layers.to_json %>
+    for layer in <%= Settings::Map.wmts_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
-          source: new ol.source.TileWMS
+          projection: KS.projection()
+          extent: layer.extent
+          source: new ol.source.WMTS
             url: layer.url
-            params:
-              "LAYERS": layer.content
-              "FORMAT": layer.format
+            layer: layer.content
+            matrixSet: layer.matrix_set
+            format: layer.format
+            requestEncoding: layer.request_encoding
+            tileGrid: new ol.tilegrid.WMTS
+              origin: layer.tilegrid_origin
+              resolutions: layer.resolutions
+              matrixIds: layer.matrix_ids
             attributions: [
               new ol.Attribution
                 html: layer.attribution
             ] if layer.attribution?
           visible: layer.visible
-    for layer in <%= Settings::Map.wms_image_layers.to_json %>
+    for layer in <%= Settings::Map.wms_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Image
-          maxResolution: layer.max_resolution
+          projection: KS.projection()
+          extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
             params:
