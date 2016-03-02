@@ -17,9 +17,16 @@ class Service < ActiveResource::Base
   end
 
   def type
-    (t = keywords.split(';').first) && t == "idee" ? "idea" : t
+    ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && t == "idee" ? "idea" : t
   end
 
+  def idea?
+    type.idea?
+  end
+
+  def problem?
+    type.problem?
+  end
   def as_json(options = {})
     super options.merge(only: [:service_code, :service_name], methods: [:type, :category])
   end

@@ -6,6 +6,7 @@ class Request < ActiveResource::Base
   alias_attribute :id, :service_request_id
 
   delegate :detailed_status, :detailed_status=, :job_status, :description_public,
+    :votes,
     to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
@@ -40,6 +41,23 @@ class Request < ActiveResource::Base
 
   def icon_map
     Settings::Route.path_to_image "icons/map/#{ icon_folder }/#{ icon }.png"
+  end
+
+  def min_req
+    @min_req ||= Settings::Vote.min_requirement
+  end
+
+  #delegate :idea?, :problem?, to: service#.type
+  def idea?
+    service.type.idea?
+  end
+
+  def problem?
+    service.type.problem?
+  end
+
+  def under_req?
+    votes < min_req
   end
 
   def flag_color_class
