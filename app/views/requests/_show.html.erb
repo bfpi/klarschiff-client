@@ -39,6 +39,15 @@
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
         <p class="list-group-item-text"><%= status(@request) %></p>
       </div>
+      <% if @show_votes -%>
+        <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
+          <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
+          <p class="list-group-item-text"><b>
+            <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
+            <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
+          </b></p>
+        </div>
+      <% end -%>
       <% if (notes = @request.status_notes).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status_notes) %></h4>
@@ -62,7 +71,7 @@
           </p>
         </div>
       <% end -%>
-      <% if (comments = @request.comments.to_a).present? -%>
+      <% if (comments = @request.comments.to_a).present? && @show_comments -%>
         <div class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -84,41 +93,43 @@
           </div>
         </div>
       <% end -%>
-      <div class="list-group-item">
-        <div class="panel panel-default">
-          <% notes = @request.notes.to_a %>
-          <div class="panel-heading">
-            <h4>
-              <a data-toggle="collapse" href="#notes" aria-controls="notes">
-                <%= Note.model_name.human %> (<%= notes.size %>)
-                <span class="caret"></span>
-              </a>
-              <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request, id_list: @id_list) %>">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </span>
-            </h4>
-          </div>
-          <div id="notes" class="panel-body list-group collapse">
-            <% notes.each do |note| -%>
-              <div class="list-group-item">
-                <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
-                <div class="list-group-item-text"><%= note.comment %></div>
-              </div>
-            <% end -%>
+      <% if @show_notes -%>
+        <div class="list-group-item">
+          <div class="panel panel-default">
+            <% notes = @request.notes.to_a %>
+            <div class="panel-heading">
+              <h4>
+                <a data-toggle="collapse" href="#notes" aria-controls="notes">
+                  <%= Note.model_name.human %> (<%= notes.size %>)
+                  <span class="caret"></span>
+                </a>
+                <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request, id_list: @id_list) %>">
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </span>
+              </h4>
+            </div>
+            <div id="notes" class="panel-body list-group collapse">
+              <% notes.each do |note| -%>
+                <div class="list-group-item">
+                  <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
+                  <div class="list-group-item-text"><%= note.comment %></div>
+                </div>
+              <% end -%>
+            </div>
           </div>
         </div>
-      </div>
+      <% end -%>
       <div class="list-group-item actions">
         <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
-        <% if false -%>
+        <% if @show_abuses || @show_votes -%>
           <div class="btn-group btn-group-justified" role="group">
-            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) %>
-            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) %>
+            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if @show_votes %>
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if @show_abuses %>
           </div>
         <% end -%>
         <div class="btn-group btn-group-justified" role="group">
-          <%#= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) %>
-          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) %>
+          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) if @show_create_comment %>
+          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) if @show_protocol %>
         </div>
       </div>
     </div>

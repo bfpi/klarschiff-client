@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   def index
-    conditions = { agency_responsible: @user.field_service_team, negation: "agency_responsible" }
+    conditions = @login_required ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
     conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
@@ -69,7 +69,7 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
+              Request.collection_path(nil, api_key: Request.api_key, email: @show_email ? params[:request][:email] :  @user.email),
               Request.format.encode(payload.merge(service_code: service_code)))
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
