@@ -2,6 +2,21 @@ urls:
   ks_frontend_search_url: http://demo.klarschiff.de/search
   ks_backend_vorgang_url: http://demo.klarschiff.de/vorgang/%s
 
+client:
+  login_required: true
+  show_email:
+  show_abuses:
+  show_votes:
+  show_create_comment:
+  show_comments:
+  show_edit_request:
+  show_edit_status:
+  show_protocol:
+  show_notes:
+
+vote:
+  min_requirement: 20
+
 ldap:
   host: klarschiff-test
   username: uid=admin

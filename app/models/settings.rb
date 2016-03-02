@@ -6,7 +6,15 @@ class Settings
     YAML::load file
   }.with_indifferent_access.each do |context, options|
     m = Module.new
+    client = nil
     options.each do |name, value|
+      if (context == 'client')
+        client = value if name == 'login_required'
+        unless (name == 'login_required')
+          value = (/email|abuses|votes|create_comment/ =~ name ? !client : client) if value.to_s.blank?
+        end
+        Rails.logger.debug("#{ name }: #{ value }")
+      end
       m.define_singleton_method(name) { value }
     end
     const_set context.classify, m
