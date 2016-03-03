@@ -342,15 +342,6 @@ KS.reloadFeatures= () ->
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
-#KS.showRequest = (features) ->
-#  features.forEach (feature) ->
-#    feature.get('features').forEach (f) ->
-#      if KS.request_id.localeCompare(f.get('id').toString()) == 0
-#        KS.olMap.getView().setZoom(11)
-#        KS.olMap.getView().setCenter(f.getGeometry().getCoordinates())
-#        $.ajax(url: KS.requests_path + KS.request_id, dataType: 'script')
-#        return
-
 if id = KS.getUrlParam('request')
   unless id == KS.request_id
     KS.request_id = id

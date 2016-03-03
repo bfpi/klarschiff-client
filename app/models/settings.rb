@@ -13,7 +13,6 @@ class Settings
         unless (name == 'login_required')
           value = (/email|abuses|votes|create_comment/ =~ name ? !client : client) if value.to_s.blank?
         end
-        Rails.logger.debug("#{ name }: #{ value }")
       end
       m.define_singleton_method(name) { value }
     end

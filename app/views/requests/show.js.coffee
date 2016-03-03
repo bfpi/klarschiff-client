@@ -1,6 +1,5 @@
 <% if @direct.present? -%>
-console.log("Test")
-coord = ol.proj.transform([<%= @request.long %>, <%= @request.lat %>], 'EPSG:4326', 'EPSG:25833')
+coord = ol.proj.transform([<%= @request.long %>, <%= @request.lat %>], KS.projectionWGS84, KS.projection())
 KS.olMap.getView().setZoom(11)
 KS.olMap.getView().setCenter(coord)
 <% end -%>
