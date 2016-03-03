@@ -9,6 +9,7 @@ class RequestsController < ApplicationController
       conditions.update detailed_status: states
     end
     @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
+    #@requests = Request.all.try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :ids)
     respond_to do |format|
       format.html { head :not_acceptable }

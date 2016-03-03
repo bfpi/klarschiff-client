@@ -16,6 +16,7 @@ KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
 KS.login_required = <%= Settings::Client.login_required %>
+KS.request_id = null
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -340,6 +341,14 @@ KS.reloadFeatures= () ->
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
+KS.showRequest = (features) ->
+  features.forEach (feature) ->
+    feature.get('features').forEach (f) ->
+      if KS.request_id.localeCompare(f.get('id').toString()) == 0
+        console.log('Bing!')
+        $.ajax(url: KS.requests_path + KS.request_id, dataType: 'script')
+        return
+
 $ ->
   KS.olMap = new KS.Map
 
@@ -357,9 +366,12 @@ $ ->
     return false
   )
 
-  #if id = KS.getUrlParam("request")
-  #  KS.showRequest = (features) ->
-  #    features.forEach (feature) ->
-  #      feature.get("features").forEach (f) ->
-  #        if f.get("id") == id
-  #          $.ajax(url: KS.requests_path + id, dataType: 'script')
+  KS.layers.findById('features').on('render', (event) ->
+    if id = KS.getUrlParam('request')
+      unless id == KS.request_id
+        KS.request_id = id
+        console.log('loaded')
+        features = KS.layers.findById("features").getSource().getFeatures()
+        if features.length > 0
+          KS.showRequest(features)
+  )
