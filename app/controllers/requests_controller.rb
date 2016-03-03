@@ -8,8 +8,11 @@ class RequestsController < ApplicationController
     if (states = Settings::Map.default_requests_states).present?
       conditions.update detailed_status: states
     end
-    @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
-    #@requests = Request.all.try(:to_a)
+    if params[:load_all]
+      @requests = Request.all.try(:to_a)
+    else
+      @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
+    end
     session[:referer_params] = params.slice(:controller, :action, :ids)
     respond_to do |format|
       format.html { head :not_acceptable }
@@ -20,7 +23,8 @@ class RequestsController < ApplicationController
 
   def show
     return head(:not_found) unless (id = params[:id]).present?
-    @request = Request.find(id)
+    return render nothing: true unless @request = Request.where(service_request_id: id).first
+    @direct = true if params[:direct]
     @id_list = params[:id_list].try(:map, &:to_i).presence
   end
 

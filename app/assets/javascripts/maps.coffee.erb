@@ -44,6 +44,7 @@ class KS.Map
           features = feature.get('features')
           if features.length == 1
             # Single feature -> show
+            console.log(features[0].getGeometry().getCoordinates())
             $.ajax(url: KS.requests_path + features[0].get("id"), dataType: 'script')
           else if map.getView().getZoom() == KS.maxZoom
             ids = Array()
@@ -341,13 +342,19 @@ KS.reloadFeatures= () ->
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
-KS.showRequest = (features) ->
-  features.forEach (feature) ->
-    feature.get('features').forEach (f) ->
-      if KS.request_id.localeCompare(f.get('id').toString()) == 0
-        console.log('Bing!')
-        $.ajax(url: KS.requests_path + KS.request_id, dataType: 'script')
-        return
+#KS.showRequest = (features) ->
+#  features.forEach (feature) ->
+#    feature.get('features').forEach (f) ->
+#      if KS.request_id.localeCompare(f.get('id').toString()) == 0
+#        KS.olMap.getView().setZoom(11)
+#        KS.olMap.getView().setCenter(f.getGeometry().getCoordinates())
+#        $.ajax(url: KS.requests_path + KS.request_id, dataType: 'script')
+#        return
+
+if id = KS.getUrlParam('request')
+  unless id == KS.request_id
+    KS.request_id = id
+    $.ajax(url: KS.requests_path + KS.request_id + '/?direct=true', dataType: 'script')
 
 $ ->
   KS.olMap = new KS.Map
@@ -364,14 +371,4 @@ $ ->
     KS.clearNewFeature()
     KS.map.actions().addClass 'hidden'
     return false
-  )
-
-  KS.layers.findById('features').on('render', (event) ->
-    if id = KS.getUrlParam('request')
-      unless id == KS.request_id
-        KS.request_id = id
-        console.log('loaded')
-        features = KS.layers.findById("features").getSource().getFeatures()
-        if features.length > 0
-          KS.showRequest(features)
   )
