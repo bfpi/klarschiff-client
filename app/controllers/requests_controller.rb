@@ -116,7 +116,7 @@ class RequestsController < ApplicationController
 
   private
   def permissable_params
-    keys = [:service_code, :description]
+    keys = [:service_code, :description, :email]
     keys += [:detailed_status, :job_status] if action_name == 'update'
     keys |= [:lat, :long] if action_name == 'create'
     data = params.require(:request).permit(keys)
