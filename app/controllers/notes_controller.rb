@@ -11,7 +11,7 @@ class NotesController < ApplicationController
 
   def create
     note = Note.create(params.require(:note).permit(:comment).merge(
-      service_request_id: params[:request_id], author: @user.email,
+      service_request_id: params[:request_id], author: @show_email ? params[:author] : @user.email,
       api_key: Note.api_key))
     @redirect = request_path(params[:request_id], id_list: params[:note][:id_list]).html_safe
     if note.persisted?

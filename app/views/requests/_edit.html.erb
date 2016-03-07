@@ -27,6 +27,14 @@
                            placeholder: t('placeholder.select.service') }) %>
           </div>
         </div>
+        <% if @show_email -%>
+          <div class="form-group">
+            <%= f.label(:email, Request.human_attribute_name(:email), class: 'col-md-2 control-label') %>
+            <div class="col-md-10">
+              <%= f.email_field(:email, class: 'form-control') %>
+            </div>
+          </div>
+        <% end -%>
         <div class="form-group">
           <%= f.label(:detailed_status, Request.human_attribute_name(:status), class: 'col-md-2 control-label') %>
           <div class="col-md-10">

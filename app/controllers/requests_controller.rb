@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
       if (states = Settings::Map.default_requests_states).present?
         conditions.update detailed_status: states
       end
-      return render nothing: true unless @request = Request.where(conditions).first
+      return head(:not_found) unless @request = Request.where(conditions).first
       @direct = true
     else
       @request = Request.find(id)
@@ -42,7 +42,7 @@ class RequestsController < ApplicationController
     return head(:not_found) unless (id = params[:id]).present?
     result =
       begin
-        Request.patch(id, { api_key: Request.api_key, email: @user.email },
+        Request.patch(id, { api_key: Request.api_key, email: @show_email ? params[:request][:email] : @user.email },
                       Request.format.encode(permissable_params))
       rescue ActiveResource::ResourceInvalid => e
         e.base_object_with_errors
