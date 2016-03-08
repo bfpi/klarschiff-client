@@ -7,6 +7,7 @@ class Settings
   }.with_indifferent_access.each do |context, options|
     m = Module.new
     client = nil
+    #setzen der Client-Parameter in Abhängigkeit des gestarteten Clients, wenn entsprechende Parameter nicht gesetzt wurden
     options.each do |name, value|
       if (context == 'client')
         client = value if name == 'login_required'

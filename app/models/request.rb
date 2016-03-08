@@ -44,10 +44,9 @@ class Request < ActiveResource::Base
   end
 
   def min_req
-    @min_req ||= Settings::Vote.min_requirement
+    @min_req ||= Settings::Vote.min_requirement || 0
   end
 
-  #delegate :idea?, :problem?, to: service#.type
   def idea?
     service.type.idea?
   end

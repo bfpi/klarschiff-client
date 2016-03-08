@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     request_http_basic_authentication unless @user
   end
 
+  # erzeuge Instanzen aus den Konfigurationsparametern für den Client
   def load_client_config
     %w(email abuses votes create_comment comments edit_request edit_status protocol notes).each do |tmp|
       unless instance_variable_get(inst = "@show_#{ tmp }")

@@ -44,7 +44,6 @@ class KS.Map
           features = feature.get('features')
           if features.length == 1
             # Single feature -> show
-            console.log(features[0].getGeometry().getCoordinates())
             $.ajax(url: KS.requests_path + features[0].get("id"), dataType: 'script')
           else if map.getView().getZoom() == KS.maxZoom
             ids = Array()
@@ -342,6 +341,7 @@ KS.reloadFeatures= () ->
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
+#eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')
   unless id == KS.request_id
     KS.request_id = id
