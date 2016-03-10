@@ -71,7 +71,7 @@ Klarschiff mobile client with additional functions supporting the field service
     - LDAP erfolgt in dem Block `ldap`
     - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
     - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
-    - Konfiguration des entsprechenden Clients (Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobiler Client) erfolgt im Block `client`
+    - Konfiguration des entsprechenden Clients,den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`
       - `login_required` (Pflichtfeld): 
         - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
       - `show_email`: 
@@ -108,7 +108,7 @@ Klarschiff mobile client with additional functions supporting the field service
 ### URL-Umleitung und Direkt-Links
 
 #### URL-Umleitung
-- über `{client_url}/start` erfolgt die Umleitung auf den mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
+- über `{client_url}/start` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
 - beim PPC findet diese Umleitung nicht statt
 - zudem kann der Query-Parameter `advice={id}` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
 
