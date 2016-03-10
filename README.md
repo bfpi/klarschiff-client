@@ -104,11 +104,14 @@ Klarschiff mobile client with additional functions supporting the field service
     - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee erfolgt im Block `vote`
   - Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
     - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
+
 ### URL-Umleitung und Direkt-Links
+
 #### URL-Umleitung
 - über `{client_url}/start` erfolgt die Umleitung auf den mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
 - beim PPC findet diese Umleitung nicht statt
 - zudem kann der Query-Parameter `advice={id}` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
+
 #### Direkt-Links
 - mittels `{client_url}/?request={id}` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert
 - die Karte zentriert dabei auf die Meldung und stellt diese dar
