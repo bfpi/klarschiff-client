@@ -110,7 +110,7 @@ Klarschiff mobile client with additional functions supporting the field service
 #### URL-Umleitung
 - über `<client_url>/start` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
 - beim PPC findet diese Umleitung nicht statt
-- zudem kann der Query-Parameter `advice={id}` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
+- zudem kann der Query-Parameter `advice=<id>` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
 
 #### Direkt-Links
 - mittels `<client_url>/?request=<id>` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert
