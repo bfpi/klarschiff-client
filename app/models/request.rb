@@ -14,12 +14,12 @@ class Request < ActiveResource::Base
     define_method(func) {
       instance_variable_get("@#{ tmp = func.to_s }") || 
       instance_variable_set("@#{ tmp }", 
-                            begin 
-                              tmp.classify.constantize.where(service_request_id: id)
-                            rescue
-                              nil
-                            end
-                          )
+        begin 
+          tmp.classify.constantize.where(service_request_id: id)
+        rescue
+          nil
+        end
+      )
     }
   end
 

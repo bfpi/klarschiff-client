@@ -44,7 +44,7 @@ class RequestsController < ApplicationController
       begin
         Request.patch(id, { api_key: Request.api_key, email: @show_email ? params[:request][:email] : @user.email },
                       Request.format.encode(permissable_params))
-      rescue ActiveResource::ResourceInvalid => e
+      rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors
       end
     if result.is_a?(Net::HTTPOK)

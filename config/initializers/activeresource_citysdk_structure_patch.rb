@@ -81,7 +81,7 @@ module ActiveResource
     private
     def request(method, path, *arguments)
       super
-    rescue ResourceInvalid => e
+    rescue ResourceInvalid, ForbiddenAccess => e
       def e.base_object_with_errors
         Base.new.tap { |b| b.load_remote_errors self }
       end

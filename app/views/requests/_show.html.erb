@@ -71,7 +71,7 @@
           </p>
         </div>
       <% end -%>
-      <% if (comments = @request.comments.to_a).present? && @show_comments -%>
+      <% if @show_comments && (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-heading">
