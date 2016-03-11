@@ -18,7 +18,7 @@ class NotesController < ApplicationController
       rescue ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors
       end
-    if result.is_a?(Net::HTTPOK)
+    if result.errors.blank?
       @redirect = request_path(params[:request_id], id_list: params[:note][:id_list]).html_safe
       if note.persisted?
         @success = I18n.t(:success_text, scope: 'notes.create')
