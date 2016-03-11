@@ -10,13 +10,17 @@ class Request < ActiveResource::Base
     to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
-  def comments
-    @comments ||= Comment.where(service_request_id: id)
-  end
-
-  # Workaround, to overcome the missing foreign_key option when defining has_many
-  def notes
-    @notes ||= Note.where(service_request_id: id)
+  %i(comments notes).each do |func|
+    define_method(func) {
+      instance_variable_get("@#{ tmp = func.to_s }") || 
+      instance_variable_set("@#{ tmp }", 
+                            begin 
+                              tmp.classify.constantize.where(service_request_id: id)
+                            rescue
+                              nil
+                            end
+                          )
+    }
   end
 
   def service
@@ -116,9 +120,9 @@ class Request < ActiveResource::Base
     include ResourceClient
     self.set_server_connection :city_sdk
 
-    # Overwrite Object#trust
-    def trust
-      attributes[:trust]
+    # Overwrite Object#trust, #job_status
+    %i(trust job_status).each do |tmp|
+      define_method(tmp){attributes[tmp]}
     end
   end
 end
