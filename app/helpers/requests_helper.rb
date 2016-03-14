@@ -1,6 +1,6 @@
 module RequestsHelper
   def mark_trust(request)
-    trust = request.extended_attributes.trust - 1
+    trust = request.extended_attributes.trust
     content_tag(:span, class: 'label label-default') do 
       content_tag(:span) do
         trust.times do
