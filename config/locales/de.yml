@@ -149,6 +149,11 @@ de:
       error:
         one: Fehler bei neuer Meldung
         other: Fehler bei neuen Meldungen
+        required:
+          category: Kategorie muss angegeben werden.
+          description: Es wurde keine Beschreibung übergeben.
+          lat: Es konnte keine gültige Position ermittelt werden.
+          long: Es konnte keine gültige Position ermittelt werden.
       success:
         one: Neue Meldung erfolgreich abgesetzt
         other: "%{count} neue Meldungen wurden hinzugefügt."

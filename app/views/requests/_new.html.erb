@@ -7,9 +7,10 @@
       </h4>
     </div>
     <div class="panel-body">
-      <%= form_for(@request, remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
-        <%= f.hidden_field(:lat) %>
-        <%= f.hidden_field(:long) %>
+      <%= form_for(@request, remote: true, authenticity_token: true,
+        html: { class: 'form-horizontal fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+        <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
+        <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
         <div id="request-category-1" class="form-group category">
           <label for="request_category_1" class="col-md-2 control-label"><%= Request.human_attribute_name(:category) %></label>
           <div class="col-md-4">
@@ -20,7 +21,8 @@
             <%= f.select(:service_code, services(), {}, id: :request_service_code_1,
                          class: 'form-control', name: 'request[service_code][]',
                          data: { src: services_path(type: @request.type),
-                                 placeholder: t('placeholder.select.service') }) %>
+                                 placeholder: t('placeholder.select.service'),
+                                 'missing-message': t('requests.create.error.required.category') }) %>
           </div>
           <div class="col-md-2">
             <div class="btn-group btn-group-justified" role="group">
@@ -74,7 +76,7 @@
         <div class="form-group">
           <%= f.label(:description, Request.human_attribute_name(:description), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
-            <%= f.text_area(:description, rows: 5, class: 'form-control') %>
+            <%= f.text_area(:description, rows: 5, class: 'form-control', data: { 'missing-message': t('requests.create.error.required.description') }) %>
           </div>
         </div>
         <div class="form-group">
