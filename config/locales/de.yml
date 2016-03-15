@@ -40,9 +40,9 @@ de:
   status:
     in_process: in Bearbeitung
     pending: gemeldet
-    processed: abgeschlossen
+    processed: gelöst
     received: offen
-    rejected: wird nicht bearbeitet
+    rejected: nicht lösbar
 
   # General view contents
   buttons:
