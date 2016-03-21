@@ -16,7 +16,6 @@ KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
 KS.login_required = <%= Settings::Client.login_required %>
-KS.request_id = null
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -343,9 +342,7 @@ KS.reloadFeatures= () ->
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')
-  unless id == KS.request_id
-    KS.request_id = id
-    $.ajax(url: KS.requests_path + KS.request_id + '/?direct=true', dataType: 'script')
+  $.ajax(url: KS.requests_path + id + '/?direct=true', dataType: 'script')
 
 $ ->
   KS.olMap = new KS.Map
