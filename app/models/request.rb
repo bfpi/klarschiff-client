@@ -15,7 +15,7 @@ class Request < ActiveResource::Base
       instance_variable_get("@#{ tmp = func }") || 
       instance_variable_set("@#{ tmp }", 
         begin 
-          tmp.classify.constantize.where(service_request_id: id)
+          tmp.to_s.classify.constantize.where(service_request_id: id)
         rescue
           nil
         end
