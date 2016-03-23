@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <% if @show_email -%>
+        <% if display?(:email) -%>
           <div class="form-group">
             <%= f.label(:email, Request.human_attribute_name(:email), class: 'col-md-2 control-label') %>
             <div class="col-md-10">

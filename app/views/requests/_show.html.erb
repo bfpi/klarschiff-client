@@ -39,7 +39,7 @@
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
         <p class="list-group-item-text"><%= status(@request) %></p>
       </div>
-      <% if @show_votes -%>
+      <% if display?(:votes) -%>
         <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
           <p class="list-group-item-text"><b>
@@ -71,7 +71,7 @@
           </p>
         </div>
       <% end -%>
-      <% if @show_comments && (comments = @request.comments.to_a).present? -%>
+      <% if display?(:comments) && (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -93,7 +93,7 @@
           </div>
         </div>
       <% end -%>
-      <% if @show_notes -%>
+      <% if display?(:notes) -%>
         <div class="list-group-item">
           <div class="panel panel-default">
             <% notes = @request.notes.to_a %>
@@ -121,15 +121,15 @@
       <% end -%>
       <div class="list-group-item actions">
         <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
-        <% if @show_abuses || @show_votes -%>
+        <% if display?(:abuses) || display?(:votes) -%>
           <div class="btn-group btn-group-justified" role="group">
-            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if @show_votes %>
-            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if @show_abuses %>
+            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
           </div>
         <% end -%>
         <div class="btn-group btn-group-justified" role="group">
-          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) if @show_create_comment %>
-          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) if @show_protocol %>
+          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
+          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) if display?(:protocol) %>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ class NotesController < ApplicationController
     result =
       begin
         note = Note.create(params.require(:note).permit(:comment).merge(
-          service_request_id: params[:request_id], author: @show_email ? params[:author] : @user.email,
+          service_request_id: params[:request_id], author: display?(:email) ? params[:author] : @user.email,
           api_key: Note.api_key))
       rescue ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors

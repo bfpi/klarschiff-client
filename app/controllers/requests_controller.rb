@@ -42,7 +42,7 @@ class RequestsController < ApplicationController
     return head(:not_found) unless (id = params[:id]).present?
     result =
       begin
-        Request.patch(id, { api_key: Request.api_key, email: @show_email ? params[:request][:email] : @user.email },
+        Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
                       Request.format.encode(permissable_params))
       rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors
@@ -78,7 +78,7 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: @show_email ? params[:request][:email] :  @user.email),
+              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] :  @user.email),
               Request.format.encode(payload.merge(service_code: service_code)))
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
