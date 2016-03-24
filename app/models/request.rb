@@ -12,14 +12,11 @@ class Request < ActiveResource::Base
   # Workaround, to overcome the missing foreign_key option when defining has_many
   %i(comments notes).each do |func|
     define_method(func) {
-      instance_variable_get("@#{ tmp = func }") || 
-      instance_variable_set("@#{ tmp }", 
-        begin 
-          tmp.to_s.classify.constantize.where(service_request_id: id)
-        rescue
-          nil
-        end
-      )
+      begin 
+        func.to_s.classify.constantize.where(service_request_id: id)
+      rescue
+        nil
+      end
     }
   end
 

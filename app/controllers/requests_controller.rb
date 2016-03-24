@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   def index
-    conditions = @login_required ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
+    conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
     conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
@@ -20,7 +20,7 @@ class RequestsController < ApplicationController
   def show
     return head(:not_found) unless (id = params[:id]).present?
     if params[:direct]
-      conditions = {service_request_id: id}
+      conditions = { service_request_id: id }
       if (states = Settings::Map.default_requests_states).present?
         conditions.update detailed_status: states
       end

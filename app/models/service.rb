@@ -27,6 +27,7 @@ class Service < ActiveResource::Base
   def problem?
     type.problem?
   end
+
   def as_json(options = {})
     super options.merge(only: [:service_code, :service_name], methods: [:type, :category])
   end
