@@ -107,6 +107,18 @@ Klarschiff mobile client with additional functions supporting the field service
 
 ### URL-Umleitung und Direkt-Links
 
+#### Änderungen der Konfiguration am Apache-Server
+- folgende Änderungen an der .conf-Datei des Apache-Servers sind vorzunehmen
+```php
+  RewriteEngine on
+```
+- Aktivierung der RewriteEngine zum Umschreiben der angeforderten URL
+```php
+  RewriteCond %{REQUEST_URI} ^/$
+  RewriteRule (.*) /mobil/start [R=301]
+```
+- Umschreiben der Basis-URI des Webservers auf das Start-Verzeichnis des mobilen Clients, auf dem die Umleitung erfolgt
+
 #### URL-Umleitung
 - über `<client_url>/start` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
 - beim PPC findet diese Umleitung nicht statt
