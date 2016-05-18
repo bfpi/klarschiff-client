@@ -65,9 +65,9 @@ map:
       visible: true
       attribution: >
         Kartenbild © Hansestadt Rostock
-        (<a href="http://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" style="color: #006CB7; text-decoration:none;">CC BY 4.0</a>) |
-        Kartendaten © <a href="http://www.openstreetmap.org/" target="_blank" style="color: #006CB7; text-decoration: none;">OpenStreetMap</a>
-        (<a href="http://opendatacommons.org/licenses/odbl/" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
+        (<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" style="color: #006CB7; text-decoration:none;">CC BY 4.0</a>) |
+        Kartendaten © <a href="http://www.openstreetmap.org" target="_blank" style="color: #006CB7; text-decoration: none;">OpenStreetMap</a>
+        (<a rel="license" href="http://opendatacommons.org/licenses/odbl" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
         und LkKfS-MV
     -
       url: http://geo.sv.rostock.de/geodienste/luftbild_mv-40/wmts/hro.luftbild_mv-40.luftbild_mv-40/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
