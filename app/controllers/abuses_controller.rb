@@ -1,7 +1,8 @@
 class AbusesController < ApplicationController
   def new
     @request = Request.find(params[:request_id])
-    @abuse = Abuse.new(service_request_id: @request.id, author: @user.email, comment: nil)
+    @abuse = Abuse.new(service_request_id: @request.id, author: login_required? ? @user.email : nil,
+                       comment: nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }

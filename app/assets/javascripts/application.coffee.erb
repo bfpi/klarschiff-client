@@ -40,5 +40,10 @@ KS.autoRefresh = () ->
       glyphiconRefresh.parents('.clickable').click()
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
+KS.getUrlParam = (name) ->
+  results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href)
+  return null unless results
+  results[1] || 0
+
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)

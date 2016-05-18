@@ -73,6 +73,14 @@
             </div>
           </div>
         </div>
+        <% if display?(:email) -%>
+          <div class="form-group">
+            <%= f.label(:email, Request.human_attribute_name(:email), class: 'col-md-2 control-label') %>
+            <div class="col-md-10">
+              <%= f.email_field(:email, class: 'form-control') %>
+            </div>
+          </div>
+        <% end -%>
         <div class="form-group">
           <%= f.label(:description, Request.human_attribute_name(:description), class: 'col-md-2 control-label') %>
           <div class="col-md-10">

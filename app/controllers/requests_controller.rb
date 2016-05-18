@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   def index
-    conditions = { agency_responsible: @user.field_service_team, negation: "agency_responsible" }
+    conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
     conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
@@ -19,7 +19,16 @@ class RequestsController < ApplicationController
 
   def show
     return head(:not_found) unless (id = params[:id]).present?
-    @request = Request.find(id)
+    if params[:direct]
+      conditions = { service_request_id: id }
+      if (states = Settings::Map.default_requests_states).present?
+        conditions.update detailed_status: states
+      end
+      return head(:not_found) unless @request = Request.where(conditions).first
+      @direct = true
+    else
+      @request = Request.find(id)
+    end
     @id_list = params[:id_list].try(:map, &:to_i).presence
   end
 
@@ -33,9 +42,9 @@ class RequestsController < ApplicationController
     return head(:not_found) unless (id = params[:id]).present?
     result =
       begin
-        Request.patch(id, { api_key: Request.api_key, email: @user.email },
+        Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
                       Request.format.encode(permissable_params))
-      rescue ActiveResource::ResourceInvalid => e
+      rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors
       end
     if result.is_a?(Net::HTTPOK)
@@ -69,7 +78,7 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: @user.email),
+              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] :  @user.email),
               Request.format.encode(payload.merge(service_code: service_code)))
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
@@ -107,7 +116,7 @@ class RequestsController < ApplicationController
 
   private
   def permissable_params
-    keys = [:service_code, :description]
+    keys = [:service_code, :description, :email]
     keys += [:detailed_status, :job_status] if action_name == 'update'
     keys |= [:lat, :long] if action_name == 'create'
     data = params.require(:request).permit(keys)

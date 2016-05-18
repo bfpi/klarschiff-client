@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= t('pagetitle') %></title>
+    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }") %></title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
@@ -57,18 +57,20 @@
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
               <% end %>
             </li>
-            <li>
-              <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
-                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: t("nav.job_map")) do %>
-                  <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-                  <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
-              <% end %>
-            </li>
+            <% if login_required? -%>
+              <li>
+                <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
+                  <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                  <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: t("nav.job_map")) do %>
+                    <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
+                <% end %>
+              </li>
+            <% end -%>
           </ul>
         </div>
       </div>

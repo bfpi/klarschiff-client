@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate
+  include ClientConfig
+  before_action :authenticate, if: :login_required?
+  helper_method :display?, :login_required?
   protect_from_forgery with: :exception
 
   protected
+
   def authenticate
     @user = if name = request.env["AUTHENTICATE_FULLNAME"]
               Ldap.login2(name)

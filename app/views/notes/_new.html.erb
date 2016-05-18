@@ -11,16 +11,31 @@
             <%= f.text_area(:comment, rows: 4, class: 'form-control', placeholder: t('placeholder.note')) %>
           </div>
         </div>
-        <div class="form-group">
-          <div class="btn-group btn-group-justified" role="group">
-            <div class="btn-group" role="group">
-              <%= f.submit(t('buttons.submit'), class: 'btn btn-default btn-primary') %>
+        <div class="row">
+          <% if display?(:email) -%>
+            <div class="col-md-8">
+              <div class="form-group has-feedback has-clear">
+                <div class="input-group">
+                  <span class="input-group-addon">@</span>
+                  <%= email_field_tag(:author, nil, class: 'form-control', placeholder: t('placeholder.email')) %>
+                </div>
+                <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
+              </div>
             </div>
-            <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default', role: :button) %>
+          <% end -%>
+          <div class="col-md-<%= display?(:email) ? 4 : 12 %>">
+            <div class="form-group">
+              <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                  <%= f.submit(t('buttons.submit'), class: 'btn btn-default btn-primary') %>
+                </div>
+                <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default', role: :button) %>
+              </div>
+              <% @id_list.each do |idl| -%>
+                <%= f.hidden_field "id_list][", :value => idl, id: nil %>
+              <% end if @id_list -%>
+            </div>
           </div>
-          <% @id_list.each do |idl| -%>
-            <%= f.hidden_field "id_list][", :value => idl, id: nil %>
-          <% end if @id_list -%>
         </div>
       <% end %>
     </div>

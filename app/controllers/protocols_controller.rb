@@ -10,7 +10,7 @@ class ProtocolsController < ApplicationController
   end
 
   def create
-    protocol = Protocol.new((params[:protocol] || {}).update(:user => @user.name))
+    protocol = Protocol.new((params[:protocol] || {}).update(:user => @user ? @user.name : params[:protocol][:user]))
     ProtocolMailer.protocol(protocol).deliver_now
     @redirect = request_path(params[:request_id], id_list: params[:protocol][:id_list]).html_safe
     @success = I18n.t('protocols.create.success_text')

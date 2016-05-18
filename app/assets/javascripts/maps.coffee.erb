@@ -15,6 +15,7 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
+KS.login_required = <%= Settings::Client.login_required %>
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -25,7 +26,6 @@ class KS.Map
         center: <%= Settings::Map.center %>
         zoom: <%= Settings::Map.zoom[:initial] %>
         maxZoom: KS.maxZoom
-
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
     KS.geolocation = new KS.Geolocation(@olMap)
@@ -65,7 +65,6 @@ class KS.Map
 
     map.getView().on 'change:resolution', (e) ->
       KS.zoomEvent = true
-
 
 KS.styles =
   featureAttribution: (feature) ->
@@ -198,14 +197,15 @@ class KS.Layers
         source: new KS.FeatureVector(KS.requests_path)
       style: KS.styles.featureStyle
       visible: true
-
-    @layers.push new ol.layer.Vector
-      id: "jobs"
-      source: new ol.source.Cluster
-        distance: 0
-        source: new KS.FeatureVector(KS.jobs_path)
-      style: KS.styles.jobStyle
-      visible: true
+    
+    if KS.login_required
+      @layers.push new ol.layer.Vector
+        id: "jobs"
+        source: new ol.source.Cluster
+          distance: 0
+          source: new KS.FeatureVector(KS.jobs_path)
+        style: KS.styles.jobStyle
+        visible: true
 
     map.addLayer layer for layer in @layers
 
@@ -337,7 +337,12 @@ KS.clearNewFeature= () ->
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
   new KS.FeatureData(KS.requests_path, extent, KS.layers.findById("features").getSource().getSource())
-  new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
+  if KS.login_required
+    new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
+
+#eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
+if id = KS.getUrlParam('request')
+  $.ajax(url: KS.requests_path + id + '/?direct=true', dataType: 'script')
 
 $ ->
   KS.olMap = new KS.Map

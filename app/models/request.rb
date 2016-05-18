@@ -6,16 +6,18 @@ class Request < ActiveResource::Base
   alias_attribute :id, :service_request_id
 
   delegate :detailed_status, :detailed_status=, :job_status, :description_public,
+    :votes,
     to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
-  def comments
-    @comments ||= Comment.where(service_request_id: id)
-  end
-
-  # Workaround, to overcome the missing foreign_key option when defining has_many
-  def notes
-    @notes ||= Note.where(service_request_id: id)
+  %i(comments notes).each do |func|
+    define_method(func) {
+      begin 
+        func.to_s.classify.constantize.where(service_request_id: id)
+      rescue
+        nil
+      end
+    }
   end
 
   def service
@@ -40,6 +42,22 @@ class Request < ActiveResource::Base
 
   def icon_map
     Settings::Route.path_to_image "icons/map/#{ icon_folder }/#{ icon }.png"
+  end
+
+  def min_req
+    @min_req ||= Settings::Vote.min_requirement || 0
+  end
+
+  def idea?
+    service.type.idea?
+  end
+
+  def problem?
+    service.type.problem?
+  end
+
+  def under_req?
+    votes < min_req
   end
 
   def flag_color_class
@@ -99,9 +117,9 @@ class Request < ActiveResource::Base
     include ResourceClient
     self.set_server_connection :city_sdk
 
-    # Overwrite Object#trust
-    def trust
-      attributes[:trust]
+    # Overwrite Object#trust, #job_status
+    %i(trust job_status).each do |tmp|
+      define_method(tmp){attributes[tmp]}
     end
   end
 end

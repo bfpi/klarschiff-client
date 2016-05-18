@@ -18,6 +18,12 @@
           </div>
         </div>
         <div class="form-group">
+          <%= f.label(:user, Protocol.human_attribute_name(:recorder), class: 'col-md-2 control-label') %>
+          <div class="col-md-10">
+            <%= f.text_field(:user, class: 'form-control') %>
+          </div>
+        </div>
+        <div class="form-group">
           <%= f.label(:text, Protocol.human_attribute_name(:text), class: 'col-md-2 control-label') %>
           <div class="col-md-10">
             <%= f.text_area(:text, rows: 5, class: 'form-control') %>
