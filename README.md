@@ -65,45 +65,48 @@ Klarschiff mobile client with additional functions supporting the field service
     ```bash
     rake assets:precompile
     ```
-- Konfiguration der Applikation (Anpassung an die entsprechende Umgebung)
-  - Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden.
-  - Konfigurationen in der `config/settings.yml`
-    - LDAP erfolgt in dem Block `ldap`
-    - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
-    - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
-    - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`
-      - `login_required` (Pflichtfeld): 
-        - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
-      - `show_email`: 
-        - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
-        - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_abuses`:
-        - steuert die Darstellung der `Missbrauch`-Schaltfläche für Meldungen
-        - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_votes`:
-        - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
-        - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_create_comments`:
-        - steuert die Darstelling der Schaltfläche `Lob, Hinweise oder Kritik`
-        - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_comments`:
-        - steuert die Darstellung der Kommentare einer Meldung
-        - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_edit_request`:
-        - steuert die Darstellung der Bearbeiten-Schaltfläche einer Meldung
-        - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_edit_status`:
-        - steuert die Darstellung der Schaltfläche zum Ändern des Status eines Auftrags
-        - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_protocol`:
-        - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
-        - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-      - `show_notes`:
-        - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
-        - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee erfolgt im Block `vote`
-  - Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
-    - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
+
+## Konfiguration der Applikation (Anpassung an die entsprechende Umgebung / Unterscheidung zw. mobilem Simple-Client und mobilem Außendienst-Frontent)
+Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden.
+
+### Konfigurationen in der `config/settings.yml`
+  - LDAP erfolgt in dem Block `ldap`
+  - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
+  - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
+  - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`:
+    - `login_required` (Pflichtfeld): 
+      - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
+    - `show_email`: 
+      - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
+      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_abuses`:
+      - steuert die Darstellung der `Missbrauch`-Schaltfläche für Meldungen
+      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_votes`:
+      - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
+      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_create_comments`:
+      - steuert die Darstelling der Schaltfläche `Lob, Hinweise oder Kritik`
+      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_comments`:
+      - steuert die Darstellung der Kommentare einer Meldung
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_edit_request`:
+      - steuert die Darstellung der Bearbeiten-Schaltfläche einer Meldung
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_edit_status`:
+      - steuert die Darstellung der Schaltfläche zum Ändern des Status eines Auftrags
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_protocol`:
+      - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_notes`:
+      - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee erfolgt im Block `vote`
+
+### Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
+Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
 
 ### URL-Umleitung und Direkt-Links
 
