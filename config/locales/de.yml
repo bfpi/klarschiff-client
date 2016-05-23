@@ -4,7 +4,7 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
 
   pagetitle: Prüf- und Protokollclient
-  pagetitle_mobile_client: Klarschiff.HRO - Portal zur Bürgerbeteiligung der Hansestadt Rostock
+  pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
   username: Benutzername
 
   activemodel:
