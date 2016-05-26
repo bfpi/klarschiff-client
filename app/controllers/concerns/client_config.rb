@@ -8,4 +8,8 @@ module ClientConfig
   def login_required?
     Settings::Client.login_required
   end
+
+  def imprint
+    return Settings::Url.ks_frontend_imprint_url
+  end
 end

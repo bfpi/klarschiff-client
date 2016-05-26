@@ -3,7 +3,7 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
 
-  pagetitle: Prüf- und Protokollclient
+  pagetitle: Klarschiff-Prüf- und Protokollclient
   pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
   username: Benutzername
 
@@ -75,6 +75,7 @@ de:
     places: Standortsuche
     report_idea: Idee melden
     report_problem: Problem melden
+    imprint: Impressum
 
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.

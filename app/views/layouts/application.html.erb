@@ -71,6 +71,14 @@
                 <% end %>
               </li>
             <% end -%>
+            <% if !login_required? -%>
+              <li>
+                <a href="<%= imprint %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
+                  <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                  <span class="hidden-sm hidden-md"><%= t("nav.imprint") %></span>
+                </a>
+              </li>
+            <% end -%>
           </ul>
         </div>
       </div>

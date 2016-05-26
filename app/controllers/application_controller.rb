@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ClientConfig
   before_action :authenticate, if: :login_required?
-  helper_method :display?, :login_required?
+  helper_method :display?, :login_required?, :imprint
   protect_from_forgery with: :exception
 
   protected
