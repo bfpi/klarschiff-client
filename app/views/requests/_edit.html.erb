@@ -7,7 +7,9 @@
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>
-        <%= mark_trust(@request) %>
+        <% if display?(:trust) -%>
+          <%= mark_trust(@request) %>
+        <% end -%>
       </h4>
     </div>
     <div class="panel-body">

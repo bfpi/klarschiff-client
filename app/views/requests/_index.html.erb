@@ -12,7 +12,9 @@
               <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
               #<%= req.id %>: <%= req.title %>
               <%= mark_photo_required(req) %>
-              <%= mark_trust(req) %>
+              <% if display?(:trust) -%>
+                <%= mark_trust(req) %>
+              <% end -%>
               <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
             </div>
             <div class="visible-xs right-badges">
@@ -20,7 +22,9 @@
                 <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
                 #<%= req.id %>
                 <%= mark_photo_required(req) %>
-                <%= mark_trust(req) %>
+                <% if display?(:trust) -%>
+                  <%= mark_trust(req) %>
+                <% end -%>
               </span>
               <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
               <div class="list-group-item-text heading">

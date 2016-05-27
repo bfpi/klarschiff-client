@@ -8,7 +8,9 @@
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
         <%= label_photo_required = mark_photo_required(@request) %>
-        <%= mark_trust(@request) %>
+        <% if display?(:trust) -%>
+          <%= mark_trust(@request) %>
+        <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
       </h4>
       <h4 class="visible-xs panel-title">
@@ -16,7 +18,9 @@
           <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
           <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
           #<%= @request.id %>
-          <%= mark_trust(@request) %>
+          <% if display?(:trust) -%>
+            <%= mark_trust(@request) %>
+          <% end -%>
           <%= label_photo_required = mark_photo_required(@request) %>
           <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
         </div>

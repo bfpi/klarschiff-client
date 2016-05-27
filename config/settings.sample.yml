@@ -1,6 +1,7 @@
 urls:
   ks_frontend_search_url: http://demo.klarschiff.de/search
   ks_frontend_url: http://demo.klarschiff-hro.de/
+  ks_frontend_imprint_url: http://demo.klarschiff-hro.de/impressum.php
   ks_backend_vorgang_url: http://demo.klarschiff.de/vorgang/%s
 
 client:
@@ -14,6 +15,7 @@ client:
   show_edit_status:
   show_protocol:
   show_notes:
+  show_trust:
 
 vote:
   min_requirement: 20
@@ -47,6 +49,7 @@ protocol_mail:
     password: passwort
 
 map:
+  show_trust: true
   default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
   center: [312900, 5997281]
   mv_bbox_25833: [206885, 5890624, 460857, 6060841]

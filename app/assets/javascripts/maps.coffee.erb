@@ -247,10 +247,12 @@ class KS.FeatureData
         attribution = ""
         attribution = "" if elem.extended_attributes.photo_required
 
+        <% if Settings::Map.show_trust %>
         count = 1
         while count <= elem.extended_attributes.trust
           attribution += ""
           count++
+        <% end %>
 
         coord = ol.proj.transform([elem.long, elem.lat], KS.projectionWGS84, KS.projection())
         f = new ol.Feature

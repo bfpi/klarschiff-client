@@ -103,6 +103,9 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
     - `show_notes`:
       - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
       - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+    - `show_trust`:
+      - steuert die Darstelling der Trust-Level-Sterne
+      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee erfolgt im Block `vote`
 
 ### Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
