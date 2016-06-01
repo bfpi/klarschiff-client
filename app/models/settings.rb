@@ -11,6 +11,9 @@ class Settings
     options.each do |name, value|
       if (context == 'client')
         if name == 'login_required'
+          unless value.to_s.in?(%w(true false))
+            raise 'Value for param client.login_required in settings.yml has to be one of [true, false]'
+          end
           client = value
         else
           value = (/email|abuses|votes|create_comment/ =~ name ? !client : client) if value.to_s.blank?
