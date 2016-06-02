@@ -26,6 +26,7 @@ class KS.Map
         center: <%= Settings::Map.center %>
         zoom: <%= Settings::Map.zoom[:initial] %>
         maxZoom: KS.maxZoom
+        minZoom: <%= Settings::Map.zoom[:min] %>
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
     KS.geolocation = new KS.Geolocation(@olMap)

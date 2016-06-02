@@ -99,6 +99,7 @@ map:
   zoom:
     initial: 8
     max: 15
+    min: 5
 
 request:
   permissable_states:
