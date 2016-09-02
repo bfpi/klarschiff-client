@@ -53,41 +53,46 @@ nav
       padding-top: 0.5em
 
   .glyphicon
+    font-size: 150%
     padding-right: 0.4em
 
     @media (min-width: 610px) and (max-width: $screen-md-max)
-      padding-left: 0.95em
-      padding-right: 0.95em
+      padding-left: 0.5em
+      padding-right: 0.5em
 
     @media (min-width: 551px) and (max-width: 609px)
-      padding-left: 0.75em
-      padding-right: 0.75em
+      padding-left: 0.3em
+      padding-right: 0.3em
 
-    @media (min-width: 506px) and (max-width: 550px)
-      padding-left: 0.55em
-      padding-right: 0.55em
-
-    @media (min-width: 461px) and (max-width: 505px)
-      padding-left: 0.35em
-      padding-right: 0.35em
+    @media (min-width: 461px) and (max-width: 550px)
+      padding-left: 0.2em
+      padding-right: 0.2em
 
     @media (min-width: 416px) and (max-width: 460px)
-      padding-left: 0.15em
-      padding-right: 0.15em
+      padding-left: 0.09em
+      padding-right: 0.09em
 
-    @media (min-width: 382px) and (max-width: 416px)
+    @media (min-width: 392px) and (max-width: 416px)
       padding-left: 0
       padding-right: 0
 
   .container,
   .nav > li > a
-    @media (min-width: 360px) and (max-width: 381px)
-      padding-left: 11px
-      padding-right: 11px
+    @media (min-width: 392px) and (max-width: 505px)
+      padding-left: 12px
+      padding-right: 12px
+
+    @media (min-width: 360px) and (max-width: 391px)
+      padding-left: 6px
+      padding-right: 6px
 
     @media (min-width: 340px) and (max-width: 359px)
-      padding-left: 10px
-      padding-right: 10px
+      padding-left: 5px
+      padding-right: 5px
+
+  .glyphicon + span
+    position: relative
+    top: -3px
 
 @media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
   .container
