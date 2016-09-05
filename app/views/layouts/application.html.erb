@@ -57,7 +57,7 @@
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
               <% end %>
             </li>
-            <% if login_required? -%>
+            <% if login_required? && has_field_service_team? -%>
               <li>
                 <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
                   <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>

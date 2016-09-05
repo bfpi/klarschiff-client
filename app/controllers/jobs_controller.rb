@@ -2,6 +2,7 @@ class JobsController < ApplicationController
   before_action :conditions
 
   def index
+    return render(nothing: true) unless has_field_service_team?
     if (center = params[:center]).present?
       @conditions.update lat: center[0], long: center[1]
     end
