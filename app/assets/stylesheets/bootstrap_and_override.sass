@@ -59,17 +59,17 @@ nav
     font-size: 150%
     padding-right: 0.4em
 
-    @media (min-width: 679px) and (max-width: $screen-md-max)
-      padding-left: 0.5em
-      padding-right: 0.5em
-
-    @media (min-width: 551px) and (max-width: 678px)
+    @media (min-width: $screen-lg-min)
       padding-left: 0.3em
       padding-right: 0.3em
 
-    @media (min-width: 461px) and (max-width: 550px)
-      padding-left: 0.2em
-      padding-right: 0.2em
+    @media (min-width: 550px) and (max-width: $screen-md-max)
+      padding-left: 0.5em
+      padding-right: 0.5em
+
+    @media (min-width: 461px) and (max-width: 549px)
+      padding-left: 0.25em
+      padding-right: 0.25em
 
     @media (min-width: 416px) and (max-width: 460px)
       padding-left: 0.09em
@@ -81,13 +81,13 @@ nav
 
   .container,
   .nav > li > a
-    @media (min-width: 506px) and (max-width: 678px)
-      padding-left: 12px
-      padding-right: 12px
+    @media (min-width: $screen-lg-min)
+      padding-left: 6px
+      padding-right: 7px
 
-    @media (min-width: 392px) and (max-width: 505px)
-      padding-left: 9px
-      padding-right: 10px
+    @media (min-width: 392px) and (max-width: $screen-md-max)
+      padding-left: 8px
+      padding-right: 9px
 
     @media (min-width: 360px) and (max-width: 391px)
       padding-left: 4px
