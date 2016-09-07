@@ -47,6 +47,9 @@ h5,
     &:last-child
       padding-bottom: 0
 
+.navbar-default .navbar-nav > li > a
+  color: #000
+
 nav
   &.navbar-fixed-bottom
     .btn-group
@@ -78,17 +81,21 @@ nav
 
   .container,
   .nav > li > a
+    @media (min-width: 506px)
+      padding-left: 8px
+      padding-right: 9px
+
     @media (min-width: 392px) and (max-width: 505px)
-      padding-left: 12px
-      padding-right: 12px
+      padding-left: 9px
+      padding-right: 10px
 
     @media (min-width: 360px) and (max-width: 391px)
-      padding-left: 6px
-      padding-right: 6px
+      padding-left: 4px
+      padding-right: 5px
 
     @media (min-width: 340px) and (max-width: 359px)
-      padding-left: 5px
-      padding-right: 5px
+      padding-left: 3px
+      padding-right: 4px
 
   .glyphicon + span
     position: relative

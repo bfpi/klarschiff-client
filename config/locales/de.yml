@@ -75,6 +75,7 @@ de:
     places: Standortsuche
     report_idea: Idee melden
     report_problem: Problem melden
+    report_tip: Tipp melden
     imprint: Impressum
 
   placeholder:
@@ -95,6 +96,9 @@ de:
       problem:
         one: Problem
         other: Probleme
+      tip:
+        one: Tipp
+        other: Tipps
 
   # Views
   abuses:

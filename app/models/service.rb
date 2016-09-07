@@ -17,7 +17,14 @@ class Service < ActiveResource::Base
   end
 
   def type
-    ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && t == "idee" ? "idea" : t
+    ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && case t
+    when "idee"
+      "idea"
+    when "tipp"
+      "tip"
+    else
+      t
+    end
   end
 
   def idea?
@@ -26,6 +33,10 @@ class Service < ActiveResource::Base
 
   def problem?
     type.problem?
+  end
+
+  def tipp?
+    type.tipp?
   end
 
   def as_json(options = {})

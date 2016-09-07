@@ -57,6 +57,14 @@
                 <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
               <% end %>
             </li>
+            <% if login_required? -%>
+              <li>
+                <%= link_to(new_request_path(type: :tip), remote: true, title: t("nav.report_tip")) do %>
+                  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                  <span class="hidden-sm hidden-md"><%= t("nav.report_tip") %></span>
+                <% end %>
+              </li>
+            <% end -%>
             <% if login_required? && has_field_service_team? -%>
               <li>
                 <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
@@ -100,6 +108,9 @@
     <div id="image-sources">
       <img id="new-idea" src="<%= image_path 'icons/map/active/png/idea-gray.png' %>" />
       <img id="new-problem" src="<%= image_path 'icons/map/active/png/problem-gray.png' %>" />
+      <% if login_required? -%>
+        <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>" />
+      <% end -%>
       <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
     </div>
   </body>

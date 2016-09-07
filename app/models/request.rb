@@ -56,6 +56,10 @@ class Request < ActiveResource::Base
     service.type.problem?
   end
 
+  def tipp?
+    service.type.tipp?
+  end
+
   def under_req?
     votes < min_req
   end
