@@ -1,3 +1,4 @@
 [submodule "app/assets/images/icons"]
 	path = app/assets/images/icons
 	url = https://github.com/rostock/klarschiff-icons.git
+    branch = master
