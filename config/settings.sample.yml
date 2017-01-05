@@ -56,7 +56,7 @@ map:
   extent: [271264, 5938535, 356804, 6017573]
   wmts_layers:
     -
-      url: http://www.orka-mv.de/geodienste/orkamv/wmts/orkamv/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
+      url: https://www.orka-mv.de/geodienste/orkamv/wmts/orkamv/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
       content: orkamv
       matrix_set: epsg_25833
       format: png
