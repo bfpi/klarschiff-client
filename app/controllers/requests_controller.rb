@@ -57,7 +57,7 @@ class RequestsController < ApplicationController
   end
 
   def new
-    @request = Request.new(params.permit(:type, position: []))
+    @request = Request.new(type: params[:type], position: params[:position])
     unless @request.try(:lat).present? && @request.try(:long).present?
       return render :new_position
     end
