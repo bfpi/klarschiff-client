@@ -1,0 +1,30 @@
+<div id="ol-map" class="ol-map-desktop">
+  <div class="sidebar">
+    <div class="tab-content">
+      <div id="request" class="tab-pane active">
+        <%= render partial: 'requests/desktop/start_request' %>
+      </div>
+      <div id="adresses" class="tab-pane">
+        Adressen
+      </div>
+    </div>
+    <ul class="nav nav-tabs tabs-right sideways">
+      <li class="active">
+        <a href="#request" data-toggle="tab"><%= t('.request') %></a>
+      </li>
+      <li>
+        <a href="#adresses" data-toggle="tab"><%= t('.adresses') %></a>
+      </li>
+      <li>
+        <a href="#watch" data-toggle="tab"><%= t('.watch') %></a>
+      </li>
+    </ul>
+  </div>
+  <div class="panel panel-default map-panel">
+    <div class="panel-heading">
+      Karte
+    </div>
+    <div class="panel-body">
+    </div>
+  </div>
+</div>

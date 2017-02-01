@@ -1,0 +1,91 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#" class="geolocator" title="<%= t("nav.location") %>">
+            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.location") %></span>
+          </a>
+        </li>
+        <li>
+          <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
+            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
+          <% end %>
+        </li>
+        <li>
+          <a href="#" class="layer-switcher" title="<%= t("nav.map_background") %>">
+            <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.map_background") %></span>
+          </a>
+        </li>
+        <li>
+          <%= link_to(places_path, remote: true, class: :places, title: t("nav.places")) do %>
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to(new_request_path(type: :problem, mobile: @mobile), remote: true, title: t("nav.report_problem")) do %>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to(new_request_path(type: :idea, mobile: @mobile), remote: true, title: t("nav.report_idea")) do %>
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
+          <% end %>
+        </li>
+        <% if login_required? -%>
+          <li>
+            <%= link_to(new_request_path(type: :tip, mobile: @mobile), remote: true, title: t("nav.report_tip")) do %>
+              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              <span class="hidden-sm hidden-md"><%= t("nav.report_tip") %></span>
+            <% end %>
+          </li>
+        <% end -%>
+        <% if login_required? && has_field_service_team? -%>
+          <li>
+            <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
+              <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+              <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: t("nav.job_map")) do %>
+                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
+            <% end %>
+          </li>
+        <% end -%>
+        <% if !login_required? -%>
+          <li>
+            <a href="<%= imprint %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              <span class="hidden-sm hidden-md"><%= t("nav.imprint") %></span>
+            </a>
+          </li>
+        <% end -%>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="modal fade" id="flash" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog"><div class="modal-content"></div></div>
+</div>
+<div id="ol-map" class="ol-map-mobile">
+  <nav class="navbar navbar-default navbar-fixed-bottom actions hidden">
+  </nav>
+</div>
+<div id="content" class="container">
+  <%= yield %>
+</div>

@@ -1,0 +1,57 @@
+<div id="request-form" class="request-container">
+  <%= form_for(@request, remote: true, authenticity_token: true,
+    html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+    <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
+    <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
+    <div id="request-category-1" class="form-group category">
+      <label for="request_category_1" class="col-md-12 control-label"><%= Request.human_attribute_name(:category) %></label>
+      <div class="col-md-12">
+        <%= select_tag(:request_category, categories(@request.type), id: :request_category_1,
+                       class: 'form-control', data: { update: :request_service_code_1 }) %>
+      </div>
+      <div class="col-md-12">
+        <%= f.select(:service_code, services(), {}, id: :request_service_code_1,
+                     class: 'form-control', name: 'request[service_code][]',
+                     data: { src: services_path(type: @request.type),
+                             placeholder: t('placeholder.select.service'),
+                             'missing-message': t('requests.create.error.required.category') }) %>
+      </div>
+    </div>
+    <% if display?(:email) -%>
+      <div class="form-group">
+        <%= f.label(:email, Request.human_attribute_name(:email), class: 'col-md-12 control-label') %>
+        <div class="col-md-12">
+          <%= f.email_field(:email, class: 'form-control') %>
+        </div>
+      </div>
+    <% end -%>
+    <div class="form-group">
+      <%= f.label(:description, Request.human_attribute_name(:description), class: 'col-md-12 control-label') %>
+      <div class="col-md-12">
+        <%= f.text_area(:description, rows: 5, class: 'form-control', data: { 'missing-message': t('requests.create.error.required.description') }) %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
+      <div class="col-md-12">
+        <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-12 control-label"><%= t('.hint.label') %></label>
+      <div class="col-md-12">
+        <p class="form-control-static"><%= t('.hint.text') %></p>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <div class="btn-group btn-group-justified" role="group">
+          <div class="btn-group" role="group">
+            <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
+          </div>
+          <%= link_to(t('buttons.cancel'), map_path, remote: true, class: 'btn btn-default', role: :button) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

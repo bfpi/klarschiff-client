@@ -1,0 +1,10 @@
+<div class="request-container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group btn-group-justified" role="group">
+        <%= link_to(t('buttons.describe'), new_request_path(type: @request.type), class: 'btn btn-primary describe') %>
+        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default') %>
+      </div>
+    </div>
+  </div>
+</div>

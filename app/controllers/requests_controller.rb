@@ -8,7 +8,7 @@ class RequestsController < ApplicationController
     if (states = Settings::Map.default_requests_states).present?
       conditions.update detailed_status: states
     end
-    @requests = Request.where(conditions.merge(params.slice(:radius))).try(:to_a)
+    @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :ids)
     respond_to do |format|
       format.html { head :not_acceptable }
@@ -58,14 +58,16 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new(type: params[:type], position: params[:position])
+    @mobile = params[:mobile].presence
     unless @request.try(:lat).present? && @request.try(:long).present?
-      return render :new_position
+      return render "requests/#{ context }/new_position"
     end
     unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
       @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
       @redirect = new_request_path(type: @request.type)
       return render :outside
     end
+    render "requests/#{ context }/new"
   end
 
   def create

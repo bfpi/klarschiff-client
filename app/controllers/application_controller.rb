@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def has_field_service_team?
     (@user && @user.field_service_team).presence
   end
+
+  def context
+    @mobile ? 'mobile' : 'desktop'
+  end
 end

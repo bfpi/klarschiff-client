@@ -55,7 +55,7 @@ module ActiveResource
 
     def load_with_citysdk_array_structure(attributes, remove_root = false, persisted = false)
       load_without_citysdk_array_structure attributes.is_a?(Array) ?
-        attributes.first : attributes, remove_root, persisted
+        attributes.first : attributes.to_h, remove_root, persisted
     end
 
     alias_method_chain :load, :citysdk_array_structure
