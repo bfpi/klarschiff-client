@@ -9,10 +9,16 @@ class RequestsController < ApplicationController
       conditions.update detailed_status: states
     end
     @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
-    session[:referer_params] = params.slice(:controller, :action, :ids)
+    session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     respond_to do |format|
       format.html { head :not_acceptable }
-      format.js { render "/requests/#{ context }/index" }
+      format.js do
+        if @mobile
+          render "/requests/mobile/index"
+        else
+          redirect_to [@requests.first, id_list: @requests.map(&:id)]
+        end
+      end
       format.json { render json: @requests }
     end
   end

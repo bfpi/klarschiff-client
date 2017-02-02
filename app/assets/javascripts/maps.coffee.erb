@@ -42,16 +42,18 @@ class KS.Map
       map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
         if layer and layer.get('id') in ['features', 'jobs']
           features = feature.get('features')
+          url = KS.requests_path
           if features.length == 1
             # Single feature -> show
-            url = KS.requests_path + features[0].get("id")
+            url += features[0].get("id")
             url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
             $.ajax(url: url, dataType: 'script')
           else if map.getView().getZoom() == KS.maxZoom
             ids = Array()
             $(features).each (ix, feature) ->
               ids.push feature.get('id')
-            $.ajax(url: KS.requests_path, dataType: 'script', data: { ids: ids })
+            url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+            $.ajax(url: url, dataType: 'script', data: { ids: ids })
           else
             # Zoom in
             map.getView().setCenter e.coordinate

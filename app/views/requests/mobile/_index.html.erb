@@ -7,7 +7,7 @@
     <% if @requests.present? -%>
       <div class="list-group">
         <% @requests.each do |req| -%>
-          <%= link_to(request_path(req.id, id_list: @requests.map(&:id)), remote: true, class: 'list-group-item') do %>
+          <%= link_to(request_path(req.id, id_list: @requests.map(&:id), mobile: @mobile), remote: true, class: 'list-group-item') do %>
             <div class="hidden-xs right-badges">
               <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
               #<%= req.id %>: <%= req.title %>

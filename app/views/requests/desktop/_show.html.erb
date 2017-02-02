@@ -1,5 +1,19 @@
 <div id="show-request" class="request-container">
-  <div class="list-group">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="hidden-xs panel-title">
+        <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
+        <%= type %>
+        #<%= @request.id %>
+        (<%= l(@request.requested_datetime.to_date) %>)
+        <%= label_photo_required = mark_photo_required(@request) %>
+        <% if display?(:trust) -%>
+          <%= mark_trust(@request) %>
+        <% end -%>
+      </h4>
+    </div>
+  </div>
+  <div class="list-group desktop">
     <div class="list-group-item">
       <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
       <p class="list-group-item-text"><%= @request.service.group %></p>
@@ -14,12 +28,20 @@
     </div>
     <% if display?(:votes) -%>
       <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
-        <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
+        <h4 class="list-group-item-heading">
+          <div class="row">
+            <div class="col-md-9">
+              <%= Request.human_attribute_name(:votes) %>
+            </div>
+            <div class="col-md-3 pull-right">
+              <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], class: 'btn btn-xs btn-default',
+                          remote: true, role: :button) if display?(:votes) %>
+            </div>
+          </div>
+        </h4>
         <p class="list-group-item-text"><b>
           <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
           <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
-          <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], class: 'btn btn-xs btn-default',
-                      remote: true, role: :button) if display?(:votes) %>
         </b></p>
       </div>
     <% end -%>
@@ -108,4 +130,24 @@
       </div>
     </div>
   </div>
+  <% if @id_list.try(:include?, @request.id) -%>
+    <div class="col-md-12">
+      <div class="btn-group btn-group-justified" role="group">
+        <% if @id_list.first == @request.id -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
+        <% else -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
+                      request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
+                      remote: true, class: 'btn btn-default') %>
+        <% end -%>
+        <% if @id_list.last == @request.id -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
+        <% else -%>
+          <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
+                      request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
+                      remote: true, class: 'btn btn-default') %>
+        <% end -%>
+      </div>
+    </div>
+  <% end -%>
 </div>

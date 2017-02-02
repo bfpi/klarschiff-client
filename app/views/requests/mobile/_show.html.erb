@@ -146,7 +146,7 @@
             <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
           <% else -%>
             <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
-                        request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list),
+                        request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
                         remote: true, class: 'btn btn-default') %>
           <% end -%>
           <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
@@ -155,7 +155,7 @@
             <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
           <% else -%>
             <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
-                        request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list),
+                        request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
                         remote: true, class: 'btn btn-default') %>
           <% end -%>
         </div>
