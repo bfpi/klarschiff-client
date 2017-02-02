@@ -2,7 +2,7 @@ $ ->
   KS.content().on 'click', '.has-clear .form-control-clear', ->
     $(@).parents('.form-group').find('input').val ''
 
-  $(document).on 'change', 'select[data-update]', ->
+  KS.content().on 'change', 'select[data-update]', ->
     if (target = $("##{ $(@).data('update') }"))? && (url = target.data('src'))?
       $.ajax(url: url, dataType: 'json', data: category: $(@).val()).done (response) ->
         target.html('').append "<option disabled='disabled' selected='selected' class='placeholder'>#{
@@ -15,7 +15,7 @@ $ ->
     console.log($(@))
     $.get(url + '&type=' + $(@).val(), null, null, 'script')
 
-  $(document).on 'submit', 'form.fileupload', (e) ->
+  KS.content().on 'submit', 'form.fileupload', (e) ->
     err = []
     $(e.target).find(':input[data-missing-message]').each ->
       if $(this).val() == null or $(this).val().length == 0
