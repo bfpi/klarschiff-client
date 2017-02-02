@@ -30,6 +30,7 @@ class RequestsController < ApplicationController
       @request = Request.find(id)
     end
     @id_list = params[:id_list].try(:map, &:to_i).presence
+    render "/requests/#{ context }/show"
   end
 
   def edit

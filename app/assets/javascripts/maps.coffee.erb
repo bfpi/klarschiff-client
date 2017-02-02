@@ -44,7 +44,9 @@ class KS.Map
           features = feature.get('features')
           if features.length == 1
             # Single feature -> show
-            $.ajax(url: KS.requests_path + features[0].get("id"), dataType: 'script')
+            url = KS.requests_path + features[0].get("id")
+            url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+            $.ajax(url: url, dataType: 'script')
           else if map.getView().getZoom() == KS.maxZoom
             ids = Array()
             $(features).each (ix, feature) ->

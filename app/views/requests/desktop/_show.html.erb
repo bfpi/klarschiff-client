@@ -1,5 +1,4 @@
 <div id="show-request" class="request-container">
-  <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
   <div class="list-group">
     <div class="list-group-item">
       <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
@@ -19,7 +18,8 @@
         <p class="list-group-item-text"><b>
           <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
           <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
-          <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
+          <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], class: 'btn btn-xs btn-default',
+                      remote: true, role: :button) if display?(:votes) %>
         </b></p>
       </div>
     <% end -%>
@@ -94,8 +94,9 @@
         </div>
       </div>
     <% end -%>
+    <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
     <div class="list-group-item actions">
-      <% if display?(:abuses) || display?(:votes) -%>
+      <% if display?(:abuses) -%>
         <div class="btn-group btn-group-justified" role="group">
           <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
         </div>

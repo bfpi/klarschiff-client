@@ -46,7 +46,7 @@
           <div class="btn-group" role="group">
             <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
           </div>
-          <%= link_to(t('buttons.cancel'), map_path, remote: true, class: 'btn btn-default', role: :button) %>
+          <%= link_to(t('buttons.cancel'), map_path(cancel: true), remote: true, class: 'btn btn-default', role: :button) %>
         </div>
       </div>
     </div>
