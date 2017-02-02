@@ -8,7 +8,8 @@
     </div>
     <div class="panel-body">
       <%= form_for(@request, remote: true, authenticity_token: true,
-        html: { class: 'form-horizontal fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+                   html: { class: 'form-horizontal fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+        <%= hidden_field_tag :mobile, @mobile %>
         <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
         <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
         <div id="request-category-1" class="form-group category">

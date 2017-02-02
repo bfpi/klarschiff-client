@@ -3,20 +3,17 @@
     html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
     <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
     <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
-    <div id="request-category-1" class="form-group category">
-      <label for="request_category_1" class="col-md-12 control-label"><%= Request.human_attribute_name(:category) %></label>
-      <div class="col-md-12">
-        <%= select_tag(:request_category, categories(@request.type), id: :request_category_1,
-                       class: 'form-control', data: { update: :request_service_code_1 }) %>
+    <div class="form-group radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
+      <div class="col-md-6">
+        <%= f.radio_button :type, 'problem', checked: true, class: 'radio-type' %> <%= label_tag :request_type_problem,
+          t('problem', scope: 'service.types', count: 1), class: 'control-label' %>
       </div>
-      <div class="col-md-12">
-        <%= f.select(:service_code, services(), {}, id: :request_service_code_1,
-                     class: 'form-control', name: 'request[service_code][]',
-                     data: { src: services_path(type: @request.type),
-                             placeholder: t('placeholder.select.service'),
-                             'missing-message': t('requests.create.error.required.category') }) %>
+      <div class="col-md-6">
+        <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
+          t('idea', scope: 'service.types', count: 1), class: 'control-label' %>
       </div>
     </div>
+    <%= render partial: 'requests/desktop/category_select', locals: { type: 'problem' } %> 
     <% if display?(:email) -%>
       <div class="form-group">
         <%= f.label(:email, Request.human_attribute_name(:email), class: 'col-md-12 control-label') %>

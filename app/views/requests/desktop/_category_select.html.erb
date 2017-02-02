@@ -1,0 +1,16 @@
+<div id="type-select">
+  <div id="request-category-1" class="form-group category">
+    <label for="request_category_1" class="col-md-12 control-label"><%= Request.human_attribute_name(:category) %></label>
+    <div class="col-md-12">
+      <%= select_tag(:request_category, categories(type), id: :request_category_1,
+                     class: 'form-control', data: { update: :request_service_code_1 }) %>
+    </div>
+    <div class="col-md-12">
+      <%= select_tag(:request_service_code, services(), id: :request_service_code_1,
+                   class: 'form-control', name: 'request[service_code][]',
+                   data: { src: services_path(type: type),
+                           placeholder: t('placeholder.select.service'),
+                           'missing-message': t('requests.create.error.required.category') }) %>
+    </div>
+  </div>
+</div>

@@ -3,4 +3,8 @@ coord = ol.proj.transform([<%= @request.long %>, <%= @request.lat %>], KS.projec
 KS.olMap.getView().setZoom(11)
 KS.olMap.getView().setCenter(coord)
 <% end -%>
-KS.nav.switchTo 'request', '<%= j render("show") %>'
+<% if @context == 'mobile' -%>
+KS.nav.switchTo 'request', '<%= j render("requests/#{ context }/show") %>'
+<% else -%>
+$('.request-container').replaceWith('<%= j render partial: "requests/#{ context }/show" %>')
+<% end -%>

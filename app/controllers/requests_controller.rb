@@ -57,15 +57,18 @@ class RequestsController < ApplicationController
   end
 
   def new
-    @request = Request.new(type: params[:type], position: params[:position])
-    @mobile = params[:mobile].presence
-    unless @request.try(:lat).present? && @request.try(:long).present?
-      return render "requests/#{ context }/new_position"
-    end
-    unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
-      @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
-      @redirect = new_request_path(type: @request.type)
-      return render :outside
+    if params[:switch_type]
+      @type = params[:type]
+    else
+      @request = Request.new(type: params[:type], position: params[:position])
+      unless @request.try(:lat).present? && @request.try(:long).present?
+        return render "requests/#{ context }/new_position"
+      end
+      unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
+        @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
+        @redirect = new_request_path(type: @request.type)
+        return render :outside
+      end
     end
     render "requests/#{ context }/new"
   end

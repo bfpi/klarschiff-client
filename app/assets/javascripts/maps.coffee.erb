@@ -352,11 +352,10 @@ $ ->
 
   $(document).on('click', 'a.describe', (event) ->
     if (features = KS.newFeatureOverlay.getFeatures().getArray()).length > 0
-      console.log(features)
       $.ajax
         url: $(@).attr('href')
         data:
-          position: features[0].getGeometry().transform(KS.projection(), KS.projectionWGS84).getCoordinates()
+          position: features[0].getGeometry().clone().transform(KS.projection(), KS.projectionWGS84).getCoordinates()
         dataType: 'script'
     return false
   ).on('click', 'a.cancel', ->

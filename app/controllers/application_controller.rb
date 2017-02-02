@@ -1,10 +1,15 @@
 class ApplicationController < ActionController::Base
   include ClientConfig
   before_action :authenticate, if: :login_required?
-  helper_method :display?, :has_field_service_team?, :login_required?, :imprint
+  before_action :set_mobile
+  helper_method :display?, :has_field_service_team?, :login_required?, :imprint, :context
   protect_from_forgery with: :exception
 
   protected
+
+  def set_mobile
+    @mobile = params[:mobile].presence
+  end
 
   def authenticate
     @user = if name = request.env["AUTHENTICATE_FULLNAME"]
