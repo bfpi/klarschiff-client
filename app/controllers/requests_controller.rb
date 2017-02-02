@@ -12,7 +12,7 @@ class RequestsController < ApplicationController
     session[:referer_params] = params.slice(:controller, :action, :ids)
     respond_to do |format|
       format.html { head :not_acceptable }
-      format.js
+      format.js { render "/requests/#{ context }/index" }
       format.json { render json: @requests }
     end
   end
