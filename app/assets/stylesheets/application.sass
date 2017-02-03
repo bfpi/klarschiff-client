@@ -93,8 +93,8 @@ option.placeholder
   top: 20px
 
 .map-panel
-  width: 250px
-  height: 150px
+  width: 300px
+  max-height: 150px
   position: absolute
   top: 10px
   right: 10px
@@ -105,6 +105,8 @@ option.placeholder
 
 .map-panel .panel-heading
   padding: 3px
+  background-color: #1c94c4
+  color: #fff
 
 header
   padding: 10px 0
@@ -131,6 +133,17 @@ header
   width: 95%
 
 .list-group.desktop
-  position: relative
+  position: absolute
   max-height: 80%
   overflow-y: auto
+
+.panel-heading a
+  display: block
+
+.panel-heading [data-toggle="collapse"] span:before
+  font-family: 'Glyphicons Halflings'
+  content: '\2212'
+  float: right
+
+.panel-heading .collapsed[data-toggle="collapse"] span:before
+  content: '\2b'

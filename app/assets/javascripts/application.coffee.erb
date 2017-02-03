@@ -47,3 +47,9 @@ KS.getUrlParam = (name) ->
 
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
+
+  $(document).on 'click', '.switch-map-view', () ->
+    $(@).addClass('disabled')
+    $(@).siblings().removeClass('disabled')
+    KS.layers.toggle()
+    false

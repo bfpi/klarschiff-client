@@ -22,10 +22,25 @@
       </ul>
     </div>
     <div class="panel panel-default map-panel">
-      <div class="panel-heading">
-        Karte
+      <div class="panel-heading" id="map-heading" role="tab">
+        <%= link_to '#map-body', data: { toggle: 'collapse' }, class: 'collapsed',
+          aria: { expanded: false, controls: 'map-body' } do %>
+          <span>
+            <%= t('.map') %>
+          </span>
+        <% end -%>
       </div>
-      <div class="panel-body">
+      <div id="map-body" class="collapse" role="tabpanel" aria-labelledby="map-heading">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-group-justified" role="group">
+                <%= link_to t('.aerial_view'), '#', id: 'aerial-view', class: 'btn btn-xs btn-default switch-map-view' %>
+                <%= link_to t('.map_view'), '#', id: 'map-view', class: 'btn btn-xs btn-default switch-map-view disabled' %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
