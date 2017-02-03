@@ -26,17 +26,51 @@
         <%= link_to '#map-body', data: { toggle: 'collapse' }, class: 'collapsed',
           aria: { expanded: false, controls: 'map-body' } do %>
           <span>
-            <%= t('.map') %>
+            <%= t('.map_elements') %>
           </span>
         <% end -%>
       </div>
       <div id="map-body" class="collapse" role="tabpanel" aria-labelledby="map-heading">
         <div class="panel-body">
-          <div class="row">
+          <div class="row form-group">
             <div class="col-md-12">
               <div class="btn-group btn-group-justified" role="group">
-                <%= link_to t('.aerial_view'), '#', id: 'aerial-view', class: 'btn btn-xs btn-default switch-map-view' %>
-                <%= link_to t('.map_view'), '#', id: 'map-view', class: 'btn btn-xs btn-default switch-map-view disabled' %>
+                <%= link_to t('.aerial_view'), '#', id: 'aerial-view', class: 'btn btn-default switch-map-view' %>
+                <%= link_to t('.map_view'), '#', id: 'map-view', class: 'btn btn-default switch-map-view active' %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <%= check_box_tag :show_open, nil, true, class: 'show-feature', id: 'open' %>
+                  <%= label_tag :open, t('status.received') %>
+                </div>
+                <div class="col-md-12">
+                  <%= check_box_tag :show_in_process, nil, true, class: 'show-feature', id: 'in_process' %>
+                  <%= label_tag :in_process, t('status.in_process') %>
+                </div>
+                <div class="col-md-12">
+                  <%= check_box_tag :show_solved, nil, true, class: 'show-feature', id: 'solved' %>
+                  <%= label_tag :solved, t('status.processed') %>
+                </div>
+                <div class="col-md-12">
+                  <%= check_box_tag :show_rejected, nil, true, class: 'show-feature', id: 'rejected' %>
+                  <%= label_tag :rejected, t('status.rejected') %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <%= check_box_tag :show_problem, nil, true, class: 'show-feature', id: 'problem' %>
+                  <%= label_tag :problem, t('problem', scope: 'service.types', count: 1) %>
+                </div>
+                <div class="col-md-12">
+                  <%= check_box_tag :show_idea, nil, true, class: 'show-feature', id: 'idea' %>
+                  <%= label_tag :idea, t('idea', scope: 'service.types', count: 1) %>
+                </div>
               </div>
             </div>
           </div>

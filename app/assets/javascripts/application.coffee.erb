@@ -12,6 +12,7 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery.cookie
 #= require jquery.form
 #= require jquery-ui
 #= require jquery-ui/widgets/sortable
@@ -49,7 +50,27 @@ $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
   $(document).on 'click', '.switch-map-view', () ->
-    $(@).addClass('disabled')
-    $(@).siblings().removeClass('disabled')
-    KS.layers.toggle()
+    unless $(@).hasClass('active')
+      $(@).addClass('active')
+      $(@).siblings().removeClass('active')
+      KS.layers.toggle()
     false
+
+  $(document).ready () ->
+    $.removeCookie('features')
+
+  $(document).on 'click', '.show-feature', () ->
+    str = ''
+    cookie = $.cookie('features')
+    if $(@).is(':checked')
+      unless [undefined, null].includes(cookie)
+        arr = cookie.trim().split(' ')
+        ix = arr.indexOf('not_' + $(@).attr('id'))
+        if ix > -1
+          arr.splice(ix, 1)
+        $.cookie('features', arr.join(' ') + ' ')
+    else
+      str = cookie unless [undefined, null].includes(cookie)
+      str += 'not_' + $(@).attr('id') + ' '
+      $.cookie('features', str)
+    KS.reloadFeatures()

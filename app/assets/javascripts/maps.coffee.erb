@@ -343,9 +343,14 @@ KS.clearNewFeature= () ->
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  new KS.FeatureData(KS.requests_path, extent, KS.layers.findById("features").getSource().getSource())
+  new KS.FeatureData(KS.generatePath(), extent, KS.layers.findById("features").getSource().getSource())
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
+
+KS.generatePath= () ->
+  path = KS.requests_path
+  path += "#{ if path.contains?('?') then '&' else '?' }" + $.cookie('features').trim().split(' ').map(
+    (obj) -> obj + '=true').join('&') unless [undefined, null].includes($.cookie('features'))
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')
