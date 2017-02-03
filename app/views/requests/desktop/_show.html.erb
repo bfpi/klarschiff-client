@@ -10,6 +10,9 @@
         <% if display?(:trust) -%>
           <%= mark_trust(@request) %>
         <% end -%>
+        <%= link_to [:requests, back: true], data: { type: 'script', remote: true } do %>
+          <span class="glyphicon glyphicon-remove"></span>
+        <% end -%>
       </h4>
     </div>
   </div>
@@ -130,7 +133,7 @@
       </div>
     </div>
   </div>
-  <% if @id_list.try(:include?, @request.id) -%>
+  <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
     <div class="col-md-12">
       <div class="btn-group btn-group-justified" role="group">
         <% if @id_list.first == @request.id -%>
