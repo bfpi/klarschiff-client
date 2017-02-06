@@ -12,7 +12,6 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require jquery.cookie
 #= require jquery.form
 #= require jquery-ui
 #= require jquery-ui/widgets/sortable
@@ -60,17 +59,8 @@ $ ->
     $.removeCookie('features')
 
   $(document).on 'click', '.show-feature', () ->
-    str = ''
-    cookie = $.cookie('features')
-    if $(@).is(':checked')
-      unless [undefined, null].includes(cookie)
-        arr = cookie.trim().split(' ')
-        ix = arr.indexOf('not_' + $(@).attr('id'))
-        if ix > -1
-          arr.splice(ix, 1)
-        $.cookie('features', arr.join(' ') + ' ')
-    else
-      str = cookie unless [undefined, null].includes(cookie)
-      str += 'not_' + $(@).attr('id') + ' '
-      $.cookie('features', str)
-    KS.reloadFeatures()
+    filter = []
+    $('.show-feature').each () ->
+      unless $(@).is(':checked')
+        arr.push('not_' + $(@).attr('id'))
+    KS.reloadFeatures(filter)

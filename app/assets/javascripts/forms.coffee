@@ -12,7 +12,6 @@ $ ->
 
   $(document).on 'click', '.radio-type', ->
     url = $(@).parents('.radio-btns').data('url')
-    console.log($(@))
     $.get(url + '&type=' + $(@).val(), null, null, 'script')
 
   KS.content().on 'submit', 'form.fileupload', (e) ->

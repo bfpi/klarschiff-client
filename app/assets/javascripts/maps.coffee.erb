@@ -341,16 +341,16 @@ KS.clearNewFeature= () ->
   if KS.newFeatureInteraction
     KS.olMap.removeInteraction KS.newFeatureInteraction
 
-KS.reloadFeatures= () ->
+KS.reloadFeatures= (params = null) ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  new KS.FeatureData(KS.generatePath(), extent, KS.layers.findById("features").getSource().getSource())
+  new KS.FeatureData(KS.generatePath(params), extent, KS.layers.findById("features").getSource().getSource())
   if KS.login_required
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
-KS.generatePath= () ->
+KS.generatePath= (params) ->
   path = KS.requests_path
-  path += "#{ if path.contains?('?') then '&' else '?' }" + $.cookie('features').trim().split(' ').map(
-    (obj) -> obj + '=true').join('&') unless [undefined, null].includes($.cookie('features'))
+  path += "#{ if path.contains?('?') then '&' else '?' }" + params.map(
+    (obj) -> obj + '=true').join('&') if params?
   path
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
