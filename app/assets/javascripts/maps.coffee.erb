@@ -351,6 +351,7 @@ KS.generatePath= () ->
   path = KS.requests_path
   path += "#{ if path.contains?('?') then '&' else '?' }" + $.cookie('features').trim().split(' ').map(
     (obj) -> obj + '=true').join('&') unless [undefined, null].includes($.cookie('features'))
+  path
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')

@@ -32,7 +32,7 @@ class RequestsController < ApplicationController
           render "/requests/mobile/index"
         else
           (@back = params[:back]).present? ? render('/requests/desktop/index') :
-            redirect_to([@requests.first, id_list: @requests.map(&:id)])
+            redirect_to([@requests.first, id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile])
         end
       end
       format.json { render json: @requests }
@@ -51,6 +51,7 @@ class RequestsController < ApplicationController
     else
       @request = Request.find(id)
     end
+    @refresh = params[:refresh] if params[:refresh].present?
     @id_list = params[:id_list].try(:map, &:to_i).presence
     render "/requests/#{ context }/show"
   end
@@ -123,7 +124,7 @@ class RequestsController < ApplicationController
       @modal_title_options = { count: 1 }
     end
     if ids.present? && !service.nil?
-      @redirect = requests_path(ids: ids)
+      @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile)
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
                         type: I18n.t(service.type, scope: 'service.types', count: ids.size))

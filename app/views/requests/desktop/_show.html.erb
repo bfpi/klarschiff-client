@@ -1,5 +1,15 @@
 <div id="show-request" class="request-container">
   <div class="row">
+    <div class="col-md-3">
+      <h4>
+        <%= link_to [:root, request: @request.id] do %>
+          <span class="glyphicon glyphicon-link">
+        <% end -%>
+        <%= link_to [:requests, back: true], data: { type: 'script', remote: true } do %>
+          <span class="glyphicon glyphicon-remove"></span>
+        <% end -%>
+      </h4>
+    </div>
     <div class="col-md-12">
       <h4 class="hidden-xs panel-title">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
@@ -9,9 +19,6 @@
         <%= label_photo_required = mark_photo_required(@request) %>
         <% if display?(:trust) -%>
           <%= mark_trust(@request) %>
-        <% end -%>
-        <%= link_to [:requests, back: true], data: { type: 'script', remote: true } do %>
-          <span class="glyphicon glyphicon-remove"></span>
         <% end -%>
       </h4>
     </div>
