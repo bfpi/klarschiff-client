@@ -26,7 +26,13 @@
       </div>
       <footer class="footer">
         <div class="container">
-          <center>FOOTER FOOTER FOOTER</center>
+          <div class="systray">
+            <center>
+              <%= link_to t(:mobile), [:root, mobile: true] %> |
+              <%= link_to t(:api), '#' %> |
+              <%= link_to t(:impressum), '#' %>
+            </center>
+          </div>
         </div>
       </footer>
     <% else -%>
