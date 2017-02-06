@@ -55,9 +55,6 @@ $ ->
       KS.layers.toggle()
     false
 
-  $(document).ready () ->
-    $.removeCookie('features')
-
   $(document).on 'click', '.show-feature', () ->
     filter = []
     $('.show-feature').each () ->
