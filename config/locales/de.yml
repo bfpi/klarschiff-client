@@ -87,6 +87,7 @@ de:
 
   placeholder:
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
+    description: Bitten tragen Sie hier Ihre Beschreibung ein.
     email: Bitte geben Sie Ihre E-Mail-Adresse an.
     note: Bitte tragen Sie hier Ihren internen Kommentar zur Meldung ein.
     places_search: Ortsteil/Straße/Adresse eingeben…
@@ -189,6 +190,7 @@ de:
         hint:
           label: Hinweis
           text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
+        what: Was?
       new_position_buttons:
         where: Wo?
         place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.

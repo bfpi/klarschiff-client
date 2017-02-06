@@ -45,19 +45,19 @@
               <div class="row">
                 <div class="col-md-12">
                   <%= check_box_tag :show_open, nil, true, class: 'show-feature', id: 'open' %>
-                  <%= label_tag :open, t('status.received') %>
+                  <%= label_tag :open, t('status.received'), class: 'check-label' %>
                 </div>
                 <div class="col-md-12">
                   <%= check_box_tag :show_in_process, nil, true, class: 'show-feature', id: 'in_process' %>
-                  <%= label_tag :in_process, t('status.in_process') %>
+                  <%= label_tag :in_process, t('status.in_process'), class: 'check-label' %>
                 </div>
                 <div class="col-md-12">
                   <%= check_box_tag :show_solved, nil, true, class: 'show-feature', id: 'solved' %>
-                  <%= label_tag :solved, t('status.processed') %>
+                  <%= label_tag :solved, t('status.processed'), class: 'check-label' %>
                 </div>
                 <div class="col-md-12">
                   <%= check_box_tag :show_rejected, nil, true, class: 'show-feature', id: 'rejected' %>
-                  <%= label_tag :rejected, t('status.rejected') %>
+                  <%= label_tag :rejected, t('status.rejected'), class: 'check-label' %>
                 </div>
               </div>
             </div>
@@ -65,11 +65,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <%= check_box_tag :show_problem, nil, true, class: 'show-feature', id: 'problem' %>
-                  <%= label_tag :problem, t('problem', scope: 'service.types', count: 1) %>
+                  <%= label_tag :problem, t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
                 </div>
                 <div class="col-md-12">
                   <%= check_box_tag :show_idea, nil, true, class: 'show-feature', id: 'idea' %>
-                  <%= label_tag :idea, t('idea', scope: 'service.types', count: 1) %>
+                  <%= label_tag :idea, t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
                 </div>
               </div>
             </div>
