@@ -1,142 +1,89 @@
 <div id="show-request" class="request-container">
-  <div class="row">
-    <div class="col-md-9">
-      <h4 class="hidden-xs panel-title">
-        <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
-        <%= type %>
-        #<%= @request.id %>
-        (<%= l(@request.requested_datetime.to_date) %>)
-        <%= label_photo_required = mark_photo_required(@request) %>
-        <% if display?(:trust) -%>
-          <%= mark_trust(@request) %>
-        <% end -%>
-      </h4>
-    </div>
-    <div class="col-md-3">
-      <h4>
-        <%= link_to [:root, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
-          <span class="glyphicon glyphicon-link">
-        <% end -%>
+  <div class="row form-group">
+    <h4>
+      <div class="col-md-10">
+        <%= @request.service %> (<%= @request.service.group %>)
+      </div>
+      <div class="col-md-2">
         <%= link_to [:requests, back: true], data: { type: 'script', remote: true }, title: t('buttons.close') do %>
           <span class="glyphicon glyphicon-remove"></span>
         <% end -%>
-      </h4>
+      </div>
+    </h4>
+    <div class="col-md-8">
+      <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
+      <%= type %>
+      #<%= @request.id %>
+      <%= label_photo_required = mark_photo_required(@request) %>
+      <% if display?(:trust) -%>
+        <%= mark_trust(@request) %>
+      <% end -%>
+      <b>
+        <%= link_to [:root, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
+          <span class="glyphicon glyphicon-link">
+        <% end -%>
+      </b>
+    </div>
+    <div class="col-md-4">
+      <%= l(@request.requested_datetime.to_date) %>
     </div>
   </div>
   <div class="list-group desktop">
-    <div class="list-group-item">
-      <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
-      <p class="list-group-item-text"><%= @request.service.group %></p>
-    </div>
-    <div class="list-group-item">
-      <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:service_name) %></h4>
-      <p class="list-group-item-text"><%= @request.service %></p>
-    </div>
-    <div class="list-group-item">
-      <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
-      <p class="list-group-item-text"><%= status(@request) %></p>
+    <div class="row form-group">
+      <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
+      <div class="col-md-12"><%= @request.description %></div>
     </div>
     <% if display?(:votes) -%>
-      <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
-        <h4 class="list-group-item-heading">
+      <div id="request-show" class="row form-group <%="#{ @request.service.type }" %>">
+
+        <div class="col-md-12">
           <div class="row">
-            <div class="col-md-9">
-              <%= Request.human_attribute_name(:votes) %>
-            </div>
+            <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-md-9 control-label' %>
             <div class="col-md-3 pull-right">
               <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], class: 'btn btn-xs btn-default',
                           remote: true, role: :button) if display?(:votes) %>
             </div>
           </div>
-        </h4>
-        <p class="list-group-item-text"><b>
+        </div>
+        <div class="col-md-12">
           <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
           <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
-        </b></p>
+        </div>
       </div>
     <% end -%>
-    <% if (notes = @request.status_notes).present? -%>
-      <div class="list-group-item">
-        <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status_notes) %></h4>
-        <p class="list-group-item-text"><%= notes %></p>
-      </div>
-    <% end -%>
-    <div class="list-group-item">
-      <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:description) %></h4>
-      <p class="list-group-item-text"><%= @request.description %></p>
-    </div>
     <% if (url = @request.media_url).present? -%>
-      <div class="list-group-item">
-        <h4 class="list-group-item-heading">
-          <%= Request.human_attribute_name(:media_url) %>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= label_tag :media_url, Request.human_attribute_name(:media_url), class: 'control-label' %>
           <% if label_photo_required -%>
             <small><%= t('.hint_photo_required') %></small>
           <% end -%>
-        </h4>
-        <p class="list-group-item-text">
+        </div>
+        <div class="col-md-12">
           <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
-        </p>
-      </div>
-    <% end -%>
-    <% if display?(:comments) && (comments = @request.comments.to_a).present? -%>
-      <div class="list-group-item">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>
-              <a data-toggle="collapse" href="#comments" aria-controls="comments">
-                <%= Comment.model_name.human %>
-                <span class="caret"></span>
-              </a>
-            </h4>
-          </div>
-          <div id="comments" class="panel-body list-group collapse">
-            <% comments.each do |comment| -%>
-              <div class="list-group-item">
-                <h5 class="list-group-item-heading"><%= comment.author %>, <%= l(comment.datetime.to_time) %></h5>
-                <div class="list-group-item-text"><%= comment.comment %></div>
-              </div>
-            <% end -%>
-          </div>
         </div>
       </div>
     <% end -%>
-    <% if display?(:notes) -%>
-      <div class="list-group-item">
-        <div class="panel panel-default">
-          <% notes = @request.notes.to_a %>
-          <div class="panel-heading">
-            <h4>
-              <a data-toggle="collapse" href="#notes" aria-controls="notes">
-                <%= Note.model_name.human %> (<%= notes.size %>)
-                <span class="caret"></span>
-              </a>
-              <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request, id_list: @id_list) %>">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              </span>
-            </h4>
-          </div>
-          <div id="notes" class="panel-body list-group collapse">
-            <% notes.each do |note| -%>
-              <div class="list-group-item">
-                <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
-                <div class="list-group-item-text"><%= note.comment %></div>
-              </div>
-            <% end -%>
-          </div>
-        </div>
+    <div class="row form-group">
+      <%= label_tag :status, Request.human_attribute_name(:status), class: 'col-md-12 control-label' %>
+      <div class="col-md-12"><%= status(@request) %></div>
+    </div>
+    <% if (notes = @request.status_notes).present? -%>
+      <div class="row form-group">
+        <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-md-12 control-label' %>
+        <div class="col-md-12"><%= notes %></div>
       </div>
     <% end -%>
-    <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
-    <div class="list-group-item actions">
+    <% options = { remote: true, class: 'btn btn-default btn-block', role: :button } -%>
+    <div class="row form-group">
       <% if display?(:abuses) -%>
-        <div class="btn-group btn-group-justified" role="group">
-          <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
-        </div>
+          <div class="col-md-12">
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
+          </div>
       <% end -%>
-      <div class="btn-group btn-group-justified" role="group">
+      <div class="col-md-12">
         <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list],
-                    options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
-        <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) if display?(:protocol) %>
+                    options.merge(class: 'btn btn-default btn-block')) if display?(:create_comment) %>
       </div>
     </div>
   </div>
