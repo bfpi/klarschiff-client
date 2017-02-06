@@ -53,6 +53,7 @@ de:
   buttons:
     cancel: abbrechen
     close: schließen
+    continue: Weiter
     describe: beschreiben
     new_request: Neue Meldung
     requests: Zu den Meldungen...
@@ -140,7 +141,7 @@ de:
     desktop:
       aerial_view: Luftbild
       adresses: Adressen
-      map_elements: Kartenelemente
+      map_elements: Karte
       map_view: Kartenansicht
       request: Meldung
       watch: Beobachten
@@ -188,6 +189,9 @@ de:
         hint:
           label: Hinweis
           text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
+      new_position_buttons:
+        where: Wo?
+        place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.
       show:
         actions:
           abuse: Missbrauch
