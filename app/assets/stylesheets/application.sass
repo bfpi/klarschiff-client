@@ -38,6 +38,9 @@ option.placeholder
   &.not_checkable
     color: #000000
 
+a
+  color: #1d4568
+
 #throbber
   display: none
 
@@ -61,6 +64,28 @@ option.placeholder
 #image-sources
   display: none
 
+header
+  padding: 10px 0
+  height: 100px
+
+  .systray
+    position: relative
+    color: #1c94c4
+
+    > div
+      position: absolute
+      right: 0
+
+.footer
+  position: fixed
+  bottom: 0px
+  padding: 10px 0
+  width: 100%
+  height: 50px
+
+.container
+  width: 95%
+
 .sidebar
   background-color: #fff
   border-right: solid 1px #ddd
@@ -69,6 +94,7 @@ option.placeholder
   position: absolute
   z-index: 1000
   overflow-y: auto
+  overflow-x: hidden
 
 .sidebar .tab-content
   padding: 10px
@@ -104,34 +130,8 @@ option.placeholder
 .map-panel .panel-heading
   padding: 5px
   background-color: #1c94c4
-  color: #fff
-
-header
-  padding: 10px 0
-  background-color: #1c94c4
-  height: 100px
-
-  .systray
-    position: relative
+  a
     color: #fff
-
-    > div
-      position: absolute
-      right: 0
-
-.footer
-  position: fixed
-  bottom: 0px
-  padding: 10px 0
-  width: 100%
-  height: 50px
-  background-color: #1c94c4
-
-  .systray
-    color: #fff
-
-.container
-  width: 95%
 
 .panel-heading a
   display: block
@@ -146,6 +146,10 @@ header
 
 .check-label
   font-weight: normal
+
+.request-header
+  border-bottom: 1px solid #ddd
+  margin-bottom: 5px
 
 #form-page-submit
   display: none

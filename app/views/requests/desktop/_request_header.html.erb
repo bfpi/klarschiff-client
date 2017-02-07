@@ -1,0 +1,31 @@
+<div class="request-header">
+  <div class="row form-group">
+    <h4>
+      <div class="col-md-10">
+        <%= @request.service.group %>
+      </div>
+      <div class="col-md-2">
+        <%= link_to [:requests, back: true], data: { type: 'script', remote: true }, title: t('buttons.close') do %>
+          <span class="glyphicon glyphicon-remove"></span>
+        <% end -%>
+      </div>
+    </h4>
+    <div class="col-md-8">
+      <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
+      <%= type %>
+      #<%= @request.id %>
+      <%= label_photo_required ||= mark_photo_required(@request) %>
+      <% if display?(:trust) -%>
+        <%= mark_trust(@request) %>
+      <% end -%>
+      <b>
+        <%= link_to [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
+          <span class="glyphicon glyphicon-link">
+        <% end -%>
+      </b>
+    </div>
+    <div class="col-md-4">
+      <%= l(@request.requested_datetime.to_date) %>
+    </div>
+  </div>
+</div>

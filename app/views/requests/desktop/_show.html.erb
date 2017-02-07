@@ -1,34 +1,7 @@
 <div id="show-request" class="request-container">
-  <div class="row form-group">
-    <h4>
-      <div class="col-md-10">
-        <%= @request.service %> (<%= @request.service.group %>)
-      </div>
-      <div class="col-md-2">
-        <%= link_to [:requests, back: true], data: { type: 'script', remote: true }, title: t('buttons.close') do %>
-          <span class="glyphicon glyphicon-remove"></span>
-        <% end -%>
-      </div>
-    </h4>
-    <div class="col-md-8">
-      <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
-      <%= type %>
-      #<%= @request.id %>
-      <%= label_photo_required = mark_photo_required(@request) %>
-      <% if display?(:trust) -%>
-        <%= mark_trust(@request) %>
-      <% end -%>
-      <b>
-        <%= link_to [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
-          <span class="glyphicon glyphicon-link">
-        <% end -%>
-      </b>
-    </div>
-    <div class="col-md-4">
-      <%= l(@request.requested_datetime.to_date) %>
-    </div>
-  </div>
-  <div class="list-group desktop">
+  <% label_photo_required = mark_photo_required(@request) -%>
+  <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: label_photo_required } %>
+  <div class="request-desktop">
     <div class="row form-group">
       <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
       <div class="col-md-12"><%= @request.description %></div>
@@ -82,8 +55,7 @@
                     options.merge(class: 'btn btn-default btn-block')) if display?(:create_comment) %>
       </div>
     </div>
-  </div>
-  <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
+    <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
     <div class="col-md-12">
       <div class="btn-group btn-group-justified" role="group">
         <% if @id_list.first == @request.id -%>
@@ -103,4 +75,5 @@
       </div>
     </div>
   <% end -%>
+  </div>
 </div>

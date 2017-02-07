@@ -113,20 +113,23 @@ de:
 
   # Views
   abuses:
-    create:
-      error: Fehler bei Missbrauchsmeldung
-      success: Missbrauchsmeldung erfolgreich abgesetzt
-    new:
-      title: Missbrauch
-      hint:
-        label: Hinweis
-        text: >
-          Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung
-          oder Foto Persönlichkeitsrechte verletzt werden (z.B. wenn auf dem Foto Gesichter
-          oder Kfz-Kennzeichen zu erkennen sind).
-        warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
-          <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
-          unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
+    desktop: &abuses
+      create:
+        error: Fehler bei Missbrauchsmeldung
+        success: Missbrauchsmeldung erfolgreich abgesetzt
+      new:
+        title: Missbrauch
+        hint:
+          label: Hinweis
+          text: >
+            Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung
+            oder Foto Persönlichkeitsrechte verletzt werden (z.B. wenn auf dem Foto Gesichter
+            oder Kfz-Kennzeichen zu erkennen sind).
+          warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
+            <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
+            unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
+    mobile:
+      <<: *abuses
 
   comments:
     create:
@@ -236,8 +239,11 @@ de:
       statistics: Statistik
 
   votes:
-    create:
-      error: Fehler bei Unterstützungsmeldung
-      success: Unterstützungsmeldung erfolgreich abgesetzt!
-    new:
-      title: Unterstützung
+    desktop: &votes
+      create:
+        error: Fehler bei Unterstützungsmeldung
+        success: Unterstützungsmeldung erfolgreich abgesetzt!
+      new:
+        title: Unterstützung
+    mobile:
+      <<: *votes

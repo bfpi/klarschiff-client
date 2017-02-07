@@ -44,7 +44,6 @@ class KS.Map
           features = feature.get('features')
           url = KS.requests_path
           if features.length == 1
-            console.log(features[0])
             # Single feature -> show
             url += features[0].get("id")
             url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")

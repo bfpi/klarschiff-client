@@ -1,1 +1,1 @@
-KS.flash.show('<%= j render("create") %>', <% if @redirect %>'<%= @redirect.html_safe %>'<% end -%>)
+KS.flash.show('<%= j render("/application/mobile/create") %>', <% if @redirect %>'<%= @redirect.html_safe %>'<% end -%>)

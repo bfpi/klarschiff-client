@@ -127,13 +127,15 @@
         <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
         <% if display?(:abuses) || display?(:votes) -%>
           <div class="btn-group btn-group-justified" role="group">
-            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
-            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
+            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list, mobile: @mobile], options) if display?(:votes) %>
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list, mobile: @mobile], options) if display?(:abuses) %>
           </div>
         <% end -%>
         <div class="btn-group btn-group-justified" role="group">
-          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list], options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
-          <%= link_to(t('.actions.kod'), [:new, @request, :protocol], options.merge(class: 'btn btn-default')) if display?(:protocol) %>
+          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list, mobile: @mobile],
+                      options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
+          <%= link_to(t('.actions.kod'), [:new, @request, :protocol, mobile: @mobile],
+                      options.merge(class: 'btn btn-default')) if display?(:protocol) %>
         </div>
       </div>
     </div>

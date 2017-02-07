@@ -6,11 +6,13 @@
     <div class="col-md-12">
       <%= t(:success_message) %>
     </div>
-    <div class="col-md-12">
-      <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link') do %>
-        #<%= options[:id] %> <span class="glyphicon glyphicon-link"></span>
-      <% end -%>
-    </div>
+    <% if options && options[:id] -%>
+      <div class="col-md-12">
+        <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link') do %>
+          #<%= options[:id] %> <span class="glyphicon glyphicon-link"></span>
+        <% end -%>
+      </div>
+    <% end -%>
   </div>
   <div class="row form-group">
     <div class="col-md-12">
