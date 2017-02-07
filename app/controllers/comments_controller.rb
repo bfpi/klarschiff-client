@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js
+      format.js { render "/application/#{ context }/new" }
     end
   end
 
@@ -18,5 +18,6 @@ class CommentsController < ApplicationController
     else
       @errors = comment.errors
     end
+    render "/application/#{ context }/create"
   end
 end

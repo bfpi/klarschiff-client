@@ -132,12 +132,15 @@ de:
       <<: *abuses
 
   comments:
-    create:
-      error: Fehler bei Lob, Hinweisen oder Kritik
-      success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
-      success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
-    new:
-      title: Lob, Hinweise oder Kritik
+    desktop: &comments
+      create:
+        error: Fehler bei Lob, Hinweisen oder Kritik
+        success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
+        success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
+      new:
+        title: Lob, Hinweise oder Kritik
+    mobile:
+      <<: *comments
 
   jobs:
     index:
