@@ -19,7 +19,7 @@
         <%= mark_trust(@request) %>
       <% end -%>
       <b>
-        <%= link_to [:root, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
+        <%= link_to [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id) do %>
           <span class="glyphicon glyphicon-link">
         <% end -%>
       </b>
@@ -35,16 +35,7 @@
     </div>
     <% if display?(:votes) -%>
       <div id="request-show" class="row form-group <%="#{ @request.service.type }" %>">
-
-        <div class="col-md-12">
-          <div class="row">
-            <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-md-9 control-label' %>
-            <div class="col-md-3 pull-right">
-              <%= link_to('+1', [:new, @request, :vote, id_list: @id_list], class: 'btn btn-xs btn-default',
-                          remote: true, role: :button) if display?(:votes) %>
-            </div>
-          </div>
-        </div>
+        <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-md-12 control-label' %>
         <div class="col-md-12">
           <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
           <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
@@ -76,6 +67,11 @@
     <% end -%>
     <% options = { remote: true, class: 'btn btn-default btn-block', role: :button } -%>
     <div class="row form-group">
+      <% if display?(:votes) -%>
+        <div class="col-md-12">
+          <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
+        </div>
+      <% end -%>
       <% if display?(:abuses) -%>
           <div class="col-md-12">
             <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>

@@ -124,6 +124,7 @@ class RequestsController < ApplicationController
       @modal_title_options = { count: 1 }
     end
     if ids.present? && !service.nil?
+      @options = { id: ids.first } if context == 'desktop'
       @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile)
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
@@ -141,6 +142,7 @@ class RequestsController < ApplicationController
         end
       }
     end
+    render "/application/#{ context }/create"
   end
 
   private

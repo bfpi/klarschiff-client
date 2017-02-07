@@ -61,3 +61,8 @@ $ ->
       unless $(@).is(':checked')
         arr.push('not_' + $(@).attr('id'))
     KS.reloadFeatures(filter)
+
+  $(document).on 'click', '.btn-continue', () ->
+    $('#form-page-' + $(@).data('current')).toggle()
+    $('#form-page-' + $(@).data('next')).toggle()
+    false

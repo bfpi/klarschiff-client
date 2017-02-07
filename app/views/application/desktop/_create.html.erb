@@ -1,0 +1,20 @@
+<div id="create-success" class="request-container">
+  <div class="row form-group">
+    <%= label_tag :success, t(:success), class: 'col-md-12 control-label' %>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= t(:success_message) %>
+    </div>
+    <div class="col-md-12">
+      <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link') do %>
+        #<%= options[:id] %> <span class="glyphicon glyphicon-link"></span>
+      <% end -%>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= link_to t('buttons.ok'), path, remote: true, role: :button, class: 'btn btn-primary btn-block' %>
+    </div>
+  </div>
+</div>

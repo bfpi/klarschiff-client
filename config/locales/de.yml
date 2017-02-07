@@ -7,6 +7,8 @@ de:
   mobile: Mobil
   pagetitle: Klarschiff-Prüf- und Protokollclient
   pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
+  success: Vielen Dank!
+  success_message: 'Ihr Vorgang muss zunächst redaktionell überprüft werden. Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
   username: Benutzername
 
   activemodel:
@@ -51,6 +53,7 @@ de:
 
   # General view contents
   buttons:
+    back: Zurück
     cancel: abbrechen
     close: schließen
     continue: Weiter
@@ -186,6 +189,8 @@ de:
       start_request:
         new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
       new:
+        confirmation: Bestätigung
+        confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
         error: Fehler bei neuer Meldung
         hint:
           label: Hinweis
