@@ -59,7 +59,7 @@ $ ->
     filter = []
     $('.show-feature').each () ->
       unless $(@).is(':checked')
-        arr.push('not_' + $(@).attr('id'))
+        filter.push('not_' + $(@).attr('id'))
     KS.reloadFeatures(filter)
 
   $(document).on 'click', '.btn-continue', () ->
