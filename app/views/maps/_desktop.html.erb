@@ -5,8 +5,9 @@
         <div id="request" class="tab-pane active">
           <%= render partial: 'requests/desktop/start_request' %>
         </div>
-        <div id="adresses" class="tab-pane">
-          Adressen
+        <div id="places" class="tab-pane">
+        </div>
+        <div id="watch" class="tab-pane">
         </div>
       </div>
       <ul class="nav nav-tabs tabs-right sideways">
@@ -14,7 +15,9 @@
           <a href="#request" data-toggle="tab"><%= t('.request') %></a>
         </li>
         <li>
-          <a href="#adresses" data-toggle="tab"><%= t('.adresses') %></a>
+          <a href="#places" data-toggle="tab" class="sidebar-tab" data-url="<%= places_path %>" data-tab="places">
+            <%= t('.addresses') %>
+          </a>
         </li>
         <li>
           <a href="#watch" data-toggle="tab"><%= t('.watch') %></a>

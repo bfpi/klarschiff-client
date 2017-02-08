@@ -21,6 +21,7 @@ class PlacesController < ApplicationController
             end
           end
         end
+        render "/places/#{context}/index"
       end
     end
   end

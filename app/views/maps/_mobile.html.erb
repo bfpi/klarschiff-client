@@ -28,7 +28,7 @@
           </a>
         </li>
         <li>
-          <%= link_to(places_path, remote: true, class: :places, title: t("nav.places")) do %>
+          <%= link_to(places_path(mobile: @mobile), remote: true, class: :places, title: t("nav.places")) do %>
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
           <% end %>

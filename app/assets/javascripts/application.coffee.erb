@@ -66,3 +66,7 @@ $ ->
     $('#form-page-' + $(@).data('current')).toggle()
     $('#form-page-' + $(@).data('next')).toggle()
     false
+
+  $(document).on 'click', '.sidebar-tab', () ->
+    unless $('.' + $(@).data('tab') + '-container').length > 0
+      $.get($(@).data('url'), null, null, 'script')
