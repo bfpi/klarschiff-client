@@ -45,6 +45,13 @@ KS.getUrlParam = (name) ->
   return null unless results
   results[1] || 0
 
+KS.getMapPanelParams = () ->
+  filter = []
+  $('.show-feature').each () ->
+    unless $(@).is(':checked')
+      filter.push('not_' + $(@).attr('id'))
+  filter
+
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
@@ -56,11 +63,7 @@ $ ->
     false
 
   $(document).on 'click', '.show-feature', () ->
-    filter = []
-    $('.show-feature').each () ->
-      unless $(@).is(':checked')
-        filter.push('not_' + $(@).attr('id'))
-    KS.reloadFeatures(filter)
+    KS.reloadFeatures()
 
   $(document).on 'click', '.btn-continue', () ->
     $('#form-page-' + $(@).data('current')).toggle()
