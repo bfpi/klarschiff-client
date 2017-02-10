@@ -5,12 +5,12 @@ class RequestsController < ApplicationController
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
     end
-    conditions.update(keyword: params[:type].join(', ')) unless @mobile
+    conditions.update(keyword: params[:typ].select(&:presence).join(', ')) unless @mobile
     if (states = Settings::Map.default_requests_states).present?
       if @mobile
         conditions.update detailed_status: states
       else
-        conditions.update(detailed_status: params[:status].join(', ').map(&:upcase))
+        conditions.update(detailed_status: (states = params[:status].select(&:presence)).join(', '))
         conditions.update(status: '') if states.blank?
       end
     end
