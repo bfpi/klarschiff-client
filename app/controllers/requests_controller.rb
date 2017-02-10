@@ -5,23 +5,14 @@ class RequestsController < ApplicationController
     if (center = params[:center]).present?
       conditions.update lat: center[0], long: center[1]
     end
-    types = ['problem', 'idea', 'tip']
-    unless @mobile
-      types = ['problem', 'idea']
-      types -= ['problem'] if params[:not_problem]
-      types -= ['idea'] if params[:not_idea]
-    end
-    conditions.update keyword: types
+    conditions.update(keyword: params[:type].join(', ')) unless @mobile
     if (states = Settings::Map.default_requests_states).present?
-      unless @mobile
-        states = states.split(', ')
-        states -= ['PENDING', 'RECEIVED'] if params[:not_open]
-        states -= ['IN_PROCESS'] if params[:not_in_process]
-        states -= ['PROCESSED'] if params[:not_solved]
-        states -= ['REJECTED'] if params[:not_rejected]
-        states = states.join(', ')
+      if @mobile
+        conditions.update detailed_status: states
+      else
+        conditions.update(detailed_status: params[:status].join(', ').map(&:upcase))
+        conditions.update(status: '') if states.blank?
       end
-      conditions.update detailed_status: states
     end
     @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
     session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)

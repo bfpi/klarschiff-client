@@ -351,8 +351,7 @@ KS.reloadFeatures= () ->
 KS.generatePath= () ->
   params = KS.getMapPanelParams()
   path = KS.requests_path
-  path += "#{ if path.contains?('?') then '&' else '?' }" + params.map(
-    (obj) -> obj + '=true').join('&') if params.length > 0
+  path += "#{ if path.contains?('?') then '&' else '?' }" + params
   path
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde

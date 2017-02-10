@@ -47,10 +47,15 @@ KS.getUrlParam = (name) ->
 
 KS.getMapPanelParams = () ->
   filter = []
+  if $('.show-feature[data-key=status]').length > 0
+    filter.push('status[]=')
+  if $('.show-feature[data-key=type]').length > 0
+    filter.push('typ[]=')
+
   $('.show-feature').each () ->
-    unless $(@).is(':checked')
-      filter.push('not_' + $(@).attr('id'))
-  filter
+    if $(@).is(':checked')
+      filter.push($(@).data('key')+'[]='+$(@).attr('id'))
+  filter.join('&')
 
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
