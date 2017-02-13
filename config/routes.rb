@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'maps#show'
+  root 'starts#show'
 
   resource :map, only: :show
   resource :start, only: :show

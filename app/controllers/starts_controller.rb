@@ -1,8 +1,7 @@
 class StartsController < ApplicationController
   def show
     @advice = params[:advice]
-    return redirect_to root_path(request: @advice, mobile: true) if @login_required || mobile_detected?
-    #redirect_to "#{ Settings::Url.ks_frontend_url }#{ adv ? "map.php?advice=#{ adv }" : 'index.php' }"
+    return redirect_to map_path(request: @advice, mobile: true) if @login_required || mobile_detected?
   end
 
   private
