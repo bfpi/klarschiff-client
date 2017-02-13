@@ -1,28 +1,30 @@
 class RequestsController < ApplicationController
   def index
-    conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
-    conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
-    if (center = params[:center]).present?
-      conditions.update lat: center[0], long: center[1]
-    end
-    conditions.update(keyword: params[:typ].select(&:presence).join(', ')) unless @mobile
-    if (states = Settings::Map.default_requests_states).present?
-      if @mobile
-        conditions.update detailed_status: states
-      else
-        conditions.update(detailed_status: (states = params[:status].select(&:presence)).join(', '))
-        conditions.update(status: '') if states.blank?
+    unless @back = params[:back]
+      conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
+      conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+      if (center = params[:center]).present?
+        conditions.update lat: center[0], long: center[1]
       end
+      conditions.update(keyword: params[:typ].select(&:presence).join(', ')) unless @mobile
+      if (states = Settings::Map.default_requests_states).present?
+        if @mobile
+          conditions.update detailed_status: states
+        else
+          conditions.update(detailed_status: (states = params[:status].select(&:presence)).join(', '))
+          conditions.update(status: '') if states.blank?
+        end
+      end
+      @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
+      session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     end
-    @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
-    session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     respond_to do |format|
       format.html { head :not_acceptable }
       format.js do
         if @mobile
           render "/requests/mobile/index"
         else
-          (@back = params[:back]).present? ? render('/requests/desktop/index') :
+          @back ? render('/requests/desktop/index') :
             redirect_to([@requests.first, id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile])
         end
       end
