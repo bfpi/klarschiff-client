@@ -351,6 +351,7 @@ KS.reloadFeatures= () ->
 KS.generatePath= () ->
   params = KS.getMapPanelParams()
   path = KS.requests_path
+  path += "#{ if path.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam('mobile') if KS.getUrlParam('mobile')
   path += "#{ if path.contains?('?') then '&' else '?' }" + params
   path
 
