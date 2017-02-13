@@ -8,5 +8,12 @@
     <div class="col-md-12">
       <%= link_to t('buttons.new_request'), [:new, :request, mobile: @mobile], remote: true, class: 'btn btn-primary' %>
     </div>
+    <div class="col-md-12">
+      <ul>
+        <% %w(emergencies complex_requests personal_requests).each do |val| -%>
+          <li><%= t(".no_#{ val }") %></li>
+        <% end -%>
+      </ul>
+    </div>
   </div>
 </div>

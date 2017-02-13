@@ -195,6 +195,9 @@ de:
     desktop: &requests 
       start_request:
         new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
+        no_complex_requests: Keine komplexen städtebaul. Änderungen
+        no_emergencies: Keine Notfälle!
+        no_personal_requests: Keine pers. Anfragen (Anträge, ...)
       new:
         confirmation: Bestätigung
         confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
