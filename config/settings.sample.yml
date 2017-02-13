@@ -6,6 +6,7 @@ urls:
 
 client:
   login_required: true
+  name: Klarschiff.HRO
   show_email:
   show_abuses:
   show_votes:
