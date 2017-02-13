@@ -1,7 +1,8 @@
 class StartsController < ApplicationController
   def show
-    @advice = params[:advice]
-    return redirect_to map_path(request: @advice, mobile: true) if @login_required || mobile_detected?
+    @request_id = params[:request]
+    return redirect_to map_path(request: @request_id, mobile: true) if @login_required || mobile_detected?
+    @requests = Request.where(max_requests: 3, detailed_status: Settings::Map.default_requests_states)
   end
 
   private

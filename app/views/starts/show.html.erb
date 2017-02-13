@@ -4,6 +4,35 @@
     <div class="panel panel-default">
       <div class="panel-heading"><%= t('.recent_requests') %></div>
       <div class="panel-body">
+        <% @requests.each do |req| -%>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
+                data: { turbolinks: false } do %>
+                <div class="row">
+                  <div class="col-md-2">
+                    <%= image_tag req.icon_list %>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <%= req.service.category %>
+                      </div>
+                      <div class="col-md-12">
+                        <%= req.service %>
+                      </div>
+                    </div>
+                  </div>
+                  <% if (url = req.media).present? -%>
+                    <div class="col-md-12">
+                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+                    </div>
+                  <% end -%>
+                </div>
+              <% end -%>
+            </div>
+          </div>
+        <% end -%>
       </div>
     </div>
   </div>
@@ -17,7 +46,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <%= link_to t('buttons.requests'), [:map], role: :button, class: 'btn btn-default', data: { turbolinks: false } %>
+            <%= link_to t('buttons.requests'), [:map], role: :button, class: 'btn btn-primary', data: { turbolinks: false } %>
           </div>
         </div>
       </div>
