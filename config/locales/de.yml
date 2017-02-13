@@ -3,6 +3,7 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
   api: API
+  header_title: Klarschiff.HRO
   impressum: Impressum
   mobile: Mobil
   pagetitle: Klarschiff-Prüf- und Protokollclient
