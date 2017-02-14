@@ -1,0 +1,23 @@
+{
+    "name": "arp/solrclient2",
+    "description": "PHP solr client",
+    "keywords": ["solr client", "solr"],
+    "type": "library",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "A.R.Pour"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {
+            "ARP\\SolrClient2": "lib/"
+        }
+    }
+}
