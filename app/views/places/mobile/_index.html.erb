@@ -21,7 +21,7 @@
       <div class="panel-heading"><%= t('.results') %></div>
         <div class="list-group">
           <% @places.each do |place| -%>
-            <%= link_to(map_path(bbox: place.bbox), remote: true, class: 'list-group-item') do %>
+            <%= link_to(map_path(bbox: place.bbox, mobile: @mobile), remote: true, class: 'list-group-item') do %>
               <%= place.label %><span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
             <% end %>
           <% end -%>

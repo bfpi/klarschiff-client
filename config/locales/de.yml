@@ -165,8 +165,11 @@ de:
       title: interner Kommentar
 
   places:
-    index:
-      results: Ergebnisse
+    desktop: &places
+      index:
+        results: Ergebnisse
+    mobile:
+      <<: *places
 
   protocols:
     create:

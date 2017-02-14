@@ -16,7 +16,7 @@
           </a>
         </li>
         <li>
-          <%= link_to(map_path, remote: true, class: :map, title: t("nav.map")) do %>
+          <%= link_to(map_path(mobile: @mobile), remote: true, class: :map, title: t("nav.map")) do %>
             <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
             <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
           <% end %>
