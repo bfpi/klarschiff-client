@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/rails/activeresource.git
-  revision: 5bb25e946c206e77f6f9b82c6a5ea8df31b9efc1
+  remote: http://github.com/rails/activeresource.git
+  revision: e28f907145c34bcad1d354fa9b25fbd4264e52e9
   branch: master
   specs:
     activeresource (5.0.0)

@@ -60,7 +60,7 @@ foreach ($result->documents as $doc) {
     $href = 'javascript:map.zoomToExtent(new OpenLayers.Bounds(' . $bbox_string . '));';
   } else {
     $href = URL . '?BBOX=' . $bbox_string;
-  }    
+  }
 
   $resultJson["result"] .= generateHtml($href, $bbox_string, $data["type"], $title, $backend);
   $resultJson["array"][] = generateJson($bbox_array, $data["type"], $title);

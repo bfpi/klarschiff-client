@@ -11,22 +11,15 @@
             <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
           </div>
         </div>
-        <div class="col-md-5 col-md-offset-7 form-group">
-          <%= f.submit(t('buttons.search'), class: 'btn btn-default btn-primary btn-block') %>
-        </div>
       </div>
     <% end %>
     <% if @places -%>
-      <div class="panel panel-default result">
-        <div class="panel-heading"><%= t('.results') %></div>
-          <div class="list-group">
-            <% @places.each do |place| -%>
-              <%= link_to(map_path(bbox: place.bbox), remote: true, class: 'list-group-item') do %>
-                <%= place.label %><span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
-              <% end %>
-            <% end -%>
-          </div>
-      </div>
+      <div class="list-group">
+        <% @places.each do |place| -%>
+          <%= link_to(map_path(bbox: place.bbox), remote: true, class: 'list-group-item') do %>
+            <%= place.label %><span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+          <% end %>
+        <% end -%>
     <% end -%>
   </div>
 </div>

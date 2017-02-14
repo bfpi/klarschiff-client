@@ -8,7 +8,7 @@ define("PASS","standortsuche");
 define("SCHEMA","public");
 
 # ORT
-define("URL", "map/");
+define("URL", "/map");
 # DEFAULT ORT - zur Begrenzung der Suche
 # define("ORT","Rostock");
 
@@ -17,7 +17,7 @@ $solrConf = array(
     'host' => 'localhost',
     'port' => 8080,
     'path' => 'solr',
-    'core' => 'klarschiff',
+    'core' => 'klarschiff_hro',
     'version' => 4,
     'params' => array(
       'rows' => 5
