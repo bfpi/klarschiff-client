@@ -13,24 +13,39 @@
     <% unless @mobile -%>
       <header>
         <div class="container">
-          <div class="systray">
-            <center>
-              <h1><%= Settings::Client.name %></h1>
-            </center>
+          <div class="systray row">
+            <div class="col-md-4" id="textsizer">
+              <div class="btn-group textresizer">
+                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
+                  A-
+                <% end -%>
+                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default textresizer-active', remote: true do %>
+                  A
+                <% end -%>
+                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
+                  A+
+                <% end -%>
+              </div>
+            </div>
+            <div class="col-md4">
+              <div class="text-center">
+                <h1><%= Settings::Client.name %></h1>
+              </div>
+            </div>
           </div>
         </div>
       </header>
-      <div class="container">
+      <div id="main-content" class="container">
         <%= yield %>
       </div>
       <footer class="footer">
         <div class="container">
           <div class="systray">
-            <center>
+            <div class="text-center">
               <%= link_to t(:mobile), [:map, mobile: true] %> |
               <%= link_to t(:api), '#' %> |
               <%= link_to t(:impressum), '#' %>
-            </center>
+            </div>
           </div>
         </div>
       </footer>
