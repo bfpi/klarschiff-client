@@ -54,17 +54,17 @@ de:
   # General view contents
   buttons:
     back: Zurück
-    cancel: abbrechen
-    close: schließen
+    cancel: Abbrechen
+    close: Schließen
     continue: Weiter
-    describe: beschreiben
+    describe: Beschreiben
     new_request: Neue Meldung
     requests: Zu den Meldungen...
     perma_link: "Permalink auf Meldung #%{req_id}"
     ok: Ok
-    save: speichern
-    search: suchen
-    submit: senden
+    save: Speichern
+    search: Suchen
+    submit: Senden
 
   messages:
     success:
