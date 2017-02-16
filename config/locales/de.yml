@@ -55,8 +55,10 @@ de:
   buttons:
     back: Zurück
     cancel: Abbrechen
+    choose: Auswählen
     close: Schließen
     continue: Weiter
+    create: Erstellen
     describe: Beschreiben
     new_request: Neue Meldung
     requests: Zu den Meldungen...
@@ -130,6 +132,15 @@ de:
             unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
     mobile:
       <<: *abuses
+
+  areas:
+    index:
+      districts: Stadtteile
+      notice: >
+        Sie können Areale und Kategorien auswählen, für welche Sie Benachrichtigungen erhalten
+        möchten, sobald passende Meldungen erstellt werden.
+      own_area: Eigene Fläche
+      whole_area: Gesamtes Gebiet
 
   comments:
     desktop: &comments

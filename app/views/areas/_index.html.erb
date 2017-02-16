@@ -1,0 +1,25 @@
+<div id="areas-index" class="area-container">
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= t('.notice') %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <%= label_tag :whole_area, t('.whole_area'), class: 'col-md-6 control-label' %>
+    <div class="col-md-6">
+      <%= link_to t('buttons.continue'), [:areas, area_code: -1], role: :button, remote: true, class: 'btn btn-default btn-block' %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <%= label_tag :districts, t('.districts'), class: 'col-md-6 control-label' %>
+    <div class="col-md-6">
+      <%= link_to t('buttons.choose'), [:areas, with_districts: true], role: :button, remote: true, class: 'btn btn-default btn-block choose-districts' %>
+    </div>
+  </div>
+  <div class="row">
+    <%= label_tag :own_area, t('.own_area'), class: 'col-md-6 control-label' %>
+    <div class="col-md-6">
+      <%= link_to t('buttons.create'), 'javascript:;', role: :button, remote: true, class: 'btn btn-default btn-block create-area' %>
+    </div>
+  </div>
+</div>
