@@ -15,6 +15,7 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
+KS.areas_path = "<%= Settings::Route.areas_path %>/?area_code=-1&with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
 
 class KS.Map
@@ -126,6 +127,20 @@ KS.styles =
           font: 'bold 20px Verdana'
           fill: new ol.style.Fill
             color: '#000000'
+    
+  observationStyle: (feature) ->
+    feature.setStyle new ol.style.Style
+      stroke: new ol.style.Stroke
+      fill: new ol.style.Fill
+        color: 'rgba(255,135,0,0.5)'
+      text: new ol.style.Text
+        font: 'bold 11px Verdana'
+        text: feature.get('name')
+        stroke: new ol.style.Stroke
+          color: '#FFFFFF'
+          width: 3
+        fill: new ol.style.Fill
+          color: '#FF8700'
 
   newFeature: (type) ->
     new ol.style.Style
@@ -211,6 +226,15 @@ class KS.Layers
           source: new KS.FeatureVector(KS.jobs_path)
         style: KS.styles.jobStyle
         visible: true
+    
+    observations = new ol.layer.Vector
+      id: 'observations'
+      source: new ol.source.Vector
+      style: KS.styles.observationStyle
+      visible: false
+
+    KS.createObservationFeatures(KS.areas_path, observations)
+    @layers.push observations
 
     map.addLayer layer for layer in @layers
 
@@ -228,6 +252,14 @@ class KS.Layers
       i++
     null
 
+KS.createObservationFeatures= (controller, layer) ->
+  $.ajax(url: controller, dataType: 'json').done (response) ->
+    $.each response, (index, elem) ->
+      f = new ol.Feature
+        id: elem.id
+        name: elem.name
+        geometry: new ol.geom.Polygon(elem.grenze.coordinates)
+      layer.getSource().addFeature f
 
 class KS.FeatureVector
   constructor: (controller, is_request = false) ->
@@ -269,7 +301,6 @@ class KS.FeatureData
         features.push f
       vector.clear true
       vector.addFeatures features
-
 
 class KS.Geolocation
   constructor: (map) ->

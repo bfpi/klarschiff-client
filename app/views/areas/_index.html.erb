@@ -13,7 +13,8 @@
   <div class="row form-group">
     <%= label_tag :districts, t('.districts'), class: 'col-md-6 control-label' %>
     <div class="col-md-6">
-      <%= link_to t('buttons.choose'), [:areas, with_districts: true], role: :button, remote: true, class: 'btn btn-default btn-block choose-districts' %>
+      <%= link_to t('buttons.choose'), [:areas, show_districts: true], role: :button,
+        remote: true, class: 'btn btn-default btn-block' %>
     </div>
   </div>
   <div class="row">

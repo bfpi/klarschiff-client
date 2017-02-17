@@ -62,6 +62,7 @@ de:
     describe: Beschreiben
     new_request: Neue Meldung
     requests: Zu den Meldungen...
+    resume: Übernehmen
     perma_link: "Permalink auf Meldung #%{req_id}"
     ok: Ok
     save: Speichern
