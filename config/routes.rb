@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :areas, only: :index
   resources :jobs, only: [:index, :update]
+  resources :observations, only: [:new, :create, :show]
   resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]

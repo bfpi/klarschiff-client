@@ -44,3 +44,12 @@ $ ->
 
   KS.content().on 'click', 'form .more_attachment a', ->
     $('#attachments').append($('#attachment-prototype').children().clone())
+
+  $(document).on 'click', '#areas-form-submit', (e) ->
+    if layer = KS.layers.findById('observations')
+      for feature in layer.getSource().getFeatures()
+        if feature.get('selected')
+          input = $('<input>').attr({ 'type': 'hidden', 'name': 'area_code[]' }).val(feature.get('id'))
+          $('#areas-form').append(input)
+    $('#areas-form').ajaxSubmit dataType: 'script'
+    false

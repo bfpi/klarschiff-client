@@ -15,7 +15,7 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
-KS.areas_path = "<%= Settings::Route.areas_path %>/?area_code=-1&with_districts=true"
+KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
 
 class KS.Map
@@ -41,27 +41,36 @@ class KS.Map
 
     map.on 'click', (e) ->
       map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
-        if layer and layer.get('id') in ['features', 'jobs']
-          features = feature.get('features')
-          url = KS.requests_path
-          if features.length == 1
-            # Single feature -> show
-            url += features[0].get("id")
-            url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
-            $.ajax(url: url, dataType: 'script')
-          else if map.getView().getZoom() == KS.maxZoom
-            ids = Array()
-            $(features).each (ix, feature) ->
-              ids.push feature.get('id')
-            url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
-            $.ajax(url: url, dataType: 'script', data: { ids: ids })
-          else
-            # Zoom in
-            map.getView().setCenter e.coordinate
-            current_zoom = map.getView().getZoom()
-            if current_zoom == undefined
-              current_zoom = zoom
-            map.getView().setZoom parseInt(current_zoom + 1)
+        if layer
+          if layer.get('id') == 'observations'
+            feature.set('selected', !feature.get('selected'))
+            if feature.get('selected')
+              feature.getStyle().getFill().setColor('rgba(255,0,255,0.5)')
+              feature.getStyle().getText().getFill().setColor('#FF00FF')
+            else
+              feature.getStyle().getFill().setColor('rgba(255,135,0,0.5)')
+              feature.getStyle().getText().getFill().setColor('#FF8700')
+          else if layer.get('id') in ['features', 'jobs']
+            features = feature.get('features')
+            url = KS.requests_path
+            if features.length == 1
+              # Single feature -> show
+              url += features[0].get("id")
+              url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+              $.ajax(url: url, dataType: 'script')
+            else if map.getView().getZoom() == KS.maxZoom
+              ids = Array()
+              $(features).each (ix, feature) ->
+                ids.push feature.get('id')
+              url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+              $.ajax(url: url, dataType: 'script', data: { ids: ids })
+            else
+              # Zoom in
+              map.getView().setCenter e.coordinate
+              current_zoom = map.getView().getZoom()
+              if current_zoom == undefined
+                current_zoom = zoom
+              map.getView().setZoom parseInt(current_zoom + 1)
 
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
@@ -255,10 +264,11 @@ class KS.Layers
 KS.createObservationFeatures= (controller, layer) ->
   $.ajax(url: controller, dataType: 'json').done (response) ->
     $.each response, (index, elem) ->
-      f = new ol.Feature
-        id: elem.id
-        name: elem.name
-        geometry: new ol.geom.Polygon(elem.grenze.coordinates)
+      format = new ol.format.WKT()
+      f = format.readFeature(elem.grenze)
+      f.set('id', elem.id)
+      f.set('name', elem.name)
+      f.set('selected', false)
       layer.getSource().addFeature f
 
 class KS.FeatureVector
@@ -385,6 +395,14 @@ KS.generatePath= () ->
   path += "#{ if path.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam('mobile') if KS.getUrlParam('mobile')
   path += "#{ if path.contains?('?') then '&' else '?' }" + params
   path
+
+KS.resetSelectedFeatures= () ->
+  if layer = KS.layers.findById('observations')
+    for feature in layer.getSource().getFeatures()
+      if feature.get('selected')
+        feature.set('selected', false)
+        feature.getStyle().getFill().setColor('rgba(255,135,0,0.5)')
+        feature.getStyle().getText().getFill().setColor('#FF8700')
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')
