@@ -46,10 +46,20 @@ $ ->
     $('#attachments').append($('#attachment-prototype').children().clone())
 
   $(document).on 'click', '#areas-form-submit', (e) ->
-    if layer = KS.layers.findById('observations')
-      for feature in layer.getSource().getFeatures()
-        if feature.get('selected')
-          input = $('<input>').attr({ 'type': 'hidden', 'name': 'area_code[]' }).val(feature.get('id'))
-          $('#areas-form').append(input)
+    if $(@).data('context') == 'districts'
+      if layer = KS.layers.findById('observations')
+        for feature in layer.getSource().getFeatures()
+          if feature.get('selected')
+            input = $('<input>').attr({ 'type': 'hidden', 'name': 'area_code[]' }).val(feature.get('id'))
+            $('#areas-form').append(input)
+    else
+      if layer = KS.layers.findById('draw_observation')
+        feature = layer.getSource().getFeatures()[0]
+        coordinates = []
+        feature.getGeometry().getCoordinates()[0].forEach (coord) ->
+          coordinates[coordinates.length] = coord.toString().replace(/,/g, ' ')
+        geom_as_wkt = 'MULTIPOLYGON(((' + coordinates.join(',') + ')))'
+        input = ($('<input>').attr({ 'type': 'hidden', 'name': 'geometry' }).val(geom_as_wkt))
+        $('#areas-form').append(input)
     $('#areas-form').ajaxSubmit dataType: 'script'
     false

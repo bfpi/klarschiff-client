@@ -1,13 +1,10 @@
 class AreasController < ApplicationController
   def index
-    unless (@show_districts = params[:show_districts] || @cancel = params[:cancel]).present?
-    end
     respond_to do |format|
       format.html { head :not_acceptable }
       format.js do
-        if params[:area_code].present?
-          redirect_to [:new, :observation, area_code: params[:area_code]]
-        end
+        @context = params[:context]
+        redirect_to [:new, :observation, area_code: params[:area_code]] if (params[:area_code] || params[:geometry]).present?
       end
       format.json do
         conds = {}

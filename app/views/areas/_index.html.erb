@@ -13,14 +13,14 @@
   <div class="row form-group">
     <%= label_tag :districts, t('.districts'), class: 'col-md-6 control-label' %>
     <div class="col-md-6">
-      <%= link_to t('buttons.choose'), [:areas, show_districts: true], role: :button,
+      <%= link_to t('buttons.choose'), [:areas, context: 'districts'], role: :button,
         remote: true, class: 'btn btn-default btn-block' %>
     </div>
   </div>
   <div class="row">
     <%= label_tag :own_area, t('.own_area'), class: 'col-md-6 control-label' %>
     <div class="col-md-6">
-      <%= link_to t('buttons.create'), 'javascript:;', role: :button, remote: true, class: 'btn btn-default btn-block create-area' %>
+      <%= link_to t('buttons.create'), [:areas, context: 'draw'], role: :button, remote: true, class: 'btn btn-default btn-block' %>
     </div>
   </div>
 </div>

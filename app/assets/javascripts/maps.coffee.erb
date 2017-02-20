@@ -17,6 +17,7 @@ KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
 KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
+KS.draw_observation = null
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -144,7 +145,7 @@ KS.styles =
         color: 'rgba(255,135,0,0.5)'
       text: new ol.style.Text
         font: 'bold 11px Verdana'
-        text: feature.get('name')
+        text: feature.get('name') || ''
         stroke: new ol.style.Stroke
           color: '#FFFFFF'
           width: 3
@@ -244,6 +245,12 @@ class KS.Layers
 
     KS.createObservationFeatures(KS.areas_path, observations)
     @layers.push observations
+
+    @layers.push new ol.layer.Vector
+      id: 'draw_observation'
+      source: new ol.source.Vector
+      style: KS.styles.observationStyle
+      visible: false
 
     map.addLayer layer for layer in @layers
 
@@ -398,11 +405,34 @@ KS.generatePath= () ->
 
 KS.resetSelectedFeatures= () ->
   if layer = KS.layers.findById('observations')
+    layer.setVisible(false)
     for feature in layer.getSource().getFeatures()
       if feature.get('selected')
         feature.set('selected', false)
         feature.getStyle().getFill().setColor('rgba(255,135,0,0.5)')
         feature.getStyle().getText().getFill().setColor('#FF8700')
+
+KS.setDrawObservation= () ->
+  layer = KS.layers.findById('draw_observation')
+  KS.draw_observation = new ol.interaction.Draw
+    source: layer.getSource()
+    type: 'Polygon'
+    style: KS.styles.observationStyle
+  layer.setVisible(true)
+  KS.olMap.addInteraction(KS.draw_observation)
+
+  KS.draw_observation.on 'drawend', () ->
+    KS.olMap.removeInteraction(KS.draw_observation)
+    $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
+
+  $('#' + KS.olMap.getTarget()).css('cursor', 'crosshair')
+
+KS.removeDrawObservation= () ->
+  layer = KS.layers.findById('draw_observation')
+  layer.setVisible(false)
+  KS.olMap.removeInteraction(KS.draw_observation)
+  $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
+  layer.getSource().clear()
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')

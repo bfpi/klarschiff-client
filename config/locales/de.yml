@@ -135,6 +135,9 @@ de:
       <<: *abuses
 
   areas:
+    areas_form:
+      districts: Wählen Sie die Stadtteile, welche Sie beobachten möchten
+      draw: Wählen Sie die Ecken eines Gebietes, welches Sie beobachten möchten
     index:
       districts: Stadtteile
       notice: >
