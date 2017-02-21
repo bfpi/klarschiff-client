@@ -57,13 +57,13 @@ class KS.Map
             if features.length == 1
               # Single feature -> show
               url += features[0].get("id")
-              url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+              url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
               $.ajax(url: url, dataType: 'script')
             else if map.getView().getZoom() == KS.maxZoom
               ids = Array()
               $(features).each (ix, feature) ->
                 ids.push feature.get('id')
-              url += "?mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+              url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
               $.ajax(url: url, dataType: 'script', data: { ids: ids })
             else
               # Zoom in
@@ -404,7 +404,7 @@ KS.generatePath= () ->
   path
 
 KS.resetSelectedFeatures= () ->
-  if layer = KS.layers.findById('observations')
+  if (layer = KS.layers.findById('observations')) && layer.getVisible()
     layer.setVisible(false)
     for feature in layer.getSource().getFeatures()
       if feature.get('selected')
@@ -428,11 +428,11 @@ KS.setDrawObservation= () ->
   $('#' + KS.olMap.getTarget()).css('cursor', 'crosshair')
 
 KS.removeDrawObservation= () ->
-  layer = KS.layers.findById('draw_observation')
-  layer.setVisible(false)
-  KS.olMap.removeInteraction(KS.draw_observation)
-  $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
-  layer.getSource().clear()
+  if (layer = KS.layers.findById('draw_observation')) && layer.getVisible()
+    layer.setVisible(false)
+    KS.olMap.removeInteraction(KS.draw_observation)
+    $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
+    layer.getSource().clear()
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')

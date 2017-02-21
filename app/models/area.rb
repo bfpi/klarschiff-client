@@ -3,5 +3,5 @@ class Area < ActiveResource::Base
 
   self.set_server_connection :city_sdk
 
-  attr_accessor :id, :name, :type, :coordinates
+  attr_accessor :id, :name, :grenze
 end

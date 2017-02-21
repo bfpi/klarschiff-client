@@ -1,5 +1,31 @@
-<div id="new-observation" class="area-container">
+<div id="create-observation" class="area-container">
   <%= form_for(@observation, remote: true) do |f| %>
-    <%= params.inspect %>
+    <%= hidden_field_tag :area_code, @area_code if @area_code %>
+    <%= hidden_field_tag :geometry, @geom if @geom %>
+    <% %w(problem idea).each do |type| -%>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= check_box_tag type.pluralize, true, false, class: 'check-all', data: { type: type } %>
+          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
+        </div>
+        <% service_names(type).each do |service| -%>
+          <div class="col-md-12">
+            <%= check_box_tag "#{ type }_service[]", service[:id], false, class: type,
+              id: "#{ type }_#{ service[:id] }" %>
+            <%= label_tag  "#{ type }_#{ service[:id] }", service[:name], class: 'check-label'%>
+          </div>
+        <% end -%>
+      </div>
+    <% end -%>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified">
+          <%= link_to t('buttons.cancel'), [:areas, cancel: true], remote: true, class: 'btn btn-default' %>
+          <div class="btn-group">
+            <%= f.submit t('buttons.submit'), class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end -%>
 </div>

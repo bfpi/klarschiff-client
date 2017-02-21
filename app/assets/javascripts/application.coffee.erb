@@ -82,3 +82,8 @@ $ ->
   
   $(document).ready () ->
     $('#textsizer a').textresizer({ target: '#main-content' })
+
+  $(document).on 'click', '.check-all', () ->
+    checked = $(@).is(':checked')
+    $('.' + $(@).data('type')).each () ->
+      $(@).prop('checked', checked)

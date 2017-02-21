@@ -4,7 +4,9 @@ class AreasController < ApplicationController
       format.html { head :not_acceptable }
       format.js do
         @context = params[:context]
-        redirect_to [:new, :observation, area_code: params[:area_code]] if (params[:area_code] || params[:geometry]).present?
+        area_code = params[:area_code]
+        geom = params[:geometry]
+        redirect_to [:new, :observation, area_code: area_code, geometry: geom] if (area_code || geom).present?
       end
       format.json do
         conds = {}
