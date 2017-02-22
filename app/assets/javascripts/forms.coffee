@@ -56,9 +56,9 @@ $ ->
       if layer = KS.layers.findById('draw_observation')
         feature = layer.getSource().getFeatures()[0]
         coordinates = []
-        feature.getGeometry().getCoordinates()[0].forEach (coord) ->
+        feature.getGeometry().getCoordinates()[0][0].forEach (coord) ->
           coordinates[coordinates.length] = coord.toString().replace(/,/g, ' ')
-        geom_as_wkt = 'POLYGON((' + coordinates.join(',') + '))'
+        geom_as_wkt = 'MULTIPOLYGON(((' + coordinates.join(',') + ')))'
         input = ($('<input>').attr({ 'type': 'hidden', 'name': 'geometry' }).val(geom_as_wkt))
         $('#areas-form').append(input)
     $('#areas-form').ajaxSubmit dataType: 'script'

@@ -416,7 +416,7 @@ KS.setDrawObservation= () ->
   layer = KS.layers.findById('draw_observation')
   KS.draw_observation = new ol.interaction.Draw
     source: layer.getSource()
-    type: 'Polygon'
+    type: 'MultiPolygon'
     style: KS.styles.observationStyle
   layer.setVisible(true)
   KS.olMap.addInteraction(KS.draw_observation)
