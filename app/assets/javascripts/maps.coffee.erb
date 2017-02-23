@@ -179,6 +179,17 @@ KS.styles =
         radius: 6
     ]
 
+KS.highlightStyle= (feature, icon) ->
+    feature.setStyle new ol.style.Style
+      image: new ol.style.Icon
+        anchorXUnits: 'pixels'
+        anchorYUnits: 'pixels'
+        anchor: [
+          7
+          65
+        ]
+        src: icon
+      text: KS.styles.featureAttribution(feature)
 
 KS.imagePath = (type) ->
   $("#image-sources img##{ type }").attr 'src'
@@ -251,6 +262,12 @@ class KS.Layers
       source: new ol.source.Vector
       style: KS.styles.observationStyle
       visible: false
+    
+    @layers.push new ol.layer.Vector
+      id: 'highlight_layer'
+      source: new ol.source.Vector
+      style: KS.styles.highlightStyle
+      visible: true
 
     map.addLayer layer for layer in @layers
 
@@ -433,6 +450,13 @@ KS.removeDrawObservation= () ->
     KS.olMap.removeInteraction(KS.draw_observation)
     $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
     layer.getSource().clear()
+
+KS.createHighlightFeature= (layer, coord, icon) ->
+  f = new ol.Feature
+    geometry: new ol.geom.Point(coord)
+    type: 'Point'
+  KS.highlightStyle(f, icon)
+  layer.getSource().addFeature f
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')

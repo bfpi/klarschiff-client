@@ -44,6 +44,10 @@ class Request < ActiveResource::Base
     Settings::Route.path_to_image "icons/map/#{ icon_folder }/#{ icon }.png"
   end
 
+  def icon_active_map
+    Settings::Route.path_to_image "icons/map/active/#{ icon }.png"
+  end
+
   def min_req
     @min_req ||= Settings::Vote.min_requirement || 0
   end
