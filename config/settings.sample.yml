@@ -5,6 +5,7 @@ urls:
   ks_backend_vorgang_url: https://demo.klarschiff.de/vorgang/%s
 
 client:
+  key: hro
   login_required: true
   name: Klarschiff.HRO
   show_email:

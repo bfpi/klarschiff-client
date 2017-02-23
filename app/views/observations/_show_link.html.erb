@@ -1,0 +1,15 @@
+<div id="show-link" class="area-container">
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= t('.subscribe_feed') %>
+    </div>
+    <div class="col-md-12">
+      <%= link_to t('.link'), [:observations, observation_key: @rss_id, format: :xml], target: '_blank' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <%= link_to t('buttons.ok'), [:areas, cancel: true], remote: true, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

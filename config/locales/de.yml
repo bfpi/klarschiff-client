@@ -179,6 +179,16 @@ de:
     new:
       title: interner Kommentar
 
+  observations:
+    index:
+      feed_title: "%{name} - Meldungen für Beobachtungsflächen"
+      feed_description: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
+    show_link:
+      link: Link
+      subscribe_feed: >
+        Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z.B. RSSowl,
+        Lifera, feedly.com) oder Ihrem Browser
+
   places:
     desktop: &places
       index:
