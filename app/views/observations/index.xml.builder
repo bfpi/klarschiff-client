@@ -9,7 +9,6 @@ xml.rss version: '2.0', 'xmlns:atom' => 'http://w3.org/2005/Atom', 'xmlns:georss
     xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', 'href' => observations_path(observation_key: @key)
     
     @requests.each do |r|
-      logger.info "ID: #{ r.id }"
       xml.item do 
         xml.title "##{r.id} #{ t(r.service.type, scope: 'service.types', count: 1) } (#{ r.service.group } - #{ r.service })"
         xml.description do
