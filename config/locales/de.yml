@@ -8,7 +8,8 @@ de:
   pagetitle: Klarschiff-Prüf- und Protokollclient
   pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
   success: Vielen Dank!
-  success_message: 'Ihr Vorgang muss zunächst redaktionell überprüft werden. Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
+  success_message: Ihr Vorgang muss zunächst redaktionell überprüft werden.
+  share_request: ' Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
   username: Benutzername
 
   activemodel:

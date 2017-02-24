@@ -2,13 +2,12 @@
   <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: nil } %>
   <%= form_for([:request, @abuse], remote: true) do |f| %>
     <div class="row form-group">
-        <%= label_tag :abuse, t('.title'), class: 'col-md-12 control-label' %>
-      </div>
-      <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
-      <div class="col-md-12">
-        <%= t('.hint.text') %>
-        <em class="text-danger"><%= t('.hint.warning_html') %></em>
-      </div>
+      <%= label_tag :abuse, t('.title'), class: 'col-md-12 control-label' %>
+    </div>
+    <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
+    <div class="col-md-12">
+      <%= t('.hint.text') %>
+      <em class="text-danger"><%= t('.hint.warning_html') %></em>
     </div>
     <div class="row form-group">
       <div class="col-md-12">
