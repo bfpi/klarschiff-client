@@ -3,13 +3,16 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
   api: API
+  help: Hilfe
   impressum: Impressum
   mobile: Mobil
   pagetitle: Klarschiff-Prüf- und Protokollclient
   pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
+  privacy: Datenschutz
   success: Vielen Dank!
   success_message: Ihr Vorgang muss zunächst redaktionell überprüft werden.
   share_request: ' Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
+  usage: Nutzung
   username: Benutzername
 
   activemodel:
