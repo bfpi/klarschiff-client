@@ -1,7 +1,7 @@
 class Request < ActiveResource::Base
   include ResourceClient
   self.set_server_connection :city_sdk
-  #default_query_options[:extensions] = true
+  default_query_options[:extensions] = true
 
   alias_attribute :id, :service_request_id
 

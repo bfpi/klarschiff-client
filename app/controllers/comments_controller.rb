@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   def new
-    @request = Request.where(id: params[:request_id], extensions: true).first
+    @request = Request.find(params[:request_id])
     @comment = Comment.new(service_request_id: @request.id, author: login_required? ?  @user.email : nil, comment: nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|

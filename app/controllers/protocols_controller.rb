@@ -1,6 +1,6 @@
 class ProtocolsController < ApplicationController
   def new
-    @request = Request.where(id: params[:request_id], extensions: true).first
+    @request = Request.find(params[:request_id])
     @protocol = Protocol.new message_number: @request.id
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
