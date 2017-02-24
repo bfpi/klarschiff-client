@@ -52,7 +52,7 @@ class RequestsController < ApplicationController
 
   def edit
     return head(:not_found) unless (id = params[:id]).present?
-    @request = Request.find(id)
+    @request = Request.where(id: params[:request_id], extensions: true).first
     @id_list = params[:id_list].try(:map, &:to_i).presence
   end
 

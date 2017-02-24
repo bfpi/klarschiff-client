@@ -1,6 +1,6 @@
 class AbusesController < ApplicationController
   def new
-    @request = Request.find(params[:request_id])
+    @request = Request.where(id: params[:request_id], extensions: true).first
     @abuse = Abuse.new(service_request_id: @request.id, author: login_required? ? @user.email : nil,
                        comment: nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence

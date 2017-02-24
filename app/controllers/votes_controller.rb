@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   def new
-    @request = Request.find(params[:request_id])
+    @request = Request.where(id: params[:request_id], extensions: true).first
     @vote = Vote.new(service_request_id: @request.id, author: login_required? ? @user.email : nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|

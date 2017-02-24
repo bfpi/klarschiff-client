@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   def new
-    @request = Request.find(params[:request_id])
+    @request = Request.where(id: params[:request_id], extensions: true).first
     @note = Note.new(service_request_id: @request.id, comment: nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
