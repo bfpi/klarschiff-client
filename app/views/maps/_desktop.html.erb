@@ -1,4 +1,25 @@
+<% content_for :nav do -%>
+  <div class="col-md-12">
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a href="#request" data-toggle="tab"><%= t('.request') %></a>
+      </li>
+      <li>
+        <a href="#places" data-toggle="tab" class="header-tab" data-url="<%= places_path %>" data-tab="places">
+          <%= t('.addresses') %>
+        </a>
+      </li>
+      <li>
+        <a href="#watch" data-toggle="tab"><%= t('.watch') %></a>
+      </li>
+    </ul>
+  </div>
+<% end -%>
 <div id="content">
+  <div class="view-switcher">
+      <%= link_to t('.map_view'), '#', class: 'btn btn-primary switch-map-view', id: 'aerial',
+        data: { aerial: t('.aerial_view'), map: t('.map_view') } %>
+    </div>
   <div id="ol-map" class="ol-map-desktop">
     <div class="sidebar">
       <div class="tab-content">
@@ -11,39 +32,18 @@
           <%= render partial: 'areas/index' %>
         </div>
       </div>
-      <ul class="nav nav-tabs tabs-right sideways">
-        <li class="active">
-          <a href="#request" data-toggle="tab"><%= t('.request') %></a>
-        </li>
-        <li>
-          <a href="#places" data-toggle="tab" class="sidebar-tab" data-url="<%= places_path %>" data-tab="places">
-            <%= t('.addresses') %>
-          </a>
-        </li>
-        <li>
-          <a href="#watch" data-toggle="tab"><%= t('.watch') %></a>
-        </li>
-      </ul>
     </div>
     <div class="panel panel-default map-panel">
       <div class="panel-heading" id="map-heading" role="tab">
         <%= link_to '#map-body', data: { toggle: 'collapse' }, class: 'collapsed',
           aria: { expanded: false, controls: 'map-body' } do %>
           <span>
-            <%= t('.map_elements') %>
+            <%= t('.filter') %>
           </span>
         <% end -%>
       </div>
       <div id="map-body" class="collapse" role="tabpanel" aria-labelledby="map-heading">
         <div class="panel-body">
-          <div class="row form-group">
-            <div class="col-md-12">
-              <div class="btn-group btn-group-justified" role="group">
-                <%= link_to t('.aerial_view'), '#', id: 'aerial-view', class: 'btn btn-default switch-map-view' %>
-                <%= link_to t('.map_view'), '#', id: 'map-view', class: 'btn btn-default switch-map-view active' %>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-6">
               <div class="row">

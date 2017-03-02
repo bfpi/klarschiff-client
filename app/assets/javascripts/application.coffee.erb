@@ -62,11 +62,10 @@ $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
   $(document).on 'click', '.switch-map-view', () ->
-    unless $(@).hasClass('active')
-      $(@).addClass('active')
-      $(@).siblings().removeClass('active')
-      KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
-      KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
+    $(@).html($(@).data($(@).attr('id')))
+    $(@).attr('id', if ($(@).attr('id') == 'aerial') then 'map' else 'aerial')
+    KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
+    KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
     false
 
   $(document).on 'click', '.show-feature', () ->

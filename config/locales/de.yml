@@ -170,7 +170,7 @@ de:
     desktop:
       aerial_view: Luftbild
       addresses: Adressen
-      map_elements: Karte
+      filter: Filter
       map_view: Kartenansicht
       request: Meldung
       watch: Beobachten

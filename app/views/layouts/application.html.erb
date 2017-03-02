@@ -13,18 +13,23 @@
     <% unless @mobile -%>
       <header>
         <div class="container">
-          <div class="systray row">
-            <div class="col-md-4" id="textsizer">
-              <div class="btn-group textresizer">
-                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
-                  A-
-                <% end -%>
-                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default textresizer-active', remote: true do %>
-                  A
-                <% end -%>
-                <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
-                  A+
-                <% end -%>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12" id="textsizer">
+                  <div class="btn-group textresizer">
+                    <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
+                      A-
+                    <% end -%>
+                    <%= link_to 'javascript:;', class: 'btn btn-sm btn-default textresizer-active', remote: true do %>
+                      A
+                    <% end -%>
+                    <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
+                      A+
+                    <% end -%>
+                  </div>
+                </div>
+                <%= yield :nav %>
               </div>
             </div>
             <div class="col-md-4">
