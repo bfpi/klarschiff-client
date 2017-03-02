@@ -87,3 +87,19 @@ $ ->
     checked = $(@).is(':checked')
     $('.' + $(@).data('type')).each () ->
       $(@).prop('checked', checked)
+
+  $(document).on 'click', '.sidebar-toggler', () ->
+    width = $('.sidebar').width()
+    zoom = $('.ol-zoom')
+    scale = $('.ol-scale-line')
+    $('.sidebar').toggle()
+    if $('.sidebar').is(':visible')
+      $(@).addClass('open')
+      $(@).css left: $(@).offset().left + width
+      zoom.css left: zoom.offset().left + width
+      scale.css left: scale.offset().left + width
+    else
+      $(@).removeClass('open')
+      $(@).css left: $(@).offset().left - width
+      zoom.css left: zoom.offset().left - width
+      scale.css left: scale.offset().left - width

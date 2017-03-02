@@ -93,9 +93,29 @@ header
   z-index: 1000
   overflow-y: auto
   overflow-x: hidden
+  display: none
 
 .sidebar .tab-content
   padding: 10px
+
+.sidebar-toggler
+  padding-top: 20px
+  padding-bottom: 20px
+  padding-left: 5px
+  padding-right: 5px
+  background-color: #fff
+  border: solid 1px #ddd
+  left: -7px
+  z-index: 1010
+  top: 40%
+  position: absolute
+
+.sidebar-toggler span:before
+  font-family: 'Glyphicons Halflings'
+  content: '\e250'
+
+.sidebar-toggler.open span:before
+  content: '\e251'
 
 .view-switcher
   margin-top: 10px
