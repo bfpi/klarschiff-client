@@ -65,7 +65,8 @@ $ ->
     unless $(@).hasClass('active')
       $(@).addClass('active')
       $(@).siblings().removeClass('active')
-      KS.layers.toggle()
+      KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
+      KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
     false
 
   $(document).on 'click', '.show-feature', () ->
@@ -76,7 +77,7 @@ $ ->
     $('#form-page-' + $(@).data('next')).toggle()
     false
 
-  $(document).on 'click', '.sidebar-tab', () ->
+  $(document).on 'click', '.header-tab', () ->
     unless $('.' + $(@).data('tab') + '-container').length > 0
       $.get($(@).data('url'), null, null, 'script')
   

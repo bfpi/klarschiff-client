@@ -27,7 +27,8 @@ $ ->
       $(".navbar-toggle").trigger "click"
 
   KS.nav.bar.on 'click', 'a.layer-switcher', ->
-    KS.layers.toggle()
+    KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
+    KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
     false
 
   KS.nav.bar.on 'click', 'a.geolocator', ->
