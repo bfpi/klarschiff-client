@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <ul class="nav navbar-nav">
       <li class="active">
-        <a href="#request" data-toggle="tab"><%= t('.request') %></a>
+        <a href="#request" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
       </li>
       <li>
         <a href="#places" data-toggle="tab" class="header-tab" data-url="<%= places_path %>" data-tab="places">
@@ -10,14 +10,14 @@
         </a>
       </li>
       <li>
-        <a href="#watch" data-toggle="tab"><%= t('.watch') %></a>
+        <a href="#watch" data-toggle="tab" class="header-tab"><%= t('.watch') %></a>
       </li>
     </ul>
   </div>
 <% end -%>
 <div id="content">
   <div class="view-switcher">
-      <%= link_to t('.map_view'), '#', class: 'btn btn-primary switch-map-view', id: 'aerial',
+      <%= link_to t('.map_view'), '#', class: 'btn btn-default btn-map switch-map-view', id: 'aerial',
         data: { aerial: t('.aerial_view'), map: t('.map_view') } %>
     </div>
   <div id="ol-map" class="ol-map-desktop">
