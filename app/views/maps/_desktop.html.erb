@@ -1,13 +1,8 @@
 <% content_for :nav do -%>
-  <div class="col-md-12">
+  <div class="col-md-8">
     <ul class="nav navbar-nav">
       <li class="active">
         <a href="#request" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
-      </li>
-      <li>
-        <a href="#places" data-toggle="tab" class="header-tab" data-url="<%= places_path %>" data-tab="places">
-          <%= t('.addresses') %>
-        </a>
       </li>
       <li>
         <a href="#watch" data-toggle="tab" class="header-tab"><%= t('.watch') %></a>

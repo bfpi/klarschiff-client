@@ -2,7 +2,12 @@
 <div class="row">
   <div class="col-md-4">
     <div class="panel panel-default">
-      <div class="panel-heading"><%= t('.recent_requests') %></div>
+      <div class="panel-heading">
+        <%= t('.recent_requests') %>
+        <%= link_to [:observations, service_request_id: @requests.map(&:service_request_id), format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+          <%= image_tag image_path('rss.png') %>
+        <% end -%>
+      </div>
       <div class="panel-body">
         <% @requests.each do |req| -%>
           <div class="row form-group">
@@ -56,6 +61,30 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-12">
+            <%#= Nokogiri::HTML(open('/home/roest/Dokumente/Work/klarschiff-frontend/api.php')).to_s.html_safe %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="statistic-panel" class="panel panel-default">
+      <div class="panel-heading"><%= t('.statistics') %></div>
+      <div class="panel-body">
+        <div class="row form-group">
+          <%= label_tag :overall, t('.overall'), class: 'col-md-4 control-label' %>
+          <div class="col-md-8">
+            <%= @overall_count %>
+          </div>
+        </div>
+        <div class="row form-group">
+          <%= label_tag :newest, t('.newest'), class: 'col-md-4 control-label' %>
+          <div class="col-md-8">
+            <%= @newest_count %>
+          </div>
+        </div>
+        <div class="row form-group">
+          <%= label_tag :processed, t('.processed'), class: 'col-md-4 control-label' %>
+          <div class="col-md-8">
+            <%= @processed_count %>
           </div>
         </div>
       </div>

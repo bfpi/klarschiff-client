@@ -3,8 +3,13 @@ class ObservationsController < ApplicationController
   
   def index
     respond_to do |format|
-      format.xml do 
-        @requests = Request.where(observation_key: (@key = params[:observation_key]), extensions: true)
+      format.xml do
+        if (@key = params[:observation_key]).present?
+          @requests = Request.where(observation_key: @key, extensions: true)
+        else
+          states = Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
+          @requests = Request.where(max_requests: 3, detailed_status: states, keyword: 'problem, idea')
+        end
       end
     end
   end

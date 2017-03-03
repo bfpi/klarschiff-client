@@ -16,7 +16,13 @@
           <div class="row">
             <div class="col-md-4">
               <div class="row">
-                <div class="col-md-12" id="textsizer">
+                <div class="col-md-12">
+                  <%= image_tag image_path('klarschiff.png') %>
+                </div>
+              </div>
+              <div class="row">
+                <%= yield :nav %>
+                <div class="col-md-4" id="textsizer">
                   <div class="btn-group textresizer">
                     <%= link_to 'javascript:;', class: 'btn btn-sm btn-default', remote: true do %>
                       A-
@@ -29,7 +35,6 @@
                     <% end -%>
                   </div>
                 </div>
-                <%= yield :nav %>
               </div>
             </div>
             <div class="col-md-4">
@@ -54,7 +59,7 @@
         <div class="container">
           <div class="systray">
             <div class="text-center">
-              <%= link_to t(:mobile), [:map, mobile: true] %> |
+              <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
               <%= link_to t(:api), '#' %> |
               <%= link_to t(:impressum), '#' %>
             </div>
