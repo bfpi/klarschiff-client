@@ -2,9 +2,12 @@
   <%= form_for(@request, remote: true, authenticity_token: true,
                html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
     <div id="form-page-1">
+      <div class="row form-group">
+        <%= label_tag :step, t('.step_two'), class: 'control-label col-md-12' %>
+      </div> 
       <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
       <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
-      <div class="row form-group radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
+      <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
         <div class="col-md-6">
           <%= f.radio_button :type, 'problem', checked: true, class: 'radio-type' %> <%= label_tag :request_type_problem,
@@ -42,6 +45,9 @@
       </div>
     </div>
     <div id="form-page-submit">
+      <div class="row form-group">
+        <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
+      </div>
       <div class="row form-group">
         <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
         <div class="col-md-12">

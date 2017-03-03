@@ -1,4 +1,9 @@
 <div id="type-select">
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= t(".describe_#{ type }") %>
+    </div>
+  </div>
   <div id="request-category-1" class="row form-group category">
     <div class="col-md-12">
       <%= select_tag(:request_category, categories(type), id: :request_category_1,

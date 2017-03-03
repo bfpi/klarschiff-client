@@ -223,13 +223,18 @@ de:
       success:
         one: Neue Meldung erfolgreich abgesetzt
         other: "%{count} neue Meldungen wurden hinzugefügt."
-    desktop: &requests 
+    desktop: &requests
+      category_select:
+        describe_idea: Neue Dinge, oder gravierende Änderungen
+        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
       start_request:
         new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaul. Änderungen
         no_emergencies: Keine Notfälle!
         no_personal_requests: Keine pers. Anfragen (Anträge, ...)
       new:
+        step_two: Schritt 2/3
+        step_three: Schritt 3/3
         confirmation: Bestätigung
         confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
         error: Fehler bei neuer Meldung
@@ -238,6 +243,7 @@ de:
           text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
         what: Was?
       new_position_buttons:
+        step_one: Schritt 1/3
         where: Wo?
         place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.
       show:
