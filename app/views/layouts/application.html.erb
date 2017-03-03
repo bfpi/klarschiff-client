@@ -39,14 +39,16 @@
             </div>
             <div class="col-md-4">
               <div class="text-center">
-                <h1><%= Settings::Client.name %></h1>
+                <%= link_to [:root] do %>
+                  <h1><%= Settings::Client.name %></h1>
+                <% end -%>
               </div>
             </div>
             <div class="col-md-4">
               <div class="text-right">
-                <%= link_to t(:help), '#' %> |
-                <%= link_to t(:usage), '#' %> |
-                <%= link_to t(:privacy), '#' %>
+                <%= link_to t(:help), [:help, :static] %> |
+                <%= link_to t(:usage), [:usage, :static] %> |
+                <%= link_to t(:privacy), [:privacy, :static] %>
               </div>
             </div>
           </div>
@@ -60,8 +62,8 @@
           <div class="systray">
             <div class="text-center">
               <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), '#' %> |
-              <%= link_to t(:impressum), '#' %>
+              <%= link_to t(:api), [:api, :static] %> |
+              <%= link_to t(:impressum), [:impressum, :static] %>
             </div>
           </div>
         </div>

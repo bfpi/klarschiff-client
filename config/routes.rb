@@ -16,4 +16,11 @@ Rails.application.routes.draw do
     resources :votes, only: [:new, :create]
   end
   resources :services, only: :index
+  resource :static do
+    get :api
+    get :impressum
+    get :privacy
+    get :usage
+    get :help
+  end
 end
