@@ -17,5 +17,3 @@ javascripts:
 stylesheets:
   OpenLayers.css: https://raw.githubusercontent.com/openlayers/ol3/<%= versions[:ol] %>/css/ol.css
   OpenLayers.min.css: http://openlayers.org/en/<%= versions[:ol] %>/css/ol.css
-  bootstrap.vertical-tabs.css: https://github.com/dbtek/bootstrap-vertical-tabs/raw/<%= versions[:vertical_tabs] %>/bootstrap.vertical-tabs.css
-  bootstrap.vertical-tabs.min.css: https://github.com/dbtek/bootstrap-vertical-tabs/raw/<%= versions[:vertical_tabs] %>/bootstrap.vertical-tabs.min.css
