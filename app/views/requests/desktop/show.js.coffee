@@ -15,4 +15,5 @@ KS.clearNewFeature()
 KS.reloadFeatures()
 <% end -%>
 
+$('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
 $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")

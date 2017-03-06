@@ -19,10 +19,29 @@ KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
 KS.draw_observation = null
 
+KS.GeolocationControl = () ->
+  span = document.createElement('span')
+  span.className = 'glyphicon glyphicon-screenshot'
+  btn = document.createElement('button')
+  btn.appendChild(span)
+  setGeolocation = () ->
+    KS.geolocation.center(KS.olMap)
+  btn.addEventListener('click', setGeolocation, false)
+  elem = document.createElement('div')
+  elem.className = 'geolocation ol-unselectable ol-control'
+  elem.appendChild(btn)
+
+  ol.control.Control.call this,
+    element: elem
+    target: {}.target
+
+ol.inherits(KS.GeolocationControl, ol.control.Control)
+
 class KS.Map
   constructor: (@projection = KS.projection()) ->
     @olMap = new ol.Map
       target: 'ol-map'
+      controls: ol.control.defaults().extend([new KS.GeolocationControl])
       view: new ol.View
         projection: @projection
         center: <%= Settings::Map.center %>
@@ -351,19 +370,20 @@ class KS.Geolocation
       projection: map.getView().getProjection().getCode()
 
     geolocation.on 'change', ->
-      accuracy_feature = new ol.Feature
-      accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
-      accuracy_feature.setStyle KS.styles.location()
+      feature_array = []
+      if KS.getUrlParam('mobile')
+        accuracy_feature = new ol.Feature
+        accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
+        accuracy_feature.setStyle KS.styles.location()
+        feature_array.push(accuracy_feature)
 
       position_feature = new ol.Feature
         geometry: new ol.geom.Point(geolocation.getPosition())
       position_feature.setStyle KS.styles.location()
+      feature_array.push(position_feature)
 
       featuresOverlay = new ol.FeatureOverlay
-        features: [
-          accuracy_feature
-          position_feature
-        ]
+        features: feature_array
 
       map.removeOverlay overlay for overlay in map.getOverlays().getArray()
       map.addOverlay featuresOverlay

@@ -104,3 +104,6 @@ $ ->
       $(@).css left: $(@).offset().left - width
       zoom.css left: zoom.offset().left - width
       scale.css left: scale.offset().left - width
+
+  $(document).on 'click', '.location-btn', () ->
+    console.log('click')
