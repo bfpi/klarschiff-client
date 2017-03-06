@@ -15,6 +15,7 @@
 #= require jquery.form
 #= require jquery.textresizer
 #= require jquery-ui
+#= require jquery-ui/widgets/autocomplete
 #= require jquery-ui/widgets/sortable
 #= require jquery.ui.touch-punch
 #= require turbolinks
@@ -93,17 +94,23 @@ $ ->
     width = $('.sidebar').width()
     zoom = $('.ol-zoom')
     scale = $('.ol-scale-line')
+    geoloc = $('.geolocation')
+    addr_search = $('.address-search-field')
     $('.sidebar').toggle()
     if $('.sidebar').is(':visible')
       $(@).addClass('open')
       $(@).css left: $(@).offset().left + width
       zoom.css left: zoom.offset().left + width
       scale.css left: scale.offset().left + width
+      geoloc.css left: geoloc.offset().left + width
+      addr_search.css left: addr_search.offset().left + width
     else
       $(@).removeClass('open')
       $(@).css left: $(@).offset().left - width
       zoom.css left: zoom.offset().left - width
       scale.css left: scale.offset().left - width
+      geoloc.css left: geoloc.offset().left - width
+      addr_search.css left: addr_search.offset().left - width
 
   $(document).on 'click', '.location-btn', () ->
     console.log('click')

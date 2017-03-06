@@ -169,7 +169,7 @@ de:
   maps:
     desktop:
       aerial_view: Luftbild
-      addresses: Adressen
+      address_search: Adresssuche
       filter: Filter
       map_view: Kartenansicht
       request: Meldung
