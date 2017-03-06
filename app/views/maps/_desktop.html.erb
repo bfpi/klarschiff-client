@@ -30,13 +30,7 @@
     </div>
     <div class="panel panel-default address-search-field">
       <div class="panel-body">
-        <div class="has-feedback has-select"
-             data-search-url="<%= places_path %>"
-             data-select-method="get"
-             data-select-url="<%=  map_path(format: :js) %>"
-             data-select-key="bbox[]">
-          <%= text_field(:places, :search, class: 'form-control', placeholder: t('.address_search')) %>
-        </div>
+        <%= text_field(:places, :search, class: 'form-control', placeholder: t('.address_search')) %>
       </div>
     </div>
     <div class="panel panel-default map-panel">
