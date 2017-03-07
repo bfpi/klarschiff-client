@@ -74,8 +74,14 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
   - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
   - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
   - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`:
+    - `key` (Pflichtfeld):
+      - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
     - `login_required` (Pflichtfeld): 
       - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
+    - `name` (Pflichtfeld):
+      - Name des Clients
+    - `resources_path` (Pflichtfeld):
+      - Pfad in dem die externen statischen Seiten (z.B. Hilfsseite, API) abgelegt wurden
     - `show_email`: 
       - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
       - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
@@ -124,6 +130,12 @@ Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber 
   RewriteRule (.*) /mobil/start [R=301]
 ```
 - Umschreiben der Basis-URI des Webservers auf das Start-Verzeichnis des mobilen Clients, auf dem die Umleitung erfolgt
+
+```php
+  Alias /resources path_to_resources
+```
+- Zugriff auf den Ordner, in dem die statischen Inhalte abgelegt wurden
+- path_to_resources muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen
 
 #### URL-Umleitung
 - über `<client_url>/start` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
