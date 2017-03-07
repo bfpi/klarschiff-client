@@ -6,7 +6,7 @@ class AreasController < ApplicationController
         @context = params[:context]
         area_code = params[:area_code]
         geom = params[:geometry]
-        redirect_to [:new, :observation, area_code: area_code, geometry: geom] if (area_code || geom).present?
+        redirect_to "#{ Settings::Url.ks_server_url }#{ new_observation_path(area_code: area_code, geometry: geom) }" if (area_code || geom).present?
       end
       format.json do
         conds = {}

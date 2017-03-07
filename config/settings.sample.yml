@@ -1,6 +1,6 @@
 urls:
   ks_frontend_search_url: https://demo.klarschiff.de/search
-  ks_frontend_url: https://demo.klarschiff-hro.de/
+  ks_server_url: http://klarschiff-test-hro
   ks_frontend_imprint_url: https://demo.klarschiff-hro.de/impressum.php
   ks_backend_vorgang_url: https://demo.klarschiff.de/vorgang/%s
 
