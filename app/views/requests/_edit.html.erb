@@ -14,6 +14,7 @@
     </div>
     <div class="panel-body">
       <%= form_for(@request, remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
+        <%= hidden_field_tag :mobile, @mobile %>
         <div class="form-group">
           <label for="request_category" class="col-md-2 control-label"><%= Service.human_attribute_name(:group) %></label>
           <div class="col-md-10">
@@ -61,7 +62,7 @@
               <div class="btn-group" role="group">
                 <%= f.submit(t('buttons.save'), class: 'btn btn-default btn-primary') %>
               </div>
-              <%= link_to(t('buttons.cancel'), request_path(@request, id_list: @id_list), remote: true, class: 'btn btn-default', role: :button) %>
+              <%= link_to(t('buttons.cancel'), request_path(@request, id_list: @id_list, mobile: @mobile), remote: true, class: 'btn btn-default', role: :button) %>
             </div>
             <% @id_list.each do |idl| -%>
               <%= f.hidden_field "id_list][", :value => idl, id: nil %>
