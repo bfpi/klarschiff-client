@@ -14,6 +14,10 @@ class VotesController < ApplicationController
       service_request_id: params[:request_id]))
     @redirect = request_path(params[:request_id], id_list: params[:vote][:id_list], mobile: @mobile).html_safe
     @errors = vote.errors unless vote.persisted?
+    if context == 'desktop' && @errors.present?
+      @errors = Array.wrap(@errors).map(&:messages)
+      return render 'application/desktop/new'
+    end
     render "/application/#{ context }/create"
   end
 end

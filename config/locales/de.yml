@@ -41,6 +41,8 @@ de:
       models:
         request:
           attributes:
+            base:
+              service_code_required: Kategorie muss angegeben werden
             position:
               outside: befindet sich außerhalb des gültigen Bereichs
     models:

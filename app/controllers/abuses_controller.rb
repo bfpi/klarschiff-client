@@ -15,6 +15,10 @@ class AbusesController < ApplicationController
       service_request_id: params[:request_id]))
     @redirect = request_path(params[:request_id], id_list: params[:abuse][:id_list]).html_safe
     @errors = abuse.errors unless abuse.persisted?
+    if context == 'desktop' && @errors.present?
+      @errors = Array.wrap(@errors).map(&:messages)
+      return render 'application/desktop/new'
+    end
     render "/application/#{ context }/create"
   end
 end

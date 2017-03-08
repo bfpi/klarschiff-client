@@ -84,7 +84,11 @@ class RequestsController < ApplicationController
       unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
         @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
         @redirect = new_request_path(type: @request.type)
-        return render :outside
+        if @mobile
+          return render :outside
+        else
+          return render "requests/#{ context }/new_position"
+        end
       end
     end
     render "requests/#{ context }/new"
@@ -109,12 +113,15 @@ class RequestsController < ApplicationController
           ids << Request.new.load(Request.format.decode(result.body)).id
         else
           (@errors ||= []) << result.errors
-          logger.info "#{ @errors.inspect }"
           break unless ids.present?
         end
       end
     else
-      @errors = Request.new.errors.tap { |errors| errors.add :service_code, :blank }
+      if @mobile
+        @errors = Request.new.errors.tap { |errors| errors.add :service_code, :blank }
+      else
+        @errors = Request.new.errors.tap { |errors| errors.add :base, :service_code_required }
+      end
       @modal_title_options = { count: 1 }
     end
     if ids.present? && !service.nil?
@@ -123,6 +130,10 @@ class RequestsController < ApplicationController
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
                         type: I18n.t(service.type, scope: 'service.types', count: ids.size))
+    end
+    if context == 'desktop' && @errors.present?
+      @errors = Array.wrap(@errors).map(&:messages)
+      return render 'requests/desktop/new'
     end
     @modal_title_options ||= { count: codes.size }
     if (errors = @errors.try(:dup)).is_a? Array

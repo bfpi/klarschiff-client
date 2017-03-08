@@ -18,6 +18,10 @@ class CommentsController < ApplicationController
     else
       @errors = comment.errors
     end
+    if context == 'desktop' && @errors.present?
+      @errors = Array.wrap(@errors).map(&:messages)
+      return render 'application/desktop/new'
+    end
     render "/application/#{ context }/create"
   end
 end

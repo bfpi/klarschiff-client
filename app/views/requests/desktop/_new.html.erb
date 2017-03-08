@@ -1,4 +1,5 @@
 <div id="request-form" class="request-container">
+  <%= render '/application/desktop/errors' %>
   <%= form_for(@request, remote: true, authenticity_token: true,
                html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
     <div id="form-page-1">
