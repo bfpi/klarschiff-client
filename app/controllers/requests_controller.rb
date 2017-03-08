@@ -105,11 +105,11 @@ class RequestsController < ApplicationController
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
           end
-        logger.info "Result: #{ result.body.inspect }"
         if result.is_a?(Net::HTTPCreated)
           ids << Request.new.load(Request.format.decode(result.body)).id
         else
           (@errors ||= []) << result.errors
+          logger.info "#{ @errors.inspect }"
           break unless ids.present?
         end
       end

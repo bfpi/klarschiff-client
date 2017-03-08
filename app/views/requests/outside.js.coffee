@@ -1,1 +1,1 @@
-KS.flash.show('<%= j render("modal") %>', '<%= @redirect %>')
+KS.flash.show('<%= j render("application/#{ context }/modal") %>', '<%= @redirect %>')
