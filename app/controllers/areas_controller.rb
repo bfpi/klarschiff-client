@@ -6,6 +6,12 @@ class AreasController < ApplicationController
         @context = params[:context]
         area_code = params[:area_code]
         geom = params[:geometry]
+        if params[:from_form].present?
+          if (@context == 'districts' && area_code.blank?) || (@context == 'draw' && geom.blank?)
+            @error = I18n.t("messages.errors.#{ @context }_required")
+            return render :index
+          end
+        end
         redirect_to "#{ Settings::Url.ks_server_url }#{ new_observation_path(area_code: area_code, geometry: geom) }" if (area_code || geom).present?
       end
       format.json do

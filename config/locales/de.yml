@@ -82,6 +82,8 @@ de:
         other: "%{count} %{type} wurden erfolgreich angelegt."
     errors:
       update_sorting: Beim Aktualisieren der Sortierung ist ein Fehler aufgetreten.
+      districts_required: Es wurden keine Stadtteile ausgwählt.
+      draw_required: Es wurde keine Beobachtungsfläche definiert
 
   nav:
     job_map: Auftragskarte
@@ -142,6 +144,7 @@ de:
     areas_form:
       districts: Wählen Sie die Stadtteile, welche Sie beobachten möchten
       draw: Wählen Sie die Ecken eines Gebietes, welches Sie beobachten möchten
+      error: Fehler bei Beobachtungsflächen
     index:
       districts: Stadtteile
       notice: >

@@ -1,5 +1,17 @@
 <div id="observations-form" class="area-container">
+  <% if @error.present? -%>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+          <strong><%= t('.error') %></strong></br>
+          <%= @error %>
+        </div>
+      </div>
+    </div>
+  <% end -%>
   <%= form_for(:areas, method: :get, remote: true, html: { id: 'areas-form' }) do |f| %>
+    <%= hidden_field_tag :context, @context %>
+    <%= hidden_field_tag :from_form, true %>
     <div class="row form-group">
       <div class="col-md-12">
         <%= t(".#{ @context }") %>

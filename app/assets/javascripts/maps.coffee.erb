@@ -455,18 +455,19 @@ KS.resetSelectedFeatures= () ->
 
 KS.setDrawObservation= () ->
   layer = KS.layers.findById('draw_observation')
-  KS.draw_observation = new ol.interaction.Draw
-    source: layer.getSource()
-    type: 'MultiPolygon'
-    style: KS.styles.observationStyle
-  layer.setVisible(true)
-  KS.olMap.addInteraction(KS.draw_observation)
+  unless layer.getVisible()
+    KS.draw_observation = new ol.interaction.Draw
+      source: layer.getSource()
+      type: 'MultiPolygon'
+      style: KS.styles.observationStyle
+    layer.setVisible(true)
+    KS.olMap.addInteraction(KS.draw_observation)
 
-  KS.draw_observation.on 'drawend', () ->
-    KS.olMap.removeInteraction(KS.draw_observation)
-    $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
+    KS.draw_observation.on 'drawend', () ->
+      KS.olMap.removeInteraction(KS.draw_observation)
+      $('#' + KS.olMap.getTarget()).css('cursor', 'auto')
 
-  $('#' + KS.olMap.getTarget()).css('cursor', 'crosshair')
+    $('#' + KS.olMap.getTarget()).css('cursor', 'crosshair')
 
 KS.removeDrawObservation= () ->
   if (layer = KS.layers.findById('draw_observation')) && layer.getVisible()

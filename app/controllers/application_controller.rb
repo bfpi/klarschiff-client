@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate, if: :login_required?
   before_action :set_mobile
   helper_method :display?, :has_field_service_team?, :login_required?, :imprint, :context
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception 
+  skip_before_action :verify_authenticity_token, if: :development? 
 
   protected
 
@@ -26,5 +27,9 @@ class ApplicationController < ActionController::Base
 
   def context
     @mobile ? 'mobile' : 'desktop'
+  end
+
+  def development?
+    Rails.env == 'development'
   end
 end
