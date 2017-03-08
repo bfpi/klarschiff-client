@@ -82,8 +82,9 @@ de:
         other: "%{count} %{type} wurden erfolgreich angelegt."
     errors:
       update_sorting: Beim Aktualisieren der Sortierung ist ein Fehler aufgetreten.
-      districts_required: Es wurden keine Stadtteile ausgwählt.
-      draw_required: Es wurde keine Beobachtungsfläche definiert
+      districts_required: Es wurden keine Stadtteile ausgewählt.
+      draw_required: Es wurde keine Beobachtungsfläche definiert.
+      services_required: Es wurden keine Kategorien ausgewählt.
 
   nav:
     job_map: Auftragskarte
@@ -144,7 +145,7 @@ de:
     areas_form:
       districts: Wählen Sie die Stadtteile, welche Sie beobachten möchten
       draw: Wählen Sie die Ecken eines Gebietes, welches Sie beobachten möchten
-      error: Fehler bei Beobachtungsflächen
+      error: Fehler beim Erstellen der Beobachtungsfläche(n)
     index:
       districts: Stadtteile
       notice: >
@@ -190,6 +191,8 @@ de:
     index:
       feed_title: "%{name} - Meldungen für Beobachtungsflächen"
       feed_description: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
+    new:
+      error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
       link: Link
       subscribe_feed: >
