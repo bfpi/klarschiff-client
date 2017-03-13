@@ -25,6 +25,7 @@ KS.GeolocationControl = () ->
   btn = document.createElement('button')
   btn.appendChild(span)
   setGeolocation = () ->
+    KS.geolocation.geolocation.setTracking(true)
     KS.geolocation.center(KS.olMap)
   btn.addEventListener('click', setGeolocation, false)
   elem = document.createElement('div')
@@ -360,24 +361,24 @@ class KS.FeatureData
 
 class KS.Geolocation
   constructor: (map) ->
-    geolocation = new ol.Geolocation
-      tracking: true
+    @geolocation = new ol.Geolocation
+      tracking: KS.getUrlParam('mobile') != null
       trackingOptions:
         enableHighAccuracy: <%= Settings::Map.tracking_options[:enable_high_accuracy] %>
         timeout: <%= Settings::Map.tracking_options[:timeout] %>
         maximumAge: <%= Settings::Map.tracking_options[:maximum_age] %>
       projection: map.getView().getProjection().getCode()
 
-    geolocation.on 'change', ->
+    @geolocation.on 'change', ->
       feature_array = []
       if KS.getUrlParam('mobile')
         accuracy_feature = new ol.Feature
-        accuracy_feature.bindTo 'geometry', geolocation, 'accuracyGeometry'
+        accuracy_feature.bindTo 'geometry', this, 'accuracyGeometry'
         accuracy_feature.setStyle KS.styles.location()
         feature_array.push(accuracy_feature)
 
       position_feature = new ol.Feature
-        geometry: new ol.geom.Point(geolocation.getPosition())
+        geometry: new ol.geom.Point(this.getPosition())
       position_feature.setStyle KS.styles.location()
       feature_array.push(position_feature)
 
@@ -389,7 +390,7 @@ class KS.Geolocation
 
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
-      KS.position = geolocation.getPosition()
+      KS.position = @geolocation.getPosition()
 
   center: (map) ->
     overlays = map.getOverlays().getArray()
@@ -397,7 +398,6 @@ class KS.Geolocation
       map.getView().fitExtent(
         overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize()
       )
-
 
 KS.map =
   actions: ->
