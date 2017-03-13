@@ -83,7 +83,6 @@ class RequestsController < ApplicationController
       end
       unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
         @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
-        logger.info "ERROR: #{ @errors.full_messages.inspect }"
         @redirect = new_request_path(type: @request.type)
         if @mobile
           return render :outside

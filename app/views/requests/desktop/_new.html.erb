@@ -19,6 +19,18 @@
             t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
       </div>
+      <div class="row form-group">
+          <div class="btn-group btn-group-justified col-md-12" role="group">
+            <%= link_to(t('buttons.cancel'), map_path(cancel: true), remote: true, class: 'btn btn-default', role: :button) %>
+            <%= link_to(t('buttons.continue'), 'javascript:;', remote: true, class: 'btn btn-primary btn-continue',
+                        role: :button, data: { current: '1', next: '2' }) %>
+          </div>
+      </div>
+    </div>
+    <div id="form-page-2" class="hidden-page">
+      <div class="row form-group">
+        <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
+      </div>
       <%= render partial: 'requests/desktop/category_select', locals: { type: 'problem' } %> 
       <div class="row form-group">
         <div class="col-md-12">
@@ -37,17 +49,18 @@
           <p class="form-control-static"><%= t('.hint.text') %></p>
         </div>
       </div>
-      <div class="row form-group">
-          <div class="btn-group btn-group-justified col-md-12" role="group">
-            <%= link_to(t('buttons.cancel'), map_path(cancel: true), remote: true, class: 'btn btn-default', role: :button) %>
-            <%= link_to(t('buttons.continue'), 'javascript:;', remote: true, class: 'btn btn-primary btn-continue',
-                        role: :button, data: { current: '1', next: 'submit' }) %>
-          </div>
+      <div class="row form-group" class="hidden-page">
+        <div class="btn-group btn-group-justified col-md-12" role="group">
+          <%= link_to(t('buttons.back'), 'javascript:;', remote: true, class: 'btn btn-default btn-continue',
+                      role: :button, data: { current: '2', next: '1' }) %>
+          <%= link_to(t('buttons.continue'), 'javascript:;', remote: true, class: 'btn btn-primary btn-continue',
+                      role: :button, data: { current: '2', next: 'submit' }) %>
+        </div>
       </div>
     </div>
-    <div id="form-page-submit">
+    <div id="form-page-submit" class="hidden-page">
       <div class="row form-group">
-        <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
+        <%= label_tag :step, t('.step_four'), class: 'control-label col-md-12' %>
       </div>
       <div class="row form-group">
         <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
@@ -65,7 +78,7 @@
       <div class="row form-group">
         <div class="btn-group btn-group-justified col-md-12" role="group">
           <%= link_to(t('buttons.back'), 'javascript:;', remote: true, class: 'btn btn-default btn-continue',
-                      role: :button, data: { current: 'submit', next: '1' }) %>
+                      role: :button, data: { current: 'submit', next: '2' }) %>
           <div class="btn-group" role="group">
             <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
           </div>

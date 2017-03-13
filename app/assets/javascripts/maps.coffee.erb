@@ -206,16 +206,16 @@ KS.styles =
     ]
 
 KS.highlightStyle= (feature, icon) ->
-    feature.setStyle new ol.style.Style
-      image: new ol.style.Icon
-        anchorXUnits: 'pixels'
-        anchorYUnits: 'pixels'
-        anchor: [
-          16
-          50
-        ]
-        src: icon
-      text: KS.styles.featureAttribution(feature)
+  feature.setStyle new ol.style.Style
+    image: new ol.style.Icon
+      anchorXUnits: 'pixels'
+      anchorYUnits: 'pixels'
+      anchor: [
+        16
+        50
+      ]
+      src: icon
+    text: KS.styles.featureAttribution(feature)
 
 KS.imagePath = (type) ->
   $("#image-sources img##{ type }").attr 'src'
