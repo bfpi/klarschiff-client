@@ -24,6 +24,9 @@ KS.GeolocationControl = () ->
   span.className = 'glyphicon glyphicon-screenshot'
   btn = document.createElement('button')
   btn.appendChild(span)
+  text_span = document.createElement('span')
+  text_span.innerHTML = " <%= I18n.t(:locate) %>"
+  btn.appendChild(text_span)
   setGeolocation = () ->
     KS.geolocation.geolocation.setTracking(true)
     KS.geolocation.center(KS.olMap)

@@ -100,7 +100,7 @@ map:
     timeout: 3000
     maximum_age: 5000
   zoom:
-    initial: 8
+    initial: 5
     max: 15
     min: 5
 
