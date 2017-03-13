@@ -339,9 +339,8 @@ class KS.FeatureData
       features = new Array
       $.each response, (index, elem) ->
         attribution = ""
+        attribution = "" if elem.extended_attributes.photo_required
         if KS.login_required
-          attribution = "" if elem.extended_attributes.photo_required
-
           <% if Settings::Map.show_trust %>
           count = 1
           while count <= elem.extended_attributes.trust
