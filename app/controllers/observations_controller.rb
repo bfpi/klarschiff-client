@@ -8,7 +8,7 @@ class ObservationsController < ApplicationController
           @requests = Request.where(observation_key: @key, extensions: true)
         else
           states = Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
-          @requests = Request.where(max_requests: 3, detailed_status: states, keyword: 'problem, idea')
+          @requests = Request.where(detailed_status: states, keyword: 'problem, idea')
         end
       end
     end

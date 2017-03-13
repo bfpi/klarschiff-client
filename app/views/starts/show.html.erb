@@ -4,7 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= t('.recent_requests') %>
-        <%= link_to [:observations, service_request_id: @requests.map(&:service_request_id), format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+        <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
           <%= image_tag image_path('rss.png') %>
         <% end -%>
       </div>
