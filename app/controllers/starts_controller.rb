@@ -3,7 +3,8 @@ class StartsController < ApplicationController
     @request_id = params[:request]
     return redirect_to map_path(request: @request_id, mobile: true) if @login_required || mobile_detected?
     states = Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
-    @requests = Request.where(max_requests: 3, detailed_status: states, keyword: 'problem, idea')
+    @requests = Request.where(max_requests: 3, detailed_status: states, keyword: 'problem, idea',
+                              with_picture: true)
     @overall_count = Request.where(detailed_status: states, keyword: 'problem, idea').count
     @newest_count = Request.where(detailed_status: states, keyword: 'problem, idea',
                                   start_date: Date.today - 30).count
