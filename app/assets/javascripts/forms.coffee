@@ -12,6 +12,8 @@ $ ->
 
   $(document).on 'click', '.radio-type', ->
     url = $(@).parents('.radio-btns').data('url')
+    desc = $('#type-description')
+    desc.html(desc.data($(@).val()))
     $.get(url + '&type=' + $(@).val(), null, null, 'script')
 
   if KS.getUrlParam('mobile')

@@ -1,4 +1,5 @@
 <% if params[:switch_type] -%>
+KS.newFeatureOverlay.getFeatures().getArray()[0].setStyle(KS.styles.newFeature("<%= @type %>"))
 $('#type-select').replaceWith("<%= j render partial: 'requests/desktop/category_select', locals: { type: @type } %>")
 <% else -%>
 <% if @errors.present? -%>

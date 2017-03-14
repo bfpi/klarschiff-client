@@ -235,21 +235,26 @@ de:
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
-      category_select:
-        describe_idea: Neue Dinge, oder gravierende Änderungen
-        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
       start_request:
         new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaul. Änderungen
         no_emergencies: Keine Notfälle!
         no_personal_requests: Keine pers. Anfragen (Anträge, ...)
       new:
+        describe_idea: Neue Dinge, oder gravierende Änderungen
+        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
         step_two: Schritt 2/4
         step_three: Schritt 3/4
         step_four: Schritt 4/4
         confirmation: Bestätigung
         confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
-        error: Fehler bei neuer Meldung
+        error: 
+          one: Fehler bei neuer Meldung
+          other: Fehler bei neuen Meldungen
+          required:
+            type: Meldungstyp muss angegeben werden.
+            category: Kategorie muss angegeben werden
+            description: Beschreibung muss angegeben werden
         hint:
           label: Hinweis
           text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.

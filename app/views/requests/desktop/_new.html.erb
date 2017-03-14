@@ -11,7 +11,7 @@
       <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
         <div class="col-md-6">
-          <%= f.radio_button :type, 'problem', checked: true, class: 'radio-type' %> <%= label_tag :request_type_problem,
+          <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
             t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
         <div class="col-md-6">
@@ -20,10 +20,17 @@
         </div>
       </div>
       <div class="row form-group">
+        <div id="type-description" class="col-md-12" data-problem="<%= t('.describe_problem') %>"
+          data-idea="<%= t('.describe_idea') %>">
+        </div>
+      </div>
+      <div class="row form-group">
           <div class="btn-group btn-group-justified col-md-12" role="group">
-            <%= link_to(t('buttons.cancel'), map_path(cancel: true), remote: true, class: 'btn btn-default', role: :button) %>
-            <%= link_to(t('buttons.continue'), 'javascript:;', remote: true, class: 'btn btn-primary btn-continue',
-                        role: :button, data: { current: '1', next: '2' }) %>
+            <%= link_to(t('buttons.back'), new_request_path, remote: true, class: 'btn btn-default',
+                        role: :button) %>
+            <%= link_to(t('buttons.continue'), 'javascript:;', remote: true,
+                        class: 'btn btn-primary btn-continue', role: :button,
+                        data: { current: '1', next: '2' }) %>
           </div>
       </div>
     </div>
@@ -31,7 +38,7 @@
       <div class="row form-group">
         <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
       </div>
-      <%= render partial: 'requests/desktop/category_select', locals: { type: 'problem' } %> 
+      <%= render partial: 'requests/desktop/category_select', locals: { type: nil } %> 
       <div class="row form-group">
         <div class="col-md-12">
           <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
@@ -51,10 +58,12 @@
       </div>
       <div class="row form-group" class="hidden-page">
         <div class="btn-group btn-group-justified col-md-12" role="group">
-          <%= link_to(t('buttons.back'), 'javascript:;', remote: true, class: 'btn btn-default btn-continue',
-                      role: :button, data: { current: '2', next: '1' }) %>
-          <%= link_to(t('buttons.continue'), 'javascript:;', remote: true, class: 'btn btn-primary btn-continue',
-                      role: :button, data: { current: '2', next: 'submit' }) %>
+          <%= link_to(t('buttons.back'), 'javascript:;', remote: true,
+                      class: 'btn btn-default btn-continue back', role: :button,
+                      data: { current: '2', next: '1' }) %>
+          <%= link_to(t('buttons.continue'), 'javascript:;', remote: true,
+                      class: 'btn btn-primary btn-continue', role: :button,
+                      data: { current: '2', next: 'submit' }) %>
         </div>
       </div>
     </div>
@@ -77,8 +86,9 @@
       <% end -%>
       <div class="row form-group">
         <div class="btn-group btn-group-justified col-md-12" role="group">
-          <%= link_to(t('buttons.back'), 'javascript:;', remote: true, class: 'btn btn-default btn-continue',
-                      role: :button, data: { current: 'submit', next: '2' }) %>
+          <%= link_to(t('buttons.back'), 'javascript:;', remote: true,
+                      class: 'btn btn-default btn-continue back', role: :button,
+                      data: { current: 'submit', next: '2' }) %>
           <div class="btn-group" role="group">
             <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
           </div>

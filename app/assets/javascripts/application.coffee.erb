@@ -59,6 +59,29 @@ KS.getMapPanelParams = () ->
       filter.push($(@).data('key')+'[]='+$(@).attr('id'))
   filter.join('&')
 
+KS.buildError = (errors) ->
+  ul = document.createElement('ul')
+  errors.forEach (err) ->
+    li = document.createElement('li')
+    li.innerHTML = err
+    ul.appendChild(li)
+  alert = document.createElement('div')
+  alert.className = 'alert alert-danger'
+  alert_header = document.createElement('strong')
+  alert_header.innerHTML = "<%= I18n.t('requests.desktop.new.error', count: 1) %>"
+  alert.appendChild(alert_header)
+  alert.appendChild(ul)
+  col = document.createElement('div')
+  col.className = 'col-md-12'
+  col.appendChild(alert)
+  row = document.createElement('div')
+  row.className = 'row'
+  row.appendChild(col)
+  error_div = document.createElement('div')
+  error_div.className = 'errors'
+  error_div.appendChild(row)
+  $('.errors').replaceWith(error_div.outerHTML)
+  
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
@@ -73,9 +96,26 @@ $ ->
     KS.reloadFeatures()
 
   $(document).on 'click', '.btn-continue', () ->
-    $('#form-page-' + $(@).data('current')).toggle()
-    $('#form-page-' + $(@).data('next')).toggle()
+    error = []
+    switch $(@).data('current')
+      when 1
+        unless $('.radio-type').is(':checked')
+          error.push "<%= I18n.t('requests.desktop.new.error.required.type') %>"
+      when 2
+        unless $('#request_service_code_1').val()
+          error.push "<%= I18n.t('requests.desktop.new.error.required.category') %>"
+        unless $('#request_description').val().trim() != ''
+          error.push "<%= I18n.t('requests.desktop.new.error.required.description') %>"
+      else
+
+    if error.length == 0 || $(@).hasClass('back')
+      $('.errors').replaceWith('<div class="errors"></div>')
+      $('#form-page-' + $(@).data('current')).toggle()
+      $('#form-page-' + $(@).data('next')).toggle()
+    else
+      KS.buildError(error)
     false
+
 
   $(document).on 'click', '.header-tab', () ->
     $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
