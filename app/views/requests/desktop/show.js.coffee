@@ -9,11 +9,19 @@ KS.olMap.getView().setZoom(11)
 <% else -%>
 KS.olMap.beforeRender(ol.animation.pan({ source: KS.olMap.getView().getCenter() }))
 <% end -%>
-KS.olMap.getView().setCenter(coord) 
+KS.olMap.getView().setCenter(coord)
 <% if @refresh -%>
 KS.clearNewFeature()
 KS.reloadFeatures()
 <% end -%>
 
 $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
-$('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")
+if $('.request-container').prop('id') == 'request-form'
+  $('.request-container').hide()
+  partial = "<div class='request-container overlay'><%= j render partial: 'requests/desktop/show' %></div>"
+  if $('.overlay').length > 0
+    $('.overlay').replaceWith(partial)
+  else
+    $('#request.tab-pane').append(partial)
+else
+  $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")
