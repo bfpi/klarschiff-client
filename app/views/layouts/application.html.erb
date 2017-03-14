@@ -45,10 +45,17 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="text-right">
-                <%= link_to t(:help), [:help, :static] %> |
-                <%= link_to t(:usage), [:usage, :static] %> |
-                <%= link_to t(:privacy), [:privacy, :static] %>
+              <div class="row">
+                <div class="col-md-12">
+                  <%= image_tag image_path('logo-hro.png'), id: 'logo' %>
+                </div>
+                <div class="col-md-12">
+                  <div class="text-right">
+                    <%= link_to t(:help), [:help, :static] %> |
+                    <%= link_to t(:usage), [:usage, :static] %> |
+                    <%= link_to t(:privacy), [:privacy, :static] %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
