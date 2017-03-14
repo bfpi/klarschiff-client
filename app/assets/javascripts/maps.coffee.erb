@@ -64,7 +64,8 @@ class KS.Map
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->
-      if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0
+      if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0 &&
+      KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
         KS.moveNewFeature e.coordinate
       else
         map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
