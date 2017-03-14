@@ -64,39 +64,44 @@ class KS.Map
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->
-      map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
-        if layer
-          if layer.get('id') == 'observations'
-            feature.set('selected', !feature.get('selected'))
-            if feature.get('selected')
-              feature.getStyle().getFill().setColor('rgba(255,0,255,0.5)')
-              feature.getStyle().getText().getFill().setColor('#FF00FF')
-            else
-              feature.getStyle().getFill().setColor('rgba(255,135,0,0.5)')
-              feature.getStyle().getText().getFill().setColor('#FF8700')
-          else if !KS.layers.findById('observations').getVisible() &&
-          !KS.layers.findById('draw_observation').getVisible() &&
-          (layer.get('id') in ['features', 'jobs'])
-            features = feature.get('features')
-            url = KS.requests_path
-            if features.length == 1
-              # Single feature -> show
-              url += features[0].get("id")
-              url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
-              $.ajax(url: url, dataType: 'script')
-            else if map.getView().getZoom() == KS.maxZoom
-              ids = Array()
-              $(features).each (ix, feature) ->
-                ids.push feature.get('id')
-              url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
-              $.ajax(url: url, dataType: 'script', data: { ids: ids })
-            else
-              # Zoom in
-              map.getView().setCenter e.coordinate
-              current_zoom = map.getView().getZoom()
-              if current_zoom == undefined
-                current_zoom = zoom
-              map.getView().setZoom parseInt(current_zoom + 1)
+      if map.hasFeatureAtPixel(e.pixel)
+        map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
+          if layer
+            if layer.get('id') == 'observations'
+              feature.set('selected', !feature.get('selected'))
+              if feature.get('selected')
+                feature.getStyle().getFill().setColor('rgba(255,0,255,0.5)')
+                feature.getStyle().getText().getFill().setColor('#FF00FF')
+              else
+                feature.getStyle().getFill().setColor('rgba(255,135,0,0.5)')
+                feature.getStyle().getText().getFill().setColor('#FF8700')
+            else if !KS.layers.findById('observations').getVisible() &&
+            !KS.layers.findById('draw_observation').getVisible() &&
+            (layer.get('id') in ['features', 'jobs'])
+              features = feature.get('features')
+              url = KS.requests_path
+              if features.length == 1
+                # Single feature -> show
+                url += features[0].get("id")
+                url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                $.ajax(url: url, dataType: 'script')
+              else if map.getView().getZoom() == KS.maxZoom
+                ids = Array()
+                $(features).each (ix, feature) ->
+                  ids.push feature.get('id')
+                url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                $.ajax(url: url, dataType: 'script', data: { ids: ids })
+              else
+                # Zoom in
+                map.getView().setCenter e.coordinate
+                current_zoom = map.getView().getZoom()
+                if current_zoom == undefined
+                  current_zoom = zoom
+                map.getView().setZoom parseInt(current_zoom + 1)
+      else
+        if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0
+          KS.clearNewFeature
+          KS.createFeature 'blank', e.coordinate
 
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
@@ -393,7 +398,7 @@ class KS.Geolocation
 
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
-      KS.position = @geolocation.getPosition()
+      KS.position = this.getPosition()
 
   center: (map) ->
     overlays = map.getOverlays().getArray()
@@ -406,12 +411,12 @@ KS.map =
   actions: ->
     $('#ol-map > nav.navbar.actions')
 
-KS.createFeature= (type) ->
+KS.createFeature= (type, coord) ->
 
   KS.newFeatureOverlay.setStyle KS.styles.newFeature(type)
   KS.clearNewFeature()
 
-  position = KS.olMap.getView().getCenter()
+  position = coord || KS.olMap.getView().getCenter()
   if KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
           KS.olMap.getSize()), KS.position)
     position = KS.position
