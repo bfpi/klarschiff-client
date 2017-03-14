@@ -64,7 +64,9 @@ class KS.Map
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->
-      if map.hasFeatureAtPixel(e.pixel)
+      if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0
+        KS.moveNewFeature e.coordinate
+      else
         map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
           if layer
             if layer.get('id') == 'observations'
@@ -98,10 +100,6 @@ class KS.Map
                 if current_zoom == undefined
                   current_zoom = zoom
                 map.getView().setZoom parseInt(current_zoom + 1)
-      else
-        if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0
-          KS.clearNewFeature
-          KS.createFeature 'blank', e.coordinate
 
     map.on 'moveend', (e) ->
       if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
@@ -437,6 +435,11 @@ KS.clearNewFeature= () ->
   KS.newFeatureOverlay.removeFeature feature for feature in KS.newFeatureOverlay.getFeatures().getArray()
   if KS.newFeatureInteraction
     KS.olMap.removeInteraction KS.newFeatureInteraction
+
+KS.moveNewFeature= (coord) ->
+  if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
+    KS.clearNewFeature
+    KS.createFeature 'blank', coord
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())

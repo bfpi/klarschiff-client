@@ -12,9 +12,6 @@ KS.layers.findById("features").setVisible(<%= @show_non_job_features %>)
 $('#places_search').val('')
 KS.olMap.getView().fitExtent Array(<%= @bbox.join ", " %>), KS.olMap.getSize()
 if (arr = KS.newFeatureOverlay.getFeatures().getArray()).length > 0
-  feature = arr[0]
-  feature.getGeometry().setCoordinates(KS.olMap.getView().getCenter())
-  KS.clearNewFeature
-  KS.createFeature 'blank'
+  KS.moveNewFeature
 <% end -%>
 <% end -%>
