@@ -29,7 +29,7 @@
                       <% if (url = req.media_url).present? -%>
                         <div class="col-md-12">
                           <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" 
-                               class="img-rounded img-responsive" />
+                               class="img-rounded img-responsive" height="120" width="120" />
                         </div>
                       <% end -%>
                     </div>
