@@ -9,6 +9,7 @@ client:
   login_required: true
   name: Klarschiff.HRO
   resources_path: /var/www/html/hro/resources
+  logo_url: /resources/images/logo.png
   show_email:
   show_abuses:
   show_votes:
