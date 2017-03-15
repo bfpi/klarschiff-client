@@ -122,7 +122,7 @@ $ ->
     unless $('.' + $(@).data('tab') + '-container').length > 0
       $.get($(@).data('url'), null, null, 'script')
   
-  $(document).ready () ->
+  $(document).on 'turbolinks:load', () ->
     $('#textsizer a').textresizer({ target: '#main-content' })
 
   $(document).on 'click', '.check-all', () ->
