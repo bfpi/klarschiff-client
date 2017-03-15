@@ -192,8 +192,10 @@ de:
 
   observations:
     index:
-      feed_title: "%{name} - Meldungen für Beobachtungsflächen"
-      feed_description: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
+      feed_title: "%{name} - Meldungen"
+      feed_description: "Diese Daten umfassen alle Meldungen in %{name}, dem Portal zur Bürgerbeteiligung"
+      feed_title_observation: "%{name} - Meldungen für Beobachtungsflächen"
+      feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
