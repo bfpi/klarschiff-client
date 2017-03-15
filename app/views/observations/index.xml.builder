@@ -2,8 +2,8 @@ xml.instruct!
 xml.rss version: '2.0', 'xmlns:atom' => 'http://w3.org/2005/Atom', 'xmlns:georss' => 'http://www.georss.org/georss' do
   
   xml.channel do
-    xml.title t('.feed_title', name: Settings::Client.name)
-    xml.description t('.feed_description', name: Settings::Client.name)
+    xml.title t(".feed_title#{ '_observation' if @key.present? }", name: Settings::Client.name)
+    xml.description t(".feed_description#{ '_observation' if @key.present? }", name: Settings::Client.name)
     xml.link observations_path(observation_key: @key)
     xml.language 'de-de'
     xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', 'href' => observations_path(observation_key: @key)
