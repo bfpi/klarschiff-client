@@ -86,7 +86,7 @@ class KS.Map
               if features.length == 1
                 # Single feature -> show
                 url += features[0].get("id")
-                url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                url += "#{ if url.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
                 $.ajax(url: url, dataType: 'script')
               else if map.getView().getZoom() == KS.maxZoom
                 ids = Array()
