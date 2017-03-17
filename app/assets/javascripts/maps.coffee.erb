@@ -465,7 +465,7 @@ KS.generatePath= () ->
   params = KS.getMapPanelParams()
   path = KS.requests_path
   path += "#{ if path.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam('mobile') if KS.getUrlParam('mobile')
-  path += "#{ if path.contains?('?') then '&' else '?' }" + params
+  path += params
   path
 
 KS.resetSelectedFeatures= () ->
@@ -509,7 +509,10 @@ KS.createHighlightFeature= (layer, coord, icon) ->
 
 #eine 'show'-Anfrage gegen den Requests-Controller senden, wenn im URL-Query ein 'request'-Parameter gefunden wurde
 if id = KS.getUrlParam('request')
-  $.ajax(url: KS.requests_path + id + '/?direct=true', dataType: 'script')
+  url = KS.requests_path + id + '/?direct=true'
+  if KS.getUrlParam('mobile')
+    url += '&mobile=true'
+  $.ajax(url: url, dataType: 'script')
 
 $ ->
   KS.olMap = new KS.Map
