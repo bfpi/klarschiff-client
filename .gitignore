@@ -43,3 +43,6 @@ bower.json
 # External libs loaded via rake assets:libs
 lib/assets/javascripts
 lib/assets/stylesheets
+
+#solr-Konfiguration
+public/search/conf/config.php
