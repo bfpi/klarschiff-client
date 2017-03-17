@@ -28,7 +28,7 @@
           <div class="btn-group btn-group-justified col-md-12" role="group">
             <%= link_to(t('buttons.back'), new_request_path, remote: true, class: 'btn btn-default',
                         role: :button) %>
-            <%= link_to(t('buttons.continue'), 'javascript:;', remote: true,
+            <%= link_to(t('buttons.continue'), '#', remote: true,
                         class: 'btn btn-primary btn-continue', role: :button,
                         data: { current: '1', next: '2' }) %>
           </div>
@@ -58,10 +58,10 @@
       </div>
       <div class="row form-group" class="hidden-page">
         <div class="btn-group btn-group-justified col-md-12" role="group">
-          <%= link_to(t('buttons.back'), 'javascript:;', remote: true,
+          <%= link_to(t('buttons.back'), '#', remote: true,
                       class: 'btn btn-default btn-continue back', role: :button,
                       data: { current: '2', next: '1' }) %>
-          <%= link_to(t('buttons.continue'), 'javascript:;', remote: true,
+          <%= link_to(t('buttons.continue'), '#', remote: true,
                       class: 'btn btn-primary btn-continue', role: :button,
                       data: { current: '2', next: 'submit' }) %>
         </div>
@@ -86,7 +86,7 @@
       <% end -%>
       <div class="row form-group">
         <div class="btn-group btn-group-justified col-md-12" role="group">
-          <%= link_to(t('buttons.back'), 'javascript:;', remote: true,
+          <%= link_to(t('buttons.back'), '#', remote: true,
                       class: 'btn btn-default btn-continue back', role: :button,
                       data: { current: 'submit', next: '2' }) %>
           <div class="btn-group" role="group">
