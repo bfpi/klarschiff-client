@@ -126,7 +126,7 @@ class RequestsController < ApplicationController
     end
     if ids.present? && !service.nil?
       @options = { id: ids.first } if context == 'desktop'
-      @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile)
+      @redirect = "#{ Settings::Url.ks_server_url }#{ requests_path(ids: ids, refresh: true, mobile: @mobile) }"
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
                         type: I18n.t(service.type, scope: 'service.types', count: ids.size))
