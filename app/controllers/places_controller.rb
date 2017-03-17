@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
       uri = URI(Settings::Url.ks_frontend_search_url)
       uri.query = URI.encode_www_form(searchtext: @pattern)
 
-      if (res = open(uri)) && res.status.include?('OK')
+      if (res = open(uri, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)) && res.status.include?('OK')
         @places = Array.wrap(JSON.parse(res.read).try(:[], 'array')).map do |p|
           Place.new p
         end

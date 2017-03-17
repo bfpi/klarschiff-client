@@ -15,7 +15,7 @@ class Coordinate
     uri.query = URI.encode_www_form(config.slice(:api_key).merge(lat: lat, long: long))
 
     begin
-      response = uri.read('Accept-Charset' => 'UTF-8')
+      response = uri.read('Accept-Charset' => 'UTF-8', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
     rescue Exception
       Rails.logger.error "Exception: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
       return true
