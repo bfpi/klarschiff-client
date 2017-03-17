@@ -398,7 +398,6 @@ class KS.Geolocation
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
       KS.position = this.getPosition()
-      KS.moveNewFeature()
 
   center: (map) ->
     overlays = map.getOverlays().getArray()
@@ -406,6 +405,7 @@ class KS.Geolocation
       map.getView().fitExtent(
         overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize()
       )
+    KS.moveNewFeature()
 
 KS.map =
   actions: ->
@@ -417,7 +417,7 @@ KS.createFeature= (type, coord) ->
   KS.clearNewFeature()
 
   position = coord || KS.olMap.getView().getCenter()
-  if KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
+  if KS.getUrlParam('mobile') && KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
           KS.olMap.getSize()), KS.position)
     position = KS.position
 
@@ -441,10 +441,19 @@ KS.clearNewFeature= () ->
 
 KS.moveNewFeature= (coord) ->
   if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
-    console.log('Test')
-    type = KS.newFeatureOverlay.getFeatures().getArray()[0].get('type')
-    KS.clearNewFeature
-    KS.createFeature type, coord
+    pos = coord || KS.olMap.getView().getCenter()
+    feat = KS.newFeatureOverlay.getFeatures().getArray()[0]
+    feat.getGeometry().setCoordinates(pos)
+
+    if KS.newFeatureInteraction
+      KS.olMap.removeInteraction KS.newFeatureInteraction
+
+    KS.newFeatureInteraction = new ol.interaction.Modify(
+      features: new ol.Collection([feat])
+      pixelTolerance: 50
+      style: KS.newFeatureOverlay.getStyle()
+    )
+    KS.olMap.addInteraction KS.newFeatureInteraction
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
