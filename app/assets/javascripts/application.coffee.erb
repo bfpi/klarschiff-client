@@ -153,6 +153,9 @@ $ ->
       addr_search.css left: addr_search.offset().left - width
 
   $(document).on 'click', '.header-tab', () ->
-    console.log('test')
     $.get("/#{ $(@).prop('id') }?back=true", null, null, 'script')
+    false
+
+  $(document).on 'click', '#btn-start', () ->
+    $('#requests.header-tab').trigger('click')
     false
