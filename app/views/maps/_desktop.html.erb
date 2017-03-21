@@ -2,10 +2,10 @@
   <div class="col-md-8">
     <ul class="nav navbar-nav">
       <li class="active">
-        <a href="#request" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
+        <a href="#request" id="requests" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
       </li>
       <li>
-        <a href="#watch" data-toggle="tab" class="header-tab"><%= t('.watch') %></a>
+        <a href="#watch" id="areas" data-toggle="tab" class="header-tab"><%= t('.watch') %></a>
       </li>
     </ul>
   </div>
@@ -20,8 +20,6 @@
       <div class="tab-content">
         <div id="request" class="tab-pane active">
           <%= render partial: 'requests/desktop/start_request' %>
-        </div>
-        <div id="places" class="tab-pane">
         </div>
         <div id="watch" class="tab-pane">
           <%= render partial: 'areas/index' %>

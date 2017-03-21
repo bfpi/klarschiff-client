@@ -4,4 +4,5 @@ if $('.overlay').length > 0
   $('.overlay').replaceWith('')
   $('.request-container').show()
 else
+  KS.clearNewFeature()
   $('.request-container').replaceWith("<%= j render partial: '/requests/desktop/start_request' %>")
