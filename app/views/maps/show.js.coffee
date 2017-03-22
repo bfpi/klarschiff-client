@@ -10,7 +10,8 @@ KS.layers.findById("features").setVisible(<%= @show_non_job_features %>)
 
 <% if @bbox.present? -%>
 $('#places_search').val('')
-KS.olMap.getView().fitExtent Array(<%= @bbox.join ", " %>), KS.olMap.getSize()
+KS.olMap.getView().setCenter(Array(<%= @bbox.join ', ' %>))
+KS.olMap.getView().setZoom(KS.maxZoom - 1)
 if (arr = KS.newFeatureOverlay.getFeatures().getArray()).length > 0
   KS.moveNewFeature()
 <% end -%>
