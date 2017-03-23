@@ -11,6 +11,11 @@ KS.olMap.beforeRender(ol.animation.pan({ source: KS.olMap.getView().getCenter() 
 <% end -%>
 KS.olMap.getView().setCenter(coord)
 
+<% if @refresh -%>
+KS.reloadFeatures()
+KS.clearNewFeature()
+<% end -%>
+
 $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
 if $('.request-container').prop('id') == 'request-form'
   $('.request-container').hide()

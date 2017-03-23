@@ -45,34 +45,22 @@
           <div class="row">
             <div class="col-md-6">
               <div class="row">
-                <div class="col-md-12">
-                  <%= check_box_tag :show_open, nil, true, class: 'show-feature', id: 'received', data: { key: 'status' } %>
-                  <%= label_tag :received, t('status.received'), class: 'check-label' %>
-                </div>
-                <div class="col-md-12">
-                  <%= check_box_tag :show_in_process, nil, true, class: 'show-feature', id: 'in_process', data: { key: 'status' } %>
-                  <%= label_tag :in_process, t('status.in_process'), class: 'check-label' %>
-                </div>
-                <div class="col-md-12">
-                  <%= check_box_tag :show_solved, nil, true, class: 'show-feature', id: 'processed', data: { key: 'status' } %>
-                  <%= label_tag :processed, t('status.processed'), class: 'check-label' %>
-                </div>
-                <div class="col-md-12">
-                  <%= check_box_tag :show_rejected, nil, true, class: 'show-feature', id: 'rejected', data: { key: 'status' } %>
-                  <%= label_tag :rejected, t('status.rejected'), class: 'check-label' %>
-                </div>
+                <% %i(pending received in_process processed rejected).each do |st| -%>
+                  <div class="col-md-12">
+                    <%= check_box_tag "show_#{ st }", nil, true, class: 'show-feature', id: st, data: { key: 'status' } %>
+                    <%= label_tag st, t("status.#{ st }"), class: 'check-label' %>
+                  </div>
+                <% end -%>
               </div>
             </div>
             <div class="col-md-6">
               <div class="row">
-                <div class="col-md-12">
-                  <%= check_box_tag :show_problem, nil, true, class: 'show-feature', id: 'problem', data: { key: 'typ' } %>
-                  <%= label_tag :problem, t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
-                </div>
-                <div class="col-md-12">
-                  <%= check_box_tag :show_idea, nil, true, class: 'show-feature', id: 'idea', data: { key: 'typ' } %>
-                  <%= label_tag :idea, t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
-                </div>
+                <% %i(problem idea).each do |type| -%>
+                  <div class="col-md-12">
+                    <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
+                    <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+                  </div>
+                <% end -%>
               </div>
             </div>
           </div>
