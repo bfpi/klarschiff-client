@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require OpenLayers
+ *= require ol3-ext
  *= require jquery-ui/theme
  *= require_tree .
  *= require_self
@@ -162,12 +163,12 @@ header
     color: #fff
     display: block
 
-.panel-heading [data-toggle="collapse"] span:before
+.map-panel .panel-heading [data-toggle="collapse"] span:before
   font-family: 'Glyphicons Halflings'
   content: '\2212'
   float: right
 
-.panel-heading .collapsed[data-toggle="collapse"] span:before
+.map-panel .panel-heading .collapsed[data-toggle="collapse"] span:before
   content: '\2b'
 
 .check-label

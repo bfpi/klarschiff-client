@@ -66,7 +66,7 @@ class RequestsController < ApplicationController
         e.base_object_with_errors
       end
     if result.is_a?(Net::HTTPOK)
-      @redirect = request_path(id, id_list: params[:request][:id_list]).html_safe
+      @redirect = request_path(id, id_list: params[:request][:id_list], mobile: @mobile).html_safe
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors

@@ -5,7 +5,7 @@ class NotesController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js
+      format.js { render "/application/#{ context }/new" }
     end
   end
 
@@ -19,7 +19,7 @@ class NotesController < ApplicationController
         e.base_object_with_errors
       end
     if result.errors.blank?
-      @redirect = request_path(params[:request_id], id_list: params[:note][:id_list]).html_safe
+      @redirect = request_path(params[:request_id], id_list: params[:note][:id_list], mobile: @mobile).html_safe
       if note.persisted?
         @success = I18n.t(:success_text, scope: 'notes.create')
       else
@@ -28,5 +28,6 @@ class NotesController < ApplicationController
     else
       @errors = result.errors
     end
+    render "/application/#{ context }/create"
   end
 end

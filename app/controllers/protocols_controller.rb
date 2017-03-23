@@ -5,7 +5,7 @@ class ProtocolsController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js
+      format.js { render "/application/#{ context }/new" }
     end
   end
 
@@ -14,5 +14,6 @@ class ProtocolsController < ApplicationController
     ProtocolMailer.protocol(protocol).deliver_now
     @redirect = request_path(params[:request_id], id_list: params[:protocol][:id_list]).html_safe
     @success = I18n.t('protocols.create.success_text')
+    render "/application/#{ context }/create"
   end
 end

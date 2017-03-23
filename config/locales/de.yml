@@ -187,8 +187,9 @@ de:
       error: Fehler bei internem Kommentar
       success: Interner Kommentar erfolgreich abgesetzt
       success_text: Ihr interner Kommentar wurde zur Meldung hinzugefügt.
-    new:
-      title: interner Kommentar
+    mobile:
+      new:
+        title: interner Kommentar
 
   observations:
     index:
@@ -215,11 +216,12 @@ de:
     create:
       success: KOD-Protokoll erfolgreich abgesetzt
       success_text: Ihr KOD-Protokoll wurde erfolgreich gesendet.
-    new:
-      title: KOD-Protokoll
-      actions:
-        more_attachment: Anhang hinzufügen
-        send: senden
+    mobile:
+      new:
+        title: KOD-Protokoll
+        actions:
+          more_attachment: Anhang hinzufügen
+          send: senden
 
   requests:
     create:
