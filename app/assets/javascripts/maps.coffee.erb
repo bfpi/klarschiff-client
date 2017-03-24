@@ -321,11 +321,9 @@ KS.createObservationFeatures= (controller, layer) ->
 
 class KS.FeatureVector
   constructor: (controller, is_request = false) ->
-    console.log('00000000000000000000000000000')
     return vector = new ol.source.Vector
       format: new ol.format.TopoJSON
       loader: (extent, resolution, projection) ->
-        console.log('1111111111111111111111111111111')
         extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
         new KS.FeatureData(controller, extent, vector, is_request)
 
