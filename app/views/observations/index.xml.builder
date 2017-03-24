@@ -11,17 +11,16 @@ xml.rss version: '2.0', 'xmlns:atom' => 'http://w3.org/2005/Atom', 'xmlns:georss
         xml.title "##{r.id} #{ t(r.service.type, scope: 'service.types', count: 1) } (#{ r.service.group } - #{ r.service })"
         xml.description do
           html_cont = <<-HTML
-            <b>#{ Request.human_attribute_name(:status) }</b>: #{ status(r) }<br/>
-            <b>#{ Request.human_attribute_name(:status_notes) }</b>: #{ r.status_notes }<br/>
-            <b>#{ Request.human_attribute_name(:votes) }</b>: #{ r.votes }<br/>
-            <b>#{ Request.human_attribute_name(:description) }</b>: #{ r.description }<br/>
+            <b>#{ Request.human_attribute_name(:status) }:</b>#{ status(r) }<br/>
+            <b>#{ Request.human_attribute_name(:status_notes) }:</b>: #{ r.status_notes }<br/>
+            <b>#{ Request.human_attribute_name(:votes) }:</b>#{ r.votes }<br/>
+            <b>#{ Request.human_attribute_name(:description) }:</b>#{ r.description }<br/>
+            <b>#{ Request.human_attribute_name(Request.human_attribute_name(:media_url)) }:</b>
           HTML
-          if (url = r.media_url).present?
-            html_cont << <<-HTML
-              <b>#{ Request.human_attribute_name(Request.human_attribute_name(:media_url)) }</b>:
-              <img src='#{ url }' alt='#{ Request.human_attribute_name(:media_url) }' class='img-rounded img-responsive' />
-              <br/>
-            HTML
+          html_cont << if (url = r.media_url).present?
+            image_tag(url, alt: Request.human_attribute_name(:media_url), class: 'img-rounded img-responsive')
+          else
+            t('.img_not_available')
           end
           html_cont << link_to(t('.link'), [:map, request: r], target: '_blank')
           xml.cdata! html_cont
