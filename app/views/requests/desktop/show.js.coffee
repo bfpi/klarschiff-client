@@ -6,10 +6,10 @@ KS.createHighlightFeature(highlight_layer, coord, icon)
 
 <% if @direct.present? -%>
 KS.olMap.getView().setZoom(11)
-<% else -%>
-KS.olMap.beforeRender(ol.animation.pan({ source: KS.olMap.getView().getCenter() }))
-<% end -%>
 KS.olMap.getView().setCenter(coord)
+<% else -%>
+KS.olMap.getView().animate({ center: coord })
+<% end -%>
 
 <% if @refresh -%>
 KS.reloadFeatures()
