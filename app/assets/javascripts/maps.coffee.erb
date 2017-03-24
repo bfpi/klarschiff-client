@@ -472,8 +472,10 @@ KS.moveNewFeature= (coord) ->
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
+  KS.layers.findById('features').getSource().getSource().clear()
   new KS.FeatureData(KS.generatePath(), extent, KS.layers.findById("features").getSource().getSource(), true)
   if KS.login_required
+    KS.layers.findById('jobs').getSource().getSource().clear()
     new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
 
 KS.generatePath= () ->
