@@ -11,7 +11,6 @@ de:
   pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
   privacy: Datenschutz
   success: Vielen Dank!
-  success_message: Ihr Vorgang muss zunächst redaktionell überprüft werden.
   share_request: ' Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
   usage: Nutzung
   username: Benutzername
@@ -204,6 +203,7 @@ de:
       feed_title_observation: "%{name} - Meldungen für Beobachtungsflächen"
       feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
       link: Meldung in Klarschiff ansehen
+      img_not_available: nicht vorhanden
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
@@ -246,6 +246,7 @@ de:
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
+        success: Ihr Vorgang muss zunächst redaktionell überprüft werden.
       start_request:
         new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaul. Änderungen
