@@ -3,7 +3,9 @@ highlight_layer = KS.layers.findById('highlight_layer')
 highlight_layer.getSource().clear()
 icon = "<%= @request.icon_active_map %>"
 KS.createHighlightFeature(highlight_layer, coord, icon)
-
+unless $('#request').hasClass('active')
+  $('#request').addClass('active')
+  $('#watch').removeClass('active')
 <% if @direct.present? -%>
 KS.olMap.getView().setZoom(11)
 <% else -%>
