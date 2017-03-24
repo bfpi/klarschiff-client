@@ -55,17 +55,13 @@ class KS.Map
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
     KS.geolocation = new KS.Geolocation(@olMap)
-    KS.newFeatureOverlay = new ol.FeatureOverlay(
-      map: @olMap
-    )
     return @olMap
 
   addControls = (map) ->
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->
-      if (features = KS.newFeatureOverlay.getFeatures()) && features.getArray().length > 0 &&
-      KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
+      if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
         KS.moveNewFeature e.coordinate
       else
         map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
@@ -387,24 +383,26 @@ class KS.Geolocation
       position_feature.setStyle KS.styles.location()
       feature_array.push(position_feature)
 
-      featuresOverlay = new ol.FeatureOverlay
-        features: feature_array
+      featuresOverlay = new ol.layer.Vector
+        id: 'geolocation'
+        map: map
+        source: new ol.source.Vector
+          features: feature_array
 
-      map.removeOverlay overlay for overlay in map.getOverlays().getArray()
-      map.addOverlay featuresOverlay
+      if layer = KS.layers.findById('geolocation')
+        map.removeLayer layer
+      map.addLayer featuresOverlay
 
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
       KS.position = this.getPosition()
 
   center: (map) ->
-    overlays = map.getOverlays().getArray()
-    if(overlays.length > 0)
+    if(layer = KS.layers.findById('geolocation')) && (features = layer.getSource().getFeatures()).length > 0
       if KS.getUrlParam('mobile')
-        map.getView().fitExtent(
-          overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize())
+        map.getView().fit(features[0].getGeometry().getExtent(), map.getSize())
       else
-        map.getView().setCenter(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent())
+        map.getView().setCenter(features[0].getGeometry().getExtent())
         map.getView().setZoom(KS.maxZoom - 1)
     KS.moveNewFeature()
 
@@ -414,16 +412,15 @@ KS.map =
 
 KS.createFeature= (type, coord) ->
 
-  KS.newFeatureOverlay.setStyle KS.styles.newFeature(type)
   KS.clearNewFeature()
 
-  #layer =  new ol.layer.Vector
-      #id: 'new_feature'
-      #source: new ol.source.Vector
-      #style: KS.styles.newFeature(type)
-      #visible: true
+  layer =  new ol.layer.Vector
+      id: 'new_feature'
+      source: new ol.source.Vector
+      style: KS.styles.newFeature(type)
+      visible: true
 
-  #KS.olMap.addLayer layer
+  KS.olMap.addLayer layer
 
   position = coord || KS.olMap.getView().getCenter()
   if KS.getUrlParam('mobile') && KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
@@ -434,7 +431,7 @@ KS.createFeature= (type, coord) ->
     geometry: new ol.geom.Point(position)
     type: type
   )
-  #layer.getSource().addFeature(feature)
+  layer.getSource().addFeature(feature)
   #layer.animateFeature feature, [
     #new (ol.featureAnimation['Drop'])(
       #speed: Number(2)
@@ -448,31 +445,31 @@ KS.createFeature= (type, coord) ->
   KS.newFeatureInteraction = new ol.interaction.Modify(
     features: new ol.Collection([feature])
     pixelTolerance: 50
-    style: KS.newFeatureOverlay.getStyle()
+    style: layer.getStyle()
   )
   KS.olMap.addInteraction KS.newFeatureInteraction
-  KS.newFeatureOverlay.addFeature feature
 
 KS.clearNewFeature= () ->
-  KS.newFeatureOverlay.removeFeature feature for feature in KS.newFeatureOverlay.getFeatures().getArray()
-  if KS.newFeatureInteraction
-    KS.olMap.removeInteraction KS.newFeatureInteraction
+  if layer = KS.layers.findById('new_feature')
+    if KS.newFeatureInteraction
+      KS.olMap.removeInteraction KS.newFeatureInteraction
+    KS.olMap.removeLayer(layer)
 
 KS.moveNewFeature= (coord) ->
-  if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
+  if layer = KS.layers.findById('new_feature')
     pos = coord || KS.olMap.getView().getCenter()
-    feat = KS.newFeatureOverlay.getFeatures().getArray()[0]
+    feat = layer.getSource().getFeatures()[0]
     feat.getGeometry().setCoordinates(pos)
 
     if KS.newFeatureInteraction
       KS.olMap.removeInteraction KS.newFeatureInteraction
 
-    KS.newFeatureInteraction = new ol.interaction.Modify(
-      features: new ol.Collection([feat])
-      pixelTolerance: 50
-      style: KS.newFeatureOverlay.getStyle()
-    )
-    KS.olMap.addInteraction KS.newFeatureInteraction
+      KS.newFeatureInteraction = new ol.interaction.Modify(
+        features: new ol.Collection([feat])
+        pixelTolerance: 50
+        style: layer.getStyle()
+      )
+      KS.olMap.addInteraction KS.newFeatureInteraction
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
@@ -538,7 +535,7 @@ $ ->
   KS.olMap = new KS.Map
 
   $(document).on('click', 'a.describe', (event) ->
-    if (features = KS.newFeatureOverlay.getFeatures().getArray()).length > 0
+    if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0
       $.ajax
         url: $(@).attr('href')
         data:
