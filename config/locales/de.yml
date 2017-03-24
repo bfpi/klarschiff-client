@@ -129,7 +129,7 @@ de:
     desktop: &abuses
       create:
         error: Fehler bei Missbrauchsmeldung
-        success: Missbrauchsmeldung erfolgreich abgesetzt
+        success: Die Michbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Missbrauchsmeldung nocheinmal bestätigen müssen.
       new:
         title: Missbrauch
         hint:
@@ -311,7 +311,7 @@ de:
     desktop: &votes
       create:
         error: Fehler bei Unterstützungsmeldung
-        success: Unterstützungsmeldung erfolgreich abgesetzt!
+        success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Unterstützungsmeldung nocheinmal bestätigen müssen.
       new:
         title: Unterstützung
     mobile:
