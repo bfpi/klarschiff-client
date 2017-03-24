@@ -402,8 +402,11 @@ class KS.Geolocation
   center: (map) ->
     overlays = map.getOverlays().getArray()
     if(overlays.length > 0)
-      map.getView().setCenter(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent())
-      map.getView().setZoom(KS.maxZoom - 1)
+      if KS.getUrlParam('mobile')
+        map.getView().fitExtent(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize())
+      else
+        map.getView().setCenter(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent())
+        map.getView().setZoom(KS.maxZoom - 1)
     KS.moveNewFeature()
 
 KS.map =
@@ -440,7 +443,7 @@ KS.clearNewFeature= () ->
 
 KS.moveNewFeature= (coord) ->
   if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
-    pos = coord || KS.olMap.getView().getCenter()
+    pos = coord || KS.olMap.getView().getCenter().slice(0, 2)
     feat = KS.newFeatureOverlay.getFeatures().getArray()[0]
     feat.getGeometry().setCoordinates(pos)
 
