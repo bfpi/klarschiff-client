@@ -19,11 +19,14 @@ xml.rss version: '2.0', 'xmlns:atom' => 'http://w3.org/2005/Atom', 'xmlns:georss
           if (url = r.media_url).present?
             html_cont << <<-HTML
               <b>#{ Request.human_attribute_name(Request.human_attribute_name(:media_url)) }</b>:
-              <img src='#{ url }' alt='#{ Request.human_attribute_name(:media_url) }' class='img-rounded img-responsive' />"
+              <img src='#{ url }' alt='#{ Request.human_attribute_name(:media_url) }' class='img-rounded img-responsive' />
+              <br/>
             HTML
           end
+          html_cont << link_to(t('.link'), [:map, request: r], target: '_blank')
           xml.cdata! html_cont
         end
+        xml.georss :point, "#{ r.lat } #{ r.long }"
         url = "#{ KLARSCHIFF_URL }#{ map_path(request: r.id) }"
         xml.link url
         xml.guid url

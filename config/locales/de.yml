@@ -197,6 +197,7 @@ de:
       feed_description: "Diese Daten umfassen alle Meldungen in %{name}, dem Portal zur Bürgerbeteiligung"
       feed_title_observation: "%{name} - Meldungen für Beobachtungsflächen"
       feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
+      link: Meldung in Klarschiff ansehen
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
