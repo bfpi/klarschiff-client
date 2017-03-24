@@ -231,8 +231,8 @@ class KS.Layers
     @layers = []
     for layer in <%= Settings::Map.wmts_layers.to_json %>
       do (layer, @layers) ->
+        console.log('extent', layer.extent)
         @layers.push new ol.layer.Tile
-          projection: KS.projection()
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -252,7 +252,6 @@ class KS.Layers
     for layer in <%= Settings::Map.wms_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Image
-          projection: KS.projection()
           extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
@@ -327,17 +326,16 @@ KS.createObservationFeatures= (controller, layer) ->
 
 class KS.FeatureVector
   constructor: (controller, is_request = false) ->
-    return vector = new ol.source.ServerVector
+    return vector = new ol.source.Vector
       format: new ol.format.TopoJSON
       loader: (extent, resolution, projection) ->
+        extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
         new KS.FeatureData(controller, extent, vector, is_request)
-      projection: KS.projection()
 
 
 class KS.FeatureData
   constructor: (controller, extent, vector, is_request = false) ->
     controller = KS.generatePath() if is_request
-    ls = new ol.geom.LineString([ol.extent.getBottomLeft(extent), ol.extent.getTopRight(extent)])
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
     wgs84Sphere = new ol.Sphere(6378137)
     $.ajax(url: controller, dataType: 'json', data: {
@@ -380,7 +378,7 @@ class KS.Geolocation
       feature_array = []
       if KS.getUrlParam('mobile')
         accuracy_feature = new ol.Feature
-        accuracy_feature.bindTo 'geometry', this, 'accuracyGeometry'
+        accuracy_feature.setGeometry(this.getAccuracyGeometry())
         accuracy_feature.setStyle KS.styles.location()
         feature_array.push(accuracy_feature)
 
@@ -402,8 +400,12 @@ class KS.Geolocation
   center: (map) ->
     overlays = map.getOverlays().getArray()
     if(overlays.length > 0)
-      map.getView().setCenter(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent())
-      map.getView().setZoom(KS.maxZoom - 1)
+      if KS.getUrlParam('mobile')
+        map.getView().fitExtent(
+          overlays[0].getFeatures().getArray()[0].getGeometry().getExtent(), map.getSize())
+      else
+        map.getView().setCenter(overlays[0].getFeatures().getArray()[0].getGeometry().getExtent())
+        map.getView().setZoom(KS.maxZoom - 1)
     KS.moveNewFeature()
 
 KS.map =
@@ -415,6 +417,14 @@ KS.createFeature= (type, coord) ->
   KS.newFeatureOverlay.setStyle KS.styles.newFeature(type)
   KS.clearNewFeature()
 
+  #layer =  new ol.layer.Vector
+      #id: 'new_feature'
+      #source: new ol.source.Vector
+      #style: KS.styles.newFeature(type)
+      #visible: true
+
+  #KS.olMap.addLayer layer
+
   position = coord || KS.olMap.getView().getCenter()
   if KS.getUrlParam('mobile') && KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
           KS.olMap.getSize()), KS.position)
@@ -424,7 +434,17 @@ KS.createFeature= (type, coord) ->
     geometry: new ol.geom.Point(position)
     type: type
   )
-
+  #layer.getSource().addFeature(feature)
+  #layer.animateFeature feature, [
+    #new (ol.featureAnimation['Drop'])(
+      #speed: Number(2)
+      #duration: Number(400)
+      #side: false)
+    #new (ol.featureAnimation['Bounce'])(
+      #speed: Number(2)
+      #duration: Number(400)
+      #slide: false)
+  #]
   KS.newFeatureInteraction = new ol.interaction.Modify(
     features: new ol.Collection([feature])
     pixelTolerance: 50
