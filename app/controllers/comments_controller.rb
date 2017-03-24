@@ -13,8 +13,8 @@ class CommentsController < ApplicationController
     comment = Comment.create(params.require(:comment).permit(:author, :comment).merge(
       api_key: Comment.api_key, service_request_id: params[:request_id]))
     if comment.persisted?
-      @redirect = request_path(params[:request_id], id_list: params[:comment][:id_list]).html_safe
-      @success = I18n.t(:success_text, scope: 'comments.create')
+      @redirect = request_path(params[:request_id], id_list: params[:comment][:id_list], mobile: @mobile).html_safe
+      @success = I18n.t(:success_text, scope: "comments.#{ context }.create")
     else
       @errors = comment.errors
     end

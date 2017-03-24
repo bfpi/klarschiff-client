@@ -13,7 +13,7 @@ class AbusesController < ApplicationController
   def create
     abuse = Abuse.create(params.require(:abuse).permit(:author, :comment).merge(
       service_request_id: params[:request_id]))
-    @redirect = request_path(params[:request_id], id_list: params[:abuse][:id_list]).html_safe
+    @redirect = request_path(params[:request_id], id_list: params[:abuse][:id_list], mobile: @mobile).html_safe
     @errors = abuse.errors unless abuse.persisted?
     if context == 'desktop' && @errors.present?
       @errors = Array.wrap(@errors).map(&:messages)

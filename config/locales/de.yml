@@ -129,7 +129,7 @@ de:
     desktop: &abuses
       create:
         error: Fehler bei Missbrauchsmeldung
-        success: Die Michbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Missbrauchsmeldung nocheinmal bestätigen müssen.
+        success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Missbrauchsmeldung nocheinmal bestätigen müssen.
       new:
         title: Missbrauch
         hint:
@@ -143,6 +143,8 @@ de:
             unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
     mobile:
       <<: *abuses
+      create:
+        success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt.
 
   areas:
     areas_form:
@@ -158,15 +160,19 @@ de:
       whole_area: Gesamtes Gebiet
 
   comments:
-    desktop: &comments
+    desktop:
+      create:
+        error: Fehler bei Lob, Hinweisen oder Kritik
+        success: Ihr Lob, Hinweise oder Ihre Kritik zur Meldung wurde erfolgreich abgesetzt und dem genannten Empfänger zugestellt
+      new: &comments
+        title: Lob, Hinweise oder Kritik
+    mobile:
       create:
         error: Fehler bei Lob, Hinweisen oder Kritik
         success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
         success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
       new:
-        title: Lob, Hinweise oder Kritik
-    mobile:
-      <<: *comments
+        <<: *comments
 
   jobs:
     index:
@@ -317,3 +323,5 @@ de:
         title: Unterstützung
     mobile:
       <<: *votes
+      create:
+        success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt.
