@@ -74,6 +74,8 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
   - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
   - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
   - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`:
+    - `animate_refresh` (Pflichtfeld):
+      - Zeitabstand (in Sekunden) zwischen der letzten und der nächsten Animation für den "Neue Meldung"-Marker
     - `key` (Pflichtfeld):
       - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
     - `login_required` (Pflichtfeld): 
@@ -82,6 +84,8 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
       - Name des Clients
     - `resources_path` (Pflichtfeld):
       - Pfad in dem die externen statischen Seiten (z.B. Hilfsseite, API) abgelegt wurden
+    - `logo_url` (Pflichtfeld):
+      - Pfad zum Gemeinde-Logo
     - `show_email`: 
       - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
       - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
