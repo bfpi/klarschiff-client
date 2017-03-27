@@ -6,6 +6,7 @@ $('#type-select').replaceWith("<%= j render partial: 'requests/desktop/category_
 $('.errors').replaceWith("<%= j render partial: 'application/desktop/errors' %>")
 <% else -%>
 KS.olMap.removeInteraction KS.newFeatureInteraction
+KS.layers.findById('new_feature').getSource().getFeatures()[0].set('animate', false)
 $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/new' %>")
 <% end -%>
 <% end -%>
