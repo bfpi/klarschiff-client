@@ -450,10 +450,7 @@ KS.addNewFeatureInteraction = (layer, feature) ->
 
 KS.animateNewFeature= (layer, feature) ->
   layer.animateFeature feature, [
-    new (ol.featureAnimation['Bounce'])(
-      speed: Number(1)
-      duration: Number(500)
-      slide: false)
+    new (ol.featureAnimation['Bounce'])(duration: Number(2000))
   ]
 
 KS.refreshAnimation = () ->
