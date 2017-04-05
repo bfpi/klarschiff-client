@@ -423,7 +423,6 @@ KS.createFeature= (type, coord) ->
   layer = KS.layers.findById('new_feature')
   layer.setStyle(KS.styles.newFeature(type))
 
-
   position = coord || KS.olMap.getView().getCenter()
   if KS.getUrlParam('mobile') && KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
           KS.olMap.getSize()), KS.position)
@@ -434,8 +433,8 @@ KS.createFeature= (type, coord) ->
     type: type
     animate: true
   )
+
   layer.getSource().addFeature(feature)
-  KS.addNewFeatureInteraction(layer, feature)
   setTimeout(KS.refreshAnimation, 0)
 
 KS.addNewFeatureInteraction = (layer, feature) ->
@@ -446,6 +445,7 @@ KS.addNewFeatureInteraction = (layer, feature) ->
   )
   KS.newFeatureInteraction.on 'modifystart', (e) ->
     feature.set('animate', false)
+
   KS.olMap.addInteraction KS.newFeatureInteraction
 
 KS.animateNewFeature= (layer, feature) ->
@@ -456,7 +456,12 @@ KS.animateNewFeature= (layer, feature) ->
 KS.refreshAnimation = () ->
   layer = KS.layers.findById('new_feature')
   if (feature = layer.getSource().getFeatures()[0]) && feature.get('animate')
+    if KS.newFeatureInteraction
+      KS.olMap.removeInteraction KS.newFeatureInteraction
     KS.animateNewFeature(layer, feature)
+    setTimeout(( ->
+      KS.addNewFeatureInteraction(layer, feature)
+    ), 2000)
     setTimeout(KS.refreshAnimation, KS.animateRefresh)
 
 KS.clearNewFeature= () ->
