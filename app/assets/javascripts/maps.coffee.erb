@@ -462,9 +462,10 @@ KS.refreshAnimation = () ->
     setTimeout(( ->
       KS.addNewFeatureInteraction(layer, feature)
     ), 2000)
-    setTimeout(KS.refreshAnimation, KS.animateRefresh)
+    KS.animationId = setTimeout(KS.refreshAnimation, KS.animateRefresh)
 
 KS.clearNewFeature= () ->
+  KS.stopAnimationTimeout()
   layer = KS.layers.findById('new_feature')
   if layer.getSource().getFeatures().length > 0
     if KS.newFeatureInteraction
@@ -474,6 +475,7 @@ KS.clearNewFeature= () ->
 KS.moveNewFeature= (coord) ->
   layer = KS.layers.findById('new_feature')
   if feat = layer.getSource().getFeatures()[0]
+    KS.stopAnimationTimeout()
     pos = coord || KS.olMap.getView().getCenter().slice(0, 2)
     feat.set('animate', false)
     feat.getGeometry().setCoordinates(pos)
@@ -481,6 +483,11 @@ KS.moveNewFeature= (coord) ->
     if KS.newFeatureInteraction
       KS.olMap.removeInteraction KS.newFeatureInteraction
       KS.addNewFeatureInteraction(layer, feat)
+
+KS.stopAnimationTimeout = () ->
+  clearTimeout(KS.animationID) if KS.animationID
+  KS.animationID = null
+
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
