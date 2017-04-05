@@ -100,7 +100,7 @@ class KS.Map
                 map.getView().setZoom parseInt(current_zoom + 1)
 
     map.on 'moveend', (e) ->
-      if !KS.zoomEvent && KS.layers.findById("features").getSource().getFeatures().length > 0
+      if !KS.zoomEvent
         KS.reloadFeatures()
 
       KS.zoomEvent = false if KS.zoomEvent
