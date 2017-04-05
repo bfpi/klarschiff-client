@@ -485,8 +485,9 @@ KS.moveNewFeature= (coord) ->
       KS.addNewFeatureInteraction(layer, feat)
 
 KS.stopAnimationTimeout = () ->
-  clearTimeout(KS.animationID) if KS.animationID
-  KS.animationID = null
+  if KS.animationId
+    clearTimeout(KS.animationId)
+    KS.animationId = null
 
 
 KS.reloadFeatures= () ->
