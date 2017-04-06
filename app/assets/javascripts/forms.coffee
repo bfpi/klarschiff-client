@@ -66,3 +66,44 @@ $ ->
           $('#areas-form').append(input)
     $('#areas-form').ajaxSubmit dataType: 'script'
     false
+
+  $(document).on 'click', '.btn-continue', () ->
+    error = []
+    switch $(@).data('current')
+      when 1
+        features = KS.layers.findById('new_feature').getSource().getFeatures()
+        coord = features[0].getGeometry().clone().transform(KS.projection(), KS.projectionWGS84).getCoordinates()
+        $.ajax(
+          async: false
+          url: $(@).data('url')
+          data:
+            position: coord
+          dataType: 'json').done (response) ->
+            if response.status == 200
+              KS.olMap.removeInteraction KS.newFeatureInteraction
+              KS.stopAnimationTimeout()
+              KS.layers.findById('new_feature').getSource().getFeatures()[0].set('animate', false)
+              $('#request_long').val(coord[0])
+              $('#request_lat').val(coord[1])
+            else
+              error.push response.error
+      when 2
+        unless $('.radio-type').is(':checked')
+          error.push "<%= I18n.t('requests.desktop.new.error.required.type') %>"
+      when 3
+        unless $('#request_service_code_1').val()
+          error.push "<%= I18n.t('requests.desktop.new.error.required.category') %>"
+        unless $('#request_description').val().trim() != ''
+          error.push "<%= I18n.t('requests.desktop.new.error.required.description') %>"
+      else
+    
+    if $(@).data('next') == 1
+      layer = KS.layers.findById('new_feature')
+      KS.addNewFeatureInteraction(layer, layer.getSource().getFeatures()[0])
+    if error.length == 0 || $(@).hasClass('back')
+      $('.errors').replaceWith('<div class="errors"></div>')
+      $('#form-page-' + $(@).data('current')).toggle()
+      $('#form-page-' + $(@).data('next')).toggle()
+    else
+      KS.buildError(error)
+    false

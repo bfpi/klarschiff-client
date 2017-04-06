@@ -9,7 +9,6 @@ KS.layers.findById("features").setVisible(<%= @show_non_job_features %>)
 <% end -%>
 
 <% if @bbox.present? -%>
-console.log('Extent', Array(<%= @bbox.join ', ' %>))
 $('#places_search').val('')
 extent = Array(<%= @bbox.join ', ' %>)
 if extent[0] == extent[2] && extent[1] == extent[3]

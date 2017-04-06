@@ -446,8 +446,7 @@ KS.addNewFeatureInteraction = (layer, feature) ->
   )
 
   KS.newFeatureInteraction.on 'translatestart', (e) ->
-    if KS.animation && KS.animation.isPlaying()
-      KS.animation.stop()
+    KS.stopAnimationTimeout()
     feature.set('animate', false)
 
   KS.olMap.addInteraction KS.newFeatureInteraction
@@ -483,11 +482,10 @@ KS.moveNewFeature= (coord) ->
     feat.set('animate', false)
     feat.getGeometry().setCoordinates(pos)
 
-    #if KS.newFeatureInteraction
-      #KS.olMap.removeInteraction KS.newFeatureInteraction
-      #KS.addNewFeatureInteraction(layer, feat)
 
 KS.stopAnimationTimeout = () ->
+  if KS.animation && KS.animation.isPlaying()
+    KS.animation.stop()
   if KS.animationId
     clearTimeout(KS.animationId)
     KS.animationId = null

@@ -253,13 +253,16 @@ de:
         no_emergencies: Keine Notfälle!
         no_personal_requests: Keine pers. Anfragen (Anträge, ...)
       new:
-        describe_idea: Neue Dinge, oder gravierende Änderungen
-        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
-        step_two: Schritt 2/4
-        step_three: Schritt 3/4
-        step_four: Schritt 4/4
         confirmation: Bestätigung
         confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
+        describe_idea: Neue Dinge, oder gravierende Änderungen
+        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
+        place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.
+        step_four: Schritt 4/4
+        step_one: Schritt 1/4
+        step_three: Schritt 3/4
+        step_two: Schritt 2/4
+        where: Wo?
         error: 
           one: Fehler bei neuer Meldung
           other: Fehler bei neuen Meldungen
@@ -271,10 +274,6 @@ de:
           label: Hinweis
           text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
         what: Was?
-      new_position_buttons:
-        step_one: Schritt 1/4
-        where: Wo?
-        place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.
       show:
         actions:
           abuse: Missbrauch

@@ -5,9 +5,10 @@ $('#type-select').replaceWith("<%= j render partial: 'requests/desktop/category_
 <% if @errors.present? -%>
 $('.errors').replaceWith("<%= j render partial: 'application/desktop/errors' %>")
 <% else -%>
-KS.olMap.removeInteraction KS.newFeatureInteraction
-KS.stopAnimationTimeout()
-KS.layers.findById('new_feature').getSource().getFeatures()[0].set('animate', false)
+coord = null
+if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0
+  coord = features[0].getGeometry().getCoordinates()
+KS.createFeature 'blank', coord
 $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/new' %>")
 <% end -%>
 <% end -%>

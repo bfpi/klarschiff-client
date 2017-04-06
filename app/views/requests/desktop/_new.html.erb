@@ -2,12 +2,30 @@
   <%= render '/application/desktop/errors' %>
   <%= form_for(@request, remote: true, authenticity_token: true,
                html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+    <%= f.hidden_field(:lat, value: '') %>
+    <%= f.hidden_field(:long, value: '') %>
     <div id="form-page-1">
+      <div class="row form-group">
+        <%= label_tag :step, t('.step_one'), class: 'control-label col-md-12' %>
+      </div>
+      <div class="row form-group">
+        <%= label_tag :where, t('.where'), class: 'col-md-12' %>
+        <div class="col-md-12"><%= t('.place_icon') %></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group btn-group-justified" role="group">
+            <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default') %>
+            <%= link_to(t('buttons.continue'), '#', remote: true, class: 'btn btn-primary btn-continue',
+                        role: :button, data: { current: '1', next: '2', url: new_request_path }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="form-page-2" class="hidden-page">
       <div class="row form-group">
         <%= label_tag :step, t('.step_two'), class: 'control-label col-md-12' %>
       </div> 
-      <%= f.hidden_field(:lat, data: { 'missing-message': t('requests.create.error.required.lat') }) %>
-      <%= f.hidden_field(:long, data: { 'missing-message': t('requests.create.error.required.long') }) %>
       <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
         <div class="col-md-6">
@@ -26,15 +44,16 @@
       </div>
       <div class="row form-group">
           <div class="btn-group btn-group-justified col-md-12" role="group">
-            <%= link_to(t('buttons.back'), new_request_path, remote: true, class: 'btn btn-default',
-                        role: :button) %>
+            <%= link_to(t('buttons.back'), '#', remote: true,
+                        class: 'btn btn-default btn-continue back', role: :button,
+                        data: { current: '2', next: '1' }) %>
             <%= link_to(t('buttons.continue'), '#', remote: true,
                         class: 'btn btn-primary btn-continue', role: :button,
-                        data: { current: '1', next: '2' }) %>
+                        data: { current: '2', next: '3' }) %>
           </div>
       </div>
     </div>
-    <div id="form-page-2" class="hidden-page">
+    <div id="form-page-3" class="hidden-page">
       <div class="row form-group">
         <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
       </div>
@@ -60,10 +79,10 @@
         <div class="btn-group btn-group-justified col-md-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
                       class: 'btn btn-default btn-continue back', role: :button,
-                      data: { current: '2', next: '1' }) %>
+                      data: { current: '3', next: '2' }) %>
           <%= link_to(t('buttons.continue'), '#', remote: true,
                       class: 'btn btn-primary btn-continue', role: :button,
-                      data: { current: '2', next: 'submit' }) %>
+                      data: { current: '3', next: 'submit' }) %>
         </div>
       </div>
     </div>

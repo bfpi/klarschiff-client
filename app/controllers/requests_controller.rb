@@ -75,24 +75,41 @@ class RequestsController < ApplicationController
   end
 
   def new
-    if params[:switch_type]
-      @type = params[:type]
-    else
-      @request = Request.new(type: params[:type], position: params[:position])
-      unless @request.try(:lat).present? && @request.try(:long).present?
-        return render "requests/#{ context }/new_position"
-      end
-      unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
-        @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
-        @redirect = new_request_path(type: @request.type)
-        if @mobile
-          return render :outside
+    respond_to do |format|
+      format.html { head(:forbidden) }
+      format.js do
+        if params[:switch_type]
+          @type = params[:type]
+        elsif @mobile
+          @request = Request.new(type: params[:type], position: params[:position])
+          unless @request.try(:lat).present? && @request.try(:long).present?
+            return render "requests/#{ context }/new_position"
+          end
+          unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
+            @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
+            @redirect = new_request_path(type: @request.type)
+            if @mobile
+              @modal_title_options = { count: 1 }
+              return render :outside
+            else
+              return render "requests/#{ context }/new_position"
+            end
+          end
         else
-          return render "requests/#{ context }/new_position"
+          @request = Request.new
         end
+        render "requests/#{ context }/new"
+      end
+      format.json do
+        req = Request.new(position: params[:position])
+        resp = { status: Coordinate.new(req.lat, req.long).covered_by_juristiction? ? 200 : 406 }
+        if resp[:status] == 406
+          req.errors.tap { |errors| errors.add :position, :outside }
+          resp[:error] = req.errors.full_messages.first
+        end
+        render json: resp
       end
     end
-    render "requests/#{ context }/new"
   end
 
   def create
