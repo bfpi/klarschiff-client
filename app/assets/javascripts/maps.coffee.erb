@@ -62,7 +62,7 @@ class KS.Map
     map.addControl new ol.control.ScaleLine
 
     map.on 'click', (e) ->
-      if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Modify)
+      if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Translate)
         KS.moveNewFeature e.coordinate
       else
         map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
@@ -434,34 +434,36 @@ KS.createFeature= (type, coord) ->
     animate: true
   )
 
+  KS.addNewFeatureInteraction(layer, feature)
   layer.getSource().addFeature(feature)
   setTimeout(KS.refreshAnimation, 0)
 
 KS.addNewFeatureInteraction = (layer, feature) ->
-  KS.newFeatureInteraction = new ol.interaction.Modify(
+  KS.newFeatureInteraction = new ol.interaction.Translate(
     features: new ol.Collection([feature])
-    pixelTolerance: 50
-    style: layer.getStyle()
+    hitTolerance: 10
   )
-  KS.newFeatureInteraction.on 'modifystart', (e) ->
+
+  KS.newFeatureInteraction.on 'translatestart', (e) ->
+    if KS.animation && KS.animation.isPlaying()
+      KS.animation.stop()
     feature.set('animate', false)
 
   KS.olMap.addInteraction KS.newFeatureInteraction
 
 KS.animateNewFeature= (layer, feature) ->
-  layer.animateFeature feature, [
-    new (ol.featureAnimation['Bounce'])(duration: Number(2000))
-  ]
+  style = layer.getStyle().clone()
+  style.getImage().setOpacity(0.01)
+  KS.animation = layer.animateFeature feature,
+    new (ol.featureAnimation['Bounce'])(
+      duration: Number(2000)
+      hiddenStyle: style
+    )
 
 KS.refreshAnimation = () ->
   layer = KS.layers.findById('new_feature')
   if (feature = layer.getSource().getFeatures()[0]) && feature.get('animate')
-    if KS.newFeatureInteraction
-      KS.olMap.removeInteraction KS.newFeatureInteraction
     KS.animateNewFeature(layer, feature)
-    setTimeout(( ->
-      KS.addNewFeatureInteraction(layer, feature)
-    ), 2000)
     KS.animationId = setTimeout(KS.refreshAnimation, KS.animateRefresh)
 
 KS.clearNewFeature= () ->
@@ -480,9 +482,9 @@ KS.moveNewFeature= (coord) ->
     feat.set('animate', false)
     feat.getGeometry().setCoordinates(pos)
 
-    if KS.newFeatureInteraction
-      KS.olMap.removeInteraction KS.newFeatureInteraction
-      KS.addNewFeatureInteraction(layer, feat)
+    #if KS.newFeatureInteraction
+      #KS.olMap.removeInteraction KS.newFeatureInteraction
+      #KS.addNewFeatureInteraction(layer, feat)
 
 KS.stopAnimationTimeout = () ->
   if KS.animationId
