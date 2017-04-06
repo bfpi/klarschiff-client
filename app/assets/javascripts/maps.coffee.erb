@@ -396,6 +396,7 @@ class KS.Geolocation
           features: feature_array
 
       if layer = KS.layers.findById('geolocation')
+        layer.getSource().clear(true)
         map.removeLayer layer
       map.addLayer featuresOverlay
 
