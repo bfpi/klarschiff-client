@@ -1,4 +1,5 @@
 <% if params[:back] -%>
+KS.clearNewFeature()
 KS.resetSelectedFeatures()
 KS.removeDrawObservation()
 $('.area-container').replaceWith("<%= j render partial: 'index' %>")
