@@ -11,11 +11,7 @@ KS.layers.findById("features").setVisible(<%= @show_non_job_features %>)
 <% if @bbox.present? -%>
 $('#places_search').val('')
 extent = Array(<%= @bbox.join ', ' %>)
-if extent[0] == extent[2] && extent[1] == extent[3]
-  KS.olMap.getView().setCenter(extent)
-  KS.olMap.getView().setZoom(KS.maxZoom - 1)
-else
-  KS.olMap.getView().fit(extent, KS.olMap.getSize())
+KS.olMap.getView().fit(extent, { size: KS.olMap.getSize(), maxZoom: KS.maxZoom - 1 })
 
 if KS.layers.findById('new_feature')
   KS.moveNewFeature()

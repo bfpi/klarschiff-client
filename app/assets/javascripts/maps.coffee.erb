@@ -406,12 +406,8 @@ class KS.Geolocation
 
   center: (map) ->
     if(layer = KS.layers.findById('geolocation')) && (features = layer.getSource().getFeatures()).length > 0
-      if KS.getUrlParam('mobile')
-        map.getView().fit(features[0].getGeometry().getExtent(), map.getSize())
-      else
-        map.getView().setCenter(features[0].getGeometry().getExtent())
-        map.getView().setZoom(KS.maxZoom - 1)
-    KS.moveNewFeature()
+      KS.olMap.getView().fit(features[0].getGeometry().getExtent(), { size: KS.olMap.getSize(), maxZoom: KS.maxZoom - 1 })
+      KS.moveNewFeature()
 
 KS.map =
   actions: ->
