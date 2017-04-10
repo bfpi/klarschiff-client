@@ -12,7 +12,7 @@ KS.projection = ->
 
 KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
-KS.zoomEvent = false
+#KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
 KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
@@ -100,13 +100,7 @@ class KS.Map
                 map.getView().setZoom parseInt(current_zoom + 1)
 
     map.on 'moveend', (e) ->
-      if !KS.zoomEvent
-        KS.reloadFeatures()
-
-      KS.zoomEvent = false if KS.zoomEvent
-
-    map.getView().on 'change:resolution', (e) ->
-      KS.zoomEvent = true
+      KS.reloadFeatures()
 
 KS.styles =
   featureAttribution: (feature) ->
@@ -265,7 +259,7 @@ class KS.Layers
       style: KS.styles.featureStyle
       visible: true
     
-    if KS.login_required
+    if KS.login_required && KS.getUrlParam('mobile')
       @layers.push new ol.layer.Vector
         id: "jobs"
         source: new ol.source.Cluster
@@ -489,11 +483,9 @@ KS.stopAnimationTimeout = () ->
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  KS.layers.findById('features').getSource().getSource().clear()
-  new KS.FeatureData(KS.generatePath(), extent, KS.layers.findById("features").getSource().getSource(), true)
-  if KS.login_required
-    KS.layers.findById('jobs').getSource().getSource().clear()
-    new KS.FeatureData(KS.jobs_path, extent, KS.layers.findById("jobs").getSource().getSource())
+  KS.layers.findById('features').getSource().getSource().clear(true)
+  if KS.login_required && KS.getUrlParam('mobile')
+    KS.layers.findById('jobs').getSource().getSource().clear(true)
 
 KS.generatePath= () ->
   params = KS.getMapPanelParams()
