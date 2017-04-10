@@ -8,7 +8,7 @@
     </div>
     <% if options && options[:id] -%>
       <div class="col-md-12">
-        <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link', req_id: options[:id]) do %>
+        <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link', req_id: options[:id]), data: { turbolinks: false } do %>
           #<%= options[:id] %> <span class="glyphicon glyphicon-link"></span>
         <% end -%>
       </div>
