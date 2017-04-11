@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-4">
               <div class="text-center">
-                <%= link_to [:root] do %>
+                <%= link_to [:root], data: { turbolinks: false } do %>
                   <h1><%= Settings::Client.name %></h1>
                 <% end -%>
               </div>
