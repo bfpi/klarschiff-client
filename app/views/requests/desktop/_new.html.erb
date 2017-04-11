@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group btn-group-justified" role="group">
-            <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default') %>
+            <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default back') %>
             <%= link_to(t('buttons.continue'), '#', remote: true, class: 'btn btn-primary btn-continue',
                         role: :button, data: { current: '1', next: '2', url: new_request_path }) %>
           </div>
@@ -107,7 +107,7 @@
         <div class="btn-group btn-group-justified col-md-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
                       class: 'btn btn-default btn-continue back', role: :button,
-                      data: { current: 'submit', next: '2' }) %>
+                      data: { current: 'submit', next: '3' }) %>
           <div class="btn-group" role="group">
             <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
           </div>

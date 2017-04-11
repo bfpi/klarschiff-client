@@ -63,14 +63,14 @@
         <% else -%>
           <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
                       request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
-                      remote: true, class: 'btn btn-default') %>
+                      remote: true, class: 'btn btn-default backward') %>
         <% end -%>
         <% if @id_list.last == @request.id -%>
           <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
         <% else -%>
           <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
                       request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
-                      remote: true, class: 'btn btn-default') %>
+                      remote: true, class: 'btn btn-default forward') %>
         <% end -%>
       </div>
     </div>
