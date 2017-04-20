@@ -181,16 +181,3 @@ $ ->
     false
 
   $('.start-panel').find('.btn-primary').toArray()[0].focus() if $('.start-panel').is(':visible')
-
-  $(document).keyup (e) ->
-    switch e.key
-      when 'Escape'
-        $($('.back').toArray().find((el) ->
-          $(el).is(':visible')
-        )).trigger('click')
-      when 'ArrowLeft'
-        $('.backward').trigger('click')
-      when 'ArrowRight'
-        $('.forward').trigger('click')
-      else
-    false
