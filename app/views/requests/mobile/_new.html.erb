@@ -25,13 +25,15 @@
                                  placeholder: t('placeholder.select.service'),
                                  'missing-message': t('requests.create.error.required.category') }) %>
           </div>
-          <div class="col-md-2">
-            <div class="btn-group btn-group-justified" role="group">
-              <a href="#request-category-2" class="btn btn-default" role="button" data-action="show">
-                <span class="glyphicon glyphicon-plus"></span>
-              </a>
+          <% if multi_requests_enabled? %>
+            <div class="col-md-2">
+              <div class="btn-group btn-group-justified" role="group">
+                <a href="#request-category-2" class="btn btn-default" role="button" data-action="show">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </a>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
         <div id="request-category-2" class="form-group category hidden">
           <div class="col-md-4 col-md-offset-2">

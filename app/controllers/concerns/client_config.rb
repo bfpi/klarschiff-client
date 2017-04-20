@@ -10,6 +10,10 @@ module ClientConfig
   end
 
   def imprint
-    return Settings::Url.ks_frontend_imprint_url
+    Settings::Url.ks_frontend_imprint_url
+  end
+
+  def multi_requests_enabled?
+    Settings::Client.multi_requests_enabled
   end
 end

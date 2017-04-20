@@ -8,6 +8,7 @@ client:
   animate_refresh: 10
   key: hro
   login_required: true
+  multi_requests_enabled: true
   name: Klarschiff.HRO
   resources_path: /var/www/html/hro/resources
   logo_url: /resources/images/logo.png
