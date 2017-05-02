@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }") %></title>
+    <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
@@ -51,9 +52,9 @@
                 </div>
                 <div class="col-md-12">
                   <div class="text-right">
-                    <%= link_to t(:help), [:help, :static] %> |
-                    <%= link_to t(:usage), [:usage, :static] %> |
-                    <%= link_to t(:privacy), [:privacy, :static] %>
+                    <%= link_to t(:privacy), [:privacy, :static] %> |
+                    <%= link_to t(:imprint), [:imprint, :static] %> |
+                    <%= link_to t(:usage), [:usage, :static] %>
                   </div>
                 </div>
               </div>
@@ -69,8 +70,7 @@
           <div class="systray">
             <div class="text-center">
               <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), [:api, :static] %> |
-              <%= link_to t(:impressum), [:impressum, :static] %>
+              <%= link_to t(:api), [:api, :static] %>
             </div>
           </div>
         </div>

@@ -3,16 +3,15 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
   api: API
-  help: Hilfe
-  impressum: Impressum
+  imprint: Impressum
   locate: Orte mich
-  mobile: Mobil
-  pagetitle: Klarschiff-Prüf- und Protokollclient
-  pagetitle_mobile_client: Klarschiff – Portal zur Bürgerbeteiligung
+  mobile: mobil
+  pagetitle: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
+  pagetitle_mobile_client: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
   privacy: Datenschutz
   success: Vielen Dank!
   share_request: ' Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
-  usage: Nutzung
+  usage: Nutzungsbedingungen
   username: Benutzername
 
   activemodel:
@@ -198,11 +197,11 @@ de:
 
   observations:
     index:
-      feed_title: "%{name} - Meldungen"
+      feed_title: "%{name}-Meldungen"
       feed_description: "Diese Daten umfassen alle Meldungen in %{name}, dem Portal zur Bürgerbeteiligung"
-      feed_title_observation: "%{name} - Meldungen für Beobachtungsflächen"
+      feed_title_observation: "%{name}-Meldungen für Beobachtungsflächen"
       feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung"
-      link: Meldung in Klarschiff ansehen
+      link: Meldung in Klarschiff.HRO ansehen
       img_not_available: nicht vorhanden
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
@@ -312,7 +311,7 @@ de:
       processed: Meldungen erledigt letzten Monat
       recent_requests: Neueste Meldungen
       statistics: Statistik
-      subscribe_requests_feed: Meldungen als RSS-Feed abonnieren...
+      subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
 
   votes:
     desktop: &votes
