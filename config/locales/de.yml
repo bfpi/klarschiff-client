@@ -66,7 +66,7 @@ de:
     create: Erstellen
     describe: Beschreiben
     new_request: Neue Meldung
-    requests: Zu den Meldungen...
+    requests: Zu den Meldungen…
     resume: Übernehmen
     perma_link: "Permalink auf Meldung #%{req_id}"
     ok: Ok
@@ -307,9 +307,12 @@ de:
     show:
       newest: Neue Meldungen letzten Monat
       news: Neuigkeiten
-      overall: Neue Meldungen seit 28.03.2012
+      start_content: Klarschiff.HRO ist das Portal zur Bürgerbeteiligung der Hansestadt Rostock, genauer gesagt eine Onlineplattform zum Melden und Bearbeiten von Problemen und Ideen, die sich auf den öffentlichen Raum der Hansestadt Rostock beziehen. Das Melden wird von den Bürgerinnen und Bürgern übernommen – das Bearbeiten von den Sachbearbeiterinnen und Sachbearbeitern der Stadtverwaltung. Damit Sie Probleme und Ideen schnell und bequem melden können, steht Ihnen in Klarschiff.HRO eine interaktive Karte zur Verfügung, auf der Sie ganz einfach neue Meldungen erstellen oder sich vorhandene ansehen können.
+      news_content_one: 03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet – Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.
+      news_content_two: 27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar – Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.
+      overall: Neue Meldungen seit Portal-Start am 28.03.2012
       processed: Meldungen erledigt letzten Monat
-      recent_requests: Neueste Meldungen
+      recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
 

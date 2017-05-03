@@ -1,12 +1,14 @@
 </br>
 <div class="row">
   <div class="col-md-4">
-    <div class="panel panel-default">
+    <div class="panel panel-info">
       <div class="panel-heading">
-        <%= t('.recent_requests') %>
-        <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
-          <%= image_tag image_path('rss.png') %>
-        <% end -%>
+        <h5 class="panel-title">
+          <%= t('.recent_requests') %>
+          <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+            <%= image_tag image_path('rss.png') %>
+        </h5>
+          <% end -%>
       </div>
       <div class="panel-body">
         <% @requests.each do |req| -%>
@@ -43,11 +45,11 @@
     </div>
   </div>
   <div class="col-md-8">
-    <div class="panel panel-default start-panel">
+    <div class="panel panel-primary start-panel">
       <div class="panel-body">
         <div class="row form-group">
           <div class="col-md-12">
-            <%= Settings::Client.name %>
+            <%= t('.start_content') %>
           </div>
         </div>
         <div class="row">
@@ -57,17 +59,19 @@
         </div>
       </div>
     </div>
-    <div id="news-panel" class="panel panel-default">
-      <div class="panel-heading"><%= t('.news') %></div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-          </div>
-        </div>
+    <div id="news-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.news') %></h5>
       </div>
+      <ul class="list-group">
+        <li class="list-group-item"><%= t('.news_content_one') %></li>
+        <li class="list-group-item"><%= t('.news_content_two') %></li>
+      </ul>
     </div>
-    <div id="statistic-panel" class="panel panel-default">
-      <div class="panel-heading"><%= t('.statistics') %></div>
+    <div id="statistic-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.statistics') %></h5>
+      </div>
       <div class="panel-body">
         <div class="row form-group">
           <%= label_tag :overall, t('.overall'), class: 'col-md-4 control-label' %>
