@@ -76,6 +76,8 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
   - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`:
     - `animate_refresh` (Pflichtfeld):
       - Zeitabstand (in Sekunden) zwischen der letzten und der nächsten Animation für den "Neue Meldung"-Marker
+    - `service_code` (Optional):
+      - ID der Unterkategorie, auf die die Funktionalitäten des PC-Clients beschränkt werden sollen
     - `key` (Pflichtfeld):
       - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
     - `login_required` (Pflichtfeld): 
