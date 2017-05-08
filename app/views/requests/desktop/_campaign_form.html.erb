@@ -23,12 +23,7 @@
     <%= label_tag :step, t('.step_two'), class: 'control-label col-md-12' %>
   </div>
   <div class="row form-group">
-    <% %i(group service_name).each do |attr| -%>
-      <%= label_tag "service_#{ attr }", Service.human_attribute_name(attr), class: 'control-label col-md-12' %>
-      <div class="col-md-12"><%= service.send attr %></div>
-    <% end -%>
-  </div>
-  <div class="row form-group">
+    <%= label_tag :what_exactly, t('.what_exactly'), class: 'col-md-12' %>
     <div class="col-md-12">
       <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
                       data: { 'missing-message': t('requests.create.error.required.description') }) %>

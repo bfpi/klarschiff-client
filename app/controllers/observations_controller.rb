@@ -22,7 +22,7 @@ class ObservationsController < ApplicationController
 
   def create
     @observation = Observation.new
-    if (Array.wrap(params[:problem_service]) | Array.wrap(params[:idea_service])).blank?
+    if (Array.wrap(params[:problem_service]) | Array.wrap(params[:idea_service]) | Array.wrap(params[:problem_service_sub]) | Array.wrap(params[:idea_service_sub])).blank?
       @area_code = params[:area_code].presence
       @geom = params[:geometry].presence
       @error = I18n.t('messages.errors.services_required')
@@ -31,10 +31,12 @@ class ObservationsController < ApplicationController
     attrs = {}
     attrs.update(area_code: params[:area_code].gsub(' ', ', ')) if params[:area_code]
     attrs.update(geometry: params[:geometry])
-    attrs.update(problems: params[:problem_service].present?)
+    attrs.update(problems: params[:problem_service].present? || params[:problem_service_sub].present?)
     attrs.update(problem_service: params[:problem_service].join(', ')) if params[:problem_service]
-    attrs.update(ideas: params[:idea_service].present?)
+    attrs.update(problem_service_sub: params[:problem_service_sub].join(', ')) if params[:problem_servicev]
+    attrs.update(ideas: params[:idea_service].present? || params[:idea_service_sub].present?)
     attrs.update(idea_service: params[:idea_service].join(', ')) if params[:idea_service]
+    attrs.update(idea_service_sub: params[:idea_service_sub].join(', ')) if params[:idea_service_sub]
     result = Observation.connection.post(Observation.collection_path, Observation.format.encode(attrs))
     @rss_id = @observation.load(Observation.format.decode(result.body)).rss_id
   end
