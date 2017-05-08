@@ -5,6 +5,10 @@ module ClientConfig
     Settings::Client.send("show_#{ par }")
   end
 
+  def service_code
+    Settings::Client.service_code
+  end
+
   def login_required?
     Settings::Client.login_required
   end

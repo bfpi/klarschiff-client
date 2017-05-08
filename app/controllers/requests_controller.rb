@@ -2,6 +2,7 @@ class RequestsController < ApplicationController
   def index
     unless @back = params[:back]
       conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
+      conditions.update service_code: service_code if service_code
       conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
       if (center = params[:center]).present?
         conditions.update lat: center[0], long: center[1]
@@ -96,7 +97,8 @@ class RequestsController < ApplicationController
             end
           end
         else
-          @request = Request.new
+          @service = Service.find(service_code) if service_code
+          @request = Request.new(type: @service&.type)
         end
         render "requests/#{ context }/new"
       end
@@ -117,7 +119,7 @@ class RequestsController < ApplicationController
     service = nil
     if (codes = params[:request][:service_code]).present?
       payload = permissable_params
-      (codes = codes.map(&:to_i).reject { |code| code == 0 }).each do |service_code|
+      (codes = Array.wrap(codes).map(&:to_i).reject { |code| code == 0 }).each do |service_code|
         service ||= Service[service_code]
         result =
           begin

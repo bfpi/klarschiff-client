@@ -1,0 +1,91 @@
+<%= f.hidden_field :service_code, id: 'request_service_code_1', value: service_code %>
+<%= f.hidden_field :type, value: @request.type %>
+<div id="form-page-1">
+  <div class="row form-group">
+    <%= label_tag :step, t('.step_one'), class: 'control-label col-md-12' %>
+  </div>
+  <div class="row form-group">
+    <%= label_tag :where, t('.where'), class: 'col-md-12' %>
+    <div class="col-md-12"><%= t('.place_icon') %></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="btn-group btn-group-justified" role="group">
+        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default back') %>
+        <%= link_to(t('buttons.continue'), '#', remote: true, class: 'btn btn-primary btn-continue',
+                    role: :button, data: { current: '1', next: '3', url: new_request_path }) %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="form-page-3" class="hidden-page">
+  <div class="row form-group">
+    <%= label_tag :step, t('.step_two'), class: 'control-label col-md-12' %>
+  </div>
+  <div class="row form-group">
+    <% %i(group service_name).each do |attr| -%>
+      <%= label_tag "service_#{ attr }", Service.human_attribute_name(attr), class: 'control-label col-md-12' %>
+      <div class="col-md-12"><%= service.send attr %></div>
+    <% end -%>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
+                      data: { 'missing-message': t('requests.create.error.required.description') }) %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
+    <div class="col-md-12"><%= t('.photo_hint') %></div>
+    <div class="col-md-12">
+      <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
+    <div class="col-md-12"><%= t('.hint.text') %></div>
+  </div>
+  <div class="row form-group" class="hidden-page">
+    <div class="btn-group btn-group-justified col-md-12" role="group">
+      <%= link_to(t('buttons.back'), '#', remote: true,
+                  class: 'btn btn-default btn-continue back', role: :button,
+                  data: { current: '3', next: '1' }) %>
+      <%= link_to(t('buttons.continue'), '#', remote: true,
+                  class: 'btn btn-primary btn-continue', role: :button,
+                  data: { current: '3', next: 'submit' }) %>
+    </div>
+  </div>
+</div>
+<div id="form-page-submit" class="hidden-page">
+  <div class="row form-group">
+    <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
+  </div>
+  <div class="row form-group">
+    <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
+  </div>
+  <% if display?(:email) -%>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
+      </div>
+    </div>
+  <% end -%>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <%= t('.confirmation_text_html') %>
+    </div>
+    <div class="col-md-12 div-margin-top">
+      <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="btn-group btn-group-justified col-md-12" role="group">
+      <%= link_to(t('buttons.back'), '#', remote: true,
+                  class: 'btn btn-default btn-continue back', role: :button,
+                  data: { current: 'submit', next: '3' }) %>
+      <div class="btn-group" role="group">
+        <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
+      </div>
+    </div>
+  </div>
+</div>

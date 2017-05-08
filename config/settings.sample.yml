@@ -10,6 +10,7 @@ urls:
 
 client:
   animate_refresh: 10
+  service_code:
   key: hro
   login_required: true
   multi_requests_enabled: true

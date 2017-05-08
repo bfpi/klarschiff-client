@@ -43,4 +43,8 @@ module RequestsHelper
       [s.service_name, s.service_code]
     }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder]
   end
+
+  def service
+    Service.find(service_code) if service_code
+  end
 end

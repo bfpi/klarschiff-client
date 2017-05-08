@@ -53,16 +53,18 @@
                 <% end -%>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="row">
-                <% %i(problem idea).each do |type| -%>
-                  <div class="col-md-12">
-                    <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
-                    <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
-                  </div>
-                <% end -%>
+            <% unless service_code -%>
+              <div class="col-md-6">
+                <div class="row">
+                  <% %i(problem idea).each do |type| -%>
+                    <div class="col-md-12">
+                      <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
+                      <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+                    </div>
+                  <% end -%>
+                </div>
               </div>
-            </div>
+            <% end -%>
           </div>
         </div>
       </div>

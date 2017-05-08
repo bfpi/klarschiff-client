@@ -8,7 +8,8 @@ $('.errors').replaceWith("<%= j render partial: 'application/desktop/errors' %>"
 coord = null
 if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0
   coord = features[0].getGeometry().getCoordinates()
-KS.createFeature 'blank', coord
+type = "<%= @request.type.presence || 'blank' %>"
+KS.createFeature type, coord
 $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/new' %>")
 <% end -%>
 <% end -%>
