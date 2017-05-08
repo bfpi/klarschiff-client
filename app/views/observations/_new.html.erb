@@ -22,6 +22,7 @@
           <%= check_box_tag type.pluralize, true, false, class: 'check-all', data: { type: type } %>
           <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
         </div>
+
         <% service_names(type).each do |service| -%>
           <div class="col-md-12">
             <%= check_box_tag "#{ type }_service[]", service[:id], false, class: type,
@@ -29,6 +30,20 @@
             <%= label_tag  "#{ type }_#{ service[:id] }", service[:name], class: 'check-label'%>
           </div>
         <% end -%>
+      </div>
+    <% end unless service_code -%>
+    <% if service_code -%>
+      <% service = service_name(service_code) -%>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= check_box_tag (type = service.type).pluralize, true, true, class: 'check-all', data: { type: type } %>
+          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
+        </div>
+        <div class="col-md-12">
+          <%= check_box_tag "#{ type }_service[]", (code = service.service_code), true, class: type,
+            id: "#{ type }_#{ code }"  %>
+          <%= label_tag "#{ type }_#{ code }", service.service_name, class: 'check-label' %>
+        </div>
       </div>
     <% end -%>
     <div class="row">
