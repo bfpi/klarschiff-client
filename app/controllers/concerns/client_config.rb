@@ -6,7 +6,7 @@ module ClientConfig
   end
 
   def service_code
-    Settings::Client.service_code
+    !@mobile && Settings::Client.service_code
   end
 
   def login_required?
