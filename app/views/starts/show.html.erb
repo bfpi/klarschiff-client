@@ -74,19 +74,25 @@
       </div>
       <div class="panel-body">
         <div class="row form-group">
-          <%= label_tag :overall, t('.overall'), class: 'col-md-4 control-label' %>
+          <div class="col-md-4">
+            <%= t('.current') %>
+          </div>
           <div class="col-md-8">
-            <%= @overall_count %>
+            <%= @current_count %>
           </div>
         </div>
         <div class="row form-group">
-          <%= label_tag :newest, t('.newest'), class: 'col-md-4 control-label' %>
+          <div class="col-md-4">
+            <%= t('.newest') %>
+          </div>
           <div class="col-md-8">
             <%= @newest_count %>
           </div>
         </div>
         <div class="row form-group">
-          <%= label_tag :processed, t('.processed'), class: 'col-md-4 control-label' %>
+          <div class="col-md-4">
+            <%= t('.processed') %>
+          </div>
           <div class="col-md-8">
             <%= @processed_count %>
           </div>
