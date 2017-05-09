@@ -3,6 +3,8 @@ urls:
   ks_server_url: http://klarschiff-test-hro
   ks_frontend_imprint_url: https://demo.klarschiff-hro.de/impressum.php
   ks_backend_vorgang_url: https://demo.klarschiff.de/vorgang/%s
+  ks_demo_url: https://demo.klarschiff-hro.de
+  ks_github_url: https://github.com/bfpi/klarschiff-field_service
 
 client:
   animate_refresh: 10

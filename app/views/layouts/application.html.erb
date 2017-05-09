@@ -70,7 +70,9 @@
           <div class="systray">
             <div class="text-center">
               <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), [:api, :static] %>
+              <%= link_to t(:api), [:api, :static] %> |
+              <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
+              <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %>
             </div>
           </div>
         </div>

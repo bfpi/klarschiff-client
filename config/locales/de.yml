@@ -3,6 +3,8 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
   api: API
+  demo: Demo
+  github: GitHub
   imprint: Impressum
   locate: Orte mich
   mobile: mobil
