@@ -5,11 +5,11 @@ class StartsController < ApplicationController
     states = Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
     @requests = Request.where(max_requests: 3, detailed_status: states, keyword: 'problem, idea',
                               with_picture: true)
-    @overall_count = Request.where(detailed_status: states, keyword: 'problem, idea').count
-    @newest_count = Request.where(detailed_status: states, keyword: 'problem, idea',
-                                  start_date: Date.today - 30).count
-    @processed_count = Request.where(detailed_status: 'PROCESSED', keyword: 'problem, idea',
-                                     start_date: Date.today - 30).count
+    @overall_count = Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea')
+    @newest_count = Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea',
+                                  start_date: Date.today - 30)
+    @processed_count = Request.count(also_archived: true, detailed_status: 'PROCESSED', keyword: 'problem, idea',
+                                     start_date: Date.today - 30)
   end
 
   private
