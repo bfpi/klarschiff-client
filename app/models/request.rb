@@ -121,6 +121,10 @@ class Request < ActiveResource::Base
     end
   end
 
+  def self.count(params)
+    return self.where(params.merge({ :just_count => true })).first.count
+  end
+
   class ExtendedAttributes < ActiveResource::Base
     include ResourceClient
     self.set_server_connection :city_sdk
