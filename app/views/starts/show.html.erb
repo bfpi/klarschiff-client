@@ -10,7 +10,7 @@
         </h5>
           <% end -%>
       </div>
-      <div class="panel-body">
+      <div class="panel-body requests-img-panel">
         <% @requests.each do |req| -%>
           <div class="row form-group">
             <div class="col-md-12">
@@ -22,16 +22,10 @@
                   </div>
                   <div class="col-md-10">
                     <div class="row">
-                      <div class="col-md-12">
-                        <%= req.service.category %>
-                      </div>
-                      <div class="col-md-12">
-                        <%= req.service %>
-                      </div>
                       <% if (url = req.media_url).present? -%>
-                        <div class="col-md-12">
-                          <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" 
-                               class="img-rounded img-responsive" height="120" width="120" />
+                        <div class="col-md-12 img-box">
+                          <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" height="160" width="160" />
+                          <span class="img-overlay">&#35;<%= req.id %><br/><%= req.service %></span>
                         </div>
                       <% end -%>
                     </div>

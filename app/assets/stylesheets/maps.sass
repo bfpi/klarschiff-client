@@ -3,6 +3,9 @@
 *
   margin: 0
   padding: 0
+  
+.nav.nav-pills
+  margin-top: 8px
 
 .ol-map-mobile
   bottom: 0
@@ -19,7 +22,7 @@
   left: 0
   position: absolute
   right: 0
-  top: 120px
+  top: 125px
 
   .ol-zoom
     left: 325px
@@ -32,12 +35,32 @@
     left: 325px
     top: 45px
 
+.ol-control, .ol-control:hover, .ol-control:focus
+  background: none
+  background-color: #337ab7
+  padding: 0
+
+.ol-control:hover, .ol-control:focus
+  background-color: #286090
+
 .ol-control button
   font-weight: normal
-  font-size: 1em
+  font-size: 14px
+  background-color: #337ab7
+  border: 1px solid #286090
+  color: #fff
+  text-align: center
+  vertical-align: middle
+  line-height: 1.42857143
+  border-radius: 4px
+
+.geolocation.ol-control
+  width: 120px
+  height: 22px
 
 .geolocation.ol-control button
-  width: 110px
+  width: 120px
+  height: 22px
 
 .ol-touch .ol-control
   button

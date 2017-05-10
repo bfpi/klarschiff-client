@@ -74,6 +74,9 @@
               <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
               <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %>
             </div>
+            <div class="text-center small">
+              <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: "_blank" %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: "_blank" %>)
+            </div>
           </div>
         </div>
       </footer>

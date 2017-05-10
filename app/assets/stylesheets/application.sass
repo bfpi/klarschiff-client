@@ -42,6 +42,42 @@
   
 body
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-size: 15px
+  
+textarea#abuse_comment
+  margin-top: 10px
+
+select
+  cursor: pointer
+
+.btn
+  font-size: 15px
+  
+.img-rounded
+  border-radius: 4px
+  
+.requests-img-panel
+  font-size: 13px
+
+.img-box img
+  position: relative
+  top: 0
+  opacity: 0.5
+  filter: alpha(opacity=50)
+
+.img-box:hover img, .img-box:focus img
+  opacity: 1
+  filter: alpha(opacity=100)
+
+.img-box .img-overlay
+  position: absolute
+  top: 2px
+  padding-left: 5px
+  font-weight: bold
+  color: #333
+
+.img-box:hover .img-overlay, .img-box:focus .img-overlay
+  display: none
 
 #content
   left: 0
@@ -67,6 +103,9 @@ option.placeholder
 
 a
   color: #1d4568
+  
+a:hover, a:focus
+  text-decoration: none
 
 li
   list-style-position: inside
@@ -87,7 +126,7 @@ li
 
 header
   padding: 10px 0
-  height: 120px
+  height: 125px
   background-color: #d9edf7
 
   a
@@ -97,15 +136,19 @@ header
   a:hover, a:focus
     color: #286090
     text-decoration: none
+    
+  h1
+    font-size: 48px
+    font-weight: bold
 
   .container
-    color: #333333
+    color: #333
 
   .text-right
-    font-size: 16px
+    font-size: 17px
 
   #logo1
-    margin: 10px
+    margin: 5px 0
 
   #logo2
     float: right
@@ -116,7 +159,7 @@ header
   bottom: 0px
   padding: 10px 0
   width: 100%
-  height: 50px
+  height: 60px
   background-color: #d9edf7
 
   a
@@ -128,7 +171,10 @@ header
     text-decoration: none
 
   .text-center
-    font-size: 16px
+    font-size: 17px
+
+  .small
+    font-size: 12px
 
 .container
   width: 99%
@@ -136,8 +182,8 @@ header
 .sidebar
   background-color: #fff
   border: solid 1px #ddd
-  width: 320px
-  top: 2%
+  width: 319px
+  top: 11px
   height: 96%
   position: absolute
   z-index: 1000
@@ -154,10 +200,11 @@ header
   padding-right: 5px
   background-color: #fff
   border: solid 1px #ddd
-  left: 313px
+  left: 320px
   z-index: 1010
   top: 40%
   position: absolute
+  cursor: pointer
 
 .sidebar-toggler span:before
   font-family: 'Glyphicons Halflings'
@@ -172,7 +219,7 @@ header
   opacity: 0.9
   padding: 1px
   left: 325px
-  top: 5px
+  top: 11px
   width: 200px
   height: 34px
   z-index: 1000
@@ -187,16 +234,12 @@ header
 .view-switcher
   margin-top: 10px
   position: absolute
-  top: 120px
+  top: 125px
   z-index: 100
   right: 0
 
   a
     width: 110px
-
-.btn-map
-  color: #fff
-  background-color: #31708f
 
 .map-panel
   min-width: 80px
@@ -207,11 +250,10 @@ header
   z-index: 1000
 
 .map-panel .panel-heading
-  padding: 5px
-  background-color: #31708f
+  padding: 6px 20px
   a
-    color: #fff
     display: block
+    color: #fff
 
 .map-panel .panel-heading [data-toggle="collapse"] span:before
   font-family: 'Glyphicons Halflings'
@@ -220,6 +262,7 @@ header
 
 .map-panel .panel-heading .collapsed[data-toggle="collapse"] span:before
   content: '\2b'
+  padding-left: 6px
 
 .check-label
   font-weight: normal

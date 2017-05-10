@@ -5,6 +5,8 @@ urls:
   ks_backend_vorgang_url: https://demo.klarschiff.de/vorgang/%s
   ks_demo_url: https://demo.klarschiff-hro.de
   ks_github_url: https://github.com/bfpi/klarschiff-field_service
+  font_origin_url: https://www.paratype.com
+  font_license_url: /resources/fonts/license.txt
 
 client:
   animate_refresh: 10

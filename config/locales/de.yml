@@ -4,15 +4,18 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
   api: API
   demo: Demo
+  font_attribution: Fonts © 2009
+  font_origin: ParaType
   github: GitHub
   imprint: Impressum
-  locate: Orte mich
+  license: Lizenz
+  locate: Ortung
   mobile: mobil
   pagetitle: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
   pagetitle_mobile_client: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
   privacy: Datenschutz
   success: Vielen Dank!
-  share_request: ' Gerne können Sie aber Ihr Anliegen bereits bekannt machen:'
+  share_request: ' Gerne können Sie Ihre Meldung aber bereits bekannt machen:'
   usage: Nutzungsbedingungen
   username: Benutzername
 
@@ -43,7 +46,7 @@ de:
         request:
           attributes:
             base:
-              service_code_required: Kategorie muss angegeben werden
+              service_code_required: Haupt- und Unterkategorie müssen angegeben werden
             position:
               outside: befindet sich außerhalb des gültigen Bereichs
     models:
@@ -67,11 +70,11 @@ de:
     continue: Weiter
     create: Erstellen
     describe: Beschreiben
-    new_request: Neue Meldung
+    new_request: Neue Meldung erstellen…
     requests: Zu den Meldungen…
     resume: Übernehmen
     perma_link: "Permalink auf Meldung #%{req_id}"
-    ok: Ok
+    ok: OK
     save: Speichern
     search: Suchen
     submit: Senden
@@ -85,9 +88,9 @@ de:
         other: "%{count} %{type} wurden erfolgreich angelegt."
     errors:
       update_sorting: Beim Aktualisieren der Sortierung ist ein Fehler aufgetreten.
-      districts_required: Es wurden keine Stadtteile ausgewählt.
+      districts_required: Es wurde(n) kein(e) Ortsteil(e) gewählt.
       draw_required: Es wurde keine Beobachtungsfläche definiert.
-      services_required: Es wurden keine Kategorien ausgewählt.
+      services_required: Es wurden keine Kategorien gewählt.
 
   nav:
     job_map: Auftragskarte
@@ -129,15 +132,13 @@ de:
     desktop: &abuses
       create:
         error: Fehler bei Missbrauchsmeldung
-        success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Missbrauchsmeldung nocheinmal bestätigen müssen.
+        success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Missbrauchsmeldung noch einmal bestätigen müssen.
       new:
         title: Missbrauch
         hint:
           label: Hinweis
           text: >
-            Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung
-            oder Foto Persönlichkeitsrechte verletzt werden (z.B. wenn auf dem Foto Gesichter
-            oder Kfz-Kennzeichen zu erkennen sind).
+            Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter oder Kfz-Kennzeichen zu erkennen sind).
           warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
             <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
             unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
@@ -148,13 +149,13 @@ de:
 
   areas:
     areas_form:
-      districts: Wählen Sie die Stadtteile, welche Sie beobachten möchten
-      draw: Wählen Sie die Ecken eines Gebietes, welches Sie beobachten möchten
+      districts: Bitte wählen Sie in der Karte den/die Ortsteil(e), den/die Sie beobachten möchten.
+      draw: Bitte definieren Sie in der Karte die Ecken einer Fläche, die Sie beobachten möchten. Ein Doppelklick schließt die Fläche.
       error: Fehler beim Erstellen der Beobachtungsfläche(n)
     index:
-      districts: Stadtteile
+      districts: Ortsteil(e)
       notice: >
-        Sie können Areale und Kategorien auswählen, für welche Sie Benachrichtigungen erhalten
+        Sie können Areale und Meldungskategorien auswählen, für die Sie Benachrichtigungen erhalten
         möchten, sobald passende Meldungen erstellt werden.
       own_area: Eigene Fläche
       whole_area: Gesamtes Gebiet
@@ -163,14 +164,14 @@ de:
     desktop:
       create:
         error: Fehler bei Lob, Hinweisen oder Kritik
-        success: Ihr Lob, Hinweise oder Ihre Kritik zur Meldung wurde erfolgreich abgesetzt und dem genannten Empfänger zugestellt
+        success: Das Lob, die Hinweise oder die Kritik zur Meldung wurde erfolgreich abgesetzt und dem entsprechenden Empfänger zugestellt.
       new: &comments
         title: Lob, Hinweise oder Kritik
     mobile:
       create:
         error: Fehler bei Lob, Hinweisen oder Kritik
         success: Lob, Hinweise oder Kritik erfolgreich abgesetzt
-        success_text: Ihre Nachricht wird dem entsprechenden Empfänger zugestellt.
+        success_text: Ihre Lob, Ihre Hinweise oder Ihre Kritik wird dem entsprechenden Empfänger zugestellt.
       new:
         <<: *comments
 
@@ -182,9 +183,9 @@ de:
   maps:
     desktop:
       aerial_view: Luftbild
-      address_search: Adresssuche
-      filter: Filter
-      map_view: Kartenansicht
+      address_search: Adressensuche
+      filter: Kartenfilter
+      map_view: Karte
       request: Meldung
       watch: Beobachten
 
@@ -208,10 +209,10 @@ de:
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
-      link: Link
+      link: GeoRSS-Feed
       subscribe_feed: >
-        Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z.B. RSSowl,
-        Lifera, feedly.com) oder Ihrem Browser
+        Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z. B. RSSOwl,
+        Liferea, Feedly) oder Ihrem Browser:
 
   places:
     desktop: &places
@@ -237,7 +238,7 @@ de:
         one: Fehler bei neuer Meldung
         other: Fehler bei neuen Meldungen
         required:
-          category: Kategorie muss angegeben werden.
+          category: Kategorie muss angegeben werden
           description: Es wurde keine Beschreibung übergeben.
           lat: Es konnte keine gültige Position ermittelt werden.
           long: Es konnte keine gültige Position ermittelt werden.
@@ -247,18 +248,18 @@ de:
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
-        success: Ihr Vorgang muss zunächst redaktionell überprüft werden.
+        success: Die Meldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
       start_request:
-        new_request: Bitte wählen Sie eine Meldung auf der Karte, oder erstellen Sie eine neue Meldung.
-        no_complex_requests: Keine komplexen städtebaul. Änderungen
+        new_request: Bitte klicken Sie auf eine Meldung in der Karte oder erstellen Sie eine neue Meldung.
+        no_complex_requests: Keine komplexen städtebaulichen oder verkehrsplanerischen Sachverhalte!
         no_emergencies: Keine Notfälle!
-        no_personal_requests: Keine pers. Anfragen (Anträge, ...)
+        no_personal_requests: Keine persönlichen Anfragen (z. B. Adressänderungen oder Leistungsanträge)!
       new:
         confirmation: Bestätigung
-        confirmation_text: Sie erhalten in Kürze eine E-Mail, um Ihre Meldung zu bestätigen.
-        describe_idea: Neue Dinge, oder gravierende Änderungen
-        describe_problem: z.B. Reparatur oder Ersatz vorhandener Dinge
-        place_icon: Markieren Sie die betroffene Stelle möglichst genau auf der Karte.
+        confirmation_text: Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+        describe_idea: z. B. neue Dinge oder Änderungswünsche
+        describe_problem: z. B. defekte Dinge oder Verschmutzungen
+        place_icon: Bitte markieren Sie die betroffene Stelle möglichst genau auf der Karte.
         step_four: Schritt 4/4
         step_one: Schritt 1/4
         step_three: Schritt 3/4
@@ -268,12 +269,12 @@ de:
           one: Fehler bei neuer Meldung
           other: Fehler bei neuen Meldungen
           required:
-            type: Meldungstyp muss angegeben werden.
-            category: Kategorie muss angegeben werden
+            type: Meldungstyp muss angegeben werden
+            category: Haupt- und Unterkategorie müssen angegeben werden
             description: Beschreibung muss angegeben werden
         hint:
           label: Hinweis
-          text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell geprüft.
+          text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell überprüft.
         what: Was?
       show:
         actions:
@@ -307,13 +308,13 @@ de:
 
   starts:
     show:
-      newest: Neue Meldungen letzten Monat
+      newest: 'Neue Meldungen letzten Monat:'
       news: Neuigkeiten
       start_content: Klarschiff.HRO ist das Portal zur Bürgerbeteiligung der Hansestadt Rostock, genauer gesagt eine Onlineplattform zum Melden und Bearbeiten von Problemen und Ideen, die sich auf den öffentlichen Raum der Hansestadt Rostock beziehen. Das Melden wird von den Bürgerinnen und Bürgern übernommen – das Bearbeiten von den Sachbearbeiterinnen und Sachbearbeitern der Stadtverwaltung. Damit Sie Probleme und Ideen schnell und bequem melden können, steht Ihnen in Klarschiff.HRO eine interaktive Karte zur Verfügung, auf der Sie ganz einfach neue Meldungen erstellen oder sich vorhandene ansehen können.
       news_content_one: 03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet – Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.
       news_content_two: 27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar – Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.
-      current: Aktuell aktive Meldungen
-      processed: Meldungen erledigt letzten Monat
+      current: 'Aktuell aktive Meldungen:'
+      processed: 'Meldungen erledigt letzten Monat:'
       recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
@@ -322,7 +323,7 @@ de:
     desktop: &votes
       create:
         error: Fehler bei Unterstützungsmeldung
-        success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, ind der Sie Ihre Unterstützungsmeldung nocheinmal bestätigen müssen.
+        success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Unterstützungsmeldung noch einmal bestätigen müssen.
       new:
         title: Unterstützung
     mobile:

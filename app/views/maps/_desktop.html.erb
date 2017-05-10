@@ -1,6 +1,6 @@
 <% content_for :nav do -%>
   <div class="col-md-8">
-    <ul class="nav navbar-nav">
+    <ul class="nav nav-pills">
       <li class="active">
         <a href="#request" id="requests" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
       </li>
@@ -12,7 +12,7 @@
 <% end -%>
 <div id="content">
   <div class="view-switcher">
-      <%= link_to t('.aerial_view'), '#', class: 'btn btn-default btn-map switch-map-view', id: 'aerial',
+      <%= link_to t('.aerial_view'), '#', class: 'btn btn-primary switch-map-view', id: 'aerial',
         data: { aerial: t('.map_view'), map: t('.aerial_view') } %>
     </div>
   <div id="ol-map" class="ol-map-desktop">
@@ -31,7 +31,7 @@
         <%= text_field(:places, :search, class: 'form-control', placeholder: t('.address_search')) %>
       </div>
     </div>
-    <div class="panel panel-default map-panel">
+    <div class="panel panel-primary map-panel">
       <div class="panel-heading" id="map-heading" role="tab">
         <%= link_to '#map-body', data: { toggle: 'collapse' }, class: 'collapsed',
           aria: { expanded: false, controls: 'map-body' } do %>

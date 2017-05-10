@@ -38,7 +38,7 @@
         <div class="col-md-12"><%= notes %></div>
       </div>
     <% end -%>
-    <% options = { remote: true, class: 'btn btn-default btn-block', role: :button } -%>
+    <% options = { remote: true, class: 'btn btn-primary btn-block', role: :button } -%>
     <div class="row form-group">
       <% if display?(:votes) -%>
         <div class="col-md-12">
@@ -52,7 +52,7 @@
       <% end -%>
       <div class="col-md-12">
         <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list],
-                    options.merge(class: 'btn btn-default btn-block')) if display?(:create_comment) %>
+                    options.merge(class: 'btn btn-primary btn-block')) if display?(:create_comment) %>
       </div>
     </div>
     <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
