@@ -70,8 +70,8 @@ de:
     continue: Weiter
     create: Erstellen
     describe: Beschreiben
-    new_request: Neue Meldung erstellen…
-    requests: Zu den Meldungen…
+    new_request: Start!
+    requests: Meldungen erstellen oder ansehen…
     resume: Übernehmen
     perma_link: "Permalink auf Meldung #%{req_id}"
     ok: OK
@@ -186,8 +186,8 @@ de:
       address_search: Adressensuche
       filter: Kartenfilter
       map_view: Karte
-      request: Meldung
-      watch: Beobachten
+      request: Neue Meldung
+      watch: Meldungen beobachten
 
   notes:
     create:
@@ -250,18 +250,18 @@ de:
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
-        success: Die Meldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+        success: Die Meldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
       start_request:
         new_request: Bitte klicken Sie auf eine Meldung in der Karte oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaulichen oder verkehrsplanerischen Sachverhalte!
         no_emergencies: Keine Notfälle!
         no_personal_requests: Keine persönlichen Anfragen (z. B. Adressänderungen oder Leistungsanträge)!
       new:
-        confirmation: Bestätigung
-        confirmation_text: Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
-        describe_idea: z. B. neue Dinge oder Änderungswünsche
-        describe_problem: z. B. defekte Dinge oder Verschmutzungen
-        place_icon: Bitte markieren Sie die betroffene Stelle möglichst genau auf der Karte.
+        confirmation: Abschluss
+        confirmation_text: Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
+        describe_idea: z. B. Aufstellung eines neuen Fahrradständers oder Änderung einer Ampelschaltung
+        describe_problem: z. B. eine defekte Straßenbeleuchtung oder eine ungepflegete Grünanlage
+        place_icon: Bitte markieren Sie die betroffene Stelle möglichst genau auf der Karte. Verschieben Sie dazu den Marker, klicken Sie in die Karte, nutzen Sie die Adressensuche oder die Funktion „Orte mich“.
         step_four: Schritt 4/4
         step_one: Schritt 1/4
         step_three: Schritt 3/4
@@ -274,10 +274,12 @@ de:
             type: Meldungstyp muss angegeben werden
             category: Haupt- und Unterkategorie müssen angegeben werden
             description: Beschreibung muss angegeben werden
+        photo_hint: Bitte vermeiden Sie, dass durch das Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter oder Kfz-Kennzeichen zu erkennen sind).
         hint:
           label: Hinweis
-          text: Vor der Veröffentlichung werden eingegebene Texte sowie das Foto redaktionell überprüft.
+          text: Vor der Veröffentlichung werden die Beschreibung und das Foto redaktionell überprüft.
         what: Was?
+        problem_or_idea: Melden Sie entweder ein Problem (z. B. defekte Dinge oder Verschmutzungen) oder eine Idee (z. B. neue Dinge oder Änderungswünsche).
       show:
         actions:
           abuse: Missbrauch
@@ -310,6 +312,8 @@ de:
 
   starts:
     show:
+      headline: Sie melden einen Missstand – Ihre Stadtverwaltung beseitigt ihn!
+      what_is_it: Was ist Klarschiff.HRO und was kann ich hier tun?
       newest: 'Neue Meldungen letzten Monat:'
       news: Neuigkeiten
       start_content: Klarschiff.HRO ist das Portal zur Bürgerbeteiligung der Hansestadt Rostock, genauer gesagt eine Onlineplattform zum Melden und Bearbeiten von Problemen und Ideen, die sich auf den öffentlichen Raum der Hansestadt Rostock beziehen. Das Melden wird von den Bürgerinnen und Bürgern übernommen – das Bearbeiten von den Sachbearbeiterinnen und Sachbearbeitern der Stadtverwaltung. Damit Sie Probleme und Ideen schnell und bequem melden können, steht Ihnen in Klarschiff.HRO eine interaktive Karte zur Verfügung, auf der Sie ganz einfach neue Meldungen erstellen oder sich vorhandene ansehen können.

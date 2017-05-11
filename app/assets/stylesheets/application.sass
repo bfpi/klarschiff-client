@@ -44,6 +44,13 @@ body
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
   font-size: 15px
   
+#headline
+  margin-top: 20px
+  text-align: center
+  border-color: #bce8f1
+  padding-bottom: 2px
+  color: #337ab7
+  
 textarea#abuse_comment
   margin-top: 10px
 
@@ -65,19 +72,16 @@ select
 .img-box img
   position: relative
   top: 0
-  opacity: 0.5
-  filter: alpha(opacity=50)
-
-.img-box:hover img, .img-box:focus img
-  opacity: 1
-  filter: alpha(opacity=100)
 
 .img-box .img-overlay
   position: absolute
-  top: 2px
+  top: 8px
   padding-left: 5px
   font-weight: bold
   color: #333
+  width: 160px
+  padding-bottom: 2px
+  background-color: rgba(255, 255, 255, 0.7)
 
 .img-box:hover .img-overlay, .img-box:focus .img-overlay
   display: none

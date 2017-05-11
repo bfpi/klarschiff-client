@@ -28,6 +28,7 @@
       </div> 
       <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
+        <div class="col-md-12"><%= t('.problem_or_idea') %></div>
         <div class="col-md-6">
           <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
             t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
@@ -66,14 +67,14 @@
       </div>
       <div class="row form-group">
         <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
+        <div class="col-md-12"><%= t('.photo_hint') %></div>
         <div class="col-md-12">
           <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
         </div>
       </div>
       <div class="row form-group">
-        <div class="col-md-12">
-          <p class="form-control-static"><%= t('.hint.text') %></p>
-        </div>
+        <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
+        <div class="col-md-12"><%= t('.hint.text') %></div>
       </div>
       <div class="row form-group" class="hidden-page">
         <div class="btn-group btn-group-justified col-md-12" role="group">
@@ -92,9 +93,6 @@
       </div>
       <div class="row form-group">
         <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
-        <div class="col-md-12">
-          <%= t('.confirmation_text') %>
-        </div>
       </div>
       <% if display?(:email) -%>
         <div class="row form-group">
@@ -103,6 +101,11 @@
           </div>
         </div>
       <% end -%>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= t('.confirmation_text') %>
+        </div>
+      </div>
       <div class="row form-group">
         <div class="btn-group btn-group-justified col-md-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
