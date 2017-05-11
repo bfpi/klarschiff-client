@@ -314,6 +314,7 @@ de:
       news_content_one: 03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet – Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.
       news_content_two: 27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar – Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.
       current: 'Aktuell aktive Meldungen:'
+      overall: 'Neue Meldungen seit Klarschiff.HRO-Start am 28.03.2012:'
       processed: 'Meldungen erledigt letzten Monat:'
       recent_requests: Kürzlich gemeldet
       statistics: Statistik

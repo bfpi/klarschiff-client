@@ -1,9 +1,9 @@
 urls:
-  ks_frontend_search_url: https://demo.klarschiff.de/search
-  ks_server_url: http://klarschiff-test-hro
-  ks_frontend_imprint_url: https://demo.klarschiff-hro.de/impressum.php
-  ks_backend_vorgang_url: https://demo.klarschiff.de/vorgang/%s
-  ks_demo_url: https://demo.klarschiff-hro.de
+  ks_frontend_search_url: https://klarschiff-test/search/server.php
+  ks_server_url: https://klarschiff-test
+  ks_frontend_imprint_url: https://klarschiff-test/static/imprint
+  ks_backend_vorgang_url: https://klarschiff-test/backend/vorgang/%s
+  ks_demo_url: https://klarschiff-test
   ks_github_url: https://github.com/bfpi/klarschiff-field_service
   font_origin_url: https://www.paratype.com
   font_license_url: /resources/fonts/license.txt

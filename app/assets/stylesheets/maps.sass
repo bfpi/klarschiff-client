@@ -14,8 +14,17 @@
   right: 0
   top: 50px
 
+  .ol-zoom
+    top: 1em
+
   .geolocation
     display: none
+  
+  .ol-scale-line
+    background: none
+    background-color: transparent
+    left: .5em
+    bottom: .5em
 
 .ol-map-desktop
   bottom: 50px
@@ -26,41 +35,51 @@
 
   .ol-zoom
     left: 325px
-    top: 75px
+    top: 90px
   
   .ol-scale-line
     left: 325px
+    background: none
+    background-color: transparent
+    color: #333
+    margin-bottom: 10px
 
   .geolocation
     left: 325px
-    top: 45px
+    top: 50px
+  
+.ol-zoom .ol-zoom-in, .ol-zoom .ol-zoom-out
+  font-weight: bold
+  font-size: 20px
+  border-radius: 4px
+  width: 30px
+  height: 30px
 
 .ol-control, .ol-control:hover, .ol-control:focus
   background: none
-  background-color: #337ab7
+  background-color: transparent
+  border: none
   padding: 0
-
-.ol-control:hover, .ol-control:focus
-  background-color: #286090
 
 .ol-control button
   font-weight: normal
-  font-size: 14px
+  font-size: 15px
   background-color: #337ab7
-  border: 1px solid #286090
   color: #fff
   text-align: center
-  vertical-align: middle
   line-height: 1.42857143
   border-radius: 4px
 
+.ol-control button:hover, .ol-control button:focus
+  background-color: #286090
+
 .geolocation.ol-control
-  width: 120px
-  height: 22px
+  width: 130px
+  height: 34px
 
 .geolocation.ol-control button
-  width: 120px
-  height: 22px
+  width: 130px
+  height: 34px
 
 .ol-touch .ol-control
   button
@@ -68,6 +87,12 @@
 
 .ol-scale-line-inner
   font-weight: bold
+  color: #333
+  border: 1px solid #333
+  border-top: none
+  
+.ol-attribution
+  margin-bottom: 10px
 
 .ol-attribution,
 .ol-touch .ol-attribution
@@ -77,6 +102,18 @@
 
   button
     font-size: $font-size-h5
+
+.ol-attribution
+
+  button
+    font-weight: bold
+    font-size: 20px
+    border-radius: 4px
+    width: 30px
+    height: 30px
+    
+.ol-attribution:not(.ol-collapsed)
+  background: rgba(255,255,255,0.8)
 
 #textsizer
   margin-top: 10px
