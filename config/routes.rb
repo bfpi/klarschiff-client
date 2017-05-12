@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get :api
     get :imprint
     get :privacy
+    get :promotion
     get :usage
   end
 end

@@ -12,6 +12,11 @@ class StaticsController < ApplicationController
     @file_name = 'datenschutz'
     render :api
   end
+
+  def promotion
+    @file_name = 'werbung'
+    render :api
+  end
   
   def usage
     @file_name = 'nutzungsbedingungen'
