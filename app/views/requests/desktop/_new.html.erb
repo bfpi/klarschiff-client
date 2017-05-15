@@ -29,11 +29,11 @@
       <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
         <div class="col-md-12"><%= t('.problem_or_idea') %></div>
-        <div class="col-md-6">
+        <div class="col-md-6 div-margin-top">
           <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
             t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 div-margin-top">
           <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
             t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
@@ -58,8 +58,10 @@
       <div class="row form-group">
         <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
       </div>
+      <%= label_tag :what_exactly, t('.what_exactly') %>
       <%= render partial: 'requests/desktop/category_select', locals: { type: nil } %> 
       <div class="row form-group">
+        <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
         <div class="col-md-12">
           <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
                           data: { 'missing-message': t('requests.create.error.required.description') }) %>
@@ -103,7 +105,10 @@
       <% end -%>
       <div class="row form-group">
         <div class="col-md-12">
-          <%= t('.confirmation_text') %>
+          <%= t('.confirmation_text_html') %>
+        </div>
+        <div class="col-md-12 div-margin-top">
+          <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
         </div>
       </div>
       <div class="row form-group">

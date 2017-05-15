@@ -11,9 +11,9 @@ module RequestsHelper
   end
 
   def mark_photo_required(request)
-    content_tag(:span, class: 'label label-default') do
-      content_tag :span, nil, class: 'glyphicon glyphicon-camera', "aria-hidden" => true
-    end if request.extended_attributes.photo_required
+    if request.extended_attributes.photo_required
+      content_tag :span, nil, class: 'glyphicon glyphicon-camera', "title" => t('requests.desktop.show.hint_photo_required'), "aria-hidden" => true
+    end
   end
 
   def status(request)

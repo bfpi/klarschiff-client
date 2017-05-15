@@ -2,10 +2,12 @@
   <% label_photo_required = mark_photo_required(@request) -%>
   <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: label_photo_required } %>
   <div class="request-desktop">
-    <div class="row form-group">
-      <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
-      <div class="col-md-12"><%= @request.description %></div>
-    </div>
+    <% if @request.description.present? -%>
+      <div class="row form-group">
+        <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
+        <div class="col-md-12"><em><%= @request.description %></em></div>
+      </div>
+    <% end -%>
     <% if display?(:votes) -%>
       <div id="request-show" class="row form-group <%="#{ @request.service.type }" %>">
         <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-md-12 control-label' %>
@@ -35,7 +37,7 @@
     <% if (notes = @request.status_notes).present? -%>
       <div class="row form-group">
         <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-md-12 control-label' %>
-        <div class="col-md-12"><%= notes %></div>
+        <div class="col-md-12"><em><%= notes %></em></div>
       </div>
     <% end -%>
     <% options = { remote: true, class: 'btn btn-primary btn-block', role: :button } -%>

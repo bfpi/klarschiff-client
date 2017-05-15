@@ -106,12 +106,12 @@ de:
     imprint: Impressum
 
   placeholder:
+    abuse: Bitte tragen Sie hier Ihre Missbrauchsmeldung ein.
     comment: Bitte tragen Sie hier Ihr Lob, Ihre Hinweise oder Ihre Kritik zur Meldung ein.
     description: Bitten tragen Sie hier Ihre Beschreibung ein.
-    email: Bitte geben Sie Ihre E-Mail-Adresse an.
+    email: Bitte tragen Sie hier Ihre E-Mail-Adresse ein.
     note: Bitte tragen Sie hier Ihren internen Kommentar zur Meldung ein.
     places_search: Ortsteil/Straße/Adresse eingeben…
-    reason: Bitte geben Sie eine Begründung an.
     select:
       category: Hauptkategorie auswählen…
       service: Unterkategorie auswählen…
@@ -136,10 +136,9 @@ de:
         success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Missbrauchsmeldung noch einmal bestätigen müssen.
       new:
         title: Missbrauch
+        text: Beschreibung
         hint:
-          label: Hinweis
-          text: >
-            Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter oder Kfz-Kennzeichen zu erkennen sind).
+          text: 'Einen Missbrauch können und sollten Sie dann melden, wenn durch Beschreibung oder Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter oder Kfz-Kennzeichen zu erkennen sind).'
           warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
             <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
             unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
@@ -168,6 +167,8 @@ de:
         success: Das Lob, die Hinweise oder die Kritik zur Meldung wurde erfolgreich abgesetzt und dem entsprechenden Empfänger zugestellt.
       new: &comments
         title: Lob, Hinweise oder Kritik
+        text: Freitext
+        recipient: Empfänger
     mobile:
       create:
         error: Fehler bei Lob, Hinweisen oder Kritik
@@ -212,7 +213,8 @@ de:
     new:
       error: Fehler beim Versenden der Beobachtungsfläche(n)
     show_link:
-      link: GeoRSS-Feed
+      link_text: 'GeoRSS-Feed '
+      link_title: Meldungen als RSS-Feed abonnieren…
       subscribe_feed: >
         Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z. B. RSSOwl,
         Liferea, Feedly) oder Ihrem Browser:
@@ -251,7 +253,7 @@ de:
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
-        success: Die Meldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
+        success: Die Meldung wurde erfolgreich abgesetzt. Sie haben eine E-Mail erhalten, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
       start_request:
         new_request: Bitte klicken Sie auf eine Meldung in der Karte oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaulichen oder verkehrsplanerischen Sachverhalte!
@@ -259,7 +261,8 @@ de:
         no_personal_requests: Keine persönlichen Anfragen (z. B. Adressänderungen oder Leistungsanträge)!
       new:
         confirmation: Abschluss
-        confirmation_text: Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
+        confirmation_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihre Meldung noch einmal <strong>bestätigen</strong> müssen."
+        confirmation_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihre Meldung automatisch wieder <strong>gelöscht.</strong>"
         describe_idea: z. B. Aufstellung eines neuen Fahrradständers oder Änderung einer Ampelschaltung
         describe_problem: z. B. eine defekte Straßenbeleuchtung oder eine ungepflegete Grünanlage
         place_icon: Bitte markieren Sie die betroffene Stelle möglichst genau auf der Karte. Verschieben Sie dazu den Marker, klicken Sie in die Karte, nutzen Sie die Adressensuche oder die Funktion „Orte mich“.
@@ -281,6 +284,7 @@ de:
           text: Vor der Veröffentlichung werden die Beschreibung und das Foto redaktionell überprüft.
         what: Was?
         problem_or_idea: Melden Sie entweder ein Problem (z. B. defekte Dinge oder Verschmutzungen) oder eine Idee (z. B. neue Dinge oder Änderungswünsche).
+        what_exactly: Was genau?
       show:
         actions:
           abuse: Missbrauch
@@ -313,15 +317,19 @@ de:
 
   starts:
     show:
-      headline: Sie melden einen Missstand – Ihre Stadtverwaltung beseitigt ihn!
-      what_is_it: Was ist Klarschiff.HRO und was kann ich hier tun?
+      headline: Einfach mitmachen – Gemeinsam für unser Rostock!
+      what_is_it: Was kann ich in Klarschiff.HRO tun?
+      what_is_it_not: Was passt nicht in Klarschiff.HRO?
+      not_content: Notfälle, komplexe städtebauliche oder verkehrsplanerische Sachverhalte und persönliche Anfragen (z. B. Adressänderungen oder Leistungsanträge) können hier nicht gemeldet werden. Bitte berücksichtigen Sie, dass Ihre Meldungen öffentlich abrufbar sind.
       newest: 'Neue Meldungen letzten Monat:'
       news: Neuigkeiten
-      start_content: Klarschiff.HRO ist das Portal zur Bürgerbeteiligung der Hansestadt Rostock, genauer gesagt eine Onlineplattform zum Melden und Bearbeiten von Problemen und Ideen, die sich auf den öffentlichen Raum der Hansestadt Rostock beziehen. Das Melden wird von den Bürgerinnen und Bürgern übernommen – das Bearbeiten von den Sachbearbeiterinnen und Sachbearbeitern der Stadtverwaltung. Damit Sie Probleme und Ideen schnell und bequem melden können, steht Ihnen in Klarschiff.HRO eine interaktive Karte zur Verfügung, auf der Sie ganz einfach neue Meldungen erstellen oder sich vorhandene ansehen können.
-      news_content_one: 03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet – Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.
-      news_content_two: 27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar – Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.
+      start_content_one: Klarschiff.HRO ist eine Plattform zum Melden von Problemen in der Infrastruktur der Hansestadt Rostock.
+      start_content_two: Klarschiff.HRO will Ihnen helfen sich mit Ihrer Stadtverwaltung in Verbindung zu setzen.
+      start_content_three: Wir möchten Sie ermutigen, uns Probleme und Ideen zu Ihrem lokalen Umfeld mitzuteilen und deren Bearbeitung durch uns online zu verfolgen! Versuchen Sie doch gleich Ihre erste Meldung!
+      news_content_one: '03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet: Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.'
+      news_content_two: '27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar: Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.'
       current: 'Aktuell aktive Meldungen:'
-      overall: 'Neue Meldungen seit Klarschiff.HRO-Start am 28.03.2012:'
+      overall: 'Neue Meldungen seit Start (28.03.2012):'
       processed: 'Meldungen erledigt letzten Monat:'
       recent_requests: Kürzlich gemeldet
       statistics: Statistik

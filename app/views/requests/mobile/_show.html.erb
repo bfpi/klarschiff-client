@@ -39,29 +39,31 @@
         <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:service_name) %></h4>
         <p class="list-group-item-text"><%= @request.service %></p>
       </div>
+      <% if @request.description.present? -%>
+      <div class="list-group-item">
+        <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:description) %></h4>
+        <p class="list-group-item-text"><em><%= @request.description %></em></p>
+      </div>
+      <% end -%>
+      <% if display?(:votes) -%>
+        <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
+          <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
+          <p class="list-group-item-text">
+            <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
+            <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
+          </p>
+        </div>
+      <% end -%>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status) %></h4>
         <p class="list-group-item-text"><%= status(@request) %></p>
       </div>
-      <% if display?(:votes) -%>
-        <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
-          <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
-          <p class="list-group-item-text"><b>
-            <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
-            <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
-          </b></p>
-        </div>
-      <% end -%>
       <% if (notes = @request.status_notes).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status_notes) %></h4>
-          <p class="list-group-item-text"><%= notes %></p>
+          <p class="list-group-item-text"><em><%= notes %></em></p>
         </div>
       <% end -%>
-      <div class="list-group-item">
-        <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:description) %></h4>
-        <p class="list-group-item-text"><%= @request.description %></p>
-      </div>
       <% if (url = @request.media_url).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading">

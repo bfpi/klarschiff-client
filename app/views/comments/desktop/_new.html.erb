@@ -6,17 +6,24 @@
       <%= label_tag :comment, t('.title'), class: 'col-md-12 control-label' %>
     </div>
     <div class="row form-group">
+      <%= label_tag :comment, t('.recipient'), class: 'col-md-12 control-label' %>
       <div class="col-md-12">
-        <%= f.text_area(:comment, rows: 4, class: 'form-control', placeholder: t('placeholder.comment')) %>
+        <%= @request.agency_responsible %>
       </div>
     </div>
     <div class="row form-group">
-      <div class="col-md-12">
+      <div class="col-md-12 div-margin-top">
+        <%= label_tag :comment, t('.text'), class: 'control-label' %>
+        <%= f.text_area(:comment, rows: 5, class: 'form-control', placeholder: t('placeholder.comment')) -%>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12 div-margin-top">
         <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
     </div>
     <div class="row form-group">
-      <div class="btn-group btn-group-justified col-md-12" role="group">
+      <div class="btn-group btn-group-justified col-md-12 div-margin-top" role="group">
         <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default',
                     role: :button) %>
         <div class="btn-group" role="group">
