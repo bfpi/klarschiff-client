@@ -89,36 +89,44 @@
         <h5 class="panel-title"><%= t('.statistics') %></h5>
       </div>
       <div class="panel-body">
-        <div class="row form-group">
-          <div class="col-md-4">
-            <%= t('.overall') %>
-          </div>
-          <div class="col-md-8">
-            <strong><%= @overall_count %></strong>
-          </div>
-        </div>
-        <div class="row form-group">
-          <div class="col-md-4">
-            <%= t('.current') %>
-          </div>
-          <div class="col-md-8">
-            <strong><%= @current_count %></strong>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @overall_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.overall') %>
+            </div>
           </div>
         </div>
-        <div class="row form-group">
-          <div class="col-md-4">
-            <%= t('.newest') %>
-          </div>
-          <div class="col-md-8">
-            <strong><%= @newest_count %></strong>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @current_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.current') %>
+            </div>
           </div>
         </div>
-        <div class="row form-group last-form-group">
-          <div class="col-md-4">
-            <%= t('.processed') %>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @newest_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.newest') %>
+            </div>
           </div>
-          <div class="col-md-8">
-            <strong><%= @processed_count %></strong>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @processed_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.processed') %>
+            </div>
           </div>
         </div>
       </div>
