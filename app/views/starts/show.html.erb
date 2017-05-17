@@ -1,53 +1,63 @@
-</br>
+<div class="page-header" id="headline">
+  <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
+</div>
 <div class="row">
-  <div class="col-md-4">
-    <div class="panel panel-default">
+  <div class="col-md-3">
+    <div class="panel panel-info">
       <div class="panel-heading">
-        <%= t('.recent_requests') %>
-        <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
-          <%= image_tag image_path('rss.png') %>
-        <% end -%>
+        <h5 class="panel-title">
+          <%= t('.recent_requests') %>
+          <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+            <%= image_tag('rss.png', class: 'img-margin-bottom') %>
+        </h5>
+          <% end -%>
       </div>
-      <div class="panel-body">
-        <% @requests.each do |req| -%>
-          <div class="row form-group">
-            <div class="col-md-12">
-              <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
-                data: { turbolinks: false } do %>
-                <div class="row">
-                  <div class="col-md-2">
-                    <%= image_tag req.icon_list %>
-                  </div>
-                  <div class="col-md-10">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <%= req.service.category %>
-                      </div>
-                      <div class="col-md-12">
-                        <%= req.service %>
-                      </div>
-                      <% if (url = req.media_url).present? -%>
-                        <div class="col-md-12">
-                          <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" 
-                               class="img-rounded img-responsive" height="120" width="120" />
-                        </div>
-                      <% end -%>
+      <div class="panel-body requests-img-panel">
+        <% @requests.each.with_index(1) do |req, i| -%>
+          <% if i.odd? -%>
+            <div class="row form-group">
+              <div class="col-md-6">
+                <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
+                  data: { turbolinks: false } do %>
+                  <% if (url = req.media_url).present? -%>
+                    <div class="img-box">
+                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" height="160" width="160" />
+                      <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service %></span>
+                      <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
                     </div>
-                  </div>
-                </div>
-              <% end -%>
+                  <% end -%>
+                <% end -%>
+              </div>
+          <% else -%>
+              <div class="col-md-6">
+                <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
+                  data: { turbolinks: false } do %>
+                  <% if (url = req.media_url).present? -%>
+                    <div class="img-box">
+                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" height="160" width="160" />
+                      <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service %></span>
+                      <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
+                    </div>
+                  <% end -%>
+                <% end -%>
+              </div>
             </div>
-          </div>
+          <% end -%>
         <% end -%>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="panel panel-default start-panel">
+  <div class="col-md-9">
+    <div class="panel panel-primary start-panel">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.what_is_it', name: Settings::Client.name) %></h5>
+      </div>
       <div class="panel-body">
         <div class="row form-group">
           <div class="col-md-12">
-            <%= Settings::Client.name %>
+            <p><%= t('.start_content_one', name: Settings::Client.name, city_long: Settings::Client.city_long) %></p>
+            <p><%= t('.start_content_two', name: Settings::Client.name) %></p>
+            <p><%= t('.start_content_three') %></p>
           </div>
         </div>
         <div class="row">
@@ -57,34 +67,66 @@
         </div>
       </div>
     </div>
-    <div id="news-panel" class="panel panel-default">
-      <div class="panel-heading"><%= t('.news') %></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.what_is_it_not', name: Settings::Client.name) %></h5>
+      </div>
       <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-          </div>
-        </div>
+        <%= t('.not_content') %>
       </div>
     </div>
-    <div id="statistic-panel" class="panel panel-default">
-      <div class="panel-heading"><%= t('.statistics') %></div>
+    <div id="news-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.news') %></h5>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item"><%= t('.news_content_one', name: Settings::Client.name) %></li>
+        <li class="list-group-item"><%= t('.news_content_two', name: Settings::Client.name) %></li>
+      </ul>
+    </div>
+    <div id="statistic-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.statistics') %></h5>
+      </div>
       <div class="panel-body">
-        <div class="row form-group">
-          <%= label_tag :overall, t('.overall'), class: 'col-md-4 control-label' %>
-          <div class="col-md-8">
-            <%= @overall_count %>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @overall_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.overall') %>
+            </div>
           </div>
         </div>
-        <div class="row form-group">
-          <%= label_tag :newest, t('.newest'), class: 'col-md-4 control-label' %>
-          <div class="col-md-8">
-            <%= @newest_count %>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @current_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.current') %>
+            </div>
           </div>
         </div>
-        <div class="row form-group">
-          <%= label_tag :processed, t('.processed'), class: 'col-md-4 control-label' %>
-          <div class="col-md-8">
-            <%= @processed_count %>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @newest_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.newest') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-info"><%= @processed_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.processed') %>
+            </div>
           </div>
         </div>
       </div>

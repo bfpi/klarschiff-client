@@ -4,12 +4,15 @@
       <%= t('.subscribe_feed') %>
     </div>
     <div class="col-md-12">
-      <%= link_to t('.link'), [:observations, observation_key: @rss_id, format: :xml], target: '_blank' %>
+      <%= link_to [:observations, observation_key: @rss_id, format: :xml], target: '_blank', title: t('.link_title') do %>
+            <%= t('.link_text') %>
+            <%= image_tag('rss.png', class: 'img-margin-bottom') %>
+      <% end -%>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <%= link_to t('buttons.ok'), '#', id: 'btn-start', class: 'btn btn-primary' %>
+    <div class="col-md-12">
+      <%= link_to t('buttons.ok'), '#', id: 'btn-start', class: 'btn btn-primary btn-block' %>
     </div>
   </div>
 </div>

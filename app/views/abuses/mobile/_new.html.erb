@@ -8,7 +8,6 @@
         <%= hidden_field_tag :mobile, @mobile %>
         <div class="form-group">
           <span class="helper-block">
-            <strong><%= t('.hint.label') %>:</strong>
             <%= t('.hint.text') %>
             <em class="text-danger"><%= t('.hint.warning_html') %></em>
           </span>
@@ -16,7 +15,7 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
-            <%= f.text_area(:comment, rows: 4, class: 'form-control', placeholder: t('placeholder.reason')) %>
+            <%= f.text_area(:comment, rows: 4, class: 'form-control', placeholder: t('placeholder.abuse')) %>
           </div>
         </div>
         <div class="row">

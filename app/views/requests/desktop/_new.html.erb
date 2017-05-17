@@ -28,11 +28,12 @@
       </div> 
       <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
         <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
-        <div class="col-md-6">
+        <div class="col-md-12"><%= t('.problem_or_idea') %></div>
+        <div class="col-md-6 div-margin-top">
           <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
             t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 div-margin-top">
           <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
             t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
         </div>
@@ -57,8 +58,10 @@
       <div class="row form-group">
         <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
       </div>
+      <%= label_tag :what_exactly, t('.what_exactly') %>
       <%= render partial: 'requests/desktop/category_select', locals: { type: nil } %> 
       <div class="row form-group">
+        <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
         <div class="col-md-12">
           <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
                           data: { 'missing-message': t('requests.create.error.required.description') }) %>
@@ -66,14 +69,14 @@
       </div>
       <div class="row form-group">
         <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
+        <div class="col-md-12"><%= t('.photo_hint') %></div>
         <div class="col-md-12">
           <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
         </div>
       </div>
       <div class="row form-group">
-        <div class="col-md-12">
-          <p class="form-control-static"><%= t('.hint.text') %></p>
-        </div>
+        <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
+        <div class="col-md-12"><%= t('.hint.text') %></div>
       </div>
       <div class="row form-group" class="hidden-page">
         <div class="btn-group btn-group-justified col-md-12" role="group">
@@ -92,9 +95,6 @@
       </div>
       <div class="row form-group">
         <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
-        <div class="col-md-12">
-          <%= t('.confirmation_text') %>
-        </div>
       </div>
       <% if display?(:email) -%>
         <div class="row form-group">
@@ -103,6 +103,14 @@
           </div>
         </div>
       <% end -%>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= t('.confirmation_text_html') %>
+        </div>
+        <div class="col-md-12 div-margin-top">
+          <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
+        </div>
+      </div>
       <div class="row form-group">
         <div class="btn-group btn-group-justified col-md-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,

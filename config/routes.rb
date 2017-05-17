@@ -18,9 +18,9 @@ Rails.application.routes.draw do
   resources :services, only: :index
   resource :static do
     get :api
-    get :impressum
+    get :imprint
     get :privacy
+    get :promotion
     get :usage
-    get :help
   end
 end

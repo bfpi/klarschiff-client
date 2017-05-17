@@ -1,3 +1,6 @@
+.ui-widget.ui-widget-content
+  border: 0
+
 .ui-autocomplete
   list-style: outside none none
   max-height: 200px
@@ -5,11 +8,27 @@
   overflow-y: auto
   padding: 0
   position: absolute
-  border: 1px solid #ddd
+  border: 0
   background-color: #fff
 
 .ui-autocomplete .ui-menu-item
   padding: 0.25em 0.5em
+  cursor: pointer
+  border: 0
+
+.ui-autocomplete .ui-menu-item div, .ui-autocomplete .ui-menu-item div
+  background: none
+  background-color: transparent
+  border: 0
+
+.ui-autocomplete .ui-menu-item div:hover, .ui-autocomplete .ui-menu-item div:focus
+  background: none
+  background-color: transparent
+  border: 0
+
+.ui-autocomplete .ui-menu-item:hover, .ui-autocomplete .ui-menu-item:focus
+  background-color: #337ab7
+  border: 0
 
 .ui-widget-content .ui-state-focus
   border: 0

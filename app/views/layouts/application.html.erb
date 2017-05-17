@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }") %></title>
+    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
+    <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
@@ -51,9 +52,9 @@
                 </div>
                 <div class="col-md-12">
                   <div class="text-right">
-                    <%= link_to t(:help), [:help, :static] %> |
-                    <%= link_to t(:usage), [:usage, :static] %> |
-                    <%= link_to t(:privacy), [:privacy, :static] %>
+                    <%= link_to t(:privacy), [:privacy, :static] %> |
+                    <%= link_to t(:imprint), [:imprint, :static] %> |
+                    <%= link_to t(:usage), [:usage, :static] %>
                   </div>
                 </div>
               </div>
@@ -70,7 +71,12 @@
             <div class="text-center">
               <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
               <%= link_to t(:api), [:api, :static] %> |
-              <%= link_to t(:impressum), [:impressum, :static] %>
+              <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
+              <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %> |
+              <%= link_to t(:promotion), [:promotion, :static] %>
+            </div>
+            <div class="text-center small">
+              <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: "_blank" %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: "_blank" %>)
             </div>
           </div>
         </div>
@@ -90,5 +96,8 @@
       <% end -%>
       <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
     </div>
+    <% unless !Settings::Client.additional_content %>
+      <%= Settings::Client.additional_content.html_safe -%>
+    <% end %>
   </body>
 </html>

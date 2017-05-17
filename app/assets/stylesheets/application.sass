@@ -15,6 +15,92 @@
  *= require_tree .
  *= require_self
  */
+ 
+@font-face
+  font-family: 'PT Sans'
+  src: url(asset-path('PTS55F_W.ttf'))
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'PT Sans'
+  src: url(asset-path('PTS56F_W.ttf'))
+  font-weight: normal
+  font-style: italic
+
+@font-face
+  font-family: 'PT Sans'
+  src: url(asset-path('PTS75F_W.ttf'))
+  font-weight: bold
+  font-style: normal
+
+@font-face
+  font-family: 'PT Sans'
+  src: url(asset-path('PTS76F_W.ttf'))
+  font-weight: bold
+  font-style: italic
+  
+body
+  font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+  font-size: 15px
+  
+#headline
+  margin-top: 20px
+  text-align: center
+  border-color: #bce8f1
+  padding-bottom: 2px
+  color: #337ab7
+
+select
+  cursor: pointer
+
+.btn
+  font-size: 15px
+  
+.img-rounded
+  border-radius: 4px
+  
+.requests-img-panel
+  font-size: 13px
+  
+.img-static
+  max-width: 250px
+  
+.ul-static
+  list-style-type: none
+  margin: 0
+  padding: 0
+  overflow: hidden
+  
+.ul-static li
+  float: left
+  margin-right: 20px
+  max-width: 250px
+
+.img-box
+  width: 160px
+
+.img-box img
+  position: relative
+  top: 0
+
+.img-box .img-overlay-top
+  position: absolute
+  top: 8px
+  padding-left: 5px
+  font-weight: bold
+  color: #333
+  width: 160px
+  padding-bottom: 2px
+  background-color: rgba(255, 255, 255, 0.7)
+
+.img-box .img-overlay-bottom
+  position: absolute
+  bottom: 8px
+  margin-left: 134px
+
+.img-box:hover .img-overlay-top, .img-box:focus .img-overlay-top, .img-box:hover .img-overlay-bottom, .img-box:focus .img-overlay-bottom
+  display: none
 
 #content
   left: 0
@@ -40,6 +126,9 @@ option.placeholder
 
 a
   color: #1d4568
+  
+a:hover, a:focus
+  text-decoration: none
 
 li
   list-style-position: inside
@@ -60,13 +149,30 @@ li
 
 header
   padding: 10px 0
-  height: 120px
+  height: 125px
+  background-color: #d9edf7
+  border-bottom: 1px solid #bce8f1
+
+  a
+    color: #337ab7
+    text-decoration: none
+    
+  a:hover, a:focus
+    color: #286090
+    text-decoration: none
+    
+  h1
+    font-size: 48px
+    font-weight: bold
 
   .container
-    color: #1c94c4
+    color: #333
+
+  .text-right
+    font-size: 17px
 
   #logo1
-    margin: 10px
+    margin: 5px 0
 
   #logo2
     float: right
@@ -77,21 +183,53 @@ header
   bottom: 0px
   padding: 10px 0
   width: 100%
-  height: 50px
+  height: 60px
+  background-color: #d9edf7
+  border-top: 1px solid #bce8f1
+
+  a
+    color: #337ab7
+    text-decoration: none
+    
+  a:hover, a:focus
+    color: #286090
+    text-decoration: none
+
+  .text-center
+    font-size: 17px
+
+  .small
+    font-size: 12px
 
 .container
   width: 99%
 
+#main-content
+  margin-bottom: 30px
+  
+.div-margin-top
+  margin-top: 10px
+  
+.img-margin-bottom
+  margin-bottom: 4px
+  
+#request_media
+  margin-top: 10px
+
 .sidebar
-  background-color: #fff
-  border: solid 1px #ddd
-  width: 320px
-  top: 2%
-  height: 96%
+  background-color: #d9edf7
+  width: 318px
+  top: 11px
+  bottom: 21px
   position: absolute
   z-index: 1000
   overflow-y: auto
   overflow-x: hidden
+  border-top: 1px solid #bce8f1
+  border-right: 1px solid #bce8f1
+  border-bottom: 1px solid #bce8f1
+  border-top-right-radius: 4px
+  border-bottom-right-radius: 4px
 
 .sidebar .tab-content
   padding: 10px
@@ -99,14 +237,19 @@ header
 .sidebar-toggler
   padding-top: 20px
   padding-bottom: 20px
-  padding-left: 5px
+  padding-left: 6px
   padding-right: 5px
-  background-color: #fff
-  border: solid 1px #ddd
-  left: 313px
+  background-color: #d9edf7
+  left: 316px
   z-index: 1010
   top: 40%
   position: absolute
+  cursor: pointer
+  border-top: 1px solid #bce8f1
+  border-right: 1px solid #bce8f1
+  border-bottom: 1px solid #bce8f1
+  border-top-right-radius: 4px
+  border-bottom-right-radius: 4px
 
 .sidebar-toggler span:before
   font-family: 'Glyphicons Halflings'
@@ -117,11 +260,10 @@ header
 
 .address-search-field
   position: absolute
-  background: rgba(0,60,136,0.5)
-  opacity: 0.9
+  background-color: #337ab7
   padding: 1px
-  left: 325px
-  top: 5px
+  left: 326px
+  top: 11px
   width: 200px
   height: 34px
   z-index: 1000
@@ -132,35 +274,33 @@ header
   input
     max-height: 20px
     padding: 0px 10px
+    font-size: 15px
+    border: none
+    border-radius: 0
 
 .view-switcher
   margin-top: 10px
   position: absolute
-  top: 120px
+  top: 125px
   z-index: 100
   right: 0
 
   a
-    width: 110px
-
-.btn-map
-  color: #fff
-  background-color: #1c94c4
+    width: 136px
 
 .map-panel
   min-width: 80px
-  max-width: 350px
-  top: 50px
+  max-width: 300px
+  top: 80px
   position: absolute
   right: 0
   z-index: 1000
 
 .map-panel .panel-heading
-  padding: 5px
-  background-color: #1c94c4
+  padding: 6px 20px
   a
-    color: #fff
     display: block
+    color: #fff
 
 .map-panel .panel-heading [data-toggle="collapse"] span:before
   font-family: 'Glyphicons Halflings'
@@ -169,6 +309,7 @@ header
 
 .map-panel .panel-heading .collapsed[data-toggle="collapse"] span:before
   content: '\2b'
+  padding-left: 6px
 
 .check-label
   font-weight: normal
@@ -179,3 +320,20 @@ header
 
 .hidden-page
   display: none
+ 
+.statistic-box
+  width: 90%
+  text-align: center
+ 
+.statistic-box-figure
+  width: 100%
+ 
+  .label
+    font-size: 14px
+ 
+.statistic-box-text
+  width: 100%
+  margin-top: 15px
+
+a.static-link
+  font-weight: bold    
