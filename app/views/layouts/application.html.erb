@@ -96,7 +96,7 @@
       <% end -%>
       <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
     </div>
-    <% unless Settings::Client.additional_content.nil? || Settings::Client.additional_content == '' %>
+    <% unless !Settings::Client.additional_content %>
       <%= Settings::Client.additional_content.html_safe -%>
     <% end %>
   </body>
