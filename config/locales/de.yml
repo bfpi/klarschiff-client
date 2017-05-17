@@ -11,8 +11,8 @@ de:
   license: Lizenz
   locate: Ortung
   mobile: mobil
-  pagetitle: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
-  pagetitle_mobile_client: Klarschiff.HRO – Portal zur Bürgerbeteiligung der Hansestadt Rostock
+  pagetitle: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
+  pagetitle_mobile_client: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   privacy: Datenschutz
   promotion: Werbung
   success: Vielen Dank!
@@ -203,10 +203,10 @@ de:
   observations:
     index:
       feed_title: "%{name}-Meldungen"
-      feed_description: "Diese Daten umfassen alle Meldungen in %{name}, dem Portal zur Bürgerbeteiligung der Hansestadt Rostock"
+      feed_description: "Diese Daten umfassen alle Meldungen in %{name}, dem Portal zur Bürgerbeteiligung der %{city_long}"
       feed_title_observation: "%{name}-Meldungen für Beobachtungsflächen"
-      feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung der Hansestadt Rostock"
-      link: Meldung in Klarschiff.HRO ansehen
+      feed_description_observation: "Diese Daten umfassen die Meldungen für Ihre GeoRSS-Beobachtungsfläche(n) in %{name}, dem Portal zur Bürgerbeteiligung der %{city_long}"
+      link: "Meldung in %{name} ansehen"
       img_not_available: nicht vorhanden
       status_notes_not_available: nicht vorhanden
       no_votes: bisher keine
@@ -317,16 +317,16 @@ de:
 
   starts:
     show:
-      headline: Einfach mitmachen – Gemeinsam für unser Rostock!
-      what_is_it: Was kann ich in Klarschiff.HRO tun?
-      what_is_it_not: Was passt nicht in Klarschiff.HRO?
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      what_is_it: "Was kann ich in %{name} tun?"
+      what_is_it_not: "Was passt nicht in %{name}?"
       not_content: Notfälle, komplexe städtebauliche oder verkehrsplanerische Sachverhalte und persönliche Anfragen (z. B. Adressänderungen oder Leistungsanträge) können hier nicht gemeldet werden. Bitte berücksichtigen Sie, dass Ihre Meldungen öffentlich abrufbar sind.
       news: Neuigkeiten
-      start_content_one: Klarschiff.HRO ist eine Plattform zum Melden von Problemen in der Infrastruktur der Hansestadt Rostock.
-      start_content_two: Klarschiff.HRO will Ihnen helfen sich mit Ihrer Stadtverwaltung in Verbindung zu setzen.
+      start_content_one: "%{name} ist eine Plattform zum Melden von Problemen in der Infrastruktur der %{city_long}."
+      start_content_two: "%{name} will Ihnen helfen sich mit Ihrer Stadtverwaltung in Verbindung zu setzen."
       start_content_three: Wir möchten Sie ermutigen, uns Probleme und Ideen zu Ihrem lokalen Umfeld mitzuteilen und deren Bearbeitung durch uns online zu verfolgen! Versuchen Sie doch gleich Ihre erste Meldung!
-      news_content_one: '03.05.2017 – Das Portal Klarschiff.HRO wurde vollständig überarbeitet: Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor.'
-      news_content_two: '27.10.2015 – Klarschiff.HRO ist nun auch über eine Programmierschnittelle (API) ansprechbar: Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren.'
+      news_content_one: "03.05.2017 – Das Portal %{name} wurde vollständig überarbeitet: Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor."
+      news_content_two: "27.10.2015 – %{name} ist nun auch über eine Programmierschnittelle (API) ansprechbar: Somit können Apps von Drittanbietern problemlos mit dem Portal interagieren."
       overall: neue Meldungen seit Start (28.03.2012)
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat

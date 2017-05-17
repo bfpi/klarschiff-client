@@ -4,7 +4,7 @@ xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss':
     xml.title t(".feed_title#{ '_observation' if @key.present? }", name: Settings::Client.name)
     xml.tag! 'atom:link', rel: 'self', type: 'application/rss+xml', href: observations_path(observation_key: @key)
     xml.link Settings::Url.ks_server_url + observations_path(observation_key: @key, format: :xml)
-    xml.description t(".feed_description#{ '_observation' if @key.present? }", name: Settings::Client.name)
+    xml.description t(".feed_description#{ '_observation' if @key.present? }", name: Settings::Client.name, city_long: Settings::Client.city_long)
     xml.language 'de-de'
     @requests.each do |r|
       xml.item do 
@@ -24,7 +24,7 @@ xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss':
             t('.img_not_available')
           end
           html_cont << '<br/>'
-          html_cont << link_to(t('.link'), Settings::Url.ks_server_url + map_path(request: r), target: '_blank')
+          html_cont << link_to(t('.link', name: Settings::Client.name), Settings::Url.ks_server_url + map_path(request: r), target: '_blank')
           xml.cdata! html_cont
         end
         xml.georss :point, "#{ r.lat } #{ r.long }"

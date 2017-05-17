@@ -1,5 +1,5 @@
 <div class="page-header" id="headline">
-  <h3><%= t('.headline') %></h3>
+  <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
 </div>
 <div class="row">
   <div class="col-md-3">
@@ -50,13 +50,13 @@
   <div class="col-md-9">
     <div class="panel panel-primary start-panel">
       <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.what_is_it') %></h5>
+        <h5 class="panel-title"><%= t('.what_is_it', name: Settings::Client.name) %></h5>
       </div>
       <div class="panel-body">
         <div class="row form-group">
           <div class="col-md-12">
-            <p><%= t('.start_content_one') %></p>
-            <p><%= t('.start_content_two') %></p>
+            <p><%= t('.start_content_one', name: Settings::Client.name, city_long: Settings::Client.city_long) %></p>
+            <p><%= t('.start_content_two', name: Settings::Client.name) %></p>
             <p><%= t('.start_content_three') %></p>
           </div>
         </div>
@@ -69,7 +69,7 @@
     </div>
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.what_is_it_not') %></h5>
+        <h5 class="panel-title"><%= t('.what_is_it_not', name: Settings::Client.name) %></h5>
       </div>
       <div class="panel-body">
         <%= t('.not_content') %>
@@ -80,8 +80,8 @@
         <h5 class="panel-title"><%= t('.news') %></h5>
       </div>
       <ul class="list-group">
-        <li class="list-group-item"><%= t('.news_content_one') %></li>
-        <li class="list-group-item"><%= t('.news_content_two') %></li>
+        <li class="list-group-item"><%= t('.news_content_one', name: Settings::Client.name) %></li>
+        <li class="list-group-item"><%= t('.news_content_two', name: Settings::Client.name) %></li>
       </ul>
     </div>
     <div id="statistic-panel" class="panel panel-info">

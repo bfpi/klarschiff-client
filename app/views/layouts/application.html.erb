@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }") %></title>
+    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
     <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
@@ -96,23 +96,8 @@
       <% end -%>
       <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
     </div>
-    <!-- Piwik -->
-    <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-      _paq.push(["setCookieDomain", "*.klarschiff-hro.de"]);
-      _paq.push(["setDomains", ["*.klarschiff-hro.de"]]);
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="<%= Settings::Piwik.url %>";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '<%= Settings::Piwik.site_id %>']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <noscript><p><img src="<%= Settings::Piwik.url %>piwik.php?idsite=<%= Settings::Piwik.site_id %>" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
+    <% unless Settings::Client.additional_content.nil? || Settings::Client.additional_content == '' %>
+      <%= Settings::Client.additional_content.html_safe -%>
+    <% end %>
   </body>
 </html>
