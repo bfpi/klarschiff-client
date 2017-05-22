@@ -21,7 +21,7 @@
                   data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>
                     <div class="img-box">
-                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" height="160" width="160" />
+                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
                       <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service %></span>
                       <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
                     </div>
@@ -34,7 +34,7 @@
                   data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>
                     <div class="img-box">
-                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" height="160" width="160" />
+                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
                       <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service %></span>
                       <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
                     </div>

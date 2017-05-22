@@ -61,6 +61,14 @@ class KS.Map
   addControls = (map) ->
     map.addControl new ol.control.ScaleLine
 
+    map.on 'pointermove', (e) ->
+      pixel = map.getEventPixel(e.originalEvent)
+      hit = map.hasFeatureAtPixel(pixel)
+      if (hit)
+        map.getViewport().style.cursor = 'pointer'
+      else
+        map.getViewport().style.cursor = ''
+
     map.on 'click', (e) ->
       if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Translate)
         KS.moveNewFeature e.coordinate

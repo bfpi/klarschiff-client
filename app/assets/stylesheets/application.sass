@@ -78,26 +78,26 @@ select
   max-width: 250px
 
 .img-box
-  width: 160px
+  width: 100%
 
-.img-box img
-  position: relative
-  top: 0
+  img
+    position: relative
+    top: 0
 
-.img-box .img-overlay-top
-  position: absolute
-  top: 8px
-  padding-left: 5px
-  font-weight: bold
-  color: #333
-  width: 160px
-  padding-bottom: 2px
-  background-color: rgba(255, 255, 255, 0.7)
+  .img-overlay-top
+    position: absolute
+    top: 8px
+    padding-right: 5px
+    padding-bottom: 2px
+    padding-left: 5px
+    font-weight: bold
+    color: #333
+    background-color: rgba(255, 255, 255, 0.7)
 
-.img-box .img-overlay-bottom
-  position: absolute
-  bottom: 8px
-  margin-left: 134px
+  .img-overlay-bottom
+    position: absolute
+    right: 22px
+    bottom: 8px
 
 .img-box:hover .img-overlay-top, .img-box:focus .img-overlay-top, .img-box:hover .img-overlay-bottom, .img-box:focus .img-overlay-bottom
   display: none
