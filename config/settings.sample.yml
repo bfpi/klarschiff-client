@@ -29,7 +29,7 @@ client:
   show_protocol:
   show_notes:
   show_trust:
-  additional_content:
+  additional_content: false
 
 vote:
   min_requirement: 20
