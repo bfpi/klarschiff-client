@@ -46,6 +46,7 @@ class KS.Map
   constructor: (@projection = KS.projection()) ->
     @olMap = new ol.Map
       target: 'ol-map'
+      moveTolerance: 10
       controls: ol.control.defaults().extend([new KS.GeolocationControl])
       view: new ol.View
         projection: @projection
