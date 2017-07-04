@@ -20,8 +20,7 @@
                 <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
                   data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>
-                    <div class="img-box">
-                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+                    <div class="img-box img-rounded" style="background-image: url('<%= url %>')">
                       <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service.to_s.gsub(/\//, '/ ') %></span>
                       <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
                     </div>
@@ -33,8 +32,7 @@
                 <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
                   data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>
-                    <div class="img-box">
-                      <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+                    <div class="img-box img-rounded" style="background-image: url('<%= url %>')">
                       <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service.to_s.gsub(/\//, '/ ') %></span>
                       <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
                     </div>
