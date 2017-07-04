@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resource :static do
     get :api
     get :imprint
+    get :help
     get :privacy
     get :promotion
     get :usage

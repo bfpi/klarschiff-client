@@ -14,6 +14,7 @@
         <div class="col-md-12">
           <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
           <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
+          <span class="glyphicon glyphicon-question-sign" rel="tooltip" title="Dies dient nur als Indikator, ähnlich einer Umfrage. Die Prüfung auf Realisierbarkeit ist davon unabhängig und auch bei 20 Zustimmungen nicht garantiert!"></span></p>
         </div>
       </div>
     <% end -%>

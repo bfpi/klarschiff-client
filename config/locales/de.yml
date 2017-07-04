@@ -7,6 +7,7 @@ de:
   font_attribution: Fonts © 2009
   font_origin: ParaType
   github: GitHub
+  help: Hilfe
   imprint: Impressum
   license: Lizenz
   locate: Ortung
@@ -351,6 +352,10 @@ de:
         success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Unterstützungsmeldung noch einmal bestätigen müssen.
       new:
         title: Unterstützung
+        text: Beschreibung
+        hint:
+          text: 'Ihre Unterstützung sollten Sie insb. dann zeigen, wenn Sie eine Idee gut finden. Sie hilft den Kollegen zu erkennen, dass der Sachverhalt nicht nur auf einer Einzelmeinung beruht.'
+          warning_html: "Achtung: Dies dient nur als Indikator, ähnlich einer Umfrage. Die Prüfung auf Realisierbarkeit ist davon unabhängig und auch bei 20 Zustimmungen nicht garantiert!"
     mobile:
       <<: *votes
       create:

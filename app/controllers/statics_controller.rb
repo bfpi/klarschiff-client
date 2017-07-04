@@ -8,6 +8,11 @@ class StaticsController < ApplicationController
     render :api
   end
 
+  def help
+    @file_name = 'hilfe'
+    render :api
+  end
+
   def privacy
     @file_name = 'datenschutz'
     render :api

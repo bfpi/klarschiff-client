@@ -7,6 +7,14 @@
     </div>
     <div class="row form-group">
       <div class="col-md-12">
+        <%= t('.hint.text') %>
+      </div>
+      <div class="col-md-12 div-margin-top">
+        <em class="text-danger"><%= t('.hint.warning_html') %></em>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12">
         <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
     </div>
