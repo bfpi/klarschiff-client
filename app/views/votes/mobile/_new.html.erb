@@ -6,6 +6,12 @@
     <div class="panel-body">
       <%= form_for([:request, @vote], remote: true) do |f| %>
         <%= hidden_field_tag :mobile, @mobile %>
+        <div class="form-group">
+          <span class="helper-block">
+            <%= t('.hint.text') %>
+            <em class="text-danger"><%= t('.hint.warning_html') %></em>
+          </span>
+        </div>
         <div class="row">
           <div class="col-md-8">
             <div class="form-group has-feedback has-clear">

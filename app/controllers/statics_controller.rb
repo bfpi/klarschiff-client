@@ -3,13 +3,13 @@ class StaticsController < ApplicationController
     @file_name = 'api'
   end
 
-  def imprint
-    @file_name = 'impressum'
+  def help
+    @file_name = 'hilfe'
     render :api
   end
 
-  def help
-    @file_name = 'hilfe'
+  def imprint
+    @file_name = 'impressum'
     render :api
   end
 
