@@ -46,7 +46,7 @@
     </div>
   </div>
   <div class="col-md-9">
-    <div class="panel panel-primary start-panel">
+    <div class="panel panel-info start-panel">
       <div class="panel-heading">
         <h5 class="panel-title"><%= t('.what_is_it', name: Settings::Client.name) %></h5>
       </div>
@@ -59,18 +59,65 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <%= link_to t('buttons.requests'), [:map], role: :button, class: 'btn btn-primary', data: { turbolinks: false } %>
+          <div class="col-md-8 text-center">
+            <%= link_to t('buttons.requests'), [:map], role: :button, class: 'btn btn-lg btn-primary most-important', data: { turbolinks: false } %>
           </div>
         </div>
       </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h5 class="panel-title"><%= t('.what_is_it_not', name: Settings::Client.name) %></h5>
       </div>
       <div class="panel-body">
         <%= t('.not_content') %>
+      </div>
+    </div>
+    <div id="statistic-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.statistics') %></h5>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @overall_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.overall') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @current_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.current') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @newest_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.newest') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @processed_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.processed') %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="news-panel" class="panel panel-info">
@@ -81,53 +128,6 @@
         <li class="list-group-item"><%= t('.news_content_one', name: Settings::Client.name) %></li>
         <li class="list-group-item"><%= t('.news_content_two', name: Settings::Client.name) %></li>
       </ul>
-    </div>
-    <div id="statistic-panel" class="panel panel-info">
-      <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.statistics') %></h5>
-      </div>
-      <div class="panel-body">
-        <div class="col-md-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="label label-info"><%= @overall_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.overall') %>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="label label-info"><%= @current_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.current') %>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="label label-info"><%= @newest_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.newest') %>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="label label-info"><%= @processed_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.processed') %>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
