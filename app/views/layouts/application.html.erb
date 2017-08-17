@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %>">
     <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
     <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
