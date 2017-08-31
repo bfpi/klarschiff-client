@@ -98,7 +98,7 @@ class KS.Map
                 ids = Array()
                 $(features).each (ix, feature) ->
                   ids.push feature.get('id')
-                url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                url += "#{ if url.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
                 $.ajax(url: url, dataType: 'script', data: { ids: ids })
               else
                 # Zoom in

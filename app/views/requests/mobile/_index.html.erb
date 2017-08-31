@@ -10,7 +10,7 @@
           <%= link_to(request_path(req.id, id_list: @requests.map(&:id), mobile: @mobile), remote: true, class: 'list-group-item') do %>
             <div class="hidden-xs right-badges">
               <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
-              #<%= req.id %>: <%= req.title %>
+              #<%= req.id %> <%= req.service.group %> – <%= req.service_name %>
               <%= mark_photo_required(req) %>
               <% if display?(:trust) -%>
                 <%= mark_trust(req) %>
@@ -20,7 +20,7 @@
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">
                 <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
-                #<%= req.id %>
+                #<%= req.id %> <%= req.service.group %> – <%= req.service_name %>
                 <%= mark_photo_required(req) %>
                 <% if display?(:trust) -%>
                   <%= mark_trust(req) %>
@@ -28,7 +28,7 @@
               </span>
               <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
               <div class="list-group-item-text heading">
-                <%= req.title %>
+                <%= req.service.group %> – <%= req.service_name %>
               </div>
             </div>
           <% end %>

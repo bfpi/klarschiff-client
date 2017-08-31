@@ -316,6 +316,8 @@ de:
       title: Meldungen
     mobile:
       <<: *requests
+      index:
+        title: Meldungen an dieser Stelle
     status:
       currently: aktuell bei
       since: seit
