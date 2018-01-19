@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     @user = if (name = request.env["AUTHENTICATE_FULLNAME"] || name = request.env["AUTHENTICATE_DISPLAYNAME"])
-              Ldap.login2(name)
+              Ldap.login2(name.force_encoding("UTF-8"))
             else
               authenticate_with_http_basic { |user, pwd| Ldap.login(user, pwd) }
             end
