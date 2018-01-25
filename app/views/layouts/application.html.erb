@@ -5,6 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %>">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de" />
+    <meta property="og:site_name" content="Klarschiff.HRO" />
+    <% if @og_request.present? -%>
+      <meta property="og:title" content="<%= @og_request.id %> - <%= @og_request.service %>" />
+      <meta property="og:image" content="<%= (url = @og_request.media_url).present? ? url : "#{URI.join(root_url, image_path('klarschiff.png'))}" %>" />
+      <meta property="og:url" content="<%= URI.join(root_url, url_for([:map, request: @og_request.id])) %>" />
+      <meta property="og:description" content="<%= @og_request.description %>" />
+    <% end -%>
+
     <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
     <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>

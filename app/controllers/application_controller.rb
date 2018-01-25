@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ClientConfig
   before_action :authenticate, if: :login_required?
-  before_action :set_mobile
+  before_action :set_mobile, :set_og_request
   # methods from ClientConfig concern
   helper_method :display?, :login_required?, :service_code, :imprint, :multi_requests_enabled?
   helper_method :has_field_service_team?, :context
@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
 
   def set_mobile
     @mobile = params[:mobile].presence
+  end
+
+  def set_og_request
+    if (id = params[:request]).present?
+      @og_request = Request.find(id)
+    end
   end
 
   def authenticate
