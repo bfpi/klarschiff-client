@@ -20,7 +20,16 @@ class RequestsController < ApplicationController
       session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     end
     respond_to do |format|
-      format.html { head :not_acceptable }
+      format.html do
+        return head :not_acceptable if params[:page].blank? || params[:per_page].blank? || params[:pages].blank?
+        @page = params[:page].to_i
+        @per_page = params[:per_page].to_i
+        @pages = params[:pages].to_i
+
+        indexStart = ((@page - 1) * @per_page);
+        @requests = @requests.slice(indexStart, @per_page)
+        render :layout => false
+      end
       format.js do
         if @mobile
           render "/requests/mobile/index"

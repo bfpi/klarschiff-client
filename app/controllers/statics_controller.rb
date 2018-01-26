@@ -27,4 +27,8 @@ class StaticsController < ApplicationController
     @file_name = 'nutzungsbedingungen'
     render :api
   end
+
+  def requests
+    @file_name = "#{ params[:page] || 1 }"
+  end
 end

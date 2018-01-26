@@ -23,5 +23,7 @@ Rails.application.routes.draw do
     get :privacy
     get :promotion
     get :usage
+    get :requests
+    get 'requests/:page', to: 'statics#requests'
   end
 end

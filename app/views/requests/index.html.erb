@@ -1,0 +1,44 @@
+<ul class="pagination">
+  <% if @page != 1 -%>
+    <li class="page-item">
+      <%= link_to(content_tag(:span, "«"), url_for(controller: :statics, action: :requests, page: (@page - 1))) %>
+    </li>
+  <% end -%>
+  <% params[:pages].to_i.times do |i| -%>
+    <% ix = (i + 1) %>
+    <li class="page-item <%= "active" if ix == params[:page].to_i %>">
+      <%= link_to(ix, url_for(controller: :statics, action: :requests, page: ix)) %>
+    </li>
+  <% end -%>
+  <% if @page != @pages -%>
+    <li class="page-item">
+      <%= link_to(content_tag(:span, "»"), url_for(controller: :statics, action: :requests, page: (@page + 1))) %>
+    </li>
+  <% end -%>
+</ul>
+
+<div class="requests">
+  <div class="panel panel-default">
+    <div class="panel-heading clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+      <%= t('.title') %>
+    </div>
+    <% if @requests.present? -%>
+    <div class="list-group">
+      <% @requests.each do |req| -%>
+      <%= link_to(url_for([:map, request: req.id]), class: 'list-group-item') do %>
+      <div class="right-badges">
+        <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
+        #<%= req.id %> <%= req.service.group %> – <%= req.service_name %>
+        <%= mark_photo_required(req) %>
+        <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+      </div>
+      <% end %>
+      <% end -%>
+    </div>
+    <% else -%>
+    <div class="panel-body">
+      <%= t('.empty_result') %>
+    </div>
+    <% end -%>
+  </div>
+</div>
