@@ -2,6 +2,7 @@ de:
   time:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
+      citysdk: "%Y-%m-%dT%H:%M:%SZ"
   api: API
   demo: Demo
   font_attribution: Fonts © 2009
@@ -364,3 +365,16 @@ de:
       <<: *votes
       create:
         success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt.
+
+  statistics:
+    index:
+      12months: "12 Monate"
+      6months: "6 Monate"
+      3months: "3 Monate"
+      1months: "1 Monat"
+      1week: "1 Woche"
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      status: Status
+      top5: "Top 5"
+      request_count: "Meldungen (mit gewählten Filtern)"
+      notice: "Für weiterführende Analysen nutzen Sie gerne unseren RSS-Feed, die API, oder kontaktieren Sie uns."

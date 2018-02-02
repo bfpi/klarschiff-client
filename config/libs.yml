@@ -15,6 +15,10 @@ javascripts:
   jquery.textresizer.min.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.min.js
   ol3-ext.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.js
   ol3-ext.min.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.js
+  d3-v4.js: https://d3js.org/d3.v4.js
+  d3-v4.min.js: https://d3js.org/d3.v4.min.js
+  billboard.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.js
+  billboard.min.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.min.js
 
 stylesheets:
   OpenLayers.css: https://raw.githubusercontent.com/openlayers/ol3/<%= versions[:ol] %>/css/ol.css

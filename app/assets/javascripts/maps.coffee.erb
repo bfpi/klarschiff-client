@@ -489,13 +489,6 @@ KS.stopAnimationTimeout = () ->
     clearTimeout(KS.animationId)
     KS.animationId = null
 
-
-KS.reloadFeatures= () ->
-  extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  KS.layers.findById('features').getSource().getSource().clear(true)
-  if KS.login_required && KS.getUrlParam('mobile')
-    KS.layers.findById('jobs').getSource().getSource().clear(true)
-
 KS.generatePath= () ->
   params = KS.getMapPanelParams()
   path = KS.requests_path

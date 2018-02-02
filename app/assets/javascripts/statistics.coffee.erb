@@ -1,0 +1,188 @@
+class KS.Heatmap
+  constructor: (@projection = KS.projection()) ->
+    @olHeatmap = new ol.Map
+      target: 'ol-heatmap'
+      moveTolerance: 10
+      controls: ol.control.defaults().extend([new KS.GeolocationControl])
+      view: new ol.View
+        projection: @projection
+        center: <%= Settings::Map.center %>
+        zoom: <%= Settings::Map.zoom[:min] %>
+        maxZoom: KS.maxZoom
+        minZoom: <%= Settings::Map.zoom[:min] %>
+    KS.HeatmapLayers = new KS.HeatmapLayers(@olHeatmap)
+    addControls(@olHeatmap)
+    KS.geolocation = new KS.Geolocation(@olHeatmap)
+    return @olHeatmap
+
+  addHeatmapLayer = (map) ->
+    KS.HeatmapLayers.layers.push new (ol.layer.Heatmap)(
+      source: new (ol.source.Vector)(
+        url: 'https://openlayers.org/en/v4.6.4/examples/data/kml/2012_Earthquakes_Mag5.kml'
+        format: new (ol.format.KML)(extractStyles: false))
+      blur: parseInt(15, 10)
+      radius: parseInt(5, 10))
+
+  addControls = (map) ->
+    map.addControl new ol.control.ScaleLine
+
+    map.on 'moveend', (e) ->
+      KS.reloadFeatures()
+
+class KS.HeatmapLayers
+  constructor: (map, requests) ->
+    @active = 0
+    @layers = []
+    for layer in <%= Settings::Map.wmts_layers.to_json %>
+      do (layer, @layers) ->
+        @layers.push new ol.layer.Tile
+          extent: layer.extent
+          source: new ol.source.WMTS
+            url: layer.url
+            layer: layer.content
+            matrixSet: layer.matrix_set
+            format: layer.format
+            requestEncoding: layer.request_encoding
+            tileGrid: new ol.tilegrid.WMTS
+              origin: layer.tilegrid_origin
+              resolutions: layer.resolutions
+              matrixIds: layer.matrix_ids
+            attributions: [
+              new ol.Attribution
+                html: layer.attribution
+            ] if layer.attribution?
+          visible: layer.visible
+    for layer in <%= Settings::Map.wms_layers.to_json %>
+      do (layer, @layers) ->
+        @layers.push new ol.layer.Image
+          extent: layer.extent
+          source: new ol.source.ImageWMS
+            url: layer.url
+            params:
+              "LAYERS": layer.content
+              "FORMAT": layer.format
+          visible: layer.visible
+    @layers.push new ol.layer.Heatmap
+      id: "heatmap"
+      source: new KS.HeatmapFeatureVector(KS.requests_path)
+      blur: 7
+      radius: 3
+      visible: true
+
+    map.addLayer layer for layer in @layers
+
+  findById: (id) ->
+    layers = KS.olHeatmap.getLayers()
+    i = 0
+    while i < layers.getLength()
+      tmp = layers.item(i)
+      if tmp.get('id') == id
+        return tmp
+      i++
+    null
+
+class KS.HeatmapFeatureVector
+  constructor: (controller) ->
+    return vector = new ol.source.Vector
+      format: new ol.format.TopoJSON
+      loader: (extent, resolution, projection) ->
+        extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
+        new KS.HeatmapFeatureData(controller, extent, vector)
+
+
+class KS.HeatmapFeatureData
+  constructor: (controller, extent, vector) ->
+    controller = KS.generateHeatmapPath()
+    extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
+    wgs84Sphere = new ol.Sphere(6378137)
+    $.ajax(url: controller, dataType: 'json', data: {
+      center: ol.extent.getCenter(extent),
+      radius: wgs84Sphere.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
+    }).done (response) ->
+      features = new Array
+      KS.StatisticCategories = {}
+      KS.StatisticStatus = {}
+      $.each response, (index, elem) ->
+        attribution = ""
+
+        coord = ol.proj.transform([elem.long, elem.lat], KS.projectionWGS84, KS.projection())
+        f = new ol.Feature
+          id: elem.service_request_id
+          geometry: new ol.geom.Point(coord)
+          icon: elem.icon_map
+          attribution: attribution
+        f.setId(elem.service_request_id)
+        features.push f
+
+        if KS.StatisticCategories[elem.service_name] == undefined
+          KS.StatisticCategories[elem.service_name] = 1
+        else
+          KS.StatisticCategories[elem.service_name]++
+
+        if KS.StatisticStatus[elem.extended_attributes.detailed_status] == undefined
+          KS.StatisticStatus[elem.extended_attributes.detailed_status] = 1
+        else
+          KS.StatisticStatus[elem.extended_attributes.detailed_status]++
+      
+      vector.addFeatures features
+      KS.updateStatistics(features.length)
+
+KS.generateHeatmapPath= () ->
+  params = KS.getMapPanelParams()
+  path = KS.requests_path
+  unless params == ''
+    path += "#{ if path.contains?('?') then '&' else '?' }#{ params }"
+  path
+
+KS.updateStatistics= (featuresCount) ->
+  $('#request_count').html(featuresCount)
+  $('.statistics [data-top5] [data-field=count]').html('')
+  $('.statistics [data-top5] [data-field=label]').html('&nbsp;')
+  
+  KS.StatisticCategoriesSorted = []
+  for key of KS.StatisticCategories
+    if KS.StatisticCategories.hasOwnProperty(key)
+      KS.StatisticCategoriesSorted.push [
+        key
+        KS.StatisticCategories[key]
+      ]
+  KS.StatisticCategoriesSorted.sort (a, b) ->
+    b[1] - (a[1])
+  KS.StatisticCategories = KS.StatisticCategoriesSorted
+  
+  i = 0
+  while i <= 5
+    if KS.StatisticCategories[i]
+      $('.statistics [data-top5=' + i + '] [data-field=count]').html(KS.StatisticCategories[i][1])
+      $('.statistics [data-top5=' + i + '] [data-field=label]').html(KS.StatisticCategories[i][0])
+    i++
+  
+  $('.statistics [data-status] [data-field=count]').html('0')
+  $.each KS.StatisticStatus, (elem) ->
+    $('.statistics [data-status=' + elem.toLowerCase() + '] [data-field=count]').html(KS.StatisticStatus[elem])
+  
+  chart_top5 = new Array
+  $.each $('.statistics [data-top5]'), (ix, row) ->
+    anz = $(row).children('[data-field=count]').html()
+    if parseInt(anz) > 0
+      chart_top5.push [$(row).children('[data-field=label]').html(), anz]
+  KS.drawChart '#chart_top5', chart_top5
+
+  chart_status = new Array
+  $.each $('.statistics [data-status]'), (ix, row) ->
+    anz = $(row).children('[data-field=count]').html()
+    if parseInt(anz) > 0
+      chart_status.push [$(row).children('[data-field=label]').html(), anz]
+  KS.drawChart '#chart_status', chart_status
+  
+KS.drawChart= (chart, data) ->
+  chart = bb.generate(
+    tooltip:
+      show: false
+    data:
+      columns: data,
+      type: 'pie'
+    bindto: chart)
+
+$ ->
+  KS.olHeatmap = new KS.Heatmap

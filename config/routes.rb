@@ -26,4 +26,5 @@ Rails.application.routes.draw do
     get :requests
     get 'requests/:page', to: 'statics#requests'
   end
+  resources :statistics, only: :index
 end

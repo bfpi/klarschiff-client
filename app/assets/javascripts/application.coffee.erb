@@ -24,6 +24,8 @@
 #= require_self
 #= require_tree .
 #= require ol3-ext
+#= require d3-v4
+#= require billboard
 
 window.KS ||= {}
 
@@ -58,6 +60,8 @@ KS.getMapPanelParams = () ->
   $('.show-feature').each () ->
     if $(@).is(':checked')
       filter.push($(@).data('key')+'[]='+$(@).attr('id'))
+  $('.map-parameter').each () ->
+    filter.push($(@).data('key')+'='+$(@).val())
   filter.join('&')
 
 KS.buildError = (errors) ->
@@ -94,6 +98,8 @@ $ ->
     false
 
   $(document).on 'click', '.show-feature', () ->
+    KS.reloadFeatures()
+  $(document).on 'change', '.map-parameter', () ->
     KS.reloadFeatures()
 
   $(document).on 'click', '.header-tab', () ->
@@ -181,3 +187,12 @@ $ ->
     false
 
   $('.start-panel').find('.btn-primary').toArray()[0].focus() if $('.start-panel').is(':visible')
+
+
+KS.reloadFeatures= () ->
+  extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
+  KS.layers.findById('features').getSource().getSource().clear(true)
+  if KS.login_required && KS.getUrlParam('mobile')
+    KS.layers.findById('jobs').getSource().getSource().clear(true)
+  extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
+  KS.HeatmapLayers.findById('heatmap').getSource().clear(true)
