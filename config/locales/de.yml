@@ -11,6 +11,7 @@ de:
   help: Hilfe
   imprint: Impressum
   license: Lizenz
+  list: Liste
   locate: Ortung
   mobile: mobil
   page_meta_description: "Melden Sie Probleme in der Infrastruktur der %{city_long}, die dann von der Stadtverwaltung bearbeitet werden."
@@ -20,6 +21,7 @@ de:
   promotion: Werbung
   success: Vielen Dank!
   share_request: ' Gerne können Sie Ihre Meldung aber bereits bekannt machen:'
+  statistic: Statistik
   usage: Nutzungsbedingungen
   username: Benutzername
 

@@ -66,6 +66,8 @@
               </div>
             </div>
             <div class="col-md-6 text-right">
+              <%= link_to t(:list), [:requests, :static] %> |
+              <%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
               <%= link_to t(:help), [:help, :static] %> |
               <%= link_to t(:privacy), [:privacy, :static] %> |
               <%= link_to t(:imprint), [:imprint, :static] %> |
