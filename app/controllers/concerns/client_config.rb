@@ -17,6 +17,10 @@ module ClientConfig
     Settings::Url.ks_frontend_imprint_url
   end
 
+  def privacy
+    Settings::Url.ks_frontend_privacy_url
+  end
+
   def multi_requests_enabled?
     Settings::Client.multi_requests_enabled
   end

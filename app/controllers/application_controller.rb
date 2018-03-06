@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate, if: :login_required?
   before_action :set_mobile
   # methods from ClientConfig concern
-  helper_method :display?, :login_required?, :service_code, :imprint, :multi_requests_enabled?
+  helper_method :display?, :login_required?, :service_code, :imprint, :privacy, :multi_requests_enabled?
   helper_method :has_field_service_team?, :context
   protect_from_forgery with: :exception 
   skip_before_action :verify_authenticity_token, if: :development? 
