@@ -16,13 +16,13 @@
           <div class="col-md-3">
           	<%= select_tag(:start_date, 
                            start_dates(),
-                           class: 'form-control map-parameter', data: { key: :start_date }) %>
+                           class: 'form-control map-parameter map-parameter-reload', data: { key: :start_date }) %>
           </div>
           <div class="col-md-3">
             <%= select_tag(:service_code, 
                            services(),
           	               include_blank: true,
-                           class: 'form-control map-parameter', data: { key: :service_code }) %>
+                           class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
           </div>
           <div class="col-md-3">
           </div>

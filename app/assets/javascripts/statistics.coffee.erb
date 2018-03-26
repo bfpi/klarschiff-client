@@ -7,21 +7,13 @@ class KS.Heatmap
       view: new ol.View
         projection: @projection
         center: <%= Settings::Map.center %>
-        zoom: <%= Settings::Map.zoom[:min] %>
+        zoom: <%= Settings::Map.zoom[:min] - 1 %>
         maxZoom: KS.maxZoom
-        minZoom: <%= Settings::Map.zoom[:min] %>
+        minZoom: <%= Settings::Map.zoom[:min] - 1 %>
     KS.HeatmapLayers = new KS.HeatmapLayers(@olHeatmap)
     addControls(@olHeatmap)
     KS.geolocation = new KS.Geolocation(@olHeatmap)
     return @olHeatmap
-
-  addHeatmapLayer = (map) ->
-    KS.HeatmapLayers.layers.push new (ol.layer.Heatmap)(
-      source: new (ol.source.Vector)(
-        url: 'https://openlayers.org/en/v4.6.4/examples/data/kml/2012_Earthquakes_Mag5.kml'
-        format: new (ol.format.KML)(extractStyles: false))
-      blur: parseInt(15, 10)
-      radius: parseInt(5, 10))
 
   addControls = (map) ->
     map.addControl new ol.control.ScaleLine
@@ -186,3 +178,11 @@ KS.drawChart= (chart, data) ->
 
 $ ->
   KS.olHeatmap = new KS.Heatmap
+  $(document).on 'change', '#area', () ->
+    area_id = $(this).val()
+    if area_id
+      $.ajax(url: KS.areas_path + '&area_code=' + area_id, dataType: 'json').done (response) ->
+        elem = response[0]
+        format = new ol.format.WKT()
+        grenze = format.readFeature(elem.grenze)
+        KS.olHeatmap.getView().fit grenze.getGeometry().getExtent()
