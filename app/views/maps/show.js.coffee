@@ -7,6 +7,7 @@
 
     KS.layers.findById("features").setVisible(<%= @show_non_job_features %>)
     <% if @zoom_to_jobs -%>
+    KS.olMap.getView().setZoom(<%= Settings::Map.zoom[:min] %>)
     setTimeout (->
       KS.olMap.getView().fit KS.layers.findById('jobs').getSource().getExtent(), KS.olMap.getSize()
     ), 500
