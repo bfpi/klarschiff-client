@@ -10,7 +10,7 @@ module StatisticsHelper
     ret.join('').html_safe
   end
 
-  def services
+  def service_list
     tmp = {}
     Service.collection.to_a.each do |service|
       tmp[service.group] = [] if tmp[service.group].blank?

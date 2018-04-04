@@ -20,7 +20,7 @@
           </div>
           <div class="col-md-3">
             <%= select_tag(:service_code, 
-                           services(),
+                           service_list(),
           	               include_blank: true,
                            class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
           </div>
