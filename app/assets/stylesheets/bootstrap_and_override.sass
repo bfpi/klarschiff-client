@@ -53,6 +53,23 @@ h5,
   padding-left: 3px
   padding-right: 4px
 
+@media (min-width: $screen-sm-min)
+  .navbar-default .navbar-nav
+    width: 100%
+    display: table
+
+  .navbar-default .navbar-nav > li
+    display: table-cell
+    float: unset
+    text-align: center
+
+  .navbar-default .navbar-nav > li > a
+    padding-left: unset
+    padding-right: unset
+
+  .navbar-default .navbar-nav > li > a > span.glyphicon
+    padding-right: unset
+
 nav
   &.navbar-fixed-bottom
     .btn-group
