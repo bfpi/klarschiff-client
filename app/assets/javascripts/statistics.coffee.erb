@@ -187,5 +187,5 @@ $ ->
         grenze = format.readFeature(elem.grenze)
         KS.olHeatmap.getView().fit grenze.getGeometry().getExtent()
     else
-      KS.olHeatmap.getView().setZoom(4)
+      KS.olHeatmap.getView().setZoom(<%= Settings::Map.zoom[:min] - 1 %>)
       KS.olHeatmap.getView().setCenter(<%= Settings::Map.center %>)
