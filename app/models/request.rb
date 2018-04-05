@@ -68,6 +68,10 @@ class Request < ActiveResource::Base
     votes < min_req
   end
 
+  def media_required?
+    !media_url.present? || extended_attributes.photo_required
+  end
+
   def flag_color_class
     "job-status " << case job_status
       when 'NOT_CHECKABLE'

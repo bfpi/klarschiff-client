@@ -84,6 +84,7 @@ de:
     save: Speichern
     search: Suchen
     submit: Senden
+    upload: Hochladen
 
   messages:
     success:
@@ -224,6 +225,15 @@ de:
         Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z. B. RSSOwl,
         Liferea, Feedly) oder Ihrem Browser:
 
+  photos:
+    desktop:
+      create:
+        error: Fehler beim hinzufügen eines Fotos
+    mobile:
+      create:
+        error: Fehler beim hinzufügen eines Fotos
+        success: Foto erfolgreich abgelegt
+
   places:
     desktop: &places
       index:
@@ -309,6 +319,9 @@ de:
           note: neuer interner Kommentar
           reload: aktualisieren
           vote: Unterstützung
+        confirmation_foto: Abschluss
+        confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
+        confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
         votes_html: "Bisher <span class='request-votes'>%{votes}</span> Unterstützungen"
         votes_under_min_req_html: "Bisher <span class='request-votes under-min-req'>%{votes}</span> Unterstützungen"
