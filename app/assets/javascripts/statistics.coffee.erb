@@ -12,7 +12,6 @@ class KS.Heatmap
         minZoom: <%= Settings::Map.zoom[:min] - 1 %>
     KS.HeatmapLayers = new KS.HeatmapLayers(@olHeatmap)
     addControls(@olHeatmap)
-    KS.geolocation = new KS.Geolocation(@olHeatmap)
     return @olHeatmap
 
   addControls = (map) ->
