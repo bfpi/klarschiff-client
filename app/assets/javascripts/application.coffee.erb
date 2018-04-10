@@ -194,5 +194,23 @@ KS.reloadFeatures= () ->
   KS.layers.findById('features').getSource().getSource().clear(true)
   if KS.login_required && KS.getUrlParam('mobile')
     KS.layers.findById('jobs').getSource().getSource().clear(true)
+    setTimeout ->
+      $.ajax(url: KS.job_notification_path, dataType: 'script')
+    , 2000
   extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
   KS.HeatmapLayers.findById('heatmap').getSource().clear(true)
+
+KS.playJobSound= () ->
+  audioCtx = new ((window.AudioContext or window.webkitAudioContext))
+  source = audioCtx.createBufferSource()
+  xhr = new XMLHttpRequest
+  xhr.open 'GET', $('#job-sound-path').data('file')
+  xhr.responseType = 'arraybuffer'
+  xhr.addEventListener 'load', (r) ->
+    audioCtx.decodeAudioData xhr.response, (buffer) ->
+      source.buffer = buffer
+      source.connect audioCtx.destination
+      source.loop = false
+      return
+    source.start 0
+  xhr.send()

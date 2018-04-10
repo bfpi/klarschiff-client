@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :areas, only: :index
   resources :jobs, only: [:index, :update]
+  get 'jobs/notification', to: 'jobs#notification'
+
   resources :observations, only: [:index, :new, :create]
   resources :places, only: [:index, :show]
   resources :requests do
