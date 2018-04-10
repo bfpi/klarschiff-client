@@ -58,7 +58,7 @@ class RequestsController < ApplicationController
     else
       @request = Request.find(id)
     end
-    @photo = Photo.new(service_request_id: @request.id, email: nil)
+    @photo = Photo.new(service_request_id: @request.id, author: nil)
     @refresh = params[:refresh].presence
     @id_list = params[:id_list].try(:map, &:to_i).presence
     render "/requests/#{ context }/show"

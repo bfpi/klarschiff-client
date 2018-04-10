@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
   # Foto melden
   # params:
   #   service_request_id  pflicht  - Vorgang-ID
-  #   email               pflicht  - Autor-Email
+  #   author              pflicht  - Autor-Email
   #   media               pflicht  - Bild
   def create
     photo = Photo.create(permissable_params.merge(
@@ -19,7 +19,7 @@ class PhotosController < ApplicationController
   
   private
   def permissable_params
-    keys = [:email, :media]
+    keys = [:author, :media]
     data = params.require(:photo).permit(keys)
     if (img = params[:photo][:media]).present?
       data[:media] = Base64.encode64(img.read)

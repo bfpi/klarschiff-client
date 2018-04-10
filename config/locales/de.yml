@@ -229,6 +229,7 @@ de:
     desktop:
       create:
         error: Fehler beim hinzufügen eines Fotos
+        success: Foto erfolgreich abgelegt
     mobile:
       create:
         error: Fehler beim hinzufügen eines Fotos
