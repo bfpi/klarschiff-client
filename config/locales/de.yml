@@ -187,6 +187,8 @@ de:
     index:
       empty_result: Für heute liegen keine Aufträge vor.
       title: Aufträge
+    notification:
+      notification_title: "%{name} – Neuer Auftrag"
 
   maps:
     desktop:

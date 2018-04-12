@@ -89,6 +89,7 @@ KS.buildError = (errors) ->
   
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
+  KS.NotificationHandler().checkPermission()
 
   $(document).on 'click', '.switch-map-view', () ->
     $(@).html($(@).data($(@).attr('id')))
@@ -199,18 +200,3 @@ KS.reloadFeatures= () ->
     , 2000
   extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
   KS.HeatmapLayers.findById('heatmap').getSource().clear(true)
-
-KS.playJobSound= () ->
-  audioCtx = new ((window.AudioContext or window.webkitAudioContext))
-  source = audioCtx.createBufferSource()
-  xhr = new XMLHttpRequest
-  xhr.open 'GET', $('#job-sound-path').data('file')
-  xhr.responseType = 'arraybuffer'
-  xhr.addEventListener 'load', (r) ->
-    audioCtx.decodeAudioData xhr.response, (buffer) ->
-      source.buffer = buffer
-      source.connect audioCtx.destination
-      source.loop = false
-      return
-    source.start 0
-  xhr.send()

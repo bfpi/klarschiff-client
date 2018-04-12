@@ -5,10 +5,7 @@ class JobsController < ApplicationController
     return render(nothing: true) unless has_field_service_team?
 
     @jobs = Request.where(@conditions).try(:to_a)
-    session[:job_notification] = (!(session[:id_list].nil?) && session[:id_list] != @jobs.map(&:id).sort)
-
     session[:referer_params] = params.slice(:center, :radius)
-    session[:id_list] = @jobs.map(&:id).sort
     respond_to do |format|
       format.js
       format.json { render json: @jobs }
@@ -16,8 +13,12 @@ class JobsController < ApplicationController
   end
 
   def notification
-    @play_notification = true if session[:job_notification]
-    session[:job_notification] = false
+    @jobs = Request.where(@conditions).try(:to_a)
+
+    session[:id_list] = @jobs.map(&:id) if session[:id_list].blank?
+    @difference = @jobs.reject{|x| x if session[:id_list].include?(x.id) }
+
+    session[:id_list] = @jobs.map(&:id)
   end
 
   def update

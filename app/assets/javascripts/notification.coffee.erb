@@ -1,0 +1,28 @@
+KS.NotificationHandler = ->
+  checkPermission: ->
+    if 'mozNotification' of navigator
+      console.log 'NotificationPermission: true'
+    else
+      return Notification.requestPermission (permission) ->
+        if permission == 'granted'
+          console.log 'NotificationPermission: true'
+        return
+    return
+  displayNotification: (title, message, icon, onclick) ->
+    instance = undefined
+    if title.length > 0
+      attributes = {}
+      if message.length > 0
+        attributes.body = message.substr(0, 250)
+      if icon.length > 0
+        attributes.icon = icon
+      if 'mozNotification' of navigator
+        instance = navigator.mozNotification.createNotification(title.substr(0, 100), attributes.body or '', attributes.icon or null)
+        if onclick != undefined
+          instance.onclick = onclick
+        instance.show()
+      else
+        instance = new Notification(title.substr(0, 100), attributes)
+        if onclick != undefined
+          instance.onclick = onclick
+    return
