@@ -36,13 +36,13 @@ Klarschiff mobile client with additional functions supporting the field service
   - Gegebenenfalls muss das entsprechende Ruby installiert werden:
   
     ```bash
-    rvm install ruby-2.2.2
+    rvm install ruby-2.3.2
     ```
   - Ein erneuter Wechsel in das Verzeichnis legt anschließend die notwendigen Wrapper und das Gemset an
   
     ```bash
-    ruby-2.2.2 - #gemset created /usr/local/rvm/gems/ruby-2.2.2@klarschiff-field_service_r01
-    ruby-2.2.2 - #generating klarschiff-field_service_r01 wrappers................
+    ruby-2.3.2 - #gemset created /usr/local/rvm/gems/ruby-2.3.2@klarschiff-field_service_r01
+    ruby-2.3.2 - #generating klarschiff-field_service_r01 wrappers................
     ```
   - Falls ```bundler``` nicht (mehr) als Default-Gem durch RVM installiert wird, kann dies wie folgt nachgeholt werden:
   
@@ -67,76 +67,154 @@ Klarschiff mobile client with additional functions supporting the field service
     ```
 
 ## Konfiguration der Applikation (Anpassung an die entsprechende Umgebung / Unterscheidung zw. mobilem Simple-Client und mobilem Außendienst-Frontent)
-Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden.
+Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden. Die für die Umgebung gültigen Werte werden dann in der `xyz.yml` konfiguriert.
 
 ### Konfigurationen in der `config/settings.yml`
-  - LDAP erfolgt in dem Block `ldap`
-  - URL zur Straßen- und Adresssuche im Frontend erfolgt im Block `global`
-  - Resource-Servers (Verbindung zum CitySDK-Server) erfolgt im Block `resource_servers`
-  - Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client, erfolgt im Block `client`:
-    - `animate_refresh` (Pflichtfeld):
-      - Zeitabstand (in Sekunden) zwischen der letzten und der nächsten Animation für den "Neue Meldung"-Marker
-    - `service_code` (Optional):
-      - ID der Unterkategorie, auf die die Funktionalitäten des PC-Clients beschränkt werden sollen
-    - `key` (Pflichtfeld):
-      - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
-    - `login_required` (Pflichtfeld): 
-      - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
-    - `name` (Pflichtfeld):
-      - Name des Clients
-    - `resources_path` (Pflichtfeld):
-      - Pfad in dem die externen statischen Seiten (z.B. Hilfsseite, API) abgelegt wurden
-    - `logo_url` (Pflichtfeld):
-      - Pfad zum Gemeinde-Logo
-    - `show_email`: 
-      - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
-      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_abuses`:
-      - steuert die Darstellung der `Missbrauch`-Schaltfläche für Meldungen
-      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_votes`:
-      - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
-      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_create_comments`:
-      - steuert die Darstelling der Schaltfläche `Lob, Hinweise oder Kritik`
-      - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_comments`:
-      - steuert die Darstellung der Kommentare einer Meldung
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_edit_request`:
-      - steuert die Darstellung der Bearbeiten-Schaltfläche einer Meldung
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_edit_status`:
-      - steuert die Darstellung der Schaltfläche zum Ändern des Status eines Auftrags
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_protocol`:
-      - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_notes`:
-      - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-    - `show_trust`:
-      - steuert die Darstelling der Trust-Level-Sterne
-      - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee erfolgt im Block `vote`
 
-### Secrets (`config/secrets.yml`) zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
-Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
+#### Block 'urls'
+Zentrale Konfiguration von im Frontend genutzten URLs.
+  - `ks_frontend_search_url` (Pflichtfeld):
+    - URL zur Straßen- und Adresssuche
+  - `ks_server_url` (Pflichtfeld):
+    - URL zum Klarschiff-Frontend
+  - `ks_backend_vorgang_url` (Pflichtfeld):
+    - URL zum Vorgang in der Backend-Anwendung
+  - `ks_demo_url` (Pflichtfeld):
+    - URL zur Demo-Installation
+  - `ks_github_url` (Pflichtfeld):
+    - URL zum GIT-Repository des Klarschiff-Frontents
+  - `font_origin_url` (Pflichtfeld):
+    - URL zur Font-Quelle
+  - `font_license_url` (Pflichtfeld):
+    - URL zur Font-Lizenz
+
+#### Block 'client'
+Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client:
+  - `animate_refresh` (Pflichtfeld):
+    - Zeitabstand (in Sekunden) zwischen der letzten und der nächsten Animation für den "Neue Meldung"-Marker
+  - `service_code` (Optional):
+    - ID der Unterkategorie, auf die die Funktionalitäten des PC-Clients beschränkt werden sollen
+  - `key` (Pflichtfeld):
+    - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
+  - `login_required` (Pflichtfeld):
+    - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
+  - `multi_requests_enabled` (Optional):
+    - ermöglicht das Anlegen von Multimeldungen (Es werden einzelne "normale" Meldungen erzeugt, welche in den wesentlichen Eigenschaften identisch sind, allerdings unterschiedlichen Kategorien zugeordnet sind. Diese verbleiben nach der Erstellung vollständig eigentständig)
+  - `name` (Pflichtfeld):
+    - Name des Clients
+  - `city_long` (Pflichtfeld):
+    - Name der Stadt
+  - `city_short` (Pflichtfeld):
+    - Name der Stadt in Kurzform
+  - `resources_path` (Pflichtfeld):
+    - Pfad in dem die externen statischen Seiten (z.B. Hilfsseite, API) abgelegt wurden
+  - `resources_overview_path` (Pflichtfeld):
+    - Pfad in dem die automatisch generierten statischen Dateien der Vorgangslisten abgelegt wurden
+  - `logo_url` (Pflichtfeld):
+    - Pfad zum Gemeinde-Logo
+  - `show_email` (Optional):
+    - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
+    - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_abuses` (Optional):
+    - steuert die Darstellung der `Missbrauch`-Schaltfläche für Meldungen
+    - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_votes` (Optional):
+    - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
+    - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_create_comments` (Optional):
+    - steuert die Darstelling der Schaltfläche `Lob, Hinweise oder Kritik`
+    - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_comments` (Optional):
+    - steuert die Darstellung der Kommentare einer Meldung
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_edit_request` (Optional):
+    - steuert die Darstellung der Bearbeiten-Schaltfläche einer Meldung
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_edit_status` (Optional):
+    - steuert die Darstellung der Schaltfläche zum Ändern des Status eines Auftrags
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_protocol` (Optional):
+    - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_notes` (Optional):
+    - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_trust` (Optional):
+    - steuert die Darstelling der Trust-Level-Sterne
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `additional_content` (Pflichtfeld):
+    - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als Letztes innerhalb des HTML-Body ausgegeben wird.
+    - auf `false` gesetzt, wenn kein zusätzliches HTML notwendig ist
+
+#### Block 'vote'
+  - `min_requirement` (Pflichtfeld):
+    - Konfiguration der minimalen Anzahl von Unterstützungen für Meldungen vom Typ Idee
+
+#### Block 'ldap'
+  - `host` (Pflichtfeld für PPC):
+    - LDAP Host
+  - `port` (Pflichtfeld für PPC):
+    - LDAP Port
+  - `encryption` (Pflichtfeld für PPC):
+    - Festlegen von Verschlüsselungseigenschaften (simple_tls oder :start_tls)
+  - `username` (Pflichtfeld für PPC):
+    - LDAP Benutzername
+  - `password` (Pflichtfeld für PPC):
+    - LDAP Passwort
+  - `users` (Pflichtfeld für PPC):
+    - `attributes_mapping` (Pflichtfeld für PPC):
+      - LDAP-Attribute der Benutzer, die ausgelesen werden sollen
+    - `base` (Pflichtfeld für PPC):
+      - Einschränkung auf LDAP-Suchbasis für Benutzer
+  - `groups` (Pflichtfeld für PPC):
+    - `base` (Pflichtfeld für PPC):
+      - Einschränkung auf LDAP-Suchbasis für Gruppen
+    - `search_pattern` (Pflichtfeld für PPC):
+      - Such-Pattern für die Suche von Gruppen
+
+#### Block 'resource_servers'
+  - `city_sdk` (Pflichtfeld):
+    - `site`
+      - Pfad zum CitySDK-Server
+    - `format`
+      - Format der Kommunikation (json oder xml)
+    - `api_key`
+      - API-Key zur Authentifizierung des Clients
+
+#### Block 'protocol_mail'
+  - `recipient` (Pflichtfeld für PPC):
+    - E-Mail-Empfänger der Protokoll-Benachrichtigungen
+  - `sender` (Pflichtfeld für PPC):
+    - E-Mail-Absender an Protokoll-Benachrichtigungen
+  - `smtp` (Pflichtfeld für PPC):
+    - `host` (Pflichtfeld für PPC):
+      - E-Mail-Server
+    - `starttls_enabled` (Pflichtfeld für PPC):
+      - aktiviert die Erkennung, ob der SMTP-Server STARTTLS aktiviert hat und verwendet es
+    - `username` (Pflichtfeld für PPC):
+      - E-Mail Benutzername
+    - `password` (Pflichtfeld für PPC):
+      - E-Mail Passwort
+
+#### Block 'map'
+  - Konfiguration der Karten-Layer (ein Beispiel ist in der `config/settings.sample.yml` zu finden
+
+#### Block 'request'
+  - `permissable_states` (Pflichtfeld für PPC):
+    - Einschränkung auf erlaubte Status
+
+#### Block 'auto_refresh'
+  - `timeout` (Pflichtfeld):
+    - Automatisches Aktualisieren der Vorgänge alle X ms
+
+### Konfigurationen in der `config/secrets.yml`
+- Die Datei dient der Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
+    - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
 
 ### URL-Umleitung und Direkt-Links
 
 #### Änderungen der Konfiguration am Apache-Server
 - folgende Änderungen an der .conf-Datei des Apache-Servers sind vorzunehmen
-```php
-  RewriteEngine on
-```
-- Aktivierung der RewriteEngine zum Umschreiben der angeforderten URL
-```php
-  RewriteCond %{REQUEST_URI} ^/$
-  RewriteRule (.*) /mobil/start [R=301]
-```
-- Umschreiben der Basis-URI des Webservers auf das Start-Verzeichnis des mobilen Clients, auf dem die Umleitung erfolgt
-
 ```php
   Alias /resources path_to_resources
 ```
@@ -144,10 +222,10 @@ Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber 
 - path_to_resources muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen
 
 #### URL-Umleitung
-- über `<client_url>/start` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
+- über `<client_url>/` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
 - beim PPC findet diese Umleitung nicht statt
 - zudem kann der Query-Parameter `advice=<id>` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
 
 #### Direkt-Links
-- mittels `<client_url>/?request=<id>` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert
+- mittels `<client_url>/map?request=<id>` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert
 - die Karte zentriert dabei auf die Meldung und stellt diese dar
