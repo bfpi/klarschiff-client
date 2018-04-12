@@ -13,10 +13,6 @@ module ClientConfig
     Settings::Client.login_required
   end
 
-  def imprint
-    Settings::Url.ks_frontend_imprint_url
-  end
-
   def multi_requests_enabled?
     Settings::Client.multi_requests_enabled
   end
