@@ -122,7 +122,7 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
     - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `show_create_comments` (Optional):
-    - steuert die Darstelling der Schaltfläche `Lob, Hinweise oder Kritik`
+    - steuert die Darstellung der Schaltfläche `Lob, Hinweise oder Kritik`
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `show_comments` (Optional):
     - steuert die Darstellung der Kommentare einer Meldung
@@ -143,7 +143,7 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
     - steuert die Darstelling der Trust-Level-Sterne
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `additional_content` (Pflichtfeld):
-    - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als Letztes innerhalb des HTML-Body ausgegeben wird.
+    - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als letztes innerhalb des HTML-Body ausgegeben wird.
     - auf `false` gesetzt, wenn kein zusätzliches HTML notwendig ist
 
 #### Block 'vote'
@@ -219,7 +219,7 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
   Alias /resources path_to_resources
 ```
 - Zugriff auf den Ordner, in dem die statischen Inhalte abgelegt wurden
-- path_to_resources muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen
+- `path_to_resources` muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen
 
 #### URL-Umleitung
 - über `<client_url>/` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
