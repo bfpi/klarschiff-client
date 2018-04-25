@@ -67,7 +67,7 @@ Klarschiff mobile client with additional functions supporting the field service
     ```
 
 ## Konfiguration der Applikation (Anpassung an die entsprechende Umgebung / Unterscheidung zw. mobilem Simple-Client und mobilem Außendienst-Frontent)
-Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `yxz.yml` benannt werden. Die für die Umgebung gültigen Werte werden dann in der `xyz.yml` konfiguriert.
+Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `xyz.yml` benannt werden. Die für die Umgebung gültigen Werte werden dann in der `xyz.yml` konfiguriert.
 
 ### Konfigurationen in der `config/settings.yml`
 
