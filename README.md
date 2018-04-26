@@ -208,24 +208,23 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
     - Automatisches Aktualisieren der Vorgänge alle X ms
 
 ### Konfigurationen in der `config/secrets.yml`
-- Die Datei dient der Verschlüsselung der internen Nutzerdaten (Cookies, usw.)
-    - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
+Diese Datei dient der Konfiguration zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.).
+  - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
 
-### URL-Umleitung und Direkt-Links
-
-#### Änderungen der Konfiguration am Apache-Server
-- folgende Änderungen an der .conf-Datei des Apache-Servers sind vorzunehmen
+### Konfiguration am Apache-Server
+Für die einfachere Verwaltung und den parallelen Betrieb mehrerer Klarschiffinstanzen werden die statischen (sich unterscheidenden) Inhalte in einen zusätzlichen Ressourcen-Verzeichnis abgelegt.
+Dieses Verzeichnis wird in der `settings.yml` für die Anwendung konfiguriert. Damit dieses harmonisch funktioniert muss zusätzlich ein Alias dafür im Apache-Server (in der .conf Datei) konfiguriert werden:
 ```php
   Alias /resources path_to_resources
 ```
-- Zugriff auf den Ordner, in dem die statischen Inhalte abgelegt wurden
-- `path_to_resources` muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen
+`path_to_resources` muss entsprechend mit dem Pfad ersetzt werden, in dem die statischen Inhalte liegen.
 
+### Hinweise zu automatischen URL-Umleitungen und Direkt-Links
 #### URL-Umleitung
-- über `<client_url>/` erfolgt die Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde
-- beim PPC findet diese Umleitung nicht statt
-- zudem kann der Query-Parameter `advice=<id>` übergeben werden, mit dem nach Weiterleitung auf den entsprechenden Client die Meldung mit der angegebenen `id` aufgerufen wird
+- Beim Aufruf der Anwendung über die jeweilige `<root_url>` der Instanz erfolgt automatisch eine Umleitung auf dem mobilen oder Desktop-Client, je nachdem, welches Gerät erkannt wurde.
+- Handelt es sich bei der eingerichteten Instanz um den PPC findet diese Umleitung nicht statt, da dieser direkt als mobile Anwendung vorkonfiguriert ist.
+- Wird die Anwendung mit dem Query-Parameter `advice=<id>` aufgerufen, erfolgt nach der Weiterleitung auf den entsprechenden Client die Anzeige der Meldung zur angegebenen `id` (siehe dazu auch den Abschnitt Direkt-Links).
 
 #### Direkt-Links
-- mittels `<client_url>/map?request=<id>` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert
-- die Karte zentriert dabei auf die Meldung und stellt diese dar
+- Mittels `<root_url>/map?request=<id>` kann direkt auf eine Meldung mit der entsprechenden `id` zugegriffen werden, sofern diese existiert.
+- Die Anwendung schaltet dazu auf die Karte, zentriert auf die Meldung, und stellt diese dar.
