@@ -69,13 +69,13 @@
         <% end -%>
         <% if !login_required? -%>
           <li>
-            <a href="<%= imprint %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
+            <a href="<%= imprint_static_path %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               <span class="hidden-sm hidden-md"><%= t("nav.imprint") %></span>
             </a>
           </li>
           <li>
-            <a href="<%= privacy %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
+            <a href="<%= privacy_static_path %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
               <span class="hidden-sm hidden-md"><%= t("nav.privacy") %></span>
             </a>

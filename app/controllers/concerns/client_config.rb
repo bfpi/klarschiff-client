@@ -1,5 +1,9 @@
 module ClientConfig
   extend ActiveSupport::Concern
+
+  included do
+    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?
+  end
   
   def display?(par)
     Settings::Client.send("show_#{ par }")
