@@ -43,6 +43,10 @@ KS.autoRefresh = () ->
       KS.reloadFeatures()
     else if glyphiconRefresh.is(':visible')
       glyphiconRefresh.parents('.clickable').click()
+  if KS.login_required && KS.getUrlParam('mobile')
+    setTimeout ->
+      $.ajax(url: KS.job_notification_path, dataType: 'script')
+    , 2000
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
 KS.getUrlParam = (name) ->
@@ -89,7 +93,8 @@ KS.buildError = (errors) ->
   
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
-  KS.NotificationHandler().checkPermission()
+  if KS.login_required
+    KS.NotificationHandler().checkPermission()
 
   $(document).on 'click', '.switch-map-view', () ->
     $(@).html($(@).data($(@).attr('id')))
@@ -195,8 +200,5 @@ KS.reloadFeatures= () ->
   KS.layers.findById('features').getSource().getSource().clear(true)
   if KS.login_required && KS.getUrlParam('mobile')
     KS.layers.findById('jobs').getSource().getSource().clear(true)
-    setTimeout ->
-      $.ajax(url: KS.job_notification_path, dataType: 'script')
-    , 2000
   extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
   KS.HeatmapLayers.findById('heatmap').getSource().clear(true)

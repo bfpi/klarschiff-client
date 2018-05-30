@@ -10,19 +10,22 @@ KS.NotificationHandler = ->
     return
   displayNotification: (title, message, icon, onclick) ->
     instance = undefined
-    if title.length > 0
-      attributes = {}
-      if message.length > 0
-        attributes.body = message.substr(0, 250)
-      if icon.length > 0
-        attributes.icon = icon
-      if 'mozNotification' of navigator
-        instance = navigator.mozNotification.createNotification(title.substr(0, 100), attributes.body or '', attributes.icon or null)
-        if onclick != undefined
-          instance.onclick = onclick
-        instance.show()
-      else
-        instance = new Notification(title.substr(0, 100), attributes)
-        if onclick != undefined
-          instance.onclick = onclick
+    try
+      if title.length > 0
+        attributes = {}
+        if message.length > 0
+          attributes.body = message.substr(0, 250)
+        if icon.length > 0
+          attributes.icon = icon
+        if 'mozNotification' of navigator
+          instance = navigator.mozNotification.createNotification(title.substr(0, 100), attributes.body or '', attributes.icon or null)
+          if onclick != undefined
+            instance.onclick = onclick
+          instance.show()
+        else
+          instance = new Notification(title.substr(0, 100), attributes)
+          if onclick != undefined
+            instance.onclick = onclick
+    catch _error
+      #alert(_error.message)
     return
