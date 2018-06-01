@@ -323,6 +323,7 @@ de:
           note: neuer interner Kommentar
           reload: aktualisieren
           vote: Unterstützung
+          d3_document: d.3-Akte
         confirmation_foto: Abschluss
         confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
         confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"

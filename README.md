@@ -137,10 +137,13 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
     - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `show_notes` (Optional):
-    - steuert die Dartsellung des Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
+    - steuert die Dartsellung der Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `show_trust` (Optional):
     - steuert die Darstelling der Trust-Level-Sterne
+    - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_d3_document_url` (Optional):
+    - steuert die Dartsellung der Schaltfläche zum Aufruf der Vorgangs-Akte im d.3-Client
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `additional_content` (Pflichtfeld):
     - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als letztes innerhalb des HTML-Body ausgegeben wird.

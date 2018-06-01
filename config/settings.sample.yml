@@ -29,6 +29,7 @@ client:
   show_protocol:
   show_notes:
   show_trust:
+  show_d3_document_url:
   additional_content: false
 
 vote:

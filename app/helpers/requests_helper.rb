@@ -47,4 +47,11 @@ module RequestsHelper
   def service
     Service.find(service_code) if service_code
   end
+
+  def d3_document_url(request)
+    request.service.document_url.
+        gsub('{ks_id}', request.id.to_s).
+        gsub('{ks_user}', @user.name).
+        gsub('{ks_address}', request.address)
+  end
 end
