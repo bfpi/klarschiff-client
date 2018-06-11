@@ -1,31 +1,36 @@
 KS.NotificationHandler = ->
-  checkPermission: ->
-    if 'mozNotification' of navigator
-      console.log 'NotificationPermission: true'
-    else
-      return Notification.requestPermission (permission) ->
-        if permission == 'granted'
-          console.log 'NotificationPermission: true'
-        return
-    return
-  displayNotification: (title, message, icon, onclick) ->
-    instance = undefined
-    try
-      if title.length > 0
-        attributes = {}
-        if message.length > 0
-          attributes.body = message.substr(0, 250)
-        if icon.length > 0
-          attributes.icon = icon
-        if 'mozNotification' of navigator
-          instance = navigator.mozNotification.createNotification(title.substr(0, 100), attributes.body or '', attributes.icon or null)
-          if onclick != undefined
-            instance.onclick = onclick
-          instance.show()
-        else
-          instance = new Notification(title.substr(0, 100), attributes)
-          if onclick != undefined
-            instance.onclick = onclick
-    catch _error
-      #alert(_error.message)
-    return
+
+  initializeServiceWorkerRegistration = ->
+    navigator.serviceWorker.addEventListener 'message', (event) ->
+      console.log 'Received a message from service worker: ', event.data
+    registerServiceWorker().then (registration) ->
+      KS.ServiceWorkerRegistration = registration
+
+  registerServiceWorker = ->
+    navigator.serviceWorker.register('<%= asset_url('service-worker.js') %>').then((registration) ->
+      console.log 'Service worker successfully registered.'
+      registration
+    ).catch (err) ->
+      console.error 'Unable to register service worker.', err
+      return
+
+  initialize: ->
+    if !('serviceWorker' of navigator)
+      console.log 'Service Worker isn\'t supported on this browser, disable or hide UI.'
+      return
+    if !('PushManager' of window)
+      console.log 'Push isn\'t supported on this browser, disable or hide UI.'
+      return
+    promiseChain = new Promise((resolve, reject) ->
+      permissionPromise = Notification.requestPermission().then (result) ->
+        resolve result
+      if permissionPromise
+        permissionPromise.then resolve
+      return
+    ).then((result) ->
+      if result == 'granted'
+        initializeServiceWorkerRegistration()
+      else
+        console.log 'no permission'
+      return
+    )

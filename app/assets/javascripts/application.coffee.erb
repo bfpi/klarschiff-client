@@ -94,7 +94,7 @@ KS.buildError = (errors) ->
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
   if KS.login_required
-    KS.NotificationHandler().checkPermission()
+    KS.NotificationHandler().initialize()
 
   $(document).on 'click', '.switch-map-view', () ->
     $(@).html($(@).data($(@).attr('id')))
