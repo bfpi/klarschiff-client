@@ -4,6 +4,9 @@ class RequestsController < ApplicationController
       conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
       conditions.update service_code: service_code if service_code
       conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+      conditions[:area_code] = params[:area] if params[:area]
+      conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
+      conditions[:service_code] = params[:service_code] if params[:service_code]
       if (center = params[:center]).present?
         conditions.update lat: center[0], long: center[1]
       end
@@ -20,7 +23,16 @@ class RequestsController < ApplicationController
       session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     end
     respond_to do |format|
-      format.html { head :not_acceptable }
+      format.html do
+        return head :not_acceptable if params[:page].blank? || params[:per_page].blank? || params[:pages].blank?
+        @page = params[:page].to_i
+        @per_page = params[:per_page].to_i
+        @pages = params[:pages].to_i
+
+        indexStart = ((@page - 1) * @per_page);
+        @requests = @requests.slice(indexStart, @per_page)
+        render :layout => false
+      end
       format.js do
         if @mobile
           render "/requests/mobile/index"
@@ -46,6 +58,7 @@ class RequestsController < ApplicationController
     else
       @request = Request.find(id)
     end
+    @photo = Photo.new(service_request_id: @request.id, author: nil)
     @refresh = params[:refresh].presence
     @id_list = params[:id_list].try(:map, &:to_i).presence
     render "/requests/#{ context }/show"

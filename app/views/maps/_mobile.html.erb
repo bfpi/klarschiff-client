@@ -55,13 +55,13 @@
         <% end -%>
         <% if login_required? && has_field_service_team? -%>
           <li>
-            <%= link_to(jobs_path, remote: true, class: :jobs, title: t("nav.jobs")) do %>
+            <%= link_to(jobs_path(mobile: @mobile), remote: true, class: :jobs, title: t("nav.jobs")) do %>
               <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
               <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
             <% end %>
           </li>
           <li>
-            <%= link_to(map_path(type: :jobs), remote: true, class: :map, title: t("nav.job_map")) do %>
+            <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: :map, title: t("nav.job_map")) do %>
                 <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
                 <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
             <% end %>
@@ -69,13 +69,13 @@
         <% end -%>
         <% if !login_required? -%>
           <li>
-            <a href="<%= imprint %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
+            <a href="<%= imprint_static_path %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
               <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
               <span class="hidden-sm hidden-md"><%= t("nav.imprint") %></span>
             </a>
           </li>
           <li>
-            <a href="<%= privacy %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
+            <a href="<%= privacy_static_path %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
               <span class="hidden-sm hidden-md"><%= t("nav.privacy") %></span>
             </a>

@@ -1,5 +1,9 @@
 module ClientConfig
   extend ActiveSupport::Concern
+
+  included do
+    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?
+  end
   
   def display?(par)
     Settings::Client.send("show_#{ par }")
@@ -11,14 +15,6 @@ module ClientConfig
 
   def login_required?
     Settings::Client.login_required
-  end
-
-  def imprint
-    Settings::Url.ks_frontend_imprint_url
-  end
-
-  def privacy
-    Settings::Url.ks_frontend_privacy_url
   end
 
   def multi_requests_enabled?

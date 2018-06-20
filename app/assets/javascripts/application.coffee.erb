@@ -24,6 +24,8 @@
 #= require_self
 #= require_tree .
 #= require ol3-ext
+#= require d3-v4
+#= require billboard
 
 window.KS ||= {}
 
@@ -41,6 +43,10 @@ KS.autoRefresh = () ->
       KS.reloadFeatures()
     else if glyphiconRefresh.is(':visible')
       glyphiconRefresh.parents('.clickable').click()
+  if KS.login_required && KS.getUrlParam('mobile')
+    setTimeout ->
+      $.ajax(url: KS.job_notification_path, dataType: 'script')
+    , 2000
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
 
 KS.getUrlParam = (name) ->
@@ -58,6 +64,8 @@ KS.getMapPanelParams = () ->
   $('.show-feature').each () ->
     if $(@).is(':checked')
       filter.push($(@).data('key')+'[]='+$(@).attr('id'))
+  $('.map-parameter').each () ->
+    filter.push($(@).data('key')+'='+$(@).val())
   filter.join('&')
 
 KS.buildError = (errors) ->
@@ -85,6 +93,8 @@ KS.buildError = (errors) ->
   
 $ ->
   setTimeout(KS.autoRefresh, KS.autoRefreshTime)
+  if KS.login_required
+    KS.NotificationHandler().initialize()
 
   $(document).on 'click', '.switch-map-view', () ->
     $(@).html($(@).data($(@).attr('id')))
@@ -94,6 +104,8 @@ $ ->
     false
 
   $(document).on 'click', '.show-feature', () ->
+    KS.reloadFeatures()
+  $(document).on 'change', '.map-parameter-reload', () ->
     KS.reloadFeatures()
 
   $(document).on 'click', '.header-tab', () ->
@@ -181,3 +193,12 @@ $ ->
     false
 
   $('.start-panel').find('.btn-primary').toArray()[0].focus() if $('.start-panel').is(':visible')
+
+
+KS.reloadFeatures= () ->
+  extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
+  KS.layers.findById('features').getSource().getSource().clear(true)
+  if KS.login_required && KS.getUrlParam('mobile')
+    KS.layers.findById('jobs').getSource().getSource().clear(true)
+  extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
+  KS.HeatmapLayers.findById('heatmap').getSource().clear(true)

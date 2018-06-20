@@ -1,0 +1,93 @@
+<% spread = 3 %>
+
+<ul class="pagination">
+  <% if @page != 1 -%>
+    <li class="page-item">
+      <%= link_to(content_tag(:span, "«"), url_for(controller: :statics, action: :requests, page: (@page - 1))) %>
+    </li>
+  <% end -%>
+
+  <%
+  start = (@page - spread)
+  start = 1 if start < 1
+  ending = (@page + spread + 1)
+  ending = @pages if ending > @pages
+  %>
+
+  <% if start > 1 %>
+    <li class="page-item">
+      <%= link_to(1, url_for(controller: :statics, action: :requests, page: 1)) %>
+    </li>
+  <% end %>
+
+  <% if start > 2 %>
+    <li class="page-item disabled">
+      <%= link_to("...", "#") %>
+    </li>
+  <% end %>
+
+  <% (ending - start).to_i.times do |i| -%>
+    <% ix = (start + i) %>
+    <li class="page-item <%= "active" if ix == @page %>">
+      <%= link_to(ix, url_for(controller: :statics, action: :requests, page: ix)) %>
+    </li>
+  <% end -%>
+
+  <% if ending < @pages %>
+    <li class="page-item disabled">
+      <%= link_to("...", "#") %>
+    </li>
+  <% end %>
+
+  <% if ending <= @pages %>
+    <li class="page-item">
+      <%= link_to(@pages, url_for(controller: :statics, action: :requests, page: @pages)) %>
+    </li>
+  <% end %>
+
+  <% if @page != @pages -%>
+    <li class="page-item">
+      <%= link_to(content_tag(:span, "»"), url_for(controller: :statics, action: :requests, page: (@page + 1))) %>
+    </li>
+  <% end -%>
+</ul>
+
+<div class="requests">
+  <div class="panel panel-default">
+    <div class="panel-heading clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+      <%= t('.title') %>
+    </div>
+    <% if @requests.present? -%>
+    <div class="list-group">
+      <% @requests.each do |req| -%>
+        <%= link_to(url_for([:map, request: req.id]), class: 'list-group-item', data: { turbolinks: false }) do %>
+          <h4 class="list-group-item-heading right-badges">
+            <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
+            #<%= req.id %> <%= req.service.group %> – <%= req.service_name %> – <%= l(req.requested_datetime.to_date) %>
+            <%= mark_photo_required(req) %>
+            <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+          </h4>
+          <p class="list-group-item-text">
+    		<% if req.description.present? -%>
+    		  <b><%= Request.human_attribute_name(:description) %></b><br />
+              <em><%= req.description %></em><br />
+    		<% end -%>
+
+            <b><%= Request.human_attribute_name(:status) %></b><br />
+            <em><%= status(req) %></em><br />
+
+            <% if (notes = req.status_notes).present? -%>
+              <b><%= Request.human_attribute_name(:status_notes) %></b><br />
+              <em><%= notes %></em><br />
+            <% end -%>
+          </p>
+        <% end %>
+      <% end -%>
+    </div>
+    <% else -%>
+    <div class="panel-body">
+      <%= t('.empty_result') %>
+    </div>
+    <% end -%>
+  </div>
+</div>

@@ -19,6 +19,7 @@ client:
   city_long: Universitätsstadt Muggensturm
   city_short: Muggensturm
   resources_path: /var/www/html/hro/resources
+  resources_overview_path: /pfad/zu/resources/overview
   logo_url: /resources/images/logo.png
   show_email:
   show_abuses:
@@ -30,6 +31,7 @@ client:
   show_protocol:
   show_notes:
   show_trust:
+  show_d3_document_url:
   additional_content: false
 
 vote:

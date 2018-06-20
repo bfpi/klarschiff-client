@@ -7,20 +7,26 @@
     <% if @jobs.present? -%>
       <div class="list-group" data-update-url="<%= url_for(jobs_path) %>">
         <% @jobs.each do |job| -%>
-          <%= link_to(request_path(job.id, id_list: @jobs.map(&:id)), remote: true, method: :get, class: 'list-group-item', 'data-job-id': job.id) do %>
-            <div class="hidden-xs right-badges">
-              <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
-              <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
-              #<%= job.id %> <%= job.service.group %> – <%= job.service_name %>
-              <%= mark_photo_required(job) %>
-              <% if display?(:trust) -%>
-                <%= mark_trust(job) %>
-              <% end -%>
-              <span class="badge sort-handle">
-                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-              </span>
-              <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+          <%= link_to(request_path(job.id, id_list: @jobs.map(&:id), mobile: @mobile), remote: true, method: :get, class: 'list-group-item', 'data-job-id': job.id) do %>
+            <div class="hidden-xs">
+              <h4 class="list-group-item-heading right-badges">
+                <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+                <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
+                #<%= job.id %> <%= job.service.group %> – <%= job.service_name %>
+                <%= mark_photo_required(job) %>
+                <% if display?(:trust) -%>
+                  <%= mark_trust(job) %>
+                <% end -%>
+                <span class="badge sort-handle">
+                  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                </span>
+                <span class="badge"><span class="glyphicon glyphicon-map-marker" data-lat="<%= job.lat %>" data-long="<%= job.long %>" aria-hidden="true"></span></span>
+                <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+              </h4>
+              <p class="list-group-item-text">
+                <%= job.address %>
+              </p>
             </div>
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">

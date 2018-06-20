@@ -7,15 +7,15 @@ unless $('#request').hasClass('active')
   $('#request').addClass('active')
   $('#watch').removeClass('active')
 <% if @direct.present? -%>
-KS.olMap.getView().setZoom(11)
-KS.olMap.getView().setCenter(coord)
+  KS.olMap.getView().setZoom(11)
+  KS.olMap.getView().setCenter(coord)
 <% else -%>
-KS.olMap.getView().animate({ center: coord })
+  KS.olMap.getView().animate({ center: coord })
 <% end -%>
 
 <% if @refresh -%>
-KS.reloadFeatures()
-KS.clearNewFeature()
+  KS.reloadFeatures()
+  KS.clearNewFeature()
 <% end -%>
 
 $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
@@ -28,3 +28,5 @@ if $('.request-container').prop('id') == 'request-form'
     $('#request.tab-pane').append(partial)
 else
   $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")
+
+$('#new-photo a[data-next=image-submit]').hide()

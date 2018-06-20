@@ -66,3 +66,7 @@ $ ->
           $('#areas-form').append(input)
     $('#areas-form').ajaxSubmit dataType: 'script'
     false
+
+  KS.content().on 'change', '#new-photo input[type=file]', ->
+    if $(@).val().length > 0
+      $('#new-photo a[data-next=image-submit], #new-photo input[type=submit]').show()

@@ -1,3 +1,11 @@
+KS.initializeJobsList = ->
+  KS.makeJobsListSortable()
+  $('.list-group').on 'click', '.badge .glyphicon-map-marker', ->
+    KS.olMap.getView().setCenter(ol.proj.transform([$(this).data('long'), $(this).data('lat')], KS.projectionWGS84, KS.projection()))
+    KS.olMap.getView().setZoom(<%= Settings::Map.zoom[:max] %>)
+    KS.nav.switchTo 'map'
+    return false
+
 KS.makeJobsListSortable = ->
   error_text = "<%= I18n.t('messages.errors.update_sorting') %>"
   $('.list-group').sortable(

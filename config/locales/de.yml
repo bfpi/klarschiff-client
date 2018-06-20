@@ -2,6 +2,7 @@ de:
   time:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
+      citysdk: "%Y-%m-%dT%H:%M:%SZ"
   api: API
   demo: Demo
   font_attribution: Fonts © 2009
@@ -10,6 +11,7 @@ de:
   help: Hilfe
   imprint: Impressum
   license: Lizenz
+  list: Liste
   locate: Ortung
   mobile: mobil
   page_meta_description: "Melden Sie Probleme in der Infrastruktur der %{city_long}, die dann von der Stadtverwaltung bearbeitet werden."
@@ -19,6 +21,7 @@ de:
   promotion: Werbung
   success: Vielen Dank!
   share_request: ' Gerne können Sie Ihre Meldung aber bereits bekannt machen:'
+  statistic: Statistik
   usage: Nutzungsbedingungen
   username: Benutzername
 
@@ -81,6 +84,7 @@ de:
     save: Speichern
     search: Suchen
     submit: Senden
+    upload: Hochladen
 
   messages:
     success:
@@ -184,6 +188,8 @@ de:
     index:
       empty_result: Für heute liegen keine Aufträge vor.
       title: Aufträge
+    notification:
+      notification_title: "%{name} – Neuer Auftrag"
 
   maps:
     desktop:
@@ -221,6 +227,16 @@ de:
       subscribe_feed: >
         Bitte abonnieren Sie den folgenden GeoRSS-Feed mit einem RSS-Reader (z. B. RSSOwl,
         Liferea, Feedly) oder Ihrem Browser:
+
+  photos:
+    desktop:
+      create:
+        error: Fehler beim hinzufügen eines Fotos
+        success: Foto erfolgreich abgelegt
+    mobile:
+      create:
+        error: Fehler beim hinzufügen eines Fotos
+        success: Foto erfolgreich abgelegt
 
   places:
     desktop: &places
@@ -307,6 +323,10 @@ de:
           note: neuer interner Kommentar
           reload: aktualisieren
           vote: Unterstützung
+          d3_document: d.3-Akte
+        confirmation_foto: Abschluss
+        confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
+        confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
         votes_html: "Bisher <span class='request-votes'>%{votes}</span> Unterstützungen"
         votes_under_min_req_html: "Bisher <span class='request-votes under-min-req'>%{votes}</span> Unterstützungen"
@@ -365,3 +385,16 @@ de:
       <<: *votes
       create:
         success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt.
+
+  statistics:
+    index:
+      12months: "12 Monate"
+      6months: "6 Monate"
+      3months: "3 Monate"
+      1months: "1 Monat"
+      1week: "1 Woche"
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      status: Status
+      top5: "Top 5"
+      request_count: "Meldungen (mit gewählten Filtern)"
+      notice: "Für weiterführende Analysen nutzen Sie gerne unseren RSS-Feed, die API, oder kontaktieren Sie uns."

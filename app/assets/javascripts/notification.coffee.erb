@@ -1,0 +1,36 @@
+KS.NotificationHandler = ->
+
+  initializeServiceWorkerRegistration = ->
+    navigator.serviceWorker.addEventListener 'message', (event) ->
+      console.log 'Received a message from service worker: ', event.data
+    registerServiceWorker().then (registration) ->
+      KS.ServiceWorkerRegistration = registration
+
+  registerServiceWorker = ->
+    navigator.serviceWorker.register('<%= asset_url('service-worker.js') %>').then((registration) ->
+      console.log 'Service worker successfully registered.'
+      registration
+    ).catch (err) ->
+      console.error 'Unable to register service worker.', err
+      return
+
+  initialize: ->
+    if !('serviceWorker' of navigator)
+      console.log 'Service Worker isn\'t supported on this browser, disable or hide UI.'
+      return
+    if !('PushManager' of window)
+      console.log 'Push isn\'t supported on this browser, disable or hide UI.'
+      return
+    promiseChain = new Promise((resolve, reject) ->
+      permissionPromise = Notification.requestPermission().then (result) ->
+        resolve result
+      if permissionPromise
+        permissionPromise.then resolve
+      return
+    ).then((result) ->
+      if result == 'granted'
+        initializeServiceWorkerRegistration()
+      else
+        console.log 'no permission'
+      return
+    )

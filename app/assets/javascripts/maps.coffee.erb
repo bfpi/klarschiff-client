@@ -15,6 +15,7 @@ KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 #KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
 KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
+KS.job_notification_path = "<%= Settings::Route.jobs_notification_path %>/"
 KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
 KS.draw_observation = null
@@ -488,13 +489,6 @@ KS.stopAnimationTimeout = () ->
   if KS.animationId
     clearTimeout(KS.animationId)
     KS.animationId = null
-
-
-KS.reloadFeatures= () ->
-  extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  KS.layers.findById('features').getSource().getSource().clear(true)
-  if KS.login_required && KS.getUrlParam('mobile')
-    KS.layers.findById('jobs').getSource().getSource().clear(true)
 
 KS.generatePath= () ->
   params = KS.getMapPanelParams()

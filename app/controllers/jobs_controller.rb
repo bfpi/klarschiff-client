@@ -3,16 +3,22 @@ class JobsController < ApplicationController
 
   def index
     return render(nothing: true) unless has_field_service_team?
-    if (center = params[:center]).present?
-      @conditions.update lat: center[0], long: center[1]
-    end
-    @jobs = Request.where(@conditions.merge(radius: params[:radius])).try(:to_a)
-    session[:referer_params] = params.slice(:controller, :action, :ids)
-    session[:id_list] = @jobs.map(&:id)
+
+    @jobs = Request.where(@conditions).try(:to_a)
+    session[:referer_params] = params.slice(:center, :radius)
     respond_to do |format|
       format.js
       format.json { render json: @jobs }
     end
+  end
+
+  def notification
+    @jobs = Request.where(@conditions).try(:to_a)
+
+    session[:id_list] = @jobs.map(&:id) if session[:id_list].blank?
+    @difference = @jobs.reject{|x| x if session[:id_list].include?(x.id) }
+
+    session[:id_list] = @jobs.map(&:id)
   end
 
   def update
