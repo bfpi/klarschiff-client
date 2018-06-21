@@ -70,7 +70,9 @@
         <h5 class="panel-title"><%= t('.what_is_it_not', name: Settings::Client.name) %></h5>
       </div>
       <div class="panel-body">
-        <%= t('.not_content') %>
+        <p><%= t('.not_content_one_html') %></p>
+        <p><%= t('.not_content_two_html', :href => link_to(t('.not_content_two_href'), Settings::Url.not_content_two_url, target: '_blank')) %></p>
+        <p><%= t('.not_content_three_html', :href => link_to(t('.not_content_three_href'), Settings::Url.not_content_three_url, target: '_blank')) %></p>
       </div>
     </div>
     <div id="statistic-panel" class="panel panel-info">
