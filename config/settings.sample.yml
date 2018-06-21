@@ -1,9 +1,8 @@
 urls:
-  ks_frontend_search_url: https://klarschiff-test/search/server.php
-  ks_server_url: https://klarschiff-test
-  ks_frontend_privacy_url: https://klarschiff-test/static/privacy
-  ks_backend_vorgang_url: https://klarschiff-test/backend/vorgang/%s
-  ks_demo_url: https://klarschiff-test
+  ks_frontend_search_url: https://klarschiff.de/search/server.php
+  ks_server_url: https://klarschiff.de
+  ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
+  ks_demo_url: https://klarschiff.de
   ks_github_url: https://github.com/bfpi/klarschiff-field_service
   font_origin_url: https://www.paratype.com
   font_license_url: /resources/fonts/license.txt
@@ -11,16 +10,16 @@ urls:
   not_content_three_url: http://rathaus.rostock.de/sixcms/detail.php?template=seite_umweltamt_wasser_boden_alarmdienst_de&_sid1=&_sid2=rostock_01.c.198934.de&_sid3=39237&_sid4=39245
 
 client:
-  animate_refresh: 10
+  animate_refresh: 6
   service_code:
   key: hro
   login_required: true
   multi_requests_enabled: true
   name: Klarschiff
-  city_long: Universitätsstadt Muggensturm
-  city_short: Muggensturm
-  resources_path: /var/www/html/hro/resources
-  resources_overview_path: /pfad/zu/resources/overview
+  city_long: Demostadt
+  city_short: Demo
+  resources_path: /srv/www/htdocs/klarschiff_resources/
+  resources_overview_path: /srv/www/htdocs/klarschiff_resources/requests/
   logo_url: /resources/images/logo.png
   show_email:
   show_abuses:
@@ -39,7 +38,7 @@ vote:
   min_requirement: 20
 
 ldap:
-  host: klarschiff-test
+  host: ldap.klarschiff.de
   username: uid=admin
   password: admin
   port: 636
@@ -53,9 +52,9 @@ ldap:
 
 resource_servers:
   city_sdk:
-    site: https://klarschiff-test/citysdk/
+    site: https://klarschiff.de/citysdk/
     format: :json
-    api_key: <API-Key>
+    api_key: 1234567890abcdefghijklmnopqrstuv
 
 protocol_mail:
   recipient: recipient@klarschiff.de
@@ -69,7 +68,7 @@ protocol_mail:
 map:
   show_trust: true
   default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
-  center: [312900, 5997281]
+  center: [308555, 6000550]
   mv_bbox_25833: [206885, 5890624, 460857, 6060841]
   extent: [271264, 5938535, 356804, 6017573]
   wmts_layers:
@@ -112,11 +111,11 @@ map:
       visible: true
   tracking_options:
     enable_high_accuracy: true
-    timeout: 3000
-    maximum_age: 5000
+    timeout: 30000
+    maximum_age: 50000
   zoom:
-    initial: 5
-    max: 15
+    initial: 6
+    max: 14
     min: 5
 
 request:
@@ -126,4 +125,4 @@ request:
     - REJECTED
 
 auto_refresh:
-  timeout: 60000
+  timeout: 180000
