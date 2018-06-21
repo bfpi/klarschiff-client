@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <%= yield :nav %>
               <div class="btn-group btn-group-sm textresizer" id="textsizer">
                 <%= link_to '#', class: 'btn btn-sm btn-link', remote: true do %>
@@ -61,7 +61,7 @@
                 <% end -%>
               </div>
             </div>
-            <div class="col-md-6 text-right">
+            <div class="col-md-8 text-right">
               <%= link_to t(:list), [:requests, :static] %> |
               <%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
               <%= link_to t(:help), [:help, :static] %> |
