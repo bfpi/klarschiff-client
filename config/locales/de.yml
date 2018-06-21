@@ -231,12 +231,12 @@ de:
   photos:
     desktop:
       create:
-        error: Fehler beim hinzufügen eines Fotos
-        success: Foto erfolgreich abgelegt
+        error: Fehler beim Hochladen eines Fotos
+        success: Das Foto wurde erfolgreich hochgeladen. Sie erhalten in Kürze eine E-Mail, in der Sie Ihr Foto noch einmal bestätigen müssen.
     mobile:
       create:
-        error: Fehler beim hinzufügen eines Fotos
-        success: Foto erfolgreich abgelegt
+        error: Fehler beim Hochladen eines Fotos
+        success: Das Foto wurde erfolgreich hochgeladen. Sie erhalten in Kürze eine E-Mail, in der Sie Ihr Foto noch einmal bestätigen müssen.
 
   places:
     desktop: &places
