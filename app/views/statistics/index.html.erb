@@ -9,19 +9,22 @@
       <div class="panel-body requests-img-panel">
       	<div class="row form-group">
           <div class="col-md-3">
+            <label for="area" class="control-label"><%= t('.filter_area') %></label>
             <%= select_tag(:area, 
                            options_for_select([[Settings::Client.city_short, '']] + Area.where(with_districts: true).map {|a| [a.attributes[:name], a.attributes[:id]]}),
                            class: 'form-control map-parameter', data: { key: :area }) %>
           </div>
           <div class="col-md-3">
+            <label for="start_date" class="control-label"><%= t('.filter_start_date') %></label>
           	<%= select_tag(:start_date, 
                            start_dates(),
                            class: 'form-control map-parameter map-parameter-reload', data: { key: :start_date }) %>
           </div>
           <div class="col-md-3">
+            <label for="service_code" class="control-label"><%= t('.filter_service_code') %></label>
             <%= select_tag(:service_code, 
                            service_list(),
-          	               include_blank: true,
+          	               prompt: t('.all'),
                            class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
           </div>
           <div class="col-md-3">

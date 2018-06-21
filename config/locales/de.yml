@@ -392,6 +392,10 @@ de:
 
   statistics:
     index:
+      filter_area: "Räumlicher Filter – Meldungen in…"
+      filter_start_date: "Zeitlicher Filter – Meldungen der letzten…"
+      filter_service_code: "Sachlicher Filter – Meldungen der Kategorie…"
+      all: "alle Kategorien"
       12months: "12 Monate"
       6months: "6 Monate"
       3months: "3 Monate"
