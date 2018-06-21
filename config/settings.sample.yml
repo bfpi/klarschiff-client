@@ -1,7 +1,6 @@
 urls:
   ks_frontend_search_url: https://klarschiff-test/search/server.php
   ks_server_url: https://klarschiff-test
-  ks_frontend_imprint_url: https://klarschiff-test/static/imprint
   ks_frontend_privacy_url: https://klarschiff-test/static/privacy
   ks_backend_vorgang_url: https://klarschiff-test/backend/vorgang/%s
   ks_demo_url: https://klarschiff-test
