@@ -29,8 +29,8 @@ class KS.HeatmapLayers
         @layers.push new ol.layer.Tile
           extent: layer.extent
           source: new ol.source.WMTS
-            url: layer.url
-            layer: layer.content
+            url: layer.url_statistics
+            layer: layer.content_statistics
             matrixSet: layer.matrix_set
             format: layer.format
             requestEncoding: layer.request_encoding
@@ -42,16 +42,6 @@ class KS.HeatmapLayers
               new ol.Attribution
                 html: layer.attribution
             ] if layer.attribution?
-          visible: layer.visible
-    for layer in <%= Settings::Map.wms_layers.to_json %>
-      do (layer, @layers) ->
-        @layers.push new ol.layer.Image
-          extent: layer.extent
-          source: new ol.source.ImageWMS
-            url: layer.url
-            params:
-              "LAYERS": layer.content
-              "FORMAT": layer.format
           visible: layer.visible
     @layers.push new ol.layer.Heatmap
       id: "heatmap"
