@@ -15,8 +15,8 @@ de:
   locate: Ortung
   mobile: mobil
   page_meta_description: "Melden Sie Probleme in der Infrastruktur der %{city_long}, die dann von der Stadtverwaltung bearbeitet werden."
-  pagetitle: "%{name} – Prüf- und Protokollclient"
-  pagetitle_mobile_client: "%{name} – Prüf- und Protokollclient"
+  pagetitle: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
+  pagetitle_mobile_client: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   privacy: Datenschutz
   promotion: Werbung
   success: Vielen Dank!

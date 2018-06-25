@@ -13,10 +13,10 @@ KS.projection = ->
 KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 #KS.zoomEvent = false
-KS.requests_path = "/ppc/requests/"
-KS.jobs_path = "/ppc/jobs/"
+KS.requests_path = "<%= Settings::Route.requests_path %>/"
+KS.jobs_path = "<%= Settings::Route.jobs_path %>/"
 KS.job_notification_path = "<%= Settings::Route.jobs_notification_path %>/"
-KS.areas_path = "/ppc/areas/?with_districts=true"
+KS.areas_path = "<%= Settings::Route.areas_path %>/?with_districts=true"
 KS.login_required = <%= Settings::Client.login_required %>
 KS.draw_observation = null
 KS.animateRefresh = <%= Settings::Client.animate_refresh %> * 1000
