@@ -73,8 +73,6 @@ Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare V
 
 #### Block 'urls'
 Zentrale Konfiguration von im Frontend genutzten URLs.
-  - `ks_frontend_search_url` (Pflichtfeld):
-    - URL zur Straßen- und Adresssuche
   - `ks_server_url` (Pflichtfeld):
     - URL zum Klarschiff-Frontend
   - `ks_backend_vorgang_url` (Pflichtfeld):
@@ -92,13 +90,13 @@ Zentrale Konfiguration von im Frontend genutzten URLs.
 Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Protokoll-Client, PPC) oder mobilen Client:
   - `animate_refresh` (Pflichtfeld):
     - Zeitabstand (in Sekunden) zwischen der letzten und der nächsten Animation für den "Neue Meldung"-Marker
-  - `service_code` (Optional):
+  - `service_code` (optional):
     - ID der Unterkategorie, auf die die Funktionalitäten des PC-Clients beschränkt werden sollen
   - `key` (Pflichtfeld):
     - Kurzwort für die zugehörige Stadt/Gemeinde (z.B. hro, hgw, sn)
   - `login_required` (Pflichtfeld):
     - wenn auf `true` gesetzt, wird der PPC konfiguriert, ansonsten der mobile Client
-  - `multi_requests_enabled` (Optional):
+  - `multi_requests_enabled` (optional):
     - ermöglicht das Anlegen von Multimeldungen (Es werden einzelne "normale" Meldungen erzeugt, welche in den wesentlichen Eigenschaften identisch sind, allerdings unterschiedlichen Kategorien zugeordnet sind. Diese verbleiben nach der Erstellung vollständig eigentständig)
   - `name` (Pflichtfeld):
     - Name des Clients
@@ -112,37 +110,37 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
     - Pfad in dem die automatisch generierten statischen Dateien der Vorgangslisten abgelegt wurden
   - `logo_url` (Pflichtfeld):
     - Pfad zum Gemeinde-Logo
-  - `show_email` (Optional):
+  - `show_email` (optional):
     - steuert die Darstellung der e-Mail-Felder in den Formularen für Meldungen und interne Kommentare
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_abuses` (Optional):
+  - `show_abuses` (optional):
     - steuert die Darstellung der `Missbrauch`-Schaltfläche für Meldungen
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_votes` (Optional):
+  - `show_votes` (optional):
     - steuert die Darstellung der Schaltfläche zum Unterstützen einer Meldung sowie die Anzahl der bisherigen Unterstützungen der Meldung
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_create_comments` (Optional):
+  - `show_create_comments` (optional):
     - steuert die Darstellung der Schaltfläche `Lob, Hinweise oder Kritik`
     - auf `true` gesetzt, wenn der mobile Client konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_comments` (Optional):
+  - `show_comments` (optional):
     - steuert die Darstellung der Kommentare einer Meldung
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_edit_request` (Optional):
+  - `show_edit_request` (optional):
     - steuert die Darstellung der Bearbeiten-Schaltfläche einer Meldung
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_edit_status` (Optional):
+  - `show_edit_status` (optional):
     - steuert die Darstellung der Schaltfläche zum Ändern des Status eines Auftrags
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_protocol` (Optional):
+  - `show_protocol` (optional):
     - steuert die Darstellung der Schaltfäche zur Erstellung eines KOD-Protokolls einer Meldung
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_notes` (Optional):
+  - `show_notes` (optional):
     - steuert die Dartsellung der Schaltfläche zur Erstellung und Anzeige von internen Kommentaren
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_trust` (Optional):
+  - `show_trust` (optional):
     - steuert die Darstelling der Trust-Level-Sterne
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
-  - `show_d3_document_url` (Optional):
+  - `show_d3_document_url` (optional):
     - steuert die Dartsellung der Schaltfläche zum Aufruf der Vorgangs-Akte im d.3-Client
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
   - `additional_content` (Pflichtfeld):
@@ -183,6 +181,15 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
       - Format der Kommunikation (json oder xml)
     - `api_key`
       - API-Key zur Authentifizierung des Clients
+
+#### Block 'address_search'
+Konfiguration der Adressensuche:
+  - `url` (Pflichtfeld):
+    - URL zur Adressensuche
+  - `api_key` (Pflichtfeld):
+    - API-Key für Adressensuche
+  - `localisator` (optional):
+    - String zur Voreingrenzung der Resultate der Adressensuche (z.B. `rostock`, um Resultate der Adressensuche auf Rostock voreinzugrenzen)
 
 #### Block 'protocol_mail'
   - `recipient` (Pflichtfeld für PPC):

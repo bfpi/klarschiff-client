@@ -56,6 +56,11 @@ resource_servers:
     format: :json
     api_key: 1234567890abcdefghijklmnopqrstuv
 
+address_search:
+  url: https://geo.sv.rostock.de/geocodr/query?
+  api_key: 1234567890abcdefghijklmnopqrstuv
+  localisator: rostock
+
 protocol_mail:
   recipient: recipient@klarschiff.de
   sender: sender@klarschiff.de

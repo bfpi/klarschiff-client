@@ -11,6 +11,6 @@ $ ->
       )
     minLength: 2
     select: (event, ui) ->
-      $.get("/map?#{ ui.item.id.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
+      $.get("/map?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
       null, null, 'script')
       false
