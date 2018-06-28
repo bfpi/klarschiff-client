@@ -152,7 +152,8 @@ de:
     mobile:
       <<: *abuses
       create:
-        success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt.
+        success: Missbrauchsmeldung erfolgreich abgesetzt
+        error: Fehler bei Missbrauchsmeldung
 
   areas:
     areas_form:
@@ -208,6 +209,9 @@ de:
     mobile:
       new:
         title: interner Kommentar
+      create:
+        success: Interner Kommentar gespeichert
+        error: Fehler bei internem Kommentar
 
   observations:
     index:
@@ -255,6 +259,8 @@ de:
         actions:
           more_attachment: Anhang hinzufügen
           send: senden
+      create:
+        success: KOD-Protokoll gesendet
 
   requests:
     create:
@@ -339,12 +345,18 @@ de:
       <<: *requests
       index:
         title: Meldungen an dieser Stelle
+      create:
+        error: Fehler beim Anlegen der Meldung(en)
+        success: Meldung(en) angelegt
+      update:
+        error: Fehler beim Speichern der Änderungen
+        success: Änderungen gespeichert
     status:
       currently: aktuell bei
       since: seit
     update:
-      error: Fehler beim Speichern der Meldung
-      success: Meldung gespeichert
+      error: Fehler beim Speichern der Änderungen
+      success: Änderungen gespeichert
     job_status:
       checked: abgehakt
       unchecked: nicht abgehakt
@@ -388,7 +400,8 @@ de:
     mobile:
       <<: *votes
       create:
-        success: Die Unterstützungsmeldung wurde erfolgreich abgesetzt.
+        error: Fehler bei Unterstützungsmeldung
+        success: Unterstützungsmeldung erfolgreich abgesetzt
 
   statistics:
     index:
