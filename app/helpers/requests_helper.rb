@@ -31,7 +31,7 @@ module RequestsHelper
   end
 
   def categories(type, current = nil)
-    categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq.sort
+    categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq
     unless current
       categories.insert 0, [t('placeholder.select.category'), disabled: true, selected: current.nil?, class: :placeholder]
     end
