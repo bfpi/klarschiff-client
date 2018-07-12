@@ -29,6 +29,10 @@
           (<%= l(@request.requested_datetime.to_date) %>)
         </div>
       </h4>
+      <div class="shariff" data-button-style="icon"
+           data-title="<%= Settings::Client.name %> #<%= @request.id %> <%= @request.service %>"
+           data-url="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, request: @request.id])) %>"
+           data-services="['facebook', 'twitter', 'whatsapp', 'xing', 'linkedin', 'pinterest', 'googleplus', 'diaspora']"></div>
     </div>
     <div class="list-group">
       <div class="list-group-item">

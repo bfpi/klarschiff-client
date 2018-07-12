@@ -28,5 +28,6 @@ if $('.request-container').prop('id') == 'request-form'
     $('#request.tab-pane').append(partial)
 else
   $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")
+  new Shariff($('.shariff'), {});
 
 $('#new-photo a[data-next=image-submit]').hide()
