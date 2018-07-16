@@ -34,16 +34,16 @@
       <header>
         <div class="container">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-2">
               <%= image_tag image_path('klarschiff.png'), id: 'logo1' %>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-4 col-sm-8 text-center">
               <%= link_to [:root], data: { turbolinks: false } do %>
                 <h1><%= Settings::Client.name %></h1>
               <% end -%>
             </div>
-            <div class="col-md-4">
-              <%= image_tag Settings::Client.logo_url, id: 'logo2' %>
+            <div class="col-md-4 col-sm-2">
+              <%= image_tag Settings::Client.logo_url, id: 'logo2', class: 'img-responsive' %>
             </div>
           </div>
           <div class="row">
