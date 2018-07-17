@@ -2,7 +2,7 @@
   <%= form_for(:places, method: :get, remote: true) do |f| %>
     <%= hidden_field_tag :mobile, @mobile %>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         <div class="form-group has-feedback has-clear">
           <div class="input-group">
             <span class="glyphicon glyphicon-search input-group-addon" aria-hidden="true"></span>
@@ -11,33 +11,9 @@
           <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
         </div>
       </div>
-      <div class="col-md-3 form-group">
-        <%= f.submit(t('buttons.search'), class: 'btn btn-default btn-primary btn-block') %>
-      </div>
     </div>
   <% end %>
-  <% if @places -%>
-    <div class="panel panel-default result">
-      <div class="panel-heading"><%= t('.results') %></div>
-        <div class="list-group">
-          <% @places.each do |place| -%>
-            <% if place.geometry['type'] == 'Point' %>
-              <% @bbox = [place.geometry['coordinates'][0],place.geometry['coordinates'][1],place.geometry['coordinates'][0],place.geometry['coordinates'][1]] -%>
-            <% else %>
-              <% @bbox = [place.geometry['coordinates'][0][0][0],place.geometry['coordinates'][0][0][1],place.geometry['coordinates'][0][2][0],place.geometry['coordinates'][0][2][1]] -%>
-            <% end %>
-            <%= link_to(map_path(bbox: @bbox, mobile: @mobile), remote: true, class: 'list-group-item') do %>
-              <% if place.properties['objektgruppe'] == 'Gemeindeteil' %>
-                <%= place.properties['_title_'].split(', ')[-1] %>
-              <% elsif not place.properties['abkuerzung'].blank? %>
-                <%= place.properties['_title_'].split(', ')[-1] + ' (' + place.properties['abkuerzung'] + ')' %>
-              <% else %>
-                <%= place.properties['_title_'].split(', ')[-1] %>
-              <% end %>
-              <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
-            <% end %>
-          <% end -%>
-        </div>
-    </div>
-  <% end -%>
+  <div id="places_results">
+    <%= render partial: 'places/mobile/results' %>
+  </div>
 </div>

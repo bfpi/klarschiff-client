@@ -14,3 +14,15 @@ $ ->
       $.get("/map?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
       null, null, 'script')
       false
+
+  $(document).on 'input', '#places-search-pattern', () ->
+    elem = $(this)
+    if elem.val().length == 0 || elem.val().length >= 3
+      $.ajax(
+        url: '/places'
+        dataType: 'script'
+        data:
+          auto: true
+          mobile: true
+          pattern: elem.val()
+      )
