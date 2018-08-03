@@ -53,7 +53,7 @@
         <% if (notes = @request.status_notes).present? -%>
           <div class="row form-group">
             <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-md-12 control-label' %>
-            <div class="col-md-12"><em><%= notes %></em></div>
+            <div class="col-md-12"><em><%= notes.html_safe %></em></div>
           </div>
         <% end -%>
         <% options = { remote: true, class: 'btn btn-primary btn-block', role: :button } -%>

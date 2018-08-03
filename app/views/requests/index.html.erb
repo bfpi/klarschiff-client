@@ -78,7 +78,7 @@
 
             <% if (notes = req.status_notes).present? -%>
               <b><%= Request.human_attribute_name(:status_notes) %></b><br />
-              <em><%= notes %></em><br />
+              <em><%= notes.html_safe %></em><br />
             <% end -%>
           </p>
         <% end %>

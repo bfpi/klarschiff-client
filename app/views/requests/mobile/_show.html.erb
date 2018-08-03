@@ -61,7 +61,7 @@
       <% if (notes = @request.status_notes).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status_notes) %></h4>
-          <p class="list-group-item-text"><em><%= notes %></em></p>
+          <p class="list-group-item-text"><em><%= notes.html_safe %></em></p>
         </div>
       <% end -%>
       <div class="list-group-item">
