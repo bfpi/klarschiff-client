@@ -1,13 +1,11 @@
 class PlacesController < ApplicationController
   def index
-    if (@pattern = params[:pattern]).present?
+    unless (@pattern = params[:pattern]).nil?
       session[:places_filter] = @pattern
     else
       @pattern = session[:places_filter]
     end
-    if @pattern.blank?
-      return head(:ok) if params[:pattern]
-    else
+    unless @pattern.blank?
       require 'open-uri'
       uri = URI(Settings::AddressSearch.url)
       if !(localisator = Settings::AddressSearch.localisator).blank?
@@ -26,7 +24,11 @@ class PlacesController < ApplicationController
     respond_to do |format|
       format.html { head(:not_acceptable) }
       format.js do
-        render "/places/#{context}/index"
+        if params[:auto]
+          render "/places/#{context}/auto" #render partial: "/places/mobile/results"
+        else
+          render "/places/#{context}/index"
+        end
       end
       format.json do
         render json: @places.to_json

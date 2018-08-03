@@ -248,6 +248,8 @@ de:
         results: Ergebnisse
     mobile:
       <<: *places
+      results:
+        results: Suchresultate
 
   protocols:
     create:
