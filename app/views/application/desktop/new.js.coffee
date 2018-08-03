@@ -5,5 +5,5 @@ $("#{ overlay }.errors").replaceWith("<%= j render partial: 'application/desktop
 if $('.overlay').length > 0
   $('.overlay').replaceWith('<div class="request-container overlay"><%= j render partial: "#{ controller_name }/desktop/new" %></div>')
 else
-  $('.request-container').replaceWith('<%= render partial: "/#{ controller_name }/desktop/new" %>')
+  $('.request-container').replaceWith('<%= j render partial: "/#{ controller_name }/desktop/new" %>')
 <% end -%>
