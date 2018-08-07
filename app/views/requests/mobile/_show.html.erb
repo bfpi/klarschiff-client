@@ -11,6 +11,10 @@
         <% if display?(:trust) -%>
           <%= mark_trust(@request) %>
         <% end -%>
+        <%= link_to [:map, request: @request.id],
+          data: { turbolinks: false } do %>
+          <span class="glyphicon glyphicon-link"></span>
+        <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
       </h4>
       <h4 class="visible-xs panel-title">
