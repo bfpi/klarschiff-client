@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_mobile
-    @mobile = params[:mobile].presence
+    client = DeviceDetector.new(request.user_agent)
+    @mobile = params[:mobile].presence || (client.known? && client.device_type != 'desktop')
   end
 
   def set_og_request
