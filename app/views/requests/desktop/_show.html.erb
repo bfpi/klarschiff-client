@@ -25,10 +25,10 @@
           <div class="row form-group">
             <div class="col-md-12">
               <%= label_tag :media_url, Request.human_attribute_name(:media_url), class: 'control-label' %>
-              <% if label_photo_required -%>
-                <small><%= t('.hint_photo_required') %></small>
-              <% end -%>
             </div>
+            <% if label_photo_required -%>
+              <small><%= t('.hint_photo_required') %></small>
+            <% end -%>
             <div class="col-md-12">
               <% if (url = @request.media_url).present? -%>
                 <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />

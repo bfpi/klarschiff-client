@@ -35,6 +35,7 @@ de:
       request:
         category: Kategorie
         description: Beschreibung
+        author: E-Mail
         email: E-Mail
         media: Foto
         media_url: Foto
@@ -84,7 +85,7 @@ de:
     save: Speichern
     search: Suchen
     submit: Senden
-    upload: Hochladen
+    upload: Foto hochladen
 
   messages:
     success:
