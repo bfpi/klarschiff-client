@@ -59,14 +59,8 @@ Klarschiff mobile client with additional functions supporting the field service
     ```bash
     rake assets:libs
     ```
-  
-  - Precompilieren der Assets (Bilder, JS, Stylesheets)
-  
-    ```bash
-    rake assets:precompile
-    ```
 
-## Konfiguration der Applikation (Anpassung an die entsprechende Umgebung / Unterscheidung zw. mobilem Simple-Client und mobilem Außendienst-Frontent)
+## Konfiguration der Applikation (Anpassung an die entsprechende Umgebung / Unterscheidung zw. mobilem Simple-Client und mobilem Außendienst-Frontend)
 Für die Konfigurationsdateien mit vertraulichem Inhalt gibt es versionierbare Vorlagen mit dem Namen `xyz.sample.yml`. Diese müssen kopiert und entsprechend ohne das `sample` als `xyz.yml` benannt werden. Die für die Umgebung gültigen Werte werden dann in der `xyz.yml` konfiguriert.
 
 ### Konfigurationen in der `config/settings.yml`
@@ -220,6 +214,11 @@ Konfiguration der Adressensuche:
 ### Konfigurationen in der `config/secrets.yml`
 Diese Datei dient der Konfiguration zur Verschlüsselung der internen Nutzerdaten (Cookies, usw.).
   - Die Konfiguration erfolgt hier nach Rails-Konvention pro Umgebung. Es muss aber nur die Variante mit der entsprechenden Umgebung konfiguriert werden. Also `production` in der Produktivumgebung und der Demo-Umgebung. Die RAILS_ENV `test` ist für automatisierte Tests im Framework vorbehalten.
+
+### Precompilieren der Assets (Bilder, JS, Stylesheets)
+```bash
+rake assets:precompile
+```
 
 ### Konfiguration am Apache-Server
 Für die einfachere Verwaltung und den parallelen Betrieb mehrerer Klarschiffinstanzen werden die statischen (sich unterscheidenden) Inhalte in einen zusätzlichen Ressourcen-Verzeichnis abgelegt.

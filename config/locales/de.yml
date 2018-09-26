@@ -379,9 +379,7 @@ de:
       start_content_one: "%{name} ist eine Plattform zum Melden von Problemen in der Infrastruktur der %{city_long}."
       start_content_two: "%{name} will Ihnen helfen sich mit der Stadtverwaltung in Verbindung zu setzen."
       start_content_three: Wir möchten Sie ermutigen, uns Probleme und Ideen zu Ihrem lokalen Umfeld mitzuteilen und deren Bearbeitung durch uns online zu verfolgen! Versuchen Sie doch gleich Ihre erste Meldung!
-      news_content_one: "29.06.2018 – Im Portal %{name} stehen Ihnen nun eine Statistik sowie alle aktiven Meldungen in Listenform zur Verfügung. Außerdem können Sie neue Fotos zu bestehenden Meldungen hochladen, die entweder noch nicht über ein Foto verfügen oder für die ein Fotowunsch besteht – erkennbar an einer kleinen Kamera am Meldungssysmbol."
-      news_content_two: "19.05.2017 – Das Portal %{name} wurde vollständig überarbeitet: Das Erscheinungsbild ist nun zeitgemäßer, die Bedienung einfacher und die Benutzerführung intuitiver als zuvor."
-      overall: neue Meldungen seit Start (28.03.2012)
+      overall: neue Meldungen seit Start (%{start_date})
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat
       processed: Meldungen erledigt letzten Monat

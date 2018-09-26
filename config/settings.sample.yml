@@ -1,6 +1,6 @@
 urls:
-  ks_frontend_search_url: https://klarschiff.de/search/server.php
   ks_server_url: https://klarschiff.de
+  ks_frontend_imprint_url: https://klarschiff-test/static/imprint
   ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
   ks_demo_url: https://klarschiff.de
   ks_github_url: https://github.com/bfpi/klarschiff-field_service
@@ -33,6 +33,7 @@ client:
   show_trust:
   show_d3_document_url:
   additional_content: false
+  start_date: 28.03.2012
 
 vote:
   min_requirement: 20

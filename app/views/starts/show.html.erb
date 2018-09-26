@@ -86,7 +86,7 @@
               <span class="label label-warning"><%= @overall_count %></span>
             </div>
             <div class="statistic-box-text">
-              <%= t('.overall') %>
+              <%= t('.overall', start_date: Settings::Client.start_date) %>
             </div>
           </div>
         </div>
@@ -127,8 +127,7 @@
         <h5 class="panel-title"><%= t('.news') %></h5>
       </div>
       <ul class="list-group">
-        <li class="list-group-item"><%= t('.news_content_one', name: Settings::Client.name) %></li>
-        <li class="list-group-item"><%= t('.news_content_two', name: Settings::Client.name) %></li>
+        <%= render file: "#{ Settings::Client.resources_path }/neuigkeiten.html" %>
       </ul>
     </div>
   </div>
