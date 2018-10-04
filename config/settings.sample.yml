@@ -1,6 +1,5 @@
 urls:
   ks_server_url: https://klarschiff.de
-  ks_frontend_imprint_url: https://klarschiff-test/static/imprint
   ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
   ks_demo_url: https://klarschiff.de
   ks_github_url: https://github.com/bfpi/klarschiff-field_service
