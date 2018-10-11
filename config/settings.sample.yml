@@ -83,6 +83,7 @@ map:
       content: orkamv
       content_statistics: orkamv-graustufen
       matrix_set: epsg_25833
+      matrix_set_statistics: epsg_25833
       format: png
       request_encoding: REST
       tilegrid_origin: [-464849.38, 6310160.14]
