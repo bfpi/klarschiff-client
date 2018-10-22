@@ -13,8 +13,9 @@ module StatisticsHelper
   def service_list
     tmp = {}
     Service.collection.to_a.each do |service|
-      tmp[service.group] = [] if tmp[service.group].blank?
-      tmp[service.group] << content_tag('option', service.service_name, value: service.service_code)
+      group = "#{ service.group } (#{ I18n.t "service.types.#{ service.type }.one" })"
+      tmp[group] = [] if tmp[group].blank?
+      tmp[group] << content_tag('option', service.service_name, value: service.service_code)
     end
 
     ret = []
