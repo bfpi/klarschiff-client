@@ -206,6 +206,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel-serializers-xml
   activeresource!
   bootstrap-sass
   byebug

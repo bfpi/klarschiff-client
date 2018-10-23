@@ -22,7 +22,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de" />
     <meta property="og:site_name" content="<%= Settings::Client.name %>" />
-    <meta property="og:image" content="<%= @og_request.present? && (url = @og_request.media_url).present? ? url : "#{URI.join(Settings::Url.ks_server_url, image_path('klarschiff.png'))}" %>" />
+    <meta property="og:image" content="<%= @og_request.present? && (url = @og_request.media_url).present? ? url : "#{URI.join(Settings::Url.ks_server_url, image_path('klarschiff.png', skip_pipeline: true))}" %>" />
     <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
     <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
@@ -35,7 +35,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4 col-sm-2">
-              <%= image_tag image_path('klarschiff.png'), id: 'logo1' %>
+              <%= image_tag image_path('klarschiff.png', skip_pipeline: true), id: 'logo1' %>
             </div>
             <div class="col-md-4 col-sm-8 text-center">
               <%= link_to [:root], data: { turbolinks: false } do %>
