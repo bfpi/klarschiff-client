@@ -96,6 +96,10 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     libv8 (3.16.14.19)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -157,6 +161,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    ruby_dep (1.5.0)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -204,7 +209,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemodel-serializers-xml
   activeresource!
   bootstrap-sass
   byebug
@@ -215,6 +219,7 @@ DEPENDENCIES
   jquery-form-rails
   jquery-rails
   jquery-ui-rails
+  listen
   net-ldap
   oj
   oj_mimic_json
