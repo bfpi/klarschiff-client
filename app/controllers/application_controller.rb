@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_og_request
-    if (id = params[:request]).present?
+    if (id = params[:request]).present? && id.to_s =~ /\A[0-9]+\z/
       @og_request = Request.find(id)
     end
   end

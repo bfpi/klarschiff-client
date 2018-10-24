@@ -12,10 +12,43 @@ module ActiveResource
     end
   end
 
+  module LoadWithCitySDKArrayStructure
+    def load(attributes, remove_root = false, persisted = false)
+      super attributes.is_a?(Array) ? attributes.first : attributes.to_h, remove_root, persisted
+    end
+  end
+
   class Base
     prepend ValidationsWithCitySDKErrorResponseCodes
+    prepend LoadWithCitySDKArrayStructure
+
+    module FindWithExtendedDefaultQueryOptions
+      def find(*args)
+        scope = args.slice!(0)
+        options = args.slice!(0) || {}
+        (options[:params] ||= {}).merge! default_query_options
+        super scope, options
+      rescue ActiveResource::ResourceInvalid => e
+        Rails.logger.error e.message
+        raise
+      end
+    end
+
+    module CollectionPathWithCitySDKUrlFormat
+      def collection_path(prefix_options = {}, query_options = nil)
+        if prefix_options.blank?
+          super prefix_options, query_options
+        else
+          check_prefix_options(prefix_options)
+          prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+          "#{ prefix(prefix_options) }#{ format_extension }#{ query_string(query_options) }"
+        end
+      end
+    end
 
     class << self
+      prepend FindWithExtendedDefaultQueryOptions
+      prepend CollectionPathWithCitySDKUrlFormat
       mattr_accessor :api_key
 
       def default_query_options
@@ -28,37 +61,7 @@ module ActiveResource
 
       mattr_writer :default_query_options
 
-      def find_with_extended_default_query_options(*args)
-        scope = args.slice!(0)
-        options = args.slice!(0) || {}
-        (options[:params] ||= {}).merge! default_query_options
-        find_without_extended_default_query_options scope, options
-      rescue ActiveResource::ResourceInvalid => e
-        Rails.logger.error e.message
-        raise
-      end
-
-      alias_method_chain :find, :extended_default_query_options
-
-      def collection_path_with_citysdk_url_format(prefix_options = {}, query_options = nil)
-        if prefix_options.blank?
-          collection_path_without_citysdk_url_format prefix_options, query_options
-        else
-          check_prefix_options(prefix_options)
-          prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-          "#{ prefix(prefix_options) }#{ format_extension }#{ query_string(query_options) }"
-        end
-      end
-
-      alias_method_chain :collection_path, :citysdk_url_format
     end
-
-    def load_with_citysdk_array_structure(attributes, remove_root = false, persisted = false)
-      load_without_citysdk_array_structure attributes.is_a?(Array) ?
-        attributes.first : attributes.to_h, remove_root, persisted
-    end
-
-    alias_method_chain :load, :citysdk_array_structure
   end
 
   module ErrorsWithCitySDKArrayStructure
