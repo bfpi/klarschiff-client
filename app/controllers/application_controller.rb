@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate, if: :login_required?
   before_action :set_mobile, :set_og_request
   helper_method :has_field_service_team?, :context
-  protect_from_forgery with: :exception 
+  protect_from_forgery prepend: true
   skip_before_action :verify_authenticity_token, if: :development? 
 
   protected
