@@ -6,7 +6,7 @@ gem 'rails', '~> 5.2.0'
 gem 'activeresource', git: 'http://github.com/rails/activeresource.git', branch: 'master'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'closure-compiler'
+gem 'closure-compiler', '1.1.13'
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
