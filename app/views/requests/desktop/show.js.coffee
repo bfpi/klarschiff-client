@@ -6,12 +6,9 @@ KS.createHighlightFeature(highlight_layer, coord, icon)
 unless $('#request').hasClass('active')
   $('#request').addClass('active')
   $('#watch').removeClass('active')
-<% if @direct.present? -%>
-  KS.olMap.getView().setZoom(11)
-  KS.olMap.getView().setCenter(coord)
-<% else -%>
-  KS.olMap.getView().animate({ center: coord })
-<% end -%>
+
+KS.olMap.getView().setZoom(11)
+KS.olMap.getView().setCenter(coord)
 
 <% if @refresh -%>
   KS.reloadFeatures()
