@@ -1,12 +1,12 @@
 versions:
-  ol: v4.2.0
+  ol: 4.2.0
   proj4: 2.3.3
   vertical_tabs: 1.2.2
   textresizer: 1.1.0
 
 javascripts:
-  OpenLayers.js: http://openlayers.org/en/<%= versions[:ol] %>/build/ol-debug.js
-  OpenLayers.min.js: http://openlayers.org/en/<%= versions[:ol] %>/build/ol.js
+  OpenLayers.js: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol-debug.js
+  OpenLayers.min.js: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol.js
   proj4js.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4-src.js
   proj4js.min.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4.js
   jquery.ui.touch-punch.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js
@@ -21,7 +21,7 @@ javascripts:
   billboard.min.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.min.js
 
 stylesheets:
-  OpenLayers.css: https://raw.githubusercontent.com/openlayers/ol3/<%= versions[:ol] %>/css/ol.css
-  OpenLayers.min.css: http://openlayers.org/en/<%= versions[:ol] %>/css/ol.css
+  OpenLayers.css: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol-debug.css
+  OpenLayers.min.css: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol.css
   ol3-ext.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.css
   ol3-ext.min.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.css
