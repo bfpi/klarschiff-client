@@ -28,6 +28,10 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
+
+    <% custom_css_file_path = "#{ Settings::Client.resources_path }custom.css" %>
+    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css" %>
+    <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
   </head>
   <body>
     <% unless @mobile -%>
