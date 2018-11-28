@@ -78,7 +78,6 @@ de:
     create: Erstellen
     describe: Beschreiben
     new_request: Start!
-    requests: Meldungen erstellen oder ansehen…
     resume: Übernehmen
     perma_link: "Permalink auf Meldung #%{req_id}"
     ok: OK
@@ -368,17 +367,7 @@ de:
   starts:
     show:
       headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
-      what_is_it: "Was kann ich in %{name} tun?"
-      what_is_it_not: "Was passt nicht in %{name}?"
-      not_content_one_html: "Notfälle, komplexe städtebauliche oder verkehrsplanerische Sachverhalte und persönliche Anfragen (z. B. Adressänderungen oder Leistungsanträge) können hier nicht gemeldet werden. Bitte berücksichtigen Sie, dass Ihre Meldungen öffentlich abrufbar sind."
-      not_content_two_html: "Für polizeiliche Notfälle und/oder Anzeigen nutzen Sie bitte die <strong>%{href}</strong> der Landespolizei Mecklenburg-Vorpommern."
-      not_content_two_href: "Internetwache"
-      not_content_three_html: "Meldungen zu Gewässerverunreinigungen, die möglicherweise Sofortmaßnahmen erfordern, sind über den <strong>%{href}</strong> oder die Landeswasserschutzpolizei Mecklenburg-Vorpommern einzureichen."
-      not_content_three_href: "Alarmdienst Gewässerschutz"
       news: Neuigkeiten
-      start_content_one: "%{name} ist eine Plattform zum Melden von Problemen in der Infrastruktur der %{city_long}."
-      start_content_two: "%{name} will Ihnen helfen sich mit der Stadtverwaltung in Verbindung zu setzen."
-      start_content_three: Wir möchten Sie ermutigen, uns Probleme und Ideen zu Ihrem lokalen Umfeld mitzuteilen und deren Bearbeitung durch uns online zu verfolgen! Versuchen Sie doch gleich Ihre erste Meldung!
       overall: neue Meldungen seit Start (%{start_date})
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat

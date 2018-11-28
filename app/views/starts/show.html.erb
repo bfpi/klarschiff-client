@@ -46,35 +46,9 @@
     </div>
   </div>
   <div class="col-md-9">
-    <div class="panel panel-info start-panel">
-      <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.what_is_it', name: Settings::Client.name) %></h5>
-      </div>
-      <div class="panel-body">
-        <div class="row form-group">
-          <div class="col-md-12">
-            <p><%= t('.start_content_one', name: Settings::Client.name, city_long: Settings::Client.city_long) %></p>
-            <p><%= t('.start_content_two', name: Settings::Client.name) %></p>
-            <p><%= t('.start_content_three') %></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-8 text-center">
-            <%= link_to t('buttons.requests'), [:map], role: :button, class: 'btn btn-lg btn-primary most-important', data: { turbolinks: false } %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.what_is_it_not', name: Settings::Client.name) %></h5>
-      </div>
-      <div class="panel-body">
-        <p><%= t('.not_content_one_html') %></p>
-        <p><%= t('.not_content_two_html', :href => link_to(t('.not_content_two_href'), Settings::Url.not_content_two_url, target: '_blank')) %></p>
-        <p><%= t('.not_content_three_html', :href => link_to(t('.not_content_three_href'), Settings::Url.not_content_three_url, target: '_blank')) %></p>
-      </div>
-    </div>
+    <% Dir.glob("#{ Settings::Client.resources_path }/starts/*").sort.each do |file| %>
+      <%= render file: file %>
+    <% end -%>
     <div id="statistic-panel" class="panel panel-info">
       <div class="panel-heading">
         <h5 class="panel-title"><%= t('.statistics') %></h5>
