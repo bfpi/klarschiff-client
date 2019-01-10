@@ -15,7 +15,12 @@ $ ->
     minLength: 2
     select: (event, ui) ->
       $.get("/map?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
-      null, null, 'script')
+      null, null, 'script').done ->
+        if ui.item.feature_id != null && ui.item.feature_id != undefined
+          url = KS.requests_path
+          url += ui.item.feature_id
+          url += "#{ if url.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+          $.ajax(url: url, dataType: 'script')
       false
 
   $(document).on 'input', '#places-search-pattern', () ->

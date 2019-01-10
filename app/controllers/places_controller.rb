@@ -12,7 +12,7 @@ class PlacesController < ApplicationController
             detailed_status: Settings::Map.default_requests_states,
             service_request_id: $1).try(:to_a).map do |p|
           @places << Place.new({ "geometry"=>{"coordinates"=>[p.long, p.lat], "type"=>"Point", "transform_bbox" => true},
-                      "properties"=>{ "_title_"=>"Meldung ##{ p.service_request_id }" },
+                      "properties"=>{ "_title_"=>"Meldung ##{ p.service_request_id }", "feature_id" => p.service_request_id },
                       "type"=>"Feature" })
         end
       end
