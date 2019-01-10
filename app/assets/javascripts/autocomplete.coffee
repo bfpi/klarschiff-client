@@ -7,6 +7,9 @@ $ ->
         data:
           pattern: request.term
         success: (data) ->
+          $(data).each (ix, entry) ->
+            if entry.transform_bbox
+              entry.bbox = ol.proj.transformExtent(entry.bbox, KS.projectionWGS84, KS.projection())
           response(data)
       )
     minLength: 2

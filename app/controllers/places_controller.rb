@@ -6,6 +6,17 @@ class PlacesController < ApplicationController
       @pattern = session[:places_filter]
     end
     unless @pattern.blank?
+      @places = []
+      if Settings::AddressSearch.search_request_id_enabled && @pattern =~ /^(\d*)$/
+        Request.where(
+            detailed_status: Settings::Map.default_requests_states,
+            service_request_id: $1).try(:to_a).map do |p|
+          @places << Place.new({ "geometry"=>{"coordinates"=>[p.long, p.lat], "type"=>"Point", "transform_bbox" => true},
+                      "properties"=>{ "_title_"=>"Meldung ##{ p.service_request_id }" },
+                      "type"=>"Feature" })
+        end
+      end
+
       require 'open-uri'
       uri = URI(Settings::AddressSearch.url)
       if !(localisator = Settings::AddressSearch.localisator).blank?
@@ -16,11 +27,12 @@ class PlacesController < ApplicationController
       uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search', class: 'address', shape: 'bbox', limit: '5')
       
       if (res = open(uri, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)) && res.status.include?('OK')
-        @places = Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
-          Place.new p
+        Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
+          @places << Place.new(p)
         end
       end
     end
+
     respond_to do |format|
       format.html { head(:not_acceptable) }
       format.js do

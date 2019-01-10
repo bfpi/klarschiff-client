@@ -61,6 +61,7 @@ address_search:
   url: https://geo.sv.rostock.de/geocodr/query?
   api_key: 1234567890abcdefghijklmnopqrstuv
   localisator: rostock
+  search_request_id_enabled: true
 
 protocol_mail:
   recipient: recipient@klarschiff.de
