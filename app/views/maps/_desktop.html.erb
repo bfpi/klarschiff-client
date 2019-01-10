@@ -26,7 +26,7 @@
     </div>
     <div class="panel panel-primary address-search-field">
       <div class="panel-body">
-        <%= text_field(:places, :search, class: 'form-control', placeholder: t('.address_search')) %>
+        <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::AddressSearch.search_request_id_enabled ? '.search' : '.address_search')) %>
       </div>
     </div>
     <div class="panel panel-primary map-panel">
