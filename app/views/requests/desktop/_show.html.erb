@@ -27,7 +27,9 @@
               <%= label_tag :media_url, Request.human_attribute_name(:media_url), class: 'control-label' %>
             </div>
             <% if label_photo_required -%>
-              <small><%= t('.hint_photo_required') %></small>
+              <div class="col-md-12">
+                <small><%= t('.hint_photo_required') %></small>
+              </div>
             <% end -%>
             <div class="col-md-12">
               <% if (url = @request.media_url).present? -%>

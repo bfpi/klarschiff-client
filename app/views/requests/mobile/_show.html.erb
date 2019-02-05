@@ -89,7 +89,7 @@
               <i>kein Foto vorhanden</i>
             <% end -%>
           </div>
-          <% if @request.media_required? -%>
+          <% if @request.media_required? && !login_required? -%>
             <%= form_for([@request, @photo], remote: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
               <%= hidden_field_tag :mobile, @mobile %>
               <div class="form-group">
