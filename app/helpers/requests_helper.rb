@@ -49,9 +49,38 @@ module RequestsHelper
   end
 
   def d3_document_url(request)
+    street = ''
+    housenumber = ''
+    housenumber_addition = ''
+    require 'open-uri'
+    uri = URI(Settings::AddressSearch.url)
+    query = request.long + ',' + request.lat
+    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse', class: 'address', radius: '100', in_epsg: '4326')
+    if (res = open(uri, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)) && res.status.include?('OK')
+      places = ActiveSupport::JSON.decode(res.read)['features']
+      places.each do |p|
+        if p['properties']['objektgruppe'] == 'Adresse'
+          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+          housenumber = p['properties']['hausnummer']
+          if p['properties']['hausnummer_zusatz']
+            housenumber_addition = p['properties']['hausnummer_zusatz']
+          end
+          break
+        elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
+          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+        end
+      end
+      if street.blank?
+        street = 'nicht zuordenbar'
+      end
+    else
+      street = 'nicht zuordenbar'
+    end
     request.service.document_url.
         gsub('{ks_id}', request.id.to_s).
         gsub('{ks_user}', @user.id).
-        gsub('{ks_address}', request.address)
+        gsub('{ks_str}', street).
+        gsub('{ks_hnr}', housenumber).
+        gsub('{ks_hnr_z}', housenumber_addition)
   end
 end

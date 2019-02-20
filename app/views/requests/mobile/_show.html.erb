@@ -173,12 +173,12 @@
         <div class="btn-group btn-group-justified" role="group">
           <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list, mobile: @mobile],
                       options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
-          <%= link_to(t('.actions.kod'), [:new, @request, :protocol, mobile: @mobile],
-                      options.merge(class: 'btn btn-default')) if display?(:protocol) %>
-
           <% if display?(:d3_document_url) && @request.service.document_url.present? -%>
             <%= link_to(t('.actions.d3_document'), d3_document_url(@request),
                         options.merge(class: 'btn btn-default', target: '_blank', :remote => false)) %>
+          <% elsif display?(:protocol) -%>
+            <%= link_to(t('.actions.kod'), [:new, @request, :protocol, mobile: @mobile],
+                        options.merge(class: 'btn btn-default')) %>
           <% end -%>
         </div>
       </div>
