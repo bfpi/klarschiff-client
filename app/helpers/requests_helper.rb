@@ -81,6 +81,7 @@ module RequestsHelper
         gsub('{ks_user}', @user.id).
         gsub('{ks_str}', street).
         gsub('{ks_hnr}', housenumber).
-        gsub('{ks_hnr_z}', housenumber_addition)
+        gsub('{ks_hnr_z}', housenumber_addition).
+        gsub('{ks_eigentuemer}', request.property_owner)
   end
 end
