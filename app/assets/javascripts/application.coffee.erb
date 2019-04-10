@@ -148,7 +148,7 @@ $ ->
     $.get("/#{ $(@).prop('id') }?back=true", null, null, 'script')
     false
 
-  $(document).on 'click', '#btn-start', () ->
+  $(document).on 'click', '#btn-start, .btn-start', () ->
     $('#requests.header-tab').trigger('click')
     false
 

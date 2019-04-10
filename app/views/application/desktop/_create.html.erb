@@ -16,7 +16,11 @@
   </div>
   <div class="row form-group">
     <div class="col-md-12">
-      <%= link_to t('buttons.ok'), path, remote: true, role: :button, class: 'btn btn-primary btn-block' %>
+      <% if path.blank? -%>
+        <%= link_to t('buttons.ok'), '#request', class: 'btn btn-primary btn-block btn-start' %>
+      <% else -%>
+        <%= link_to t('buttons.ok'), path, remote: true, role: :button, class: 'btn btn-primary btn-block' %>
+      <% end -%>
     </div>
   </div>
 </div>
