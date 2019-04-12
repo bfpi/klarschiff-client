@@ -1,3 +1,21 @@
-$(document)
-  .ajaxStart(-> $('#throbber').show())
-  .ajaxStop -> $('#throbber').hide()
+$(document).ajaxStart(->
+  $('#throbber').show()
+  KS.enableDisable(@activeElement, true)
+).ajaxStop ->
+  $('#throbber').hide()
+  KS.enableDisable(@activeElement, false)
+
+KS.enableDisable = (currentElement, disable) ->
+  if KS.getUrlParam('mobile') == 'true'
+    backdropId = 'backdrop'
+    if disable
+      newDiv = $('<div/>')
+      newDiv.attr 'id', backdropId
+      newDiv.attr 'class', 'modal-backdrop in'
+      $(newDiv).appendTo('body');
+    else
+      $('#' + backdropId).remove()
+
+  form = $(currentElement).parents('form')
+  if form.length > 0
+    $(form[0]).find(":input, a.btn").attr('disabled', disable)
