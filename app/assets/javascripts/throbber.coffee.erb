@@ -1,9 +1,11 @@
 $(document).ajaxStart(->
   $('#throbber').show()
-  KS.enableDisable(@activeElement, true)
+  KS.activeElement = @activeElement
+  KS.enableDisable(KS.activeElement, true)
 ).ajaxStop ->
   $('#throbber').hide()
-  KS.enableDisable(@activeElement, false)
+  KS.enableDisable(KS.activeElement, false)
+  KS.activeElement = null
 
 KS.enableDisable = (currentElement, disable) ->
   if KS.getUrlParam('mobile') == 'true'
@@ -19,3 +21,4 @@ KS.enableDisable = (currentElement, disable) ->
   form = $(currentElement).parents('form')
   if form.length > 0
     $(form[0]).find(":input, a.btn").attr('disabled', disable)
+
