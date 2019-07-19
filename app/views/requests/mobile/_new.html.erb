@@ -96,12 +96,14 @@
             <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-md-2 control-label"><%= t('.hint.label') %></label>
-          <div class="col-md-10">
-            <p class="form-control-static"><%= t('.hint.text_mobile_html') %></p>
+        <% if display?(:email) -%>
+          <div class="form-group">
+            <label class="col-md-2 control-label"><%= t('.hint.label') %></label>
+            <div class="col-md-10">
+              <p class="form-control-static"><%= t('.hint.text_mobile_html') %></p>
+            </div>
           </div>
-        </div>
+        <% end -%>
         <div class="form-group">
           <div class="col-md-offset-2 col-md-10">
             <div class="btn-group btn-group-justified" role="group">
