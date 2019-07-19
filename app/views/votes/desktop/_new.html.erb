@@ -19,6 +19,11 @@
       </div>
     </div>
     <div class="row form-group">
+      <div class="col-md-12">
+        <%= t('.hint.privacy_html') %>
+      </div>
+    </div>
+    <div class="row form-group">
       <div class="btn-group btn-group-justified col-md-12 div-margin-top" role="group">
         <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default',
                     role: :button) %>

@@ -5,4 +5,4 @@ KS.olMap.getView().setCenter(coord)
 <% end -%>
 KS.nav.switchTo 'request', '<%= j render("requests/mobile/show") %>'
 new Shariff($('.shariff'), {});
-$('#new-photo input[type=submit]').hide()
+$('#confirmation_foto_text_privacy_html, #new-photo input[type=submit]').hide()

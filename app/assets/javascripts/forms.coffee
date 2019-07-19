@@ -69,4 +69,4 @@ $ ->
 
   KS.content().on 'change', '#new-photo input[type=file]', ->
     if $(@).val().length > 0
-      $('#new-photo a[data-next=image-submit], #new-photo input[type=submit]').show()
+      $('#new-photo a[data-next=image-submit], #confirmation_foto_text_privacy_html, #new-photo input[type=submit]').show()

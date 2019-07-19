@@ -149,6 +149,7 @@ de:
           warning_html: "Achtung: Wenn Sie einen Missbrauch melden, wird die betroffene Meldung
             <strong>sofort</strong> und so lange <strong>deaktiviert</strong> (und damit
             unsichtbar), bis wir Ihren Missbrauchshinweis bearbeitet haben."
+          privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
     mobile:
       <<: *abuses
       create:
@@ -177,6 +178,8 @@ de:
         title: Lob, Hinweise oder Kritik
         text: Freitext
         recipient: Empfänger
+        hint:
+          privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
     mobile:
       create:
         error: Fehler bei Lob, Hinweisen oder Kritik
@@ -289,6 +292,7 @@ de:
         no_personal_requests: Keine persönlichen Anfragen (z. B. Adressänderungen oder Leistungsanträge)!
       new: &form_labels
         confirmation: Abschluss
+        confirmation_text_privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
         confirmation_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihre Meldung noch einmal <strong>bestätigen</strong> müssen."
         confirmation_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihre Meldung automatisch wieder <strong>gelöscht.</strong>"
         describe_idea: z. B. Aufstellung eines neuen Fahrradständers oder Änderung einer Ampelschaltung
@@ -310,6 +314,7 @@ de:
         hint:
           label: Hinweis
           text: Vor der Veröffentlichung werden die Beschreibung und das Foto redaktionell überprüft.
+          text_mobile_html: Vor der Veröffentlichung werden die Beschreibung und das Foto redaktionell überprüft. Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet.
         what: Was?
         problem_or_idea: Melden Sie entweder ein Problem (z. B. defekte Dinge oder Verschmutzungen) oder eine Idee (z. B. neue Dinge oder Änderungswünsche).
         what_exactly: Was genau?
@@ -334,6 +339,7 @@ de:
           vote: Unterstützung
           d3_document: d.3-Akte
         confirmation_foto: Abschluss
+        confirmation_foto_text_privacy_html: "Mit Klick auf <em>Foto hochladen</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
         confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
         confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
@@ -388,6 +394,7 @@ de:
         hint:
           text: 'Ihre Unterstützung sollten Sie insbesondere dann zeigen, wenn Sie eine Idee gut finden. Sie hilft der Stadtverwaltung zu erkennen, dass der Sachverhalt nicht nur auf einer Einzelmeinung beruht.'
           warning_html: "Achtung: Unterstützungen dienen nur als Indikator, ähnlich einer Umfrage. Die Prüfung auf Realisierbarkeit ist davon unabhängig und auch bei 20 Unterstützungen nicht garantiert!"
+          privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
     mobile:
       <<: *votes
       create:
