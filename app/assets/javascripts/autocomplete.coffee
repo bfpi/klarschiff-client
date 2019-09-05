@@ -12,7 +12,8 @@ $ ->
               entry.bbox = ol.proj.transformExtent(entry.bbox, KS.projectionWGS84, KS.projection())
           response(data)
       )
-    minLength: 2
+    delay: 800
+    minLength: 3
     select: (event, ui) ->
       $.get("/map?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
       null, null, 'script').done ->
@@ -25,12 +26,15 @@ $ ->
 
   $(document).on 'input', '#places-search-pattern', () ->
     elem = $(this)
-    if elem.val().length == 0 || elem.val().length >= 3
-      $.ajax(
-        url: '/places'
-        dataType: 'script'
-        data:
-          auto: true
-          mobile: true
-          pattern: elem.val()
-      )
+    clearTimeout @searching
+    @searching = setTimeout((->
+      if elem.val().length == 0 || elem.val().length >= 3
+        $.ajax(
+          url: '/places'
+          dataType: 'script'
+          data:
+            auto: true
+            mobile: true
+            pattern: elem.val()
+        )
+    ), 1000)
