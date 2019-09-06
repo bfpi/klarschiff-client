@@ -37,4 +37,4 @@ $ ->
             mobile: true
             pattern: elem.val()
         )
-    ), 1000)
+    ), 2000)
