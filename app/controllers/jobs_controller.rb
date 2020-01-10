@@ -5,6 +5,7 @@ class JobsController < ApplicationController
     return render(nothing: true) unless has_field_service_team?
 
     @jobs = Request.where(@conditions).try(:to_a)
+    @jobs.sort! { |x, y| x.extended_attributes.job_priority <=> y.extended_attributes.job_priority}
     session[:referer_params] = params.slice(:center, :radius)
     respond_to do |format|
       format.js
@@ -23,6 +24,7 @@ class JobsController < ApplicationController
 
   def update
     jobs = Request.where(@conditions).to_a
+    jobs.sort! { |x, y| x.extended_attributes.job_priority <=> y.extended_attributes.job_priority}
     job = jobs.select { |req| req.id == params[:id].to_i }.first
 
     jobs.delete_at jobs.index(job)
@@ -32,7 +34,7 @@ class JobsController < ApplicationController
       Request.patch(j.id, { api_key: Request.api_key, email: @user.email, job_priority: ix })
     end
 
-    return render text: true
+    return render plain: true
   end
 
   private
