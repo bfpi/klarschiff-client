@@ -195,6 +195,11 @@ $ ->
 
   $('.start-panel').find('.btn-primary').toArray()[0].focus() if $('.start-panel').is(':visible')
 
+  $(document).on 'click', '.update-position', () ->
+    navigator.geolocation.getCurrentPosition (position) ->
+      $('#request_lat').val(position.coords.latitude)
+      $('#request_long').val(position.coords.longitude)
+    false
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())

@@ -187,7 +187,7 @@ class RequestsController < ApplicationController
   def permissable_params
     keys = [:service_code, :description, :email]
     keys += [:detailed_status, :job_status] if action_name == 'update'
-    keys |= [:lat, :long] if action_name == 'create'
+    keys |= [:lat, :long] if ['create', 'update'].include?(action_name)
     data = params.require(:request).permit(keys)
     if (img = params[:request][:media]).present?
       data[:media] = Base64.encode64(img.read)
