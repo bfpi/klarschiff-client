@@ -100,8 +100,8 @@ map:
         (<a rel="license" href="http://opendatacommons.org/licenses/odbl" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
         und LkKfS-MV
     -
-      url: https://geo.sv.rostock.de/geodienste/luftbild_mv-40/wmts/hro.luftbild_mv-40.luftbild_mv-40/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
-      content: hro.luftbild_mv-40.luftbild_mv-40
+      url: https://geo.sv.rostock.de/geodienste/luftbild_mv-20/wmts/hro.luftbild_mv-20.luftbild_mv-20/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
+      content: hro.luftbild_mv-20.luftbild_mv-20
       matrix_set: epsg_25833
       format: png
       request_encoding: REST
@@ -115,7 +115,7 @@ map:
     -
       url: https://geo.sv.rostock.de/geodienste/klarschiff-poi/wms?
       projection: EPSG:25833
-      content: hro.klarschiff-poi.abfallbehaelter,hro.klarschiff-poi.ampeln,hro.klarschiff-poi.beleuchtung,hro.klarschiff-poi.brunnen,hro.klarschiff-poi.denkmale,hro.klarschiff-poi.hundetoiletten,hro.klarschiff-poi.recyclingcontainer,hro.klarschiff-poi.sitzgelegenheiten,hro.klarschiff-poi.sperrmuelltermine
+      content: hro.klarschiff-poi.abfallbehaelter,hro.klarschiff-poi.ampeln,hro.klarschiff-poi.beleuchtung,hro.klarschiff-poi.brunnen,hro.klarschiff-poi.denkmale,hro.klarschiff-poi.hundetoiletten,hro.klarschiff-poi.recyclingcontainer,hro.klarschiff-poi.sitzgelegenheiten,hro.klarschiff-poi.sperrmuelltermine,hro.klarschiff-poi.gemeinde-hro-invers
       format: image/png
       extent: [271264, 5938535, 356804, 6017573]
       visible: true
