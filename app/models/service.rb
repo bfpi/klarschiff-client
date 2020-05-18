@@ -17,6 +17,7 @@ class Service < ActiveResource::Base
   end
 
   def type
+    return nil unless keywords
     ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && case t
     when "idee"
       "idea"
