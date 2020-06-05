@@ -14,6 +14,15 @@
     a
       padding: 10px
 
+.navbar-default .navbar-nav > li
+  display: inline-block
+  margin-right: 30px
+
+.collapsing ul.nav,
+.collapse ul.nav
+    a
+      color: #000000
+
 .ol-map-mobile
   bottom: 0
   left: 0
@@ -25,8 +34,25 @@
     top: 1em
 
   .geolocation
-    display: none
-  
+    left: .5em
+    top: 6.75em
+
+  .view-switcher
+    left: .5em
+    top: 9.5em
+
+  .geolocation,
+  .view-switcher
+    button
+      font-size: initial !important
+      width: 34px !important
+
+    span
+      font-size: initial
+
+    span.text
+      display: none
+
   .ol-scale-line
     background: none
     background-color: transparent
@@ -54,13 +80,16 @@
   .geolocation
     left: 325px
     top: 50px
+
+  .view-switcher button .image
+    display: none
   
 .ol-zoom .ol-zoom-in, .ol-zoom .ol-zoom-out
   font-weight: bold
   font-size: 20px
   border-radius: 4px
-  width: 30px
-  height: 30px
+  width: 34px
+  height: 34px
   line-height: 30px
 
 .ol-control, .ol-control:hover, .ol-control:focus
@@ -81,11 +110,13 @@
 .ol-control button:hover, .ol-control button:focus
   background-color: #286090
 
-.geolocation.ol-control
+.geolocation.ol-control,
+.view-switcher.ol-control
   width: 130px
   height: 34px
 
-.geolocation.ol-control button
+.geolocation.ol-control button,
+.view-switcher.ol-control button
   width: 130px
   height: 34px
 
@@ -122,3 +153,86 @@
     
 .ol-attribution:not(.ol-collapsed)
   background: rgba(255,255,255,0.8)
+
+.ol-popup
+  position: absolute
+  background-color: white
+  -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2))
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2))
+  padding: 15px
+  border-radius: 10px
+  margin-top: 15px
+  border: 1px solid #cccccc
+  left: -170px
+
+.ol-popup:after,
+.ol-popup:before
+  bottom: 100%
+  border: solid transparent
+  content: " "
+  height: 0
+  left: 50%
+  width: 0
+  position: absolute
+  pointer-events: none
+
+.ol-popup:after
+  border-bottom-color: white
+  border-width: 10px
+  margin-left: -10px
+
+.ol-popup:before
+  border-bottom-color: #cccccc
+  border-width: 11px
+  margin-left: -11px
+
+.ol-popup-closer
+  font-size: 20px
+  text-decoration: none
+  position: absolute
+  top: 8px
+  right: 12px
+
+.ol-popup-closer:after
+  content: "✖"
+
+#popup-content
+  width: 300px
+
+#popup-content #open-request
+  position: absolute
+  right: 2em
+  top: 1em
+
+#popup-content #open-request h3
+  margin: 0
+
+#popup-content .form-group:first-child h4
+  margin-top: 0
+  display: inline-block
+  width: 300px
+
+#popup-content .form-group:last-child
+  margin-bottom: 0
+
+#crosshair
+  display: none
+  font-size: 50px
+  margin-left: -25px
+  position: absolute
+  left: 50%
+  top: 50%
+
+.map-image > div
+  height: 150px
+
+.map-image > div img
+  height: 100%
+  object-fit: cover
+
+.map-image > div.col-sm-6:first-child
+  padding-right: 0
+
+.map-image > div.col-sm-6:last-child
+  padding-left: 0
+

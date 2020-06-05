@@ -33,7 +33,7 @@
     <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css" %>
     <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
   </head>
-  <body>
+  <body class="<%= 'mobile' if @mobile %>">
     <% unless @mobile -%>
       <header>
         <div class="container">
@@ -83,7 +83,7 @@
         <div class="container">
           <div class="systray">
             <div class="text-center">
-              <%= link_to t(:mobile), [:map, mobile: true], data: { turbolinks: false } %> |
+              <%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
               <%= link_to t(:api), [:api, :static] %> |
               <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
               <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %> |
@@ -96,7 +96,37 @@
         </div>
       </footer>
     <% else -%>
-      <%= yield %>
+      <% unless controller.controller_name == 'maps' -%>
+        <header>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 text-center">
+                <%= image_tag image_path('klarschiff.png'), id: 'logo1', class: 'pull-left' %>
+                <%= image_tag Settings::Client.logo_url, id: 'logo2', class: 'pull-right' %>
+                <%= link_to [:root], data: { turbolinks: false } do %>
+                  <h1><%= Settings::Client.name %></h1>
+                <% end -%>
+              </div>
+            </div>
+          </div>
+        </header>
+      <% end -%>
+      <div id="main-content" class="container">
+        <%= yield %>
+      </div>
+      <% unless controller.controller_name == 'maps' -%>
+        <footer class="footer">
+          <div class="container">
+            <div class="systray">
+              <div class="text-center">
+                <%= link_to t(:privacy), [:privacy, :static] %> |
+                <%= link_to t(:imprint), [:imprint, :static] %> |
+                <%= link_to t(:usage), [:usage, :static] %>
+              </div>
+            </div>
+          </div>
+        </footer>
+      <% end -%>
     <% end -%>
     <div id="throbber">
       <img id="throbber-img" src="<%= image_path 'throbber.gif' %>" />
@@ -109,6 +139,8 @@
         <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>" />
       <% end -%>
       <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
+      <img id="aerial" src="<%= image_path 'icons/menu/png/aerial.png' %>" />
+      <img id="map" src="<%= image_path 'icons/menu/png/map.png' %>" />
     </div>
     <% unless !Settings::Client.additional_content %>
       <%= Settings::Client.additional_content.html_safe -%>

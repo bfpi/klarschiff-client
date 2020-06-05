@@ -26,16 +26,6 @@ $ ->
     if($('.navbar-toggle').css('display') != 'none')
       $(".navbar-toggle").trigger "click"
 
-  KS.nav.bar.on 'click', 'a.layer-switcher', ->
-    KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
-    KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
-    false
-
-  KS.nav.bar.on 'click', 'a.geolocator', ->
-    KS.nav.switchTo 'map'
-    KS.geolocation.center(KS.olMap)
-    false
-
   KS.nav.bar.on 'click', 'a', ->
     KS.nav.bar.find('li').removeClass 'active'
     $(@).parent('li').addClass 'active'

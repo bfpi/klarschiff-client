@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_mobile
-    client = DeviceDetector.new(request.user_agent)
-    @mobile = (params[:mobile].presence && params[:mobile] == "true") || (client.known? && client.device_type != 'desktop')
+    @mobile = (params[:mobile].presence && params[:mobile] == "true") || mobile_detected?
   end
 
   def set_og_request
@@ -38,5 +37,16 @@ class ApplicationController < ActionController::Base
 
   def development?
     Rails.env == 'development'
+  end
+
+  private
+
+  def mobile_detected?
+    client = DeviceDetector.new(request.user_agent)
+    if client.known? && client.device_type != 'desktop'
+      true
+    else
+      false
+    end
   end
 end

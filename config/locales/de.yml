@@ -3,6 +3,7 @@ de:
     formats:
       default: "%d. %B %Y, %H:%M Uhr"
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
+  aerial_view: Luftbild
   api: API
   demo: Demo
   font_attribution: Fonts © 2009
@@ -84,6 +85,7 @@ de:
     save: Speichern
     search: Suchen
     submit: Senden
+    submit_position: Position übernehmen
     upload: Foto hochladen
 
   messages:
@@ -105,10 +107,11 @@ de:
     location: Standort
     map: Karte
     map_background: Kartenhintergrund
-    places: Standortsuche
+    places: Suche
     report_idea: Idee melden
     report_problem: Problem melden
     report_tip: Tipp melden
+    request: Neue Meldung
     imprint: Impressum
     privacy: Datenschutz
 
@@ -197,7 +200,6 @@ de:
 
   maps:
     desktop:
-      aerial_view: Luftbild
       address_search: Adressensuche
       search: Suche
       filter: Kartenfilter
@@ -318,6 +320,8 @@ de:
         what: Was?
         problem_or_idea: Melden Sie entweder ein Problem (z. B. defekte Dinge oder Verschmutzungen) oder eine Idee (z. B. neue Dinge oder Änderungswünsche).
         what_exactly: Was genau?
+        has_photo: Haben Sie ein Foto?
+        confirm_data: Alle Angaben richtig?
       standard_form:
         <<: *form_labels
       campaign_form:
@@ -372,7 +376,7 @@ de:
       not-checkable: nicht abarbeitbar
 
   starts:
-    show:
+    show: &starts_show
       headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
       news: Neuigkeiten
       overall: neue Meldungen seit Start (%{start_date})
@@ -382,6 +386,12 @@ de:
       recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
+    desktop:
+      <<: *starts_show
+    mobile:
+      <<: *starts_show
+      intro: Probleme und Ideen zu Ihrem lokalen Umfeld mitteilen und online die Bearbeitung verfolgen
+      button: Meldungen erstellen oder ansehen…
 
   votes:
     desktop: &votes

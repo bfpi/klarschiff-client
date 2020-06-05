@@ -1,0 +1,51 @@
+        <div class="page-header" id="headline">
+          <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
+        </div>
+        <div class="intro row">
+          <div class="col-sm-12 text-center">
+            <%= t('.intro') %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="statistic">
+              <div class="row">
+                <div class="col-sm-3 text-right">
+                  <span class="label label-warning"><%= @overall_count %></span>
+                </div>
+                <div class="col-sm-9">
+                  <%= t('.overall', start_date: Settings::Client.start_date) %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-right">
+                  <span class="label label-warning"><%= @current_count %></span>
+                </div>
+                <div class="col-sm-9">
+                  <%= t('.current') %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-right">
+                  <span class="label label-warning"><%= @newest_count %></span>
+                </div>
+                <div class="col-sm-9">
+                  <%= t('.newest') %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 text-right">
+                  <span class="label label-warning"><%= @processed_count %></span>
+                </div>
+                <div class="col-sm-9">
+                  <%= t('.processed') %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1 text-center">
+            <%= link_to t('.button'), map_path(mobile: @mobile), class: 'btn btn-lg btn-primary', data: { turbolinks: false } %>
+          </div>
+        </div>      

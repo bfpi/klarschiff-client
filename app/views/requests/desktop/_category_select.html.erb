@@ -1,15 +1,67 @@
 <div id="type-select">
   <div id="request-category-1" class="row form-group category">
     <div class="col-md-12">
-      <%= select_tag(:request_category, categories(type), id: :request_category_1,
+      <%= select_tag(:request_category, categories(type, category), id: :request_category_1,
                      class: 'form-control', data: { update: :request_service_code_1 }) %>
     </div>
     <div class="col-md-12">
-      <%= select_tag(:request_service_code, services(), id: :request_service_code_1,
+      <%= select_tag(:request_service_code, services(category, service_code), id: :request_service_code_1,
                    class: 'form-control', name: 'request[service_code][]',
                    data: { src: services_path(type: type),
                            placeholder: t('placeholder.select.service'),
                            'missing-message': t('requests.create.error.required.category') }) %>
     </div>
+    <% if multi_requests_enabled? -%>
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified" role="group">
+          <a href="#request-category-2" class="btn btn-default" role="button" data-action="show">
+            <span class="glyphicon glyphicon-plus">
+          </a>
+        </div>
+      </div>
+    <% end -%>
   </div>
+  <% if multi_requests_enabled? -%>
+    <div id="request-category-2" class="row form-group category hidden">
+      <div class="col-md-12">
+        <%= select_tag(:request_category, categories(type), id: :request_category_2,
+                       class: 'form-control', data: { update: :request_service_code_2 }) %>
+      </div>
+      <div class="col-md-12">
+        <%= select_tag(:request_service_code, services(), id: :request_service_code_2,
+                     class: 'form-control', name: 'request[service_code][]',
+                     data: { src: services_path(type: type),
+                             placeholder: t('placeholder.select.service') }) %>
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified" role="group">
+          <a href="#request-category-3" class="btn btn-default" role="button" data-action="show">
+            <span class="glyphicon glyphicon-plus">
+          </a>
+          <a href="#request-category-2" class="btn btn-default" role="button" data-action="hide">
+            <span class="glyphicon glyphicon-minus">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="request-category-3" class="row form-group category hidden">
+      <div class="col-md-12">
+        <%= select_tag(:request_category, categories(type), id: :request_category_3,
+                       class: 'form-control', data: { update: :request_service_code_3 }) %>
+      </div>
+      <div class="col-md-12">
+        <%= select_tag(:request_service_code, services(), id: :request_service_code_3,
+                     class: 'form-control', name: 'request[service_code][]',
+                     data: { src: services_path(type: type),
+                             placeholder: t('placeholder.select.service') }) %>
+      </div>
+      <div class="col-md-12">
+        <div class="btn-group btn-group-justified" role="group">
+          <a href="#request-category-3" class="btn btn-default" role="button" data-action="hide">
+            <span class="glyphicon glyphicon-minus">
+          </a>
+        </div>
+      </div>
+    </div>
+  <% end -%>
 </div>

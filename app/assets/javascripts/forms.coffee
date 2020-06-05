@@ -19,15 +19,15 @@ $ ->
   KS.content().on 'submit', 'form.fileupload', (e) ->
     err = []
     $(e.target).find(':input[data-missing-message]').each ->
-      if $(this).val() == null or $(this).val().length == 0
+      if !$(@).hasClass('hidden') && $(@).val() == null || $(this).val().length == 0
         err.push('<p>' + $(this).data('missing-message') + '</p>')
 
     if err.length > 0
       $.unique(err)
       content = '<div class="modal-header text-warning"><span class="glyphicon glyphicon-alert"></span>'
-      content += $(e.target).data('validation-error-headline') + '</div>';
+      content += $(e.target).data('validation-error-headline') + '</div>'
       content += '<div class="modal-body">' + err + '</div>'
-      content += '<div class="modal-footer"><button type="button" class="btn';
+      content += '<div class="modal-footer"><button type="button" class="btn'
       content += ' btn-primary" data-dismiss="modal">Ok</button></div>'
       KS.flash.show(content)
       e.preventDefault()

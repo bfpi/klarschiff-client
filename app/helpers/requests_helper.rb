@@ -16,12 +16,13 @@ module RequestsHelper
     end
   end
 
-  def status(request)
+  def status(request, show_currently: true)
     status = t(request.detailed_status.downcase, scope: :status)
     if date = request.extended_attributes.detailed_status_datetime
       status << " (#{ t('requests.status.since') } #{ l(date.to_date) })"
     end
-    status << ", #{ t('requests.status.currently') } #{ request.agency_responsible }"
+    status << ", #{ t('requests.status.currently') } #{ request.agency_responsible }" if show_currently
+    status
   end
 
   def statuses(request)
@@ -38,10 +39,11 @@ module RequestsHelper
     options_for_select categories, current
   end
 
-  def services(category = nil)
-    Service.collection.select { |s| s.group == category }.map { |s|
+  def services(category = nil, current = nil)
+   services = Service.collection.select { |s| s.group == category }.map { |s|
       [s.service_name, s.service_code]
     }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder]
+   options_for_select services, current
   end
 
   def service

@@ -1,0 +1,15 @@
+<div class="navbar navbar-default navbar-fixed-bottom actions">
+  <div class="container">
+    <div class="btn-group btn-group-justified" role="group">
+      <%= link_to('#', class: "btn btn-default btn-continue back#{' disabled' if back.blank?}", role: :button, data: { current: current, next: back }) do %>
+        <span class="glyphicon glyphicon-backward"></span>
+      <% end -%>
+      <div class="btn btn-default">
+        <span><strong><%= text %> <%= step %></strong></span>
+      </div>
+      <%= link_to('#', class: "btn btn-default btn-continue #{' disabled' if nxt.blank?}", role: :button, data: { current: current, next: nxt }) do %>
+        <span class="glyphicon glyphicon-forward"></span>
+      <% end -%>
+    </div>
+  </div>
+</div>

@@ -10,79 +10,62 @@
     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#" class="geolocator" title="<%= t("nav.location") %>">
-            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.location") %></span>
-          </a>
-        </li>
-        <li>
-          <%= link_to(map_path(mobile: @mobile), remote: true, class: :map, title: t("nav.map")) do %>
-            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.map") %></span>
+          <%= link_to(new_request_path(mobile: @mobile), remote: true, title: t("nav.request")) do %>
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            <% unless login_required? -%>
+              <span><%= t("nav.request") %></span>
+            <% end %>
           <% end %>
-        </li>
-        <li>
-          <a href="#" class="layer-switcher" title="<%= t("nav.map_background") %>">
-            <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.map_background") %></span>
-          </a>
         </li>
         <li>
           <%= link_to(places_path(mobile: @mobile), remote: true, class: :places, title: t("nav.places")) do %>
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.places") %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to(new_request_path(type: :problem, mobile: @mobile), remote: true, title: t("nav.report_problem")) do %>
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.report_problem") %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to(new_request_path(type: :idea, mobile: @mobile), remote: true, title: t("nav.report_idea")) do %>
-            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            <span class="hidden-sm hidden-md"><%= t("nav.report_idea") %></span>
-          <% end %>
-        </li>
-        <% if login_required? -%>
-          <li>
-            <%= link_to(new_request_path(type: :tip, mobile: @mobile), remote: true, title: t("nav.report_tip")) do %>
-              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              <span class="hidden-sm hidden-md"><%= t("nav.report_tip") %></span>
+            <% unless login_required? -%>
+              <span><%= t("nav.places") %></span>
             <% end %>
-          </li>
-        <% end -%>
+          <% end %>
+        </li>
         <% if login_required? && has_field_service_team? -%>
           <li>
             <%= link_to(jobs_path(mobile: @mobile), remote: true, class: :jobs, title: t("nav.jobs")) do %>
               <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
-              <span class="hidden-sm hidden-md"><%= t("nav.jobs") %></span>
             <% end %>
           </li>
           <li>
-            <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: :map, title: t("nav.job_map")) do %>
+            <%= link_to(map_path(mobile: @mobile), remote: true, class: :map, title: t("nav.map"),
+                                                   id: :link_default_map, style: "display: none;") do %>
+                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+            <% end %>
+            <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: :map, title: t("nav.job_map"), id: :link_job_map) do %>
                 <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
-                <span class="hidden-sm hidden-md"><%= t("nav.job_map") %></span>
             <% end %>
           </li>
         <% end -%>
         <% if !login_required? -%>
           <li>
-            <a href="<%= imprint_static_path %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
-              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-              <span class="hidden-sm hidden-md"><%= t("nav.imprint") %></span>
-            </a>
-          </li>
-          <li>
-            <a href="<%= privacy_static_path %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
-              <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-              <span class="hidden-sm hidden-md"><%= t("nav.privacy") %></span>
+            <a data-toggle="collapse" data-target="#navbar" href"#">
+              <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
             </a>
           </li>
         <% end -%>
       </ul>
     </div>
+  </div>
+  <div class="collapse" aria-expanded="false" id="navbar">
+    <ul class="nav">
+      <li>
+        <a href="<%= imprint_static_path %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <span><%= t("nav.imprint") %></span>
+        </a>
+      </li>
+      <li>
+        <a href="<%= privacy_static_path %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+          <span><%= t("nav.privacy") %></span>
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 <div class="modal fade" id="flash" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -92,6 +75,17 @@
   <nav class="navbar navbar-default navbar-fixed-bottom actions hidden">
   </nav>
 </div>
+<% if @mobile && !login_required? -%>
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+  </div>
+<% end -%>
+<% if @mobile -%>
+  <div id="crosshair">
+    <span class="glyphicon glyphicon-screenshot" />
+  </div>
+<% end -%>
 <div id="content" class="container">
   <%= yield %>
 </div>

@@ -33,13 +33,25 @@
           (<%= l(@request.requested_datetime.to_date) %>)
         </div>
       </h4>
-      <% if !login_required? -%>
-        <div class="shariff" data-button-style="icon"
-             data-title="<%= Settings::Client.name %> #<%= @request.id %> <%= @request.service %>"
-             data-url="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, request: @request.id])) %>"
-             data-services="['facebook', 'twitter', 'whatsapp', 'xing', 'linkedin', 'pinterest', 'googleplus', 'diaspora']"></div>
-      <% end -%>
     </div>
+    <% if !login_required? -%>
+      <div class="list-group">
+        <div class="row map-image">
+          <% if (url = @request.media_url).present? -%>
+            <div class="col-sm-6" id="ol-minimap"
+                 data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
+                 data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
+            <div class="col-sm-6">
+              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-responsive" />
+            </div>
+          <% else -%>
+            <div class="col-sm-12" id="ol-minimap"
+                 data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
+                 data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
+          <% end -%>
+        </div>
+      </div>
+    <% end -%>
     <div class="list-group">
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
@@ -74,22 +86,34 @@
           <p class="list-group-item-text"><em><%= notes.html_safe %></em></p>
         </div>
       <% end -%>
-      <div class="list-group-item">
-        <h4 class="list-group-item-heading">
-          <%= Request.human_attribute_name(:media_url) %>
-        </h4>
-        <% if label_photo_required -%>
-          <small><%= t('.hint_photo_required') %></small>
-        <% end -%>
-        <p class="list-group-item-text">
-          <div class="form-group">
-            <% if (url = @request.media_url).present? -%>
-              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
-            <% else -%>
-              <i>kein Foto vorhanden</i>
-            <% end -%>
-          </div>
-          <% if @request.media_required? && !login_required? -%>
+      <% if login_required? -%>
+        <div class="list-group-item">
+          <h4 class="list-group-item-heading">
+            <%= Request.human_attribute_name(:media_url) %>
+          </h4>
+          <% if label_photo_required -%>
+            <small><%= t('.hint_photo_required') %></small>
+          <% end -%>
+          <p class="list-group-item-text">
+            <div class="form-group">
+              <% if (url = @request.media_url).present? -%>
+                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+              <% else -%>
+                <i>kein Foto vorhanden</i>
+              <% end -%>
+            </div>
+          </p>
+        </div>
+      <% end -%>
+      <% if @request.media_required? && !login_required? -%>
+        <div class="list-group-item">
+          <h4 class="list-group-item-heading">
+            <%= Request.human_attribute_name(:media_url) %>
+          </h4>
+          <% if label_photo_required -%>
+            <small><%= t('.hint_photo_required') %></small>
+          <% end -%>
+          <p class="list-group-item-text">
             <%= form_for([@request, @photo], remote: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
               <%= hidden_field_tag :mobile, @mobile %>
               <div class="form-group">
@@ -114,9 +138,9 @@
                 </div>
               </div>
             <% end -%>
-          <% end -%>
-        </p>
-      </div>
+          </p>
+        </div>
+      <% end -%>
       <% if display?(:comments) && (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
           <div class="panel panel-default">

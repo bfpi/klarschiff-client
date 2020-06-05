@@ -11,6 +11,11 @@
     setTimeout (->
       KS.olMap.getView().fit KS.layers.findById('jobs').getSource().getExtent(), KS.olMap.getSize()
     ), 500
+    $('#link_job_map').hide()
+    $('#link_default_map').show()
+    <% else -%>
+    $('#link_job_map').show()
+    $('#link_default_map').hide()
     <% end -%>
   <% end -%>
   <% if @bbox.present? -%>

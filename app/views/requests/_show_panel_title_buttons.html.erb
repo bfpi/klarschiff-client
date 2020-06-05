@@ -1,34 +1,32 @@
 <div class="right-badges pull-right">
-<% if !login_required? || (login_required? && !has_field_service_team?) -%>
   <span class="badge pull-right clickable" data-target="<%= map_path(mobile: @mobile) %>">
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </span>
-<% end -%>
-<span class="badge pull-right clickable" data-target="<%= request_path(request, mobile: @mobile, id_list: id_list) %>">
-  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-</span>
-<% if display?(:edit_request) -%>
-  <span class="badge pull-right clickable" data-target="<%= edit_request_path(request, mobile: @mobile, id_list: id_list) %>">
-    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+  <span class="badge pull-right clickable" data-target="<%= request_path(request, mobile: @mobile, id_list: id_list) %>">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
   </span>
-<% end -%>
-<% if request.job_status && display?(:edit_status) -%>
-  <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      <span class="glyphicon glyphicon-flag <%= request.flag_color_class %>" aria-hidden="true"></span>
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <% %w(checked unchecked not-checkable).each do |state| -%>
-        <li>
-          <%= link_to request_path(request, 'request[id_list]': id_list, mobile: @mobile, 'request[job_status]': state.underscore.upcase),
-            method: :put, remote: true do %>
-            <span class="glyphicon glyphicon-flag job-status <%= state %>" aria-hidden="true"></span>
-            <%= t(state.to_sym, scope: 'requests.job_status') %>
-          <% end -%>
-        </li>
-      <% end -%>
-    </ul>
-  </div>
-<% end -%>
+  <% if display?(:edit_request) -%>
+    <span class="badge pull-right clickable" data-target="<%= edit_request_path(request, mobile: @mobile, id_list: id_list) %>">
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+    </span>
+  <% end -%>
+  <% if request.job_status && display?(:edit_status) -%>
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-flag <%= request.flag_color_class %>" aria-hidden="true"></span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <% %w(checked unchecked not-checkable).each do |state| -%>
+          <li>
+            <%= link_to request_path(request, 'request[id_list]': id_list, mobile: @mobile, 'request[job_status]': state.underscore.upcase),
+              method: :put, remote: true do %>
+              <span class="glyphicon glyphicon-flag job-status <%= state %>" aria-hidden="true"></span>
+              <%= t(state.to_sym, scope: 'requests.job_status') %>
+            <% end -%>
+          </li>
+        <% end -%>
+      </ul>
+    </div>
+  <% end -%>
 </div>

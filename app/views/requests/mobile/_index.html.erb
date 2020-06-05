@@ -1,8 +1,13 @@
 <div class="requests">
   <div class="panel panel-default">
-    <div class="panel-heading clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+    <div class="panel-heading">
       <%= t('.title') %>
-      <span class="badge pull-right"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></span>
+      <span class="badge pull-right clickable" data-target="<%= map_path(mobile: @mobile) %>">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </span>
+      <span class="badge pull-right clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+      </span>
     </div>
     <% if @requests.present? -%>
       <div class="list-group">

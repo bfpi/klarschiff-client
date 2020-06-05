@@ -181,14 +181,23 @@ $ ->
         unless $('#request_description').val().trim() != ''
           error.push "<%= I18n.t('requests.desktop.new.error.required.description') %>"
       else
-    
+
     if $(@).data('next') == 1
-      layer = KS.layers.findById('new_feature')
-      KS.addNewFeatureInteraction(layer, layer.getSource().getFeatures()[0])
+        layer = KS.layers.findById('new_feature')
+        KS.addNewFeatureInteraction(layer, layer.getSource().getFeatures()[0])
     if error.length == 0 || $(@).hasClass('back')
-      $('.errors').replaceWith('<div class="errors"></div>')
-      $('#form-page-' + $(@).data('current')).toggle()
-      $('#form-page-' + $(@).data('next')).toggle()
+        $('.errors').replaceWith('<div class="errors"></div>')
+        $('#form-page-' + $(@).data('current')).toggle()
+        $('#form-page-' + $(@).data('next')).toggle()
+        return false
+    if KS.getUrlParam('mobile')
+      $.unique(error)
+      content = '<div class="modal-header text-warning"><span class="glyphicon glyphicon-alert"></span>'
+      content += $('#new-request').data('validation-error-headline') + '</div>'
+      content += '<div class="modal-body">' + error + '</div>'
+      content += '<div class="modal-footer"><button type="button" class="btn'
+      content += ' btn-primary" data-dismiss="modal">Ok</button></div>'
+      KS.flash.show(content)
     else
       KS.buildError(error)
     false
@@ -200,6 +209,7 @@ $ ->
       $('#request_lat').val(position.coords.latitude)
       $('#request_long').val(position.coords.longitude)
     false
+
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())

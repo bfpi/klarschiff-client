@@ -48,7 +48,7 @@ class RequestsController < ApplicationController
 
   def show
     return head(:not_found) unless (id = params[:id]).present?
-    if params[:direct]
+    if params[:direct] || login_required?
       conditions = { service_request_id: id }
       if (states = Settings::Map.default_requests_states).present?
         conditions.update detailed_status: states
@@ -57,6 +57,7 @@ class RequestsController < ApplicationController
       @direct = true
     else
       @request = Request.find(id)
+      @mobile_popup = true if params[:mobile_popup]
     end
     @photo = Photo.new(service_request_id: @request.id, author: nil)
     @refresh = params[:refresh].presence
@@ -92,23 +93,9 @@ class RequestsController < ApplicationController
     respond_to do |format|
       format.html { head(:forbidden) }
       format.js do
+        return new_mobile_request if @mobile
         if params[:switch_type]
           @type = params[:type]
-        elsif @mobile
-          @request = Request.new(type: params[:type], position: params[:position])
-          unless @request.try(:lat).present? && @request.try(:long).present?
-            return render "requests/#{ context }/new_position"
-          end
-          unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
-            @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
-            @redirect = new_request_path(type: @request.type)
-            if @mobile
-              @modal_title_options = { count: 1 }
-              return render :outside
-            else
-              return render "requests/#{ context }/new_position"
-            end
-          end
         else
           @service = Service.find(service_code) if service_code
           @request = Request.new(type: @service&.type)
@@ -128,6 +115,12 @@ class RequestsController < ApplicationController
   end
 
   def create
+    return summary if params[:confirm] == 'true'
+    if login_required?
+      cookies[:last_type] = params[:request][:type]
+      cookies[:last_service_code] = params[:request][:service_code].presence&.last
+      cookies[:last_group] = Service.find(cookies[:last_service_code]).group if cookies[:last_service_code]
+    end
     ids = []
     service = nil
     if (codes = params[:request][:service_code]).present?
@@ -184,13 +177,56 @@ class RequestsController < ApplicationController
   end
 
   private
+
+  def summary
+    @request = Request.new(permissable_params)
+    @service = Service.find(params[:request][:service_code][0])
+    @request.service_code = params[:request][:service_code][0]
+    media = params[:request][:media]
+    if media.present?
+      FileUtils.cp media.path, 'tmp/'
+      @path = media.path.split('/').last
+    end
+    render 'requests/mobile/request_form'
+  end
+  
+  def new_mobile_request
+    if login_required?
+      @request = Request.new(type: cookies[:last_type], category: cookies[:last_group],
+                             service_code: Array.wrap(cookies[:last_service_code]))
+    else
+      @service = Service.find(service_code) if service_code
+      @request = Request.new(type: @service&.type)
+    end
+    if (pos = params[:position]).present?
+      @request.lat = pos[1]
+      @request.long = pos[0]
+      unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
+        @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
+        @modal_title_options = { count: 1 }
+        return render :outside
+      end
+    end
+    if params[:switch_type]
+      @type = params[:type]
+      return render 'requests/mobile/new'
+    end
+    return render 'requests/mobile/new_position' if params[:position].blank?
+    render 'requests/mobile/new'
+  end
+
   def permissable_params
     keys = [:service_code, :description, :email]
     keys += [:detailed_status, :job_status] if action_name == 'update'
-    keys |= [:lat, :long] if ['create', 'update'].include?(action_name)
+    keys |= [:lat, :long] if ['create', 'new', 'update'].include?(action_name)
     data = params.require(:request).permit(keys)
     if (img = params[:request][:media]).present?
-      data[:media] = Base64.encode64(img.read)
+      if img.is_a? String
+        File.open("tmp/#{img}", 'rb') { |file| data[:media] =  Base64.encode64(file.read) }
+        FileUtils.rm "tmp/#{img}"
+      else
+        data[:media] = Base64.encode64(img.tempfile.read)
+      end
     end
     data
   end

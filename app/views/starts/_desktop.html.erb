@@ -1,0 +1,108 @@
+<div class="page-header" id="headline">
+  <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title">
+          <%= t('.recent_requests') %>
+          <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+            <%= image_tag('rss.png', class: 'img-margin-bottom') %>
+          <% end -%>
+        </h5>
+      </div>
+      <div class="panel-body requests-img-panel">
+        <% @requests.each.with_index(1) do |req, i| -%>
+          <% if i.odd? -%>
+            <div class="row form-group">
+              <div class="col-md-6">
+                <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
+                  data: { turbolinks: false } do %>
+                  <% if (url = req.media_url).present? -%>
+                    <div class="img-box img-rounded" style="background-image: url('<%= url %>')">
+                      <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service.to_s.gsub(/\//, '/ ') %></span>
+                      <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
+                    </div>
+                  <% end -%>
+                <% end -%>
+              </div>
+          <% else -%>
+              <div class="col-md-6">
+                <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
+                  data: { turbolinks: false } do %>
+                  <% if (url = req.media_url).present? -%>
+                    <div class="img-box img-rounded" style="background-image: url('<%= url %>')">
+                      <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service.to_s.gsub(/\//, '/ ') %></span>
+                      <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
+                    </div>
+                  <% end -%>
+                <% end -%>
+              </div>
+            </div>
+          <% end -%>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <% Dir.glob("#{ Settings::Client.resources_path }/starts/*").sort.each do |file| %>
+      <%= render file: file %>
+    <% end -%>
+    <div id="statistic-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.statistics') %></h5>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @overall_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.overall', start_date: Settings::Client.start_date) %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @current_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.current') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @newest_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.newest') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="statistic-box">
+            <div class="statistic-box-figure">
+              <span class="label label-warning"><%= @processed_count %></span>
+            </div>
+            <div class="statistic-box-text">
+              <%= t('.processed') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="news-panel" class="panel panel-info">
+      <div class="panel-heading">
+        <h5 class="panel-title"><%= t('.news') %></h5>
+      </div>
+      <ul class="list-group">
+        <%= render file: "#{ Settings::Client.resources_path }/neuigkeiten.html" %>
+      </ul>
+    </div>
+  </div>
+</div>

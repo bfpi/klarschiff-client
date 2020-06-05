@@ -27,6 +27,7 @@ KS.GeolocationControl = () ->
   btn = document.createElement('button')
   btn.appendChild(span)
   text_span = document.createElement('span')
+  text_span.className = 'text'
   text_span.innerHTML = " <%= I18n.t(:locate) %>"
   btn.appendChild(text_span)
   setGeolocation = () ->
@@ -43,12 +44,49 @@ KS.GeolocationControl = () ->
 
 ol.inherits(KS.GeolocationControl, ol.control.Control)
 
+KS.ViewSwitcherControl = () ->
+  span = document.createElement('span')
+  span.className = 'image'
+  image = document.createElement('img')
+  image.src = KS.imagePath('aerial')
+  span.appendChild(image)
+  btn = document.createElement('button')
+  btn.appendChild(span)
+  text_span = document.createElement('span')
+  text_span.className = 'text'
+  text_span.innerHTML = " <%= I18n.t(:aerial_view) %>"
+  btn.appendChild(text_span)
+  toggleVisibleLayer = () ->
+    if KS.layers.layers[0].getVisible()
+      $('.view-switcher span.image img')[0].src = KS.imagePath('map')
+    else
+      $('.view-switcher span.image img')[0].src = KS.imagePath('aerial')
+    KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
+    KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
+  btn.addEventListener('click', toggleVisibleLayer, false)
+  elem = document.createElement('div')
+  elem.className = 'view-switcher ol-control'
+  elem.appendChild(btn)
+
+  ol.control.Control.call this,
+    element: elem
+    target: {}.target
+ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
+
 class KS.Map
   constructor: (@projection = KS.projection()) ->
+    KS.popupContainer = document.getElementById('popup')
+    KS.popupContent = document.getElementById('popup-content')
+    KS.crosshair = document.getElementById('crosshair')
+    $(KS.popupContent).on('click', '#open-request', (event) ->
+      target = $(event.currentTarget)
+      $.ajax(url: target.data('url'), dataType: 'script')
+    )
+    KS.popupCloser = document.getElementById('popup-closer')
     @olMap = new ol.Map
       target: 'ol-map'
       moveTolerance: 10
-      controls: ol.control.defaults().extend([new KS.GeolocationControl])
+      controls: ol.control.defaults().extend([new KS.GeolocationControl, new KS.ViewSwitcherControl])
       view: new ol.View
         projection: @projection
         center: <%= Settings::Map.center %>
@@ -73,7 +111,7 @@ class KS.Map
 
     map.on 'click', (e) ->
       if KS.olMap.getInteractions().getArray().some((el) -> el instanceof ol.interaction.Translate)
-        KS.moveNewFeature e.coordinate
+        KS.moveNewFeature e.coordinate unless KS.getUrlParam('mobile')
       else
         map.forEachFeatureAtPixel e.pixel, (feature, layer) ->
           if layer
@@ -92,9 +130,17 @@ class KS.Map
               url = KS.requests_path
               if features.length == 1
                 # Single feature -> show
-                url += features[0].get("id")
-                url += "#{ if url.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
-                $.ajax(url: url, dataType: 'script')
+                if KS.popupContainer != null
+                  url += features[0].get("id")
+                  url += "#{ if url.contains?('?') then '&' else '?' }mobile_popup=true"
+                  url += "&mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                  $.ajax(url: url, dataType: 'script')
+                  KS.popupOverlay.setPosition(features[0].getGeometry().getCoordinates())
+                  KS.olMap.getView().setCenter(features[0].getGeometry().getCoordinates())
+                else
+                  url += features[0].get("id")
+                  url += "#{ if url.contains?('?') then '&' else '?' }mobile=" + KS.getUrlParam("mobile") if KS.getUrlParam("mobile")
+                  $.ajax(url: url, dataType: 'script')
               else if map.getView().getZoom() == KS.maxZoom
                 ids = Array()
                 $(features).each (ix, feature) ->
@@ -110,7 +156,55 @@ class KS.Map
                 map.getView().setZoom parseInt(current_zoom + 1)
 
     map.on 'moveend', (e) ->
+      KS.moveNewFeature() if KS.getUrlParam('mobile')
       KS.reloadFeatures()
+
+class KS.MiniMap
+  constructor: (@projection = KS.projection()) ->
+    coords = ol.proj.transform([$('#ol-minimap').data('long'), $('#ol-minimap').data('lat')], KS.projectionWGS84, @projection)
+    @olMiniMap = new ol.Map
+      target: 'ol-minimap'
+      controls: []
+      view: new ol.View
+        projection: @projection
+        center: coords
+        zoom: 12
+    @olMiniMap.getInteractions().forEach (interaction) ->
+      interaction.setActive false
+    KS.miniMapLayers = new KS.Layers(@olMiniMap, false)
+
+    mapLayers = KS.olMap.getLayers()
+    i = 0
+    while i < mapLayers.getLength()
+      tmp = mapLayers.item(i)
+      layer = KS.miniMapLayers.findById(tmp.get('id'), @olMiniMap)
+      layer.setVisible(tmp.getVisible())
+      i++
+
+    layer = KS.miniMapLayers.findById('features', @olMiniMap)
+    layer.setVisible(false)
+
+    if (type = $('#ol-minimap').data('type'))
+      if icon = $('#ol-minimap').data('icon-map')
+        feature = new ol.Feature(
+          geometry: new ol.geom.Point(coords)
+          type: type
+          animate: false
+        )
+        layer = KS.miniMapLayers.findById('highlight_layer', @olMiniMap)
+        KS.highlightStyle(feature, icon)
+        layer.getSource().addFeature(feature)
+        layer.setStyle(KS.styles.newFeature(type))
+      else
+        feature = new ol.Feature(
+          geometry: new ol.geom.Point(coords)
+          type: type
+          animate: false
+        )
+        layer = KS.miniMapLayers.findById('new_feature', @olMiniMap)
+        layer.getSource().addFeature(feature)
+        layer.setStyle(KS.styles.newFeature(type))
+    return @olMiniMap
 
 KS.styles =
   featureAttribution: (feature) ->
@@ -228,12 +322,13 @@ KS.imagePath = (type) ->
 
 
 class KS.Layers
-  constructor: (map, requests) ->
+  constructor: (map, overlay = true) ->
     @active = 0
     @layers = []
     for layer in <%= Settings::Map.wmts_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
+          id: layer.id
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -253,6 +348,7 @@ class KS.Layers
     for layer in <%= Settings::Map.wms_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Image
+          id: layer.id
           extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
@@ -299,19 +395,33 @@ class KS.Layers
       style: KS.styles.highlightStyle
       visible: true
 
-    @layers.push  new ol.layer.Vector
+    @layers.push new ol.layer.Vector
       id: 'new_feature'
       source: new ol.source.Vector
       visible: true
 
     map.addLayer layer for layer in @layers
 
+    if overlay && KS.popupContainer != null
+      KS.popupOverlay = new ol.Overlay
+        element: KS.popupContainer
+        stopEvent: true
+        positioning: 'top-center'
+      map.addOverlay KS.popupOverlay
+
+      KS.popupCloser.onclick = ->
+        KS.popupOverlay.setPosition(undefined);
+        KS.popupCloser.blur();
+        highlight_layer = KS.layers.findById('highlight_layer')
+        highlight_layer.getSource().clear()
+        return false;
+
   toggle: ->
       @active = (@active + 1) % 2
       layer.setVisible(i > 1 || i == @active) for layer, i in @layers
 
-  findById: (id) ->
-    layers = KS.olMap.getLayers()
+  findById: (id, map = KS.olMap) ->
+    layers = map.getLayers()
     i = 0
     while i < layers.getLength()
       tmp = layers.item(i)
@@ -422,7 +532,10 @@ KS.createFeature= (type, coord) ->
   KS.clearNewFeature()
 
   layer = KS.layers.findById('new_feature')
-  layer.setStyle(KS.styles.newFeature(type))
+  if KS.getUrlParam('mobile')
+    $('#crosshair').show()
+  else
+    layer.setStyle(KS.styles.newFeature(type))
 
   position = coord || KS.olMap.getView().getCenter()
   if KS.getUrlParam('mobile') && KS.position && ol.extent.containsCoordinate(KS.olMap.getView().calculateExtent(
@@ -437,7 +550,7 @@ KS.createFeature= (type, coord) ->
 
   KS.addNewFeatureInteraction(layer, feature)
   layer.getSource().addFeature(feature)
-  setTimeout(KS.refreshAnimation, 0)
+  setTimeout(KS.refreshAnimation, 0) unless KS.getUrlParam('mobile')
 
 KS.addNewFeatureInteraction = (layer, feature) ->
   KS.newFeatureInteraction = new ol.interaction.Translate(
@@ -473,6 +586,7 @@ KS.clearNewFeature= () ->
     if KS.newFeatureInteraction
       KS.olMap.removeInteraction KS.newFeatureInteraction
     layer.getSource().clear(true)
+  $('#crosshair').hide()
 
 KS.moveNewFeature= (coord) ->
   layer = KS.layers.findById('new_feature')

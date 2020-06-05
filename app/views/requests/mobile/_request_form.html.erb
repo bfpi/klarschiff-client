@@ -1,0 +1,91 @@
+<%= form_for(req, remote: true, authenticity_token: true, html: { id: 'confirm-new-request', class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+  <div id="form-page-5" class="hidden-page">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"><%= t('requests.mobile.new.confirm_data') %></h4>
+      </div>
+      <div class="panel-body">
+        <%= hidden_field_tag :mobile, @mobile %>
+        <%= hidden_field_tag 'request[lat]', @request.lat %>
+        <%= hidden_field_tag 'request[long]', @request.long %>
+        <%= hidden_field_tag 'request[description]', @request.description %>
+        <%= hidden_field_tag 'request[service_code][]', [@request.service_code] %>
+        <%= hidden_field_tag 'request[media]', @path %>
+        <div class="form-group row map-image">
+          <% if @request.media.present? -%>
+            <div class="col-sm-6" id="ol-minimap"
+                 data-lat="<%= req.lat %>" data-long="<%= req.long %>"
+                 data-type="<%= service&.type %>" />
+            <div class="col-sm-6">
+              <img id="request-preview" src="" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-responsive" />
+            </div>
+          <% else -%>
+            <div class="col-sm-12" id="ol-minimap"
+                 data-lat="<%= req.lat %>" data-long="<%= req.long %>"
+                 data-type="<%= service&.type %>" />
+          <% end -%>
+        </div>
+        <div class="form-group">
+          <%= label_tag :description, Service.human_attribute_name(:group), class: 'col-md-12 control-label' %>
+          <div class="col-md-12"><%= service&.group %></div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :description, Service.human_attribute_name(:service_name), class: 'col-md-12 control-label' %>
+          <div class="col-md-12"><%= service&.service_name %></div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
+          <div class="col-md-12"><%= req.description %></div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="btn-group btn-group-justified col-md-12" role="group">
+            <%= link_to(t('buttons.back'), '#', class: 'btn btn-default btn-continue back', role: :button,
+                        data: { current: '5', next: '4' }) %>
+            <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue', role: :button,
+                        data: { current: '5', next: 'submit' }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '4', nxt: 'submit', current: '5', step: nil, text: 'Prüfung' } %>
+  </div>
+  <div id="form-page-submit" class="hidden-page">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"><%= t('requests.mobile.new.confirmation') %></h4>
+      </div>
+      <div class="panel-body">
+        <% if display?(:email) -%>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12"><%= t('requests.mobile.new.confirmation_text_privacy_html') %></div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12"><%= t('requests.mobile.new.confirmation_text_html') %></div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-12"><em class="text-danger"><%= t('requests.mobile.new.confirmation_text_warning_html') %></em></div>
+          </div>
+        <% end -%>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="btn-group btn-group-justified col-md-12" role="group">
+            <%= link_to(t('buttons.back'), '#', class: 'btn btn-default btn-continue back', role: :button,
+                        data: { current: 'submit', next: '5' }) %>
+            <div class="btn-group" role="group">
+              <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '5', nxt: nil, current: 'submit', step: '(4/4)', text: 'Abschluss' } %>
+  </div>
+<% end -%>

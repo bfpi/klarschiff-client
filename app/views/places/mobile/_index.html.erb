@@ -1,15 +1,20 @@
 <div class="places">
   <%= form_for(:places, method: :get, remote: true) do |f| %>
     <%= hidden_field_tag :mobile, @mobile %>
-    <div class="row">
+    <div class="row form-group">
       <div class="col-md-12">
         <div class="form-group has-feedback has-clear">
           <div class="input-group">
             <span class="glyphicon glyphicon-search input-group-addon" aria-hidden="true"></span>
             <%= text_field_tag(:pattern, @pattern, class: 'form-control', placeholder: t('placeholder.places_search'), id: 'places-search-pattern') %>
+            <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
           </div>
-          <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to(t('buttons.cancel'), [:map, mobile: @mobile], remote: true, class: 'btn btn-default') %>
       </div>
     </div>
   <% end %>
