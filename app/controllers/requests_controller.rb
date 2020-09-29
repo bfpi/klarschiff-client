@@ -184,6 +184,8 @@ class RequestsController < ApplicationController
     @request.service_code = params[:request][:service_code][0]
     media = params[:request][:media]
     if media.present?
+      @media_type = media.content_type
+      @media_size = media.size
       FileUtils.cp media.path, 'tmp/'
       @path = media.path.split('/').last
     end

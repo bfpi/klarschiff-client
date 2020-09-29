@@ -12,7 +12,7 @@
         <%= hidden_field_tag 'request[service_code][]', [@request.service_code] %>
         <%= hidden_field_tag 'request[media]', @path %>
         <div class="form-group row map-image">
-          <% if @request.media.present? -%>
+          <% if @request.media.present? && @media_size < max_image_size -%>
             <div class="col-sm-6" id="ol-minimap"
                  data-lat="<%= req.lat %>" data-long="<%= req.long %>"
                  data-type="<%= service&.type %>" />

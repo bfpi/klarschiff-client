@@ -2,7 +2,7 @@ module ClientConfig
   extend ActiveSupport::Concern
 
   included do
-    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?
+    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?, :max_image_size
   end
   
   def display?(par)
@@ -19,5 +19,9 @@ module ClientConfig
 
   def multi_requests_enabled?
     Settings::Client.multi_requests_enabled
+  end
+
+  def max_image_size
+    Settings::Client.max_image_size
   end
 end
