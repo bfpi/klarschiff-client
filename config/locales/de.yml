@@ -4,6 +4,7 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
   aerial_view: Luftbild
+  map_view: Karte
   api: API
   demo: Demo
   font_attribution: Fonts © 2009
@@ -203,7 +204,6 @@ de:
       address_search: Adressensuche
       search: Suche
       filter: Kartenfilter
-      map_view: Karte
       request: Neue Meldung
       watch: Beobachtung
 
