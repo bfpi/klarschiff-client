@@ -54,13 +54,15 @@ KS.ViewSwitcherControl = () ->
   btn.appendChild(span)
   text_span = document.createElement('span')
   text_span.className = 'text'
-  text_span.innerHTML = " <%= I18n.t(:aerial_view) %>"
+  text_span.innerHTML = "<%= I18n.t(:aerial_view) %>"
   btn.appendChild(text_span)
   toggleVisibleLayer = () ->
     if KS.layers.layers[0].getVisible()
       $('.view-switcher span.image img')[0].src = KS.imagePath('map')
+      text_span.innerHTML = "<%= I18n.t(:map_view) %>"
     else
       $('.view-switcher span.image img')[0].src = KS.imagePath('aerial')
+      text_span.innerHTML = "<%= I18n.t(:aerial_view) %>"
     KS.layers.layers[0].setVisible(!KS.layers.layers[0].getVisible())
     KS.layers.layers[1].setVisible(!KS.layers.layers[1].getVisible())
   btn.addEventListener('click', toggleVisibleLayer, false)
