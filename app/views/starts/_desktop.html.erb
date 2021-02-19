@@ -96,13 +96,15 @@
         </div>
       </div>
     </div>
-    <div id="news-panel" class="panel panel-info">
-      <div class="panel-heading">
-        <h5 class="panel-title"><%= t('.news') %></h5>
+    <% if File.exist?(neuigkeiten = "#{ Settings::Client.resources_path }/neuigkeiten.html") -%>
+      <div id="news-panel" class="panel panel-info">
+        <div class="panel-heading">
+          <h5 class="panel-title"><%= t('.news') %></h5>
+        </div>
+        <ul class="list-group">
+          <%= render file: neuigkeiten %>
+        </ul>
       </div>
-      <ul class="list-group">
-        <%= render file: "#{ Settings::Client.resources_path }/neuigkeiten.html" %>
-      </ul>
-    </div>
+    <% end -%>
   </div>
 </div>
