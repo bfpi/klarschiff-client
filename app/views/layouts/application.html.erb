@@ -43,6 +43,9 @@
             </div>
             <div class="col-md-4 col-sm-8 text-center">
               <%= link_to [:root], data: { turbolinks: false } do %>
+                <% logo3_file_path = "#{ Settings::Client.resources_path }logo3.png" %>
+                <% logo3_file_url = "#{ Settings::Client.resources_url }logo3.png" %>
+                <%= image_tag(logo3_file_url, id: :logo3) if File.exist?(logo3_file_path) %>
                 <h1><%= Settings::Client.name %></h1>
               <% end -%>
             </div>
