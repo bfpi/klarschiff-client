@@ -1,10 +1,10 @@
 <% content_for :nav do -%>
   <ul class="nav nav-pills">
     <li class="active">
-      <a href="#request" id="requests" data-toggle="tab" class="header-tab"><%= t('.request') %></a>
+      <a href="#request" id="requests" data-toggle="tab" class="header-tab" data-url="<%= requests_path %>"><%= t('.request') %></a>
     </li>
     <li>
-      <a href="#watch" id="areas" data-toggle="tab" class="header-tab"><%= t('.watch') %></a>
+      <a href="#watch" id="areas" data-toggle="tab" class="header-tab" data-url="<%= areas_path %>"><%= t('.watch') %></a>
     </li>
   </ul>
 <% end -%>
