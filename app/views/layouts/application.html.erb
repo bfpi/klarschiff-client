@@ -38,10 +38,10 @@
       <header>
         <div class="container">
           <div class="row">
-            <div class="col-md-4 col-sm-2">
+            <div class="col-md-3 col-sm-2">
               <%= image_tag image_path('klarschiff.png'), id: 'logo1' %>
             </div>
-            <div class="col-md-4 col-sm-8 text-center">
+            <div class="col-md-6 col-sm-8 text-center">
               <%= link_to [:root], data: { turbolinks: false } do %>
                 <% logo3_file_path = "#{ Settings::Client.resources_path }logo3.png" %>
                 <% logo3_file_url = "#{ Settings::Client.resources_url }logo3.png" %>
@@ -49,7 +49,7 @@
                 <h1><%= Settings::Client.name %></h1>
               <% end -%>
             </div>
-            <div class="col-md-4 col-sm-2">
+            <div class="col-md-3 col-sm-2">
               <%= image_tag Settings::Client.logo_url, id: 'logo2', class: 'img-responsive' %>
             </div>
           </div>
@@ -111,6 +111,9 @@
                 <%= image_tag image_path('klarschiff.png'), id: 'logo1', class: 'pull-left' %>
                 <%= image_tag Settings::Client.logo_url, id: 'logo2', class: 'pull-right' %>
                 <%= link_to [:root], data: { turbolinks: false } do %>
+                  <% logo3_file_path = "#{ Settings::Client.resources_path }logo3.png" %>
+                  <% logo3_file_url = "#{ Settings::Client.resources_url }logo3.png" %>
+                  <%= image_tag(logo3_file_url, id: :logo3) if File.exist?(logo3_file_path) %>
                   <h1><%= Settings::Client.name %></h1>
                 <% end -%>
               </div>
