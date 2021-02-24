@@ -19,6 +19,9 @@ class RequestsController < ApplicationController
           conditions.update(status: '') if states.blank?
         end
       end
+      if Settings::Client.respond_to?(:show_archive) && Settings::Client.show_archive
+        conditions.update(also_archived: true) unless params[:archive].blank?
+      end
       @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
       session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     end
