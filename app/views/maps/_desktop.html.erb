@@ -56,6 +56,12 @@
                       <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
                     </div>
                   <% end -%>
+                  <% if Settings::Client.respond_to?(:show_archive) && Settings::Client.show_archive -%>
+                    <div class="col-md-12 archive">
+                      <%= check_box_tag "show_archive", nil, false, class: 'show-feature', id: :archive, data: { key: 'archive' } %>
+                      <%= label_tag :archive, t('archive'), class: 'check-label' %>
+                    </div>
+                  <% end -%>
                 </div>
               </div>
             <% end -%>

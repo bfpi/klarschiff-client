@@ -4,6 +4,7 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
   aerial_view: Luftbild
+  archive: Archivdaten
   map_view: Karte
   api: API
   demo: Demo
