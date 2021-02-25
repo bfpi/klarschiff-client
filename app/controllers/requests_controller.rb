@@ -136,8 +136,11 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] :  @user.email),
-              Request.format.encode(payload.merge(service_code: service_code)))
+              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email),
+              Request.format.encode(
+                payload.merge(service_code: service_code, privacy_policy_accepted: params[:request][:privacy_policy_accepted].present?)
+              )
+            )
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
           end
@@ -224,7 +227,7 @@ class RequestsController < ApplicationController
   end
 
   def permissable_params
-    keys = [:service_code, :description, :email]
+    keys = [:service_code, :description, :email, :privacy_policy_accepted]
     keys += [:detailed_status, :job_status] if action_name == 'update'
     keys |= [:lat, :long] if ['create', 'new', 'update'].include?(action_name)
     data = params.require(:request).permit(keys)

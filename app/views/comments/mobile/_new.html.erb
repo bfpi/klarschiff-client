@@ -11,6 +11,9 @@
             <%= t('.hint.privacy_html') %>
           </span>
         </div>
+        <% if display?(:privacy_policy) -%>
+          <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+        <% end -%>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
