@@ -56,6 +56,9 @@ class RequestsController < ApplicationController
       if (states = Settings::Map.default_requests_states).present?
         conditions.update detailed_status: states
       end
+      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
+        conditions[:also_archived] = true
+      end
       return head(:not_found) unless @request = Request.where(conditions).first
       @direct = true
     else
