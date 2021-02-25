@@ -6,14 +6,17 @@
     <div class="panel-body">
       <%= form_for([:request, @vote], remote: true) do |f| %>
         <%= hidden_field_tag :mobile, @mobile %>
-        <div class="form-group">
+        <div class="row form-group">
           <span class="helper-block">
             <%= t('.hint.text') %>
             <em class="text-danger"><%= t('.hint.warning_html') %></em>
             <%= t('.hint.privacy_html') %>
           </span>
         </div>
-        <div class="row">
+        <% if display?(:privacy_policy) -%>
+          <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+        <% end -%>
+        <div class="row form-group">
           <div class="col-md-8">
             <div class="form-group has-feedback has-clear">
               <div class="input-group">

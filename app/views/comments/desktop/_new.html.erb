@@ -27,6 +27,9 @@
         <%= t('.hint.privacy_html') %>
       </div>
     </div>
+    <% if display?(:privacy_policy) -%>
+      <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+    <% end -%>
     <div class="row form-group">
       <div class="btn-group btn-group-justified col-md-12 div-margin-top" role="group">
         <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default',

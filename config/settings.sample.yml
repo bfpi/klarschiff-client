@@ -35,6 +35,7 @@ client:
   additional_content: false
   start_date: 28.03.2012
   max_image_size: 5242880
+  show_privacy_policy: false
 
 vote:
   min_requirement: 20

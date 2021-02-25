@@ -108,6 +108,9 @@
       <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
     </div>
   </div>
+  <% if display?(:privacy_policy) -%>
+    <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+  <% end -%>
   <div class="row form-group">
     <div class="btn-group btn-group-justified col-md-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,

@@ -140,6 +140,9 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
   - `additional_content` (Pflichtfeld):
     - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als letztes innerhalb des HTML-Body ausgegeben wird.
     - auf `false` gesetzt, wenn kein zusätzliches HTML notwendig ist
+  - `show_privacy_policy` (optional):
+    - steuert die Darstellung der Checkbox zur Bestätigung der Datenschutzerklärung
+    - auf `true` gesetzt, wenn das `datenschutz`-Attribut am Backend pflicht ist
 
 #### Block 'vote'
   - `min_requirement` (Pflichtfeld):
