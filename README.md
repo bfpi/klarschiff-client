@@ -137,6 +137,9 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
   - `show_d3_document_url` (optional):
     - steuert die Dartsellung der Schaltfläche zum Aufruf der Vorgangs-Akte im d.3-Client
     - auf `true` gesetzt, wenn der PPC konfiguriert ist und der Parameter nicht mit einem Wert belegt wurde
+  - `show_status_updates_for_supporter` (optional):
+    - steuert die Darstellung der Checkbox 'Über Statusänderungen informieren' am Unterstützungsformular
+    - default `false`
   - `additional_content` (Pflichtfeld):
     - hier kann zusätzliches HTML eingetragen werden (z.B. Piwik-Code) welches dann als letztes innerhalb des HTML-Body ausgegeben wird.
     - auf `false` gesetzt, wenn kein zusätzliches HTML notwendig ist

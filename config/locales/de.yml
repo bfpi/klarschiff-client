@@ -50,6 +50,8 @@ de:
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
+      vote:
+        status_updates_for_supporter: Über Statusänderungen informieren
     errors:
       messages:
         blank: muss angegeben werden

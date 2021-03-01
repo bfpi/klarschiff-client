@@ -32,6 +32,7 @@ client:
   show_notes:
   show_trust:
   show_d3_document_url:
+  show_status_updates_for_supporter:
   additional_content: false
   start_date: 28.03.2012
   max_image_size: 5242880
