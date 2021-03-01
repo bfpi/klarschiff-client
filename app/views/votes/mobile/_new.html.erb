@@ -16,7 +16,15 @@
         <% if display?(:privacy_policy) -%>
           <%= render partial: 'privacy_policy_form', locals: { form: f } %>
         <% end -%>
-        <div class="row form-group">
+        <% if display?(:status_updates_for_supporter) -%>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <%= f.check_box :status_updates_for_supporter, {}, true, nil %>
+              <%= f.label :status_updates_for_supporter, class: 'control-label' %>
+            </div>
+          </div>
+        <% end -%>
+        <div class="row">
           <div class="col-md-8">
             <div class="form-group has-feedback has-clear">
               <div class="input-group">
