@@ -22,13 +22,14 @@
         <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
     </div>
-    <div class="row form-group">
-      <div class="col-md-12">
-        <%= t('.hint.privacy_html') %>
-      </div>
-    </div>
     <% if display?(:privacy_policy) -%>
       <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+    <% else -%>
+      <div class="row form-group">
+        <div class="col-md-12">
+          <%= t('.hint.privacy_html') %>
+        </div>
+      </div>
     <% end -%>
     <div class="row form-group">
       <div class="btn-group btn-group-justified col-md-12 div-margin-top" role="group">
