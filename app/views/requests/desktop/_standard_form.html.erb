@@ -97,10 +97,16 @@
       </div>
     </div>
   <% end -%>
-  <div class="row form-group">
-    <div class="col-md-12">
-      <%= t('.confirmation_text_privacy_html') %>
+  <% if display?(:privacy_policy) -%>
+    <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+  <% else -%>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <%= t('.confirmation_text_privacy_html') %>
+      </div>
     </div>
+  <% end -%>
+  <div class="row form-group">
     <div class="col-md-12 div-margin-top">
       <%= t('.confirmation_text_html') %>
     </div>
@@ -108,9 +114,6 @@
       <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
     </div>
   </div>
-  <% if display?(:privacy_policy) -%>
-    <%= render partial: 'privacy_policy_form', locals: { form: f } %>
-  <% end -%>
   <div class="row form-group">
     <div class="btn-group btn-group-justified col-md-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,

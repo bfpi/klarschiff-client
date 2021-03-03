@@ -6,16 +6,10 @@
     <div class="panel-body">
       <%= form_for([:request, @abuse], remote: true) do |f| %>
         <%= hidden_field_tag :mobile, @mobile %>
-        <div class="form-group">
-          <span class="helper-block">
-            <%= t('.hint.text') %>
-            <em class="text-danger"><%= t('.hint.warning_html') %></em>
-            <%= t('.hint.privacy_html') %>
-          </span>
+        <div class="row form-group">
+          <div class="col-md-12"><%= t('.hint.text') %></div>
+          <div class="col-md-12"><em class="text-danger"><%= t('.hint.warning_html') %></em></div>
         </div>
-        <% if display?(:privacy_policy) -%>
-          <%= render partial: 'privacy_policy_form', locals: { form: f } %>
-        <% end -%>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
@@ -32,19 +26,28 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4 form-group">
-            <div class="btn-group btn-group-justified" role="group">
-              <div class="btn-group" role="group">
-                <%= f.submit(t('buttons.submit'), class: 'btn btn-default btn-primary') %>
-              </div>
-              <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list, mobile: @mobile], remote: true, class: 'btn btn-default', role: :button) %>
-            </div>
-            <% @id_list.each do |idl| -%>
-              <%= f.hidden_field "id_list][", :value => idl, id: nil %>
-            <% end if @id_list -%>
-          </div>
         </div>
-      <% end %>
+        <% if display?(:privacy_policy) -%>
+          <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+        <% else -%>
+          <div class="row form-group">
+            <span class="helper-block">
+              <%= t('.hint.privacy_html') %>
+            </span>
+          </div>
+        <% end -%>
+        <div class="col-md-4 form-group">
+          <div class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+              <%= f.submit(t('buttons.submit'), class: 'btn btn-default btn-primary') %>
+            </div>
+            <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list, mobile: @mobile], remote: true, class: 'btn btn-default', role: :button) %>
+          </div>
+          <% @id_list.each do |idl| -%>
+            <%= f.hidden_field "id_list][", :value => idl, id: nil %>
+          <% end if @id_list -%>
+        </div>
+      <% end -%>
     </div>
   </div>
 </div>
