@@ -58,13 +58,6 @@
   <div class="row form-group">
     <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
   </div>
-  <% if display?(:email) -%>
-    <div class="row form-group">
-      <div class="col-md-12">
-        <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
-      </div>
-    </div>
-  <% end -%>
   <div class="row form-group">
     <div class="col-md-12">
       <%= t('.confirmation_text_privacy_html') %>
@@ -76,6 +69,16 @@
       <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
     </div>
   </div>
+  <% if display?(:email) -%>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
+      </div>
+    </div>
+  <% end -%>
+  <% if display?(:privacy_policy) -%>
+    <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+  <% end -%>
   <div class="row form-group">
     <div class="btn-group btn-group-justified col-md-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,

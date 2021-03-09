@@ -2,7 +2,7 @@ $ ->
   $("#places_search").autocomplete
     source: (request, response) ->
       $.ajax(
-        url: '/places'
+        url: '<%= Rails.application.routes.url_helpers.places_path %>'
         dataType: 'json'
         data:
           pattern: request.term
@@ -15,7 +15,7 @@ $ ->
     delay: 800
     minLength: 3
     select: (event, ui) ->
-      $.get("/map?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
+      $.get("<%= Rails.application.routes.url_helpers.map_path %>?#{ ui.item.bbox.map( (obj) -> "bbox[]=#{ obj }").join('&') }",
       null, null, 'script').done ->
         if ui.item.feature_id != null && ui.item.feature_id != undefined
           url = KS.requests_path
@@ -30,7 +30,7 @@ $ ->
     @searching = setTimeout((->
       if elem.val().length == 0 || elem.val().length >= 3
         $.ajax(
-          url: '/places'
+          url: '<%= Rails.application.routes.url_helpers.places_path %>'
           dataType: 'script'
           data:
             auto: true

@@ -60,7 +60,12 @@
         </a>
       </li>
       <li>
-        <a href="<%= privacy_static_path %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
+        <% privacy_link = if Settings::Url.respond_to?(:external_privacy_url)
+                            Settings::Url.external_privacy_url
+                          else
+                            privacy_static_path
+                          end %>
+        <a href="<%= privacy_link %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
           <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
           <span><%= t("nav.privacy") %></span>
         </a>

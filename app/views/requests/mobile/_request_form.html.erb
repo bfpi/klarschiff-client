@@ -73,6 +73,9 @@
             <div class="col-md-12"><em class="text-danger"><%= t('requests.mobile.new.confirmation_text_warning_html') %></em></div>
           </div>
         <% end -%>
+        <% if display?(:privacy_policy) -%>
+          <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+        <% end -%>
       </div>
       <div class="panel-footer">
         <div class="row">

@@ -1,0 +1,15 @@
+<div class="row form-group">
+  <div class="col-md-12">
+    <% if Settings::Url.respond_to?(:external_privacy_url) -%>
+      <%= link_to t(:privacy_policy), Settings::Url.external_privacy_url, target: '_blank' %>
+    <% else -%>
+      <%= link_to t(:privacy_policy), [:privacy, :static] %>
+    <% end -%>
+  </div>
+</div>
+<div class="row form-group">
+  <div class="col-md-12">
+    <%= form.check_box :privacy_policy_accepted, {}, true, nil  %>
+    <%= form.label :privacy_policy_accepted, class: 'control-label' %>
+  </div>
+</div>

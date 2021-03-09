@@ -19,6 +19,9 @@ class RequestsController < ApplicationController
           conditions.update(status: '') if states.blank?
         end
       end
+      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
+        conditions.update(also_archived: true) unless params[:archive].blank?
+      end
       @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
       session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
     end
@@ -52,6 +55,9 @@ class RequestsController < ApplicationController
       conditions = { service_request_id: id }
       if (states = Settings::Map.default_requests_states).present?
         conditions.update detailed_status: states
+      end
+      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
+        conditions[:also_archived] = true
       end
       return head(:not_found) unless @request = Request.where(conditions).first
       @direct = true
@@ -130,8 +136,11 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] :  @user.email),
-              Request.format.encode(payload.merge(service_code: service_code)))
+              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email),
+              Request.format.encode(
+                payload.merge(service_code: service_code, privacy_policy_accepted: params[:request][:privacy_policy_accepted].present?)
+              )
+            )
           rescue ActiveResource::ResourceInvalid => e
             e.base_object_with_errors
           end
@@ -218,7 +227,7 @@ class RequestsController < ApplicationController
   end
 
   def permissable_params
-    keys = [:service_code, :description, :email]
+    keys = [:service_code, :description, :email, :privacy_policy_accepted]
     keys += [:detailed_status, :job_status] if action_name == 'update'
     keys |= [:lat, :long] if ['create', 'new', 'update'].include?(action_name)
     data = params.require(:request).permit(keys)

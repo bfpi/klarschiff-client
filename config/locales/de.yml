@@ -4,6 +4,7 @@ de:
       default: "%d. %B %Y, %H:%M Uhr"
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
   aerial_view: Luftbild
+  archive: Archivdaten
   map_view: Karte
   api: API
   demo: Demo
@@ -20,6 +21,7 @@ de:
   pagetitle: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   pagetitle_mobile_client: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   privacy: Datenschutz
+  privacy_policy: Ich habe die Datenschutzerklärung nach der EU-DSGVO zur Kenntnis genommen und stimme der Verarbeitung meiner persönlichen Daten zu.
   promotion: Werbung
   success: Vielen Dank!
   share_request: ' Gerne können Sie Ihre Meldung aber bereits bekannt machen:'
@@ -48,6 +50,8 @@ de:
       service:
         group: Hauptkategorie
         service_name: Unterkategorie
+      vote:
+        status_updates_for_supporter: Über Statusänderungen informieren
     errors:
       messages:
         blank: muss angegeben werden
@@ -61,6 +65,9 @@ de:
     models:
       note: interne Kommentare
       comment: Lob, Hinweise oder Kritik
+
+  attributes:
+    privacy_policy_accepted: Ich stimme zu
 
   # Statuses
   status:
