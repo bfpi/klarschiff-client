@@ -23,6 +23,16 @@ class Settings
     end
     const_set context.classify, m
   end
+  
+  module Client
+    class << self
+      def method_missing(name, *args, &block)
+        return super unless name.to_s.starts_with?('show_')
+        Rails.logger.warn "Missing configuration for key 'client.#{name}' in settings.yml - returning 'false' as default value!"
+        false
+      end
+    end
+  end
 
   module Route
     class << self
