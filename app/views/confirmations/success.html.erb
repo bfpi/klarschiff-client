@@ -1,0 +1,14 @@
+
+<div class="page-header" id="headline">
+  <h3>
+    <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
+    <%= type %>
+    #<%= @request.id %>
+  </h3>
+</div>
+
+<h2 class="text-center">Ihre Bestätigung wurde akzeptiert.</h2>
+
+<div class="text-center">
+  Hier gelangen Sie zur Meldung: <span class="link"><%= link_to "##{@request.id}", [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id), data: { turbolinks: false } %></span>
+</span>
