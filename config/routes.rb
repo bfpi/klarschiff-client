@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   end
   resources :services, only: :index
   resources :confirmations, only: [] do
-    with_options only: %i[edit] do
-      get :issue
-      get :vote
+    with_options only: [] do
       get :abuse
+      get :issue
       get :photo
+      get :revoke_issue
+      get :vote
     end
   end
   resource :static do
