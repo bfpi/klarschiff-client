@@ -34,16 +34,15 @@
     <% end unless service_code -%>
     <% if service_code -%>
       <% service = service_name(service_code) -%>
-      <% service_sub = service_name_sub(service_code) -%>
       <div class="row form-group">
         <div class="col-md-12">
           <%= check_box_tag (type = service.type).pluralize, true, true, class: 'check-all', data: { type: type } %>
           <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
         </div>
         <div class="col-md-12">
-          <%= check_box_tag "#{ type }_service_sub[]", (code = service_sub.service_code), true, class: type,
+          <%= check_box_tag "#{ type }_service_sub[]", (code = service.service_code), true, class: type,
             id: "#{ type }_#{ code }"  %>
-          <%= label_tag "#{ type }_#{ code }", service_sub.service_name, class: 'check-label' %>
+          <%= label_tag "#{ type }_#{ code }", service.service_name, class: 'check-label' %>
         </div>
       </div>
     <% end -%>
