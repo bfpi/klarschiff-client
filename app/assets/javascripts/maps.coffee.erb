@@ -437,6 +437,7 @@ KS.createObservationFeatures= (controller, layer) ->
     $.each response, (index, elem) ->
       format = new ol.format.WKT()
       f = format.readFeature(elem.grenze)
+      f.getGeometry().transform(KS.projectionWGS84, KS.projection())
       f.set('id', elem.id)
       f.set('name', elem.name)
       f.set('selected', false)
