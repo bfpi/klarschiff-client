@@ -1,14 +1,11 @@
 require 'open-uri'
 
 class Coordinate
-  attr_accessor :lat, :long
+  attr_accessor :lat, :long, :result
 
   def initialize(lat, long)
     @lat = lat
     @long = long
-  end
-
-  def covered_by_juristiction?
     config = Settings::ResourceServer.city_sdk
 
     uri = URI.join(config[:site], "coverage.json")
@@ -21,8 +18,16 @@ class Coordinate
       return true
     end
 
-    JSON.parse(response.force_encoding('UTF-8'))['result']
+    @result = JSON.parse(response.force_encoding('UTF-8'))
   rescue Exception
     Rails.logger.error "Exception: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
+  end
+
+  def redirect_url
+    @result['instance_url']
+  end
+
+  def covered_by_juristiction?
+    @result['result']
   end
 end

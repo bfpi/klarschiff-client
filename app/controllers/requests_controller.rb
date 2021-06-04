@@ -110,7 +110,13 @@ class RequestsController < ApplicationController
       end
       format.json do
         req = Request.new(position: params[:position])
-        resp = { status: Coordinate.new(req.lat, req.long).covered_by_juristiction? ? 200 : 406 }
+
+        coord = Coordinate.new(req.lat, req.long)
+        unless coord.redirect_url.blank?
+          response.headers['X-Redirect-Url'] = coord.redirect_url
+          return head :see_other
+        end
+        resp = { status: coord.covered_by_juristiction? ? 200 : 406 }
         if resp[:status] == 406
           req.errors.tap { |errors| errors.add :position, :outside }
           resp[:error] = req.errors.full_messages.first
