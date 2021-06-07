@@ -18,6 +18,8 @@ class AreasController < ApplicationController
         conds = {}
         conds.update area_code: Array.wrap(params[:area_code]).join(', ')
         conds.update with_districts: params[:with_districts] unless params[:with_districts].blank?
+        conds.update center: params[:center] unless params[:center].blank?
+        conds.update limit: Settings::Client.observations_area_limit
         areas = Area.where(conds)
         render json: areas
       end

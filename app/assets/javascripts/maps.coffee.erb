@@ -376,14 +376,11 @@ class KS.Layers
         style: KS.styles.jobStyle
         visible: true
     
-    observations = new ol.layer.Vector
+    @layers.push new ol.layer.Vector
       id: 'observations'
       source: new ol.source.Vector
       style: KS.styles.observationStyle
       visible: false
-
-    KS.createObservationFeatures(KS.areas_path, observations)
-    @layers.push observations
 
     @layers.push new ol.layer.Vector
       id: 'draw_observation'
@@ -433,7 +430,13 @@ class KS.Layers
     null
 
 KS.createObservationFeatures= (controller, layer) ->
-  $.ajax(url: controller, dataType: 'json').done (response) ->
+  layer.getSource().clear()
+  $.ajax(
+    url: controller,
+    dataType: 'json',
+    data:
+      center: ol.proj.transform(KS.olMap.getView().getCenter(), KS.projection(), KS.projectionWGS84)
+  ).done (response) ->
     $.each response, (index, elem) ->
       format = new ol.format.WKT()
       f = format.readFeature(elem.grenze)
