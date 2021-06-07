@@ -213,6 +213,12 @@ $ ->
       $('#request_long').val(position.coords.longitude)
     false
 
+  if KS.getUrlParam('new_position')
+    $.get("#{ KS.requests_path }new?mobile=false", null, null, 'script').done ->
+      coord = ol.proj.transform(KS.getUrlParam('new_position').split(','), KS.projectionWGS84, KS.projection())
+      features = KS.layers.findById('new_feature').getSource().getFeatures()
+      features[0].getGeometry().setCoordinates(coord)
+      KS.olMap.getView().setCenter(coord)
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
