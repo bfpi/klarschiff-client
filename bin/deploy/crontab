@@ -1,1 +1,3 @@
-0  0  *   *   *   rails     rails runner RefreshStaticRequestsJob.perform_now
+# vim: filetype=crontab
+# m h dom mon dow  user      command
+0  *   *   *   *   rails     $HOME/bin/cron rails runner RefreshStaticRequestsJob.perform_now
