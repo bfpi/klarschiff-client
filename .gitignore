@@ -47,5 +47,8 @@ lib/assets/stylesheets
 #solr-Konfiguration
 public/search/conf/config.php
 
+# Cache für statische Meldungsliste
+public/static/
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key

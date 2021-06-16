@@ -1,26 +1,24 @@
-<% spread = 3 %>
-
+<%
+  spread = 3
+  start = @page - spread
+  start = 1 if start < 1
+  ending = @page + spread + 1
+  ending = @pages if ending > @pages
+-%>
 <ul class="pagination">
   <% if @page != 1 -%>
     <li class="page-item">
-      <%= link_to(content_tag(:span, "«"), url_for(controller: :statics, action: :requests, page: (@page - 1))) %>
+      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1) %>
     </li>
   <% end -%>
 
-  <%
-  start = (@page - spread)
-  start = 1 if start < 1
-  ending = (@page + spread + 1)
-  ending = @pages if ending > @pages
-  %>
-
-  <% if start > 1 %>
+  <% if start > 1 -%>
     <li class="page-item">
-      <%= link_to(1, url_for(controller: :statics, action: :requests, page: 1)) %>
+      <%= link_to 1, requests_page_static_path(page: 1) %>
     </li>
   <% end %>
 
-  <% if start > 2 %>
+  <% if start > 2 -%>
     <li class="page-item disabled">
       <%= link_to("...", "#") %>
     </li>
@@ -29,25 +27,25 @@
   <% (ending - start).to_i.times do |i| -%>
     <% ix = (start + i) %>
     <li class="page-item <%= "active" if ix == @page %>">
-      <%= link_to(ix, url_for(controller: :statics, action: :requests, page: ix)) %>
+      <%= link_to ix, requests_page_static_path(page: ix) %>
     </li>
   <% end -%>
 
-  <% if ending < @pages %>
+  <% if ending < @pages -%>
     <li class="page-item disabled">
       <%= link_to("...", "#") %>
     </li>
   <% end %>
 
-  <% if ending <= @pages %>
+  <% if ending <= @pages -%>
     <li class="page-item">
-      <%= link_to(@pages, url_for(controller: :statics, action: :requests, page: @pages)) %>
+      <%= link_to @pages, requests_page_static_path(page: @pages) %>
     </li>
   <% end %>
 
   <% if @page != @pages -%>
     <li class="page-item">
-      <%= link_to(content_tag(:span, "»"), url_for(controller: :statics, action: :requests, page: (@page + 1))) %>
+      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1) %>
     </li>
   <% end -%>
 </ul>

@@ -28,14 +28,14 @@ class RequestsController < ApplicationController
     respond_to do |format|
       format.html do
         @per_page = (params[:per_page].presence || 20).to_i
-        @page = 0
-        @pages = @requests.count / @per_page
-        path = Rails.root.join('tmp/cache/static/requests')
+        @page = 1
+        @pages = (@requests.count / @per_page.to_f).ceil
+        path = Rails.root.join('public/static/requests')
         FileUtils.rm_rf path
         FileUtils.mkdir_p path
         @requests.each_slice(@per_page) do |requests|
+          File.write path.join("#{@page}.html"), render_to_string(locals: { :@requests => requests })
           @page += 1
-          File.write path.join("#{@page}.html"), render_to_string(layout: false, locals: { :@requests => requests })
         end
         return head :ok
       end

@@ -35,8 +35,8 @@ Rails.application.routes.draw do
     get :privacy
     get :promotion
     get :usage
-    get :requests
-    get 'requests/:page', to: 'statics#requests'
+    get :requests, to: redirect('/static/requests/1')
+    get 'requests/:page', to: 'statics#request', as: :requests_page
   end
   resources :statistics, only: :index
 end
