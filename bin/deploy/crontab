@@ -1,0 +1,1 @@
+0  0  *   *   *   rails     rails runner RefreshStaticRequestsJob.perform_now

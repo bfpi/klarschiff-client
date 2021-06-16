@@ -22,7 +22,7 @@ class StaticsController < ApplicationController
     @file_name = 'werbung'
     render :api
   end
-  
+
   def usage
     @file_name = 'nutzungsbedingungen'
     render :api

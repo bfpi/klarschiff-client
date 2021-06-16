@@ -19,7 +19,6 @@ client:
   city_short: Demo
   resources_path: /srv/www/htdocs/klarschiff_resources/
   resources_url: https://demo.klarschiff.de/resources/
-  resources_overview_path: /srv/www/htdocs/klarschiff_resources/requests/
   logo_url: /resources/images/logo.png
   observations_area_limit: 35
   show_email:

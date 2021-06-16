@@ -23,18 +23,21 @@ class RequestsController < ApplicationController
         conditions.update(also_archived: true) unless params[:archive].blank?
       end
       @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
-      session[:referer_params] = params.slice(:controller, :action, :mobile,:ids)
+      session[:referer_params] = params.slice(:controller, :action, :mobile, :ids)
     end
     respond_to do |format|
       format.html do
-        return head :not_acceptable if params[:page].blank? || params[:per_page].blank? || params[:pages].blank?
-        @page = params[:page].to_i
-        @per_page = params[:per_page].to_i
-        @pages = params[:pages].to_i
-
-        indexStart = ((@page - 1) * @per_page);
-        @requests = @requests.slice(indexStart, @per_page)
-        render :layout => false
+        @per_page = (params[:per_page].presence || 20).to_i
+        @page = 0
+        @pages = @requests.count / @per_page
+        path = Rails.root.join('tmp/cache/static/requests')
+        FileUtils.rm_rf path
+        FileUtils.mkdir_p path
+        @requests.each_slice(@per_page) do |requests|
+          @page += 1
+          File.write path.join("#{@page}.html"), render_to_string(layout: false, locals: { :@requests => requests })
+        end
+        return head :ok
       end
       format.js do
         if @mobile
