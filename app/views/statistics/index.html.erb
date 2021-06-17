@@ -7,12 +7,13 @@
       <div class="panel-heading">
       </div>
       <div class="panel-body requests-img-panel">
-      	<div class="row form-group">
+        <div class="row form-group">
           <div class="col-md-3">
             <label for="area" class="control-label"><%= t('.filter_area') %></label>
-            <%= select_tag(:area, 
-                           options_for_select([[Settings::Client.city_short, '']] + Area.where(with_districts: true).map {|a| [a.attributes[:name], a.attributes[:id]]}),
-                           class: 'form-control map-parameter', data: { key: :area }) %>
+            <%= select_tag :area, options_for_select(
+                  [[Settings::Client.city_short, '']] +
+                    Area.where(with_districts: true).map { |a| [a.attributes[:name], a.attributes[:id]] }.sort
+                  ), class: 'form-control map-parameter', data: { key: :area } %>
           </div>
           <div class="col-md-3">
             <label for="start_date" class="control-label"><%= t('.filter_start_date') %></label>
