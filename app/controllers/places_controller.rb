@@ -26,7 +26,11 @@ class PlacesController < ApplicationController
       end
       uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search', class: 'address', shape: 'bbox', limit: '5')
       
-      if (res = open(uri, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)) && res.status.include?('OK')
+      uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
+      if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
+        uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
+      end
+      if (res = open(uri, uri_options)) && res.status.include?('OK')
         Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
           @places << Place.new(p)
         end
