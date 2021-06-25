@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
           <%= label_tag :description, Service.human_attribute_name(:group), class: 'col-md-12 control-label' %>
-          <div class="col-md-12"><%= service&.group %></div>
+          <div class="col-md-12"><%= service&.group&.name %></div>
         </div>
         <div class="form-group">
           <%= label_tag :description, Service.human_attribute_name(:service_name), class: 'col-md-12 control-label' %>
