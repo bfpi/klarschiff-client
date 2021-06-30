@@ -111,6 +111,7 @@ $ ->
 
   $(document).on 'click', '.header-tab', () ->
     $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
+    return unless $(@).data('tab')
     unless $('.' + $(@).data('tab') + '-container').length > 0
       $.get($(@).data('url'), null, null, 'script')
   
