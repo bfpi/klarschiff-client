@@ -174,7 +174,7 @@ $ ->
         elem = response[0]
         format = new ol.format.WKT()
         grenze = format.readFeature(elem.grenze)
-        KS.olHeatmap.getView().fit grenze.getGeometry().getExtent()
+        KS.olHeatmap.getView().fit grenze.getGeometry().transform(KS.projectionWGS84, KS.projection()).getExtent()
     else
       KS.olHeatmap.getView().setZoom(<%= Settings::Map.zoom[:min] - 1 %>)
       KS.olHeatmap.getView().setCenter(<%= Settings::Map.center %>)
