@@ -14,8 +14,8 @@
       </div>
       <div class="panel-body requests-img-panel">
         <% @requests.each.with_index(1) do |req, i| -%>
-          <% if i.odd? -%>
-            <div class="row form-group">
+          <div class="row form-group">
+            <% if i.odd? -%>
               <div class="col-md-6">
                 <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
                   data: { turbolinks: false } do %>
@@ -27,7 +27,7 @@
                   <% end -%>
                 <% end -%>
               </div>
-          <% else -%>
+            <% else -%>
               <div class="col-md-6">
                 <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
                   data: { turbolinks: false } do %>
@@ -39,8 +39,8 @@
                   <% end -%>
                 <% end -%>
               </div>
-            </div>
-          <% end -%>
+            <% end -%>
+          </div>
         <% end -%>
       </div>
     </div>
