@@ -86,6 +86,12 @@
           <p class="list-group-item-text"><em><%= notes.html_safe %></em></p>
         </div>
       <% end -%>
+      <% if (expected_closure = @request.expected_closure).present? -%>
+        <div class="list-group-item">
+          <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:expected_closure) %></h4>
+          <p class="list-group-item-text"><em><%= l(expected_closure.to_date) %></em></p>
+        </div>
+      <% end -%>
       <% if login_required? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading">

@@ -58,6 +58,12 @@
             <div class="col-md-12"><em><%= notes.html_safe %></em></div>
           </div>
         <% end -%>
+        <% if (expected_closure = @request.expected_closure).present? -%>
+          <div class="row form-group">
+            <%= label_tag :status_notes, Request.human_attribute_name(:expected_closure), class: 'col-md-12 control-label' %>
+            <div class="col-md-12"><em><%= l(expected_closure.to_date) %></em></div>
+          </div>
+        <% end -%>
         <% options = { remote: true, class: 'btn btn-primary btn-block', role: :button } -%>
         <div class="row form-group">
           <% if display?(:votes) -%>
