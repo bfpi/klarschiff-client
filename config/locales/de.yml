@@ -41,6 +41,7 @@ de:
         description: Beschreibung
         author: E-Mail
         email: E-Mail
+        expected_closure: voraussichtlicher Abschluss
         media: Foto
         media_url: Foto
         service_code: Kategorie

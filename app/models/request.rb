@@ -6,7 +6,7 @@ class Request < ActiveResource::Base
   alias_attribute :id, :service_request_id
 
   delegate :detailed_status, :detailed_status=, :job_status, :description_public,
-    :votes,
+    :votes, :expected_closure,
     to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
