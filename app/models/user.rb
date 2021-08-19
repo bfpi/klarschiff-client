@@ -1,5 +1,4 @@
-class User
-  include ActiveModel::Model
-
-  attr_accessor :id, :name, :email, :field_service_team
+class User < ActiveResource::Base
+  include ResourceClient
+  self.set_server_connection :city_sdk
 end

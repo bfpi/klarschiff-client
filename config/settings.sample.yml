@@ -41,19 +41,6 @@ client:
 vote:
   min_requirement: 20
 
-ldap:
-  host: ldap.klarschiff.de
-  username: uid=admin
-  password: admin
-  port: 636
-  encryption: :simple_tls
-  users:
-    attributes_mapping: id=uid,name=cn,email=mail
-    base: ou=users,ou=klarschiff,ou=SV
-  groups:
-    base: ou=groups,ou=klarschiff,ou=SV
-    search_pattern: (&(objectClass=groupOfNames)(o=<groupname>)(member=%s))
-
 resource_servers:
   city_sdk:
     site: https://klarschiff.de/citysdk/
