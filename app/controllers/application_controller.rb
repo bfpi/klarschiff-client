@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
             else
               authenticate_with_http_basic { |user, pwd| User.create(login: user, password: pwd, api_key: User.api_key) }
             end
-    request_http_basic_authentication unless @user.valid?
+    request_http_basic_authentication unless @user && @user.valid?
   end
 
   def has_field_service_team?
