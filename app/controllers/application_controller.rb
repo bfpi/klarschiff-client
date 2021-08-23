@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    @user = if (name = request.env["AUTHENTICATE_FULLNAME"] || name = request.env["AUTHENTICATE_DISPLAYNAME"])
-              Ldap.login2(name.force_encoding("UTF-8"))
+    @user ||= if (name = request.env["AUTHENTICATE_FULLNAME"].presence || request.env["AUTHENTICATE_DISPLAYNAME"]).present?
+              User.where(login: name, api_key: User.api_key)&.first
             else
-              authenticate_with_http_basic { |user, pwd| Ldap.login(user, pwd) }
+              authenticate_with_http_basic { |user, pwd| User.create(login: user, password: pwd, api_key: User.api_key) }
             end
-    request_http_basic_authentication unless @user
+    request_http_basic_authentication unless @user && @user.valid?
   end
 
   def has_field_service_team?
