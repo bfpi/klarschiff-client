@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    @user ||= if (name = request.env["AUTHENTICATE_FULLNAME"] || name = request.env["AUTHENTICATE_DISPLAYNAME"])
+    @user ||= if (name = request.env["AUTHENTICATE_FULLNAME"].presence || request.env["AUTHENTICATE_DISPLAYNAME"]).present?
               User.where(login: name, api_key: User.api_key)&.first
             else
               authenticate_with_http_basic { |user, pwd| User.create(login: user, password: pwd, api_key: User.api_key) }
