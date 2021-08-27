@@ -2,12 +2,12 @@
   <div class="places">
     <%= form_for(:places, method: :get, remote: true) do |f| %>
       <div class="row">
-        <div class="col-md-12">
-          <div class="form-group has-feedback has-clear">
+        <div class="col-12">
+          <div class="has-clear">
             <div class="input-group">
-              <span class="glyphicon glyphicon-search input-group-addon" aria-hidden="true"></span>
+              <i class="fas fa-search input-group-text"></i>
               <%= text_field_tag(:pattern, @pattern, class: 'form-control', placeholder: t('placeholder.places_search'), id: 'places-search-pattern') %>
-               <span class="glyphicon glyphicon-remove-circle form-control-feedback form-control-clear" aria-hidden="true"></span>
+               <i class="far fa-times-circle form-control-clear"></i>
             </div>
           </div>
         </div>
@@ -17,7 +17,7 @@
       <div class="list-group">
         <% @places.each do |place| -%>
           <%= link_to(map_path(bbox: place.bbox), remote: true, class: 'list-group-item') do %>
-            <%= place.label %><span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+            <%= place.label %><span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
           <% end %>
         <% end -%>
     <% end -%>

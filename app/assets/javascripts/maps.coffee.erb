@@ -22,8 +22,8 @@ KS.draw_observation = null
 KS.animateRefresh = <%= Settings::Client.animate_refresh %> * 1000
 
 KS.GeolocationControl = () ->
-  span = document.createElement('span')
-  span.className = 'glyphicon glyphicon-screenshot'
+  span = document.createElement('i')
+  span.className = 'fas fa-crosshairs'
   btn = document.createElement('button')
   btn.appendChild(span)
   text_span = document.createElement('span')
@@ -212,7 +212,7 @@ KS.styles =
   featureAttribution: (feature) ->
     new ol.style.Text
       text: feature.get("attribution")
-      font: '15px Glyphicons Halflings'
+      font: '15px Font Awesome 5 Free'
       offsetX: 28
       offsetY: -22
       rotation: Math.PI / -2
@@ -676,7 +676,8 @@ $ ->
         dataType: 'script'
     return false
   ).on('click', 'a.cancel', ->
+    console.log 'cancel click'
     KS.clearNewFeature()
-    KS.map.actions().addClass 'hidden'
+    KS.map.actions().addClass 'invisible'
     return false
   )

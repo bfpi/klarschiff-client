@@ -30,7 +30,7 @@ class PlacesController < ApplicationController
       if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
         uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
       end
-      if (res = open(uri, uri_options)) && res.status.include?('OK')
+      if (res = uri.open(uri_options)) && res.status.include?('OK')
         Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
           @places << Place.new(p)
         end

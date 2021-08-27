@@ -1,13 +1,15 @@
 <div class="requests">
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card">
+    <div class="card-header">
       <%= t('.title') %>
-      <span class="badge pull-right clickable" data-target="<%= map_path(mobile: @mobile) %>">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-      </span>
-      <span class="badge pull-right clickable" data-target="<%= url_for(session[:list]) %>">
-        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-      </span>
+      <div class="right-badges">
+        <span class="badge rounded-pill bg-secondary clickable" data-bs-target="<%= map_path(mobile: @mobile) %>">
+          <i class="fas fa-times"></i>
+        </span>
+        <span class="badge rounded-pill bg-secondary clickable" data-bs-target="<%= url_for(session[:list]) %>">
+          <i class="fas fa-sync"></i>
+        </span>
+      </div>
     </div>
     <% if @jobs.present? -%>
       <div class="list-group" data-update-url="<%= url_for(jobs_path) %>">
@@ -16,18 +18,18 @@
             <div class="hidden-xs">
               <h4 class="list-group-item-heading right-badges">
                 <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
-                <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
+                <i class="fas fa-flag <%= job.flag_color_class %>"></i>
                 #<%= job.id %> <%= job.service.group %> – <%= job.service_name %>
                 <%= mark_photo_required(job) %>
                 <% if display?(:trust) -%>
                   <%= mark_trust(job) %>
                 <% end -%>
-                <span class="badge sort-handle">
-                  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                <span class="badge rounded-pill bg-secondary sort-handle">
+                  <i class="fas fa-arrow-up"></i>
+                  <i class="fas fa-arrow-down"></i>
                 </span>
-                <span class="badge"><span class="glyphicon glyphicon-map-marker" data-lat="<%= job.lat %>" data-long="<%= job.long %>" aria-hidden="true"></span></span>
-                <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-map-marker-alt" data-lat="<%= job.lat %>" data-long="<%= job.long %>"></i></span>
+                <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
               </h4>
               <p class="list-group-item-text">
                 <%= job.address %>
@@ -36,18 +38,18 @@
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">
                 <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
-                <span class="glyphicon glyphicon-flag <%= job.flag_color_class %>" aria-hidden="true"></span>
+                <i class="fas fa-flag <%= job.flag_color_class %>"></i>
                 #<%= job.id %>
                 <%= mark_photo_required(job) %>
                 <% if display?(:trust) -%>
                   <%= mark_trust(job) %>
                 <% end -%>
               </span>
-              <span class="badge sort-handle">
-                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+              <span class="badge rounded-pill bg-secondary sort-handle">
+                <i class="fas fa-arrow-up"></i>
+                <i class="fas fa-arrow-down"></i>
               </span>
-              <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+              <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
 
               <div class="list-group-item-text heading">
                 <%= job.service_name %>
@@ -57,7 +59,7 @@
         <% end -%>
       </div>
     <% else -%>
-      <div class="panel-body"><%= t('.empty_result') %></div>
+      <div class="card-body"><%= t('.empty_result') %></div>
     <% end -%>
   </div>
 </div>

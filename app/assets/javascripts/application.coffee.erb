@@ -19,6 +19,7 @@
 #= require jquery-ui/widgets/sortable
 #= require jquery.ui.touch-punch
 #= require turbolinks
+#= require popper
 #= require bootstrap-sprockets
 #= require proj4js
 #= require shariff.complete
@@ -38,12 +39,12 @@ KS.content = (filter) ->
   if (div = root.children("div.#{ filter }"))?.length > 0 then div else null
 
 KS.autoRefresh = () ->
-  glyphiconRefresh = KS.content().find('.requests').find('.glyphicon-refresh')
+  refreshButton = KS.content().find('.requests').find('.fa-sync')
   if (map = KS.olMap)?
     if $(map.getViewport()).is(':visible')
       KS.reloadFeatures()
-    else if glyphiconRefresh.is(':visible')
-      glyphiconRefresh.parents('.clickable').click()
+    else if refreshButton.is(':visible')
+      refreshButton.parents('.clickable').click()
   if KS.login_required && KS.getUrlParam('mobile')
     setTimeout ->
       $.ajax(url: KS.job_notification_path, dataType: 'script')
@@ -196,17 +197,17 @@ $ ->
         return false
     if KS.getUrlParam('mobile')
       $.unique(error)
-      content = '<div class="modal-header text-warning"><span class="glyphicon glyphicon-alert"></span>'
-      content += $('#new-request').data('validation-error-headline') + '</div>'
+      content = '<div class="modal-header text-warning"><span><i class="fas fa-exclamation-triangle"></i>&nbsp;'
+      content += $('#new-request').data('validation-error-headline') + '</span></div>'
       content += '<div class="modal-body">' + error + '</div>'
       content += '<div class="modal-footer"><button type="button" class="btn'
-      content += ' btn-primary" data-dismiss="modal">Ok</button></div>'
+      content += ' btn-primary" data-bs-dismiss="modal">Ok</button></div>'
       KS.flash.show(content)
     else
       KS.buildError(error)
     false
 
-  $('.start-panel').find('.btn-primary').toArray()[0].focus() if $('.start-panel').is(':visible')
+  $('.start-card').find('.btn-primary').toArray()[0].focus() if $('.start-card').is(':visible')
 
   $(document).on 'click', '.update-position', () ->
     navigator.geolocation.getCurrentPosition (position) ->

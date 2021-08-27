@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_mobile, :set_og_request
   helper_method :has_field_service_team?, :context
   protect_from_forgery prepend: true
-  skip_before_action :verify_authenticity_token, if: :development? 
+  skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? }
 
   protected
 
@@ -32,11 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def context
-    @mobile ? 'mobile' : 'desktop'
-  end
-
-  def development?
-    Rails.env == 'development'
+    ActiveSupport::StringInquirer.new @mobile ? 'mobile' : 'desktop'
   end
 
   private

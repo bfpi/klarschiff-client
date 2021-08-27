@@ -1,25 +1,25 @@
 <div id="create-success" class="request-container">
-  <div class="row form-group">
-    <%= label_tag :success, t(:success), class: 'col-md-12 control-label' %>
+  <div class="row">
+    <%= label_tag :success, t(:success), class: 'col-12 col-form-label' %>
   </div>
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row mb-3">
+    <div class="col-12">
       <%= t("#{ controller_name }.#{ context }.create.success") %> <%= t(:share_request) if options && options[:id] %>
     </div>
     <% if options && options[:id] -%>
-      <div class="col-md-12">
+      <div class="col-12">
         <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link', req_id: options[:id]), data: { turbolinks: false } do %>
-          #<%= options[:id] %> <span class="glyphicon glyphicon-link"></span>
+          #<%= options[:id] %> <i class="fas fa-link"></i>
         <% end -%>
       </div>
     <% end -%>
   </div>
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row">
+    <div class="col-12 d-grid">
       <% if path.blank? -%>
-        <%= link_to t('buttons.ok'), '#request', class: 'btn btn-primary btn-block btn-start' %>
+        <%= link_to t('buttons.ok'), '#request', class: 'btn btn-primary btn-start' %>
       <% else -%>
-        <%= link_to t('buttons.ok'), path, remote: true, role: :button, class: 'btn btn-primary btn-block' %>
+        <%= link_to t('buttons.ok'), path, remote: true, role: :button, class: 'btn btn-primary' %>
       <% end -%>
     </div>
   </div>

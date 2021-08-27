@@ -31,7 +31,7 @@ $ ->
     $(@).parent('li').addClass 'active'
     KS.nav.bar.close()
 
-  KS.content().on 'click', '.clickable[data-target]', ->
+  KS.content().on 'click', '.clickable[data-bs-target]', ->
     $.ajax
-      url: $(@).data('target'),
+      url: $(@).data('bs-target'),
       dataType: 'script'

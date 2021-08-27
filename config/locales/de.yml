@@ -64,7 +64,7 @@ de:
             position:
               outside: befindet sich außerhalb des gültigen Bereichs
     models:
-      note: interne Kommentare
+      note: Interne Kommentare
       comment: Lob, Hinweise oder Kritik
 
   attributes:
@@ -273,8 +273,8 @@ de:
       new:
         title: KOD-Protokoll
         actions:
-          more_attachment: Anhang hinzufügen
-          send: senden
+          more_attachment: Weiteren Anhang hinzufügen
+          send: Senden
       create:
         success: KOD-Protokoll gesendet
 
