@@ -1,9 +1,9 @@
 <div id="show-link" class="area-container">
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row">
+    <div class="col-12">
       <%= t('.subscribe_feed') %>
     </div>
-    <div class="col-md-12">
+    <div class="col-12">
       <%= link_to [:observations, observation_key: @rss_id, format: :xml], target: '_blank', title: t('.link_title') do %>
             <%= t('.link_text') %>
             <%= image_tag('rss.png', class: 'img-margin-bottom') %>
@@ -11,8 +11,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <%= link_to t('buttons.ok'), '#', id: 'btn-start', class: 'btn btn-primary btn-block' %>
+    <div class="col-12 d-grid">
+      <%= link_to t('buttons.ok'), '#', id: 'btn-start', class: 'btn btn-primary' %>
     </div>
   </div>
 </div>

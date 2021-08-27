@@ -1,57 +1,55 @@
 <div class="protocol">
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card">
+    <div class="card-header">
       <%= t('.title') %>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <%= form_for([:request, @protocol], remote: true, authenticity_token: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
         <%= hidden_field_tag :mobile, @mobile %>
         <div class="form-group">
-          <%= f.label(:process_number, Protocol.human_attribute_name(:process_number), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
+          <%= f.label(:process_number, Protocol.human_attribute_name(:process_number), class: 'col-form-label') %>
+          <div class="col-12">
             <%= f.text_field(:process_number, class: 'form-control') %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label(:message_number, Protocol.human_attribute_name(:message_number), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
+          <%= f.label(:message_number, Protocol.human_attribute_name(:message_number), class: 'col-form-label') %>
+          <div class="col-12">
             <%= f.text_field(:message_number, class: 'form-control') %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label(:user, Protocol.human_attribute_name(:recorder), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
+          <%= f.label(:user, Protocol.human_attribute_name(:recorder), class: 'col-form-label') %>
+          <div class="col-12">
             <%= f.text_field(:user, class: 'form-control') %>
           </div>
         </div>
         <div class="form-group">
-          <%= f.label(:text, Protocol.human_attribute_name(:text), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
+          <%= f.label(:text, Protocol.human_attribute_name(:text), class: 'col-form-label') %>
+          <div class="col-12">
             <%= f.text_area(:text, rows: 5, class: 'form-control') %>
           </div>
         </div>
-        <div class="form-group">
-          <%= f.label(:attachments, Protocol.human_attribute_name(:attachments), class: 'col-md-2 control-label') %>
-          <div class="col-md-10">
+        <div class="form-group mb-3">
+          <%= f.label(:attachments, Protocol.human_attribute_name(:attachments), class: 'col-form-label') %>
+          <div class="col-12">
             <span id="attachments">
               <span id="attachment-prototype" style="display: none;">
-                <%= f.file_field :attachments, :name => "protocol[attachments][]", :id => nil %><br/>
+                <%= f.file_field :attachments, :name => "protocol[attachments][]", id: nil, class: 'mb-1' %><br/>
               </span>
-              <%= f.file_field :attachments, :name => "protocol[attachments][]", :id => nil %><br/>
+              <%= f.file_field :attachments, :name => "protocol[attachments][]", id: nil, class: 'mb-1' %><br/>
             </span>
-            <div class="btn-group btn-group-justified more_attachment" role="group">
-              <%= link_to(t('.actions.more_attachment'), "#", { class: 'btn btn-default', role: :button }) %>
+            <div class="btn-group d-flex col-12 more_attachment mt-1" role="group">
+              <%= link_to(t('.actions.more_attachment'), "#", { class: 'btn btn-light btn-outline-secondary col-12', role: :button }) %>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
-            <div class="btn-group btn-group-justified" role="group">
-              <div class="btn-group" role="group">
-                <%= f.submit(t('.actions.send'), class: 'btn btn-default btn-primary') %>
-              </div>
+          <div class="col-offset-2 col-12">
+            <div class="btn-group d-flex col-12" role="group">
+              <%= f.submit(t('.actions.send'), class: 'btn btn-primary col-6') %>
               <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list, mobile: @mobile],
-                          remote: true, class: 'btn btn-default', role: :button) %>
+                          remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button) %>
             </div>
           </div>
         </div>

@@ -1,16 +1,16 @@
 <div class="request-container">
   <%= render '/application/desktop/errors' %>
-  <div class="row form-group">
-    <%= label_tag :step, t('.step_one'), class: 'control-label col-md-12' %>
-  </div>
-  <div class="row form-group">
-    <%= label_tag :where, t('.where'), class: 'col-md-12' %>
-    <div class="col-md-12"><%= t('.place_icon') %></div>
+  <div class="row">
+    <%= label_tag :step, t('.step_one'), class: 'col-form-label col-12' %>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default') %>
+    <%= label_tag :where, t('.where'), class: 'col-12' %>
+    <div class="col-12"><%= t('.place_icon') %></div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="btn-group d-flex col-12" role="group">
+        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-light btn-outline-secondary') %>
         <%= link_to(t('buttons.continue'), new_request_path(type: @request.type), class: 'btn btn-primary describe') %>
       </div>
     </div>

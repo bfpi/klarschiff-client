@@ -2,46 +2,44 @@
   <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: nil } %>
   <%= render '/application/desktop/errors' %>
   <%= form_for([:request, @vote], remote: true) do |f| %>
-    <div class="row form-group">
-      <%= label_tag :vote, t('.title'), class: 'col-md-12 control-label' %>
+    <div class="row">
+      <%= label_tag :vote, t('.title'), class: 'col-12 col-form-label' %>
     </div>
-    <div class="row form-group">
-      <div class="col-md-12">
+    <div class="row mb-3">
+      <div class="col-12">
         <%= t('.hint.text') %>
       </div>
-      <div class="col-md-12 div-margin-top">
+      <div class="col-12 div-margin-top">
         <em class="text-danger"><%= t('.hint.warning_html') %></em>
       </div>
     </div>
-    <div class="row form-group">
-      <div class="col-md-12">
+    <div class="row mb-3">
+      <div class="col-12">
         <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
     </div>
     <% if display?(:status_updates_for_supporter) -%>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
           <%= f.check_box :status_updates_for_supporter, {}, true, nil %>
-          <%= f.label :status_updates_for_supporter, class: 'control-label' %>
+          <%= f.label :status_updates_for_supporter, class: 'col-form-label' %>
         </div>
       </div>
     <% end -%>
     <% if display?(:privacy_policy) -%>
       <%= render partial: 'privacy_policy_form', locals: { form: f } %>
     <% else -%>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row mb-3">
+        <div class="col-12">
           <%= t('.hint.privacy_html') %>
         </div>
       </div>
     <% end -%>
-    <div class="row form-group">
-      <div class="btn-group btn-group-justified col-md-12 div-margin-top" role="group">
-        <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-default',
+    <div class="row">
+      <div class="btn-group d-flex col-12 div-margin-top" role="group">
+        <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-light btn-outline-secondary col-6',
                     role: :button) %>
-        <div class="btn-group" role="group">
-          <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
-        </div>
+        <%= f.submit(t('buttons.save'), class: 'btn btn-primary col-6') %>
       </div>
     </div>
   <% end -%>

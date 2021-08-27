@@ -49,7 +49,6 @@ module ActiveResource
     class << self
       prepend FindWithExtendedDefaultQueryOptions
       prepend CollectionPathWithCitySDKUrlFormat
-      mattr_accessor :api_key
 
       def default_query_options
         @@default_query_options ||= {}
@@ -58,9 +57,6 @@ module ActiveResource
         end
         @@default_query_options
       end
-
-      mattr_writer :default_query_options
-
     end
   end
 
@@ -70,7 +66,7 @@ module ActiveResource
       if decoded.kind_of?(Array) && decoded.first.kind_of?(Hash)
         clear unless save_cache
         decoded.each { |error|
-          self[:base] << error['description']
+          self.add :base, error['description']
         }
       else
         super

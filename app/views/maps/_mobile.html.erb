@@ -1,83 +1,88 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bs-navbar-collapse-1" aria-controls="bs-navbar-collapse-1" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li>
-          <%= link_to(new_request_path(mobile: @mobile), remote: true, title: t("nav.request")) do %>
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to(new_request_path(mobile: @mobile), remote: true, class: 'nav-link', title: t("nav.request")) do %>
+            <i class="fas fa-map-marker-alt"></i>
             <% unless login_required? -%>
               <span><%= t("nav.request") %></span>
             <% end %>
           <% end %>
         </li>
-        <li>
-          <%= link_to(places_path(mobile: @mobile), remote: true, class: :places, title: t("nav.places")) do %>
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        <li class="nav-item">
+          <%= link_to(places_path(mobile: @mobile), remote: true, class: 'nav-link places', title: t("nav.places")) do %>
+            <i class="fas fa-search"></i>
             <% unless login_required? -%>
               <span><%= t("nav.places") %></span>
             <% end %>
           <% end %>
         </li>
         <% if login_required? && has_field_service_team? -%>
-          <li>
-            <%= link_to(jobs_path(mobile: @mobile), remote: true, class: :jobs, title: t("nav.jobs")) do %>
-              <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+          <li class="nav-item">
+            <%= link_to(jobs_path(mobile: @mobile), remote: true, class: 'nav-link jobs', title: t("nav.jobs")) do %>
+              <i class="fas fa-tasks"></i>
             <% end %>
           </li>
-          <li>
-            <%= link_to(map_path(mobile: @mobile), remote: true, class: :map, title: t("nav.map"),
+          <li class="nav-item">
+            <%= link_to(map_path(mobile: @mobile), remote: true, class: 'nav-link map', title: t("nav.map"),
                                                    id: :link_default_map, style: "display: none;") do %>
-                <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+                <i class="far fa-image"></i>
             <% end %>
-            <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: :map, title: t("nav.job_map"), id: :link_job_map) do %>
-                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+            <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: 'nav-link map', title: t("nav.job_map"), id: :link_job_map) do %>
+                <i class="fas fa-thumbtack"></i>
             <% end %>
           </li>
         <% end -%>
         <% if !login_required? -%>
-          <li class="menu-hamburger">
-            <a data-toggle="collapse" data-target="#navbar" href"#">
-              <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          <li class="float-end">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a data-bs-toggle="collapse" data-bs-target="#navbar" href"#" class="nav-link">
+              <i class="fas fa-bars"></i>
             </a>
           </li>
         <% end -%>
       </ul>
     </div>
   </div>
-  <div class="collapse" aria-expanded="false" id="navbar">
-    <ul class="nav">
-      <li>
-        <a href="<%= imprint_static_path %>" class="imprint" title="<%= t("nav.imprint") %>" target="_blank">
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          <span><%= t("nav.imprint") %></span>
-        </a>
-      </li>
-      <li>
-        <% privacy_link = if Settings::Url.respond_to?(:external_privacy_url)
-                            Settings::Url.external_privacy_url
-                          else
-                            privacy_static_path
-                          end %>
-        <a href="<%= privacy_link %>" class="privacy" title="<%= t("nav.privacy") %>" target="_blank">
-          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-          <span><%= t("nav.privacy") %></span>
-        </a>
-      </li>
-    </ul>
-  </div>
 </nav>
+<% if !login_required? -%>
+  <nav class="navbar navbar-light bg-light fixed-top">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item d-block text-start">
+            <a href="<%= imprint_static_path %>" class="imprint nav-link" title="<%= t("nav.imprint") %>" target="_blank">
+              <i class="fas fa-user"></i>
+              <span><%= t("nav.imprint") %></span>
+            </a>
+          </li>
+          <li class="nav-item d-block text-start">
+            <% privacy_link = if Settings::Url.respond_to?(:external_privacy_url)
+                                Settings::Url.external_privacy_url
+                              else
+                                privacy_static_path
+                              end %>
+            <a href="<%= privacy_link %>" class="privacy nav-link" title="<%= t("nav.privacy") %>" target="_blank">
+              <i class="fas fa-lock"></i>
+              <span><%= t("nav.privacy") %></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<% end -%>
 <div class="modal fade" id="flash" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog"><div class="modal-content"></div></div>
 </div>
 <div id="ol-map" class="ol-map-mobile">
-  <nav class="navbar navbar-default navbar-fixed-bottom actions hidden">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom actions invisible">
   </nav>
 </div>
 <% if @mobile && !login_required? -%>
@@ -88,7 +93,7 @@
 <% end -%>
 <% if @mobile -%>
   <div id="crosshair">
-    <span class="glyphicon glyphicon-screenshot" />
+    <i class="fas fa-crosshairs"></i>
   </div>
 <% end -%>
 <div id="content" class="container">

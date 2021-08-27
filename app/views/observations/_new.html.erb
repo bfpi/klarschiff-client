@@ -1,9 +1,9 @@
 <div id="create-observation" class="area-container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <% if @error.present? -%>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-12">
             <div class="alert alert-danger" role="alert">
               <strong><%= t('.error') %></strong></br>
               <%= @error %>
@@ -17,14 +17,14 @@
     <%= hidden_field_tag :area_code, @area_code if @area_code %>
     <%= hidden_field_tag :geometry, @geom if @geom %>
     <% %w(problem idea).each do |type| -%>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row mb-3">
+        <div class="col-12">
           <%= check_box_tag type.pluralize, true, false, class: 'check-all', data: { type: type } %>
-          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
+          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'col-form-label' %>
         </div>
 
         <% service_names(type).each do |service| -%>
-          <div class="col-md-12">
+          <div class="col-12">
             <%= check_box_tag "#{ type }_service[]", service[:id], false, class: type,
               id: "#{ type }_#{ service[:id] }" %>
             <%= label_tag  "#{ type }_#{ service[:id] }", service[:name], class: 'check-label'%>
@@ -34,12 +34,12 @@
     <% end unless service_code -%>
     <% if service_code -%>
       <% service = service_name(service_code) -%>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
           <%= check_box_tag (type = service.type).pluralize, true, true, class: 'check-all', data: { type: type } %>
-          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'control-label' %>
+          <%= label_tag type.pluralize, t("service.types.#{ type }", count: 2), class: 'col-form-label' %>
         </div>
-        <div class="col-md-12">
+        <div class="col-12">
           <%= check_box_tag "#{ type }_service_sub[]", (code = service.service_code), true, class: type,
             id: "#{ type }_#{ code }"  %>
           <%= label_tag "#{ type }_#{ code }", service.service_name, class: 'check-label' %>
@@ -47,12 +47,10 @@
       </div>
     <% end -%>
     <div class="row">
-      <div class="col-md-12">
-        <div class="btn-group btn-group-justified">
-          <%= link_to t('buttons.cancel'), [:areas, back: true], remote: true, class: 'btn btn-default back' %>
-          <div class="btn-group">
-            <%= f.submit t('buttons.submit'), class: 'btn btn-primary' %>
-          </div>
+      <div class="col-12">
+        <div class="btn-group d-flex col-12">
+          <%= link_to t('buttons.cancel'), [:areas, back: true], remote: true, class: 'btn btn-light btn-outline-secondary back col-6' %>
+          <%= f.submit t('buttons.submit'), class: 'btn btn-primary col-6' %>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss':
           HTML
           html_cont << if (url = r.media_url).present?
             html_cont << '<br/>'
-            image_tag(url, alt: Request.human_attribute_name(:media_url), class: 'img-rounded img-responsive')
+            image_tag(url, alt: Request.human_attribute_name(:media_url), class: 'rounded img-fluid')
           else
             t('.img_not_available')
           end

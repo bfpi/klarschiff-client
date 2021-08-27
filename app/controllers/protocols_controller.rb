@@ -13,7 +13,9 @@ class ProtocolsController < ApplicationController
   def create
     protocol = Protocol.new(params[:protocol])
     ProtocolMailer.protocol(protocol).deliver_now
-    @redirect = request_path(params[:request_id], id_list: params[:protocol][:id_list]).html_safe
+    request_params = { id_list: params[:protocol][:id_list] }
+    request_params[:mobile] = true if context.mobile?
+    @redirect = request_path(params[:request_id], request_params)
     @success = I18n.t('protocols.create.success_text')
     render "/application/#{ context }/create"
   end

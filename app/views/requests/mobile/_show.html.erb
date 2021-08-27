@@ -1,7 +1,7 @@
 <div class="request">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="hidden-xs panel-title">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="hidden-xs card-title mt-2">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
         <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
         <%= type %>
@@ -13,11 +13,11 @@
         <% end -%>
         <%= link_to [:map, request: @request.id],
           data: { turbolinks: false } do %>
-          <span class="glyphicon glyphicon-link"></span>
+          <i class="fas fa-link"></i>
         <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
       </h4>
-      <h4 class="visible-xs panel-title">
+      <h4 class="visible-xs card-title">
         <div class="list-group-item-heading">
           <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
           <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
@@ -38,14 +38,14 @@
       <div class="list-group">
         <div class="row map-image">
           <% if (url = @request.media_url).present? -%>
-            <div class="col-sm-6" id="ol-minimap"
+            <div class="col-6" id="ol-minimap"
                  data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
                  data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
-            <div class="col-sm-6">
-              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-responsive" />
+            <div class="col-6">
+              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid" />
             </div>
           <% else -%>
-            <div class="col-sm-12" id="ol-minimap"
+            <div class="col-12" id="ol-minimap"
                  data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
                  data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
           <% end -%>
@@ -103,7 +103,7 @@
           <p class="list-group-item-text">
             <div class="form-group">
               <% if (url = @request.media_url).present? -%>
-                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid" />
               <% else -%>
                 <i>kein Foto vorhanden</i>
               <% end -%>
@@ -123,15 +123,15 @@
             <%= form_for([@request, @photo], remote: true, html: { class: 'form-horizontal fileupload' }) do |f| %>
               <%= hidden_field_tag :mobile, @mobile %>
               <div class="form-group">
-                <div class="col-md-10">
+                <div class="col-10">
                   <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-md-2">
-                  <%= f.label(:author, Request.human_attribute_name(:author), class: 'control-label') %>
+                <div class="col-2">
+                  <%= f.label(:author, Request.human_attribute_name(:author), class: 'col-form-label') %>
                 </div>
-                <div class="col-md-12">
+                <div class="col-12">
                   <%= f.email_field(:author, class: 'form-control') %>
                 </div>
               </div>
@@ -139,7 +139,7 @@
                 <small><%= t('.confirmation_foto_text_privacy_html') %></small>
               </span>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                   <%= f.submit(t('buttons.upload'), class: 'btn btn-primary') %>
                 </div>
               </div>
@@ -149,16 +149,16 @@
       <% end -%>
       <% if display?(:comments) && (comments = @request.comments.to_a).present? -%>
         <div class="list-group-item">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="card">
+            <div class="card-header">
               <h4>
-                <a data-toggle="collapse" href="#comments" aria-controls="comments">
+                <a data-bs-toggle="collapse" href="#comments" aria-controls="comments">
                   <%= Comment.model_name.human %>
-                  <span class="caret"></span>
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
               </h4>
             </div>
-            <div id="comments" class="panel-body list-group collapse">
+            <div id="comments" class="card-body list-group collapse">
               <% comments.each do |comment| -%>
                 <div class="list-group-item">
                   <h5 class="list-group-item-heading"><%= comment.author %>, <%= l(comment.datetime.to_time) %></h5>
@@ -171,20 +171,20 @@
       <% end -%>
       <% if display?(:notes) -%>
         <div class="list-group-item">
-          <div class="panel panel-default">
+          <div class="card">
             <% notes = @request.notes.to_a %>
-            <div class="panel-heading">
-              <h4>
-                <a data-toggle="collapse" href="#notes" aria-controls="notes">
+            <div class="card-header">
+              <h4 class="mt-2">
+                <a data-bs-toggle="collapse" href="#notes" aria-controls="notes">
                   <%= Note.model_name.human %> (<%= notes.size %>)
-                  <span class="caret"></span>
+                  <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
-                <span class="badge pull-right clickable" data-target="<%= new_request_note_path(@request, id_list: @id_list, mobile: @mobile) %>">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="badge rounded-pill bg-secondary clickable float-end" data-bs-target="<%= new_request_note_path(@request, id_list: @id_list, mobile: @mobile) %>">
+                  <i class="fas fa-plus"></i>
                 </span>
               </h4>
             </div>
-            <div id="notes" class="panel-body list-group collapse">
+            <div id="notes" class="card-body list-group collapse">
               <% notes.each do |note| -%>
                 <div class="list-group-item">
                   <h5 class="list-group-item-heading"><%= note.author %>, <%= l(note.datetime.to_time) %></h5>
@@ -196,46 +196,46 @@
         </div>
       <% end -%>
       <div class="list-group-item actions">
-        <% options = { remote: true, class: 'btn btn-default', role: :button } -%>
+        <% options = { remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button } -%>
         <% if display?(:abuses) || display?(:votes) -%>
-          <div class="btn-group btn-group-justified" role="group">
+          <div class="btn-group d-flex col-12" role="group">
             <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list, mobile: @mobile], options) if display?(:votes) %>
             <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list, mobile: @mobile], options) if display?(:abuses) %>
           </div>
         <% end -%>
-        <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group d-flex col-12" role="group">
           <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list, mobile: @mobile],
-                      options.merge(class: 'btn btn-default')) if display?(:create_comment) %>
+                      options.merge(class: 'btn btn-light btn-outline-secondary col-6')) if display?(:create_comment) %>
           <% if display?(:d3_document_url) && @request.service.document_url.present? -%>
             <%= link_to(t('.actions.d3_document'), d3_document_url(@request),
-                        options.merge(class: 'btn btn-default', target: '_blank', :remote => false)) %>
+                        options.merge(class: 'btn btn-light btn-outline-secondary col-6', target: '_blank', :remote => false)) %>
           <% elsif display?(:protocol) -%>
             <%= link_to(t('.actions.kod'), [:new, @request, :protocol, mobile: @mobile],
-                        options.merge(class: 'btn btn-default')) %>
+                        options.merge(class: 'btn btn-light btn-outline-secondary col-6')) %>
           <% end -%>
         </div>
       </div>
     </div>
   </div>
   <% if @id_list.try(:include?, @request.id) -%>
-    <nav class="navbar navbar-default navbar-fixed-bottom">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom">
       <div class="container">
-        <div class="btn-group btn-group-justified" role="group">
+        <div class="btn-group d-flex col-12" role="group">
           <% if @id_list.first == @request.id -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
+            <%= link_to(content_tag(:i, '', class: 'fas fa-backward'), '#', class: 'btn btn-light btn-outline-secondary disabled col-4') %>
           <% else -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
+            <%= link_to(content_tag(:i, '', class: 'fas fa-backward'),
                         request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
-                        remote: true, class: 'btn btn-default') %>
+                        remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
           <% end -%>
           <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
-                      remote: true, class: 'btn btn-default btn-xs') %>
+                      remote: true, class: 'btn btn-light btn-outline-secondary btn-xs col-4') %>
           <% if @id_list.last == @request.id -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
+            <%= link_to(content_tag(:i, '', class: 'fas fa-forward'), '#', class: 'btn btn-light btn-outline-secondary disabled col-4') %>
           <% else -%>
-            <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
+            <%= link_to(content_tag(:i, '', class: 'fas fa-forward'),
                         request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
-                        remote: true, class: 'btn btn-default') %>
+                        remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
           <% end -%>
         </div>
       </div>

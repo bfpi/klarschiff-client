@@ -5,54 +5,54 @@
   ending = @page + spread + 1
   ending = @pages if ending > @pages
 -%>
-<ul class="pagination">
+<ul class="pagination mt-3">
   <% if @page != 1 -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1) %>
+      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1), class: 'page-link' %>
     </li>
   <% end -%>
 
   <% if start > 1 -%>
     <li class="page-item">
-      <%= link_to 1, requests_page_static_path(page: 1) %>
+      <%= link_to 1, requests_page_static_path(page: 1), class: 'page-link' %>
     </li>
   <% end %>
 
   <% if start > 2 -%>
     <li class="page-item disabled">
-      <%= link_to("...", "#") %>
+      <%= link_to "...", "#", class: 'page-link' %>
     </li>
   <% end %>
 
   <% (ending - start).to_i.times do |i| -%>
     <% ix = (start + i) %>
     <li class="page-item <%= "active" if ix == @page %>">
-      <%= link_to ix, requests_page_static_path(page: ix) %>
+      <%= link_to ix, requests_page_static_path(page: ix), class: 'page-link' %>
     </li>
   <% end -%>
 
   <% if ending < @pages -%>
     <li class="page-item disabled">
-      <%= link_to("...", "#") %>
+      <%= link_to "...", "#", class: 'page-link' %>
     </li>
   <% end %>
 
   <% if ending <= @pages -%>
     <li class="page-item">
-      <%= link_to @pages, requests_page_static_path(page: @pages) %>
+      <%= link_to @pages, requests_page_static_path(page: @pages), class: 'page-link' %>
     </li>
   <% end %>
 
   <% if @page != @pages -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1) %>
+      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1), class: 'page-link' %>
     </li>
   <% end -%>
 </ul>
 
 <div class="requests">
-  <div class="panel panel-default">
-    <div class="panel-heading clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+  <div class="card">
+    <div class="card-header clickable" data-bs-target="<%= url_for(session[:referer_params].permit!) %>">
       <%= t('.title') %>
     </div>
     <% if @requests.present? -%>
@@ -63,7 +63,7 @@
             <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
             #<%= req.id %> <%= req.service.group %> – <%= req.service_name %> – <%= l(req.requested_datetime.to_date) %>
             <%= mark_photo_required(req) %>
-            <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+            <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
           </h4>
           <p class="list-group-item-text">
     		<% if req.description.present? -%>
@@ -83,9 +83,10 @@
       <% end -%>
     </div>
     <% else -%>
-    <div class="panel-body">
+    <div class="card-body">
       <%= t('.empty_result') %>
     </div>
     <% end -%>
   </div>
 </div>
+
