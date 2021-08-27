@@ -53,8 +53,8 @@
 </ul>
 
 <div class="requests">
-  <div class="panel panel-default">
-    <div class="panel-heading clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
+  <div class="card">
+    <div class="card-header clickable" data-bs-target="<%= url_for(session[:referer_params].permit!) %>">
       <%= t('.title') %>
     </div>
     <% if @requests.present? -%>
@@ -65,7 +65,7 @@
             <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
             #<%= req.id %> <%= req.service.group %> – <%= req.service_name %> – <%= l(req.requested_datetime.to_date) %>
             <%= mark_photo_required(req) %>
-            <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+            <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
           </h4>
           <p class="list-group-item-text">
     		<% if req.description.present? -%>
@@ -85,7 +85,7 @@
       <% end -%>
     </div>
     <% else -%>
-    <div class="panel-body">
+    <div class="card-body">
       <%= t('.empty_result') %>
     </div>
     <% end -%>

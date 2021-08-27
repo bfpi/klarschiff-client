@@ -1,4 +1,4 @@
-        <div class="page-header" id="headline">
+        <div class="" id="headline">
           <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
         </div>
         <div class="intro row">
@@ -10,32 +10,32 @@
           <div class="col-sm-12">
             <div class="statistic">
               <div class="row">
-                <div class="col-sm-3 left-block text-right">
-                  <span class="label label-warning"><%= @overall_count %></span>
+                <div class="col-sm-3 left-block text-end">
+                  <span class="badge bg-warning"><%= @overall_count %></span>
                 </div>
                 <div class="col-sm-9 right-block">
                   <%= t('.overall', start_date: Settings::Client.start_date) %>
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-3 left-block text-right">
-                  <span class="label label-warning"><%= @current_count %></span>
+                <div class="col-sm-3 left-block text-end">
+                  <span class="badge bg-warning"><%= @current_count %></span>
                 </div>
                 <div class="col-sm-9 right-block">
                   <%= t('.current') %>
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-3 left-block text-right">
-                  <span class="label label-warning"><%= @newest_count %></span>
+                <div class="col-sm-3 left-block text-end">
+                  <span class="badge bg-warning"><%= @newest_count %></span>
                 </div>
                 <div class="col-sm-9 right-block">
                   <%= t('.newest') %>
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-3 left-block text-right">
-                  <span class="label label-warning"><%= @processed_count %></span>
+                <div class="col-sm-3 left-block text-end">
+                  <span class="badge bg-warning"><%= @processed_count %></span>
                 </div>
                 <div class="col-sm-9 right-block">
                   <%= t('.processed') %>

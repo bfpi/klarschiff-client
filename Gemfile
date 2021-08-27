@@ -1,13 +1,16 @@
 source 'https://rubygems.org'
 
+ruby '~> 3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
-gem 'activeresource', git: 'http://github.com/rails/activeresource.git', branch: 'master'
+gem 'rails', '~> 6.1'
+gem 'activeresource'
+# Use Puma as the app server
+gem 'puma', '~> 5.4'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-gem 'closure-compiler', '1.1.13'
-gem 'coffee-rails', '~> 4.2'
+gem 'sass-rails', '>= 6'
+gem 'closure-compiler'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -16,9 +19,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
 gem 'therubyracer'
-gem 'bootstrap-sass'
+gem 'bootstrap'
 
-gem 'passenger'
+gem 'font-awesome-rails'
 gem 'net-ldap'
 gem 'oj'
 gem 'oj_mimic_json'
@@ -56,4 +59,3 @@ group :development, :test do
   
   gem 'listen'
 end
-

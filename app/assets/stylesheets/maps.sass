@@ -1,4 +1,5 @@
-@import "bootstrap/variables"
+@import "bootstrap/functions";
+@import "bootstrap/variables";
 
 *
   margin: 0
@@ -14,7 +15,7 @@
     a
       padding: 10px
 
-.navbar-default .navbar-nav > li
+.navbar .navbar-nav > li
   display: inline-block
   margin-right: 30px
 
@@ -122,7 +123,7 @@
 
 .ol-touch .ol-control
   button
-    font-size: $font-size-h1
+    font-size: $h1-font-size
 
 .ol-scale-line-inner
   font-weight: bold
@@ -137,10 +138,10 @@
 .ol-touch .ol-attribution
 
   ul
-    font-size: $font-size-small
+    font-size: $font-size-sm
 
   button
-    font-size: $font-size-h5
+    font-size: $h5-font-size
 
 .ol-attribution
 
@@ -201,10 +202,10 @@
 
 #popup-content #open-request
   position: absolute
-  right: 12px
-  top: 1em
+  right: 1em
+  top: 3em
 
-#popup-content #open-request h3
+#popup-content #open-request i
   margin: 0
 
 #popup-content .form-group:first-child h4

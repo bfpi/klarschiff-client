@@ -1,15 +1,15 @@
 <div id="form-page-1">
-  <div class="row form-group">
-    <%= label_tag :step, t('.step_one'), class: 'control-label col-md-12' %>
+  <div class="row">
+    <%= label_tag :step, t('.step_one'), class: 'col-form-label col-12' %>
   </div>
-  <div class="row form-group">
-    <%= label_tag :where, t('.where'), class: 'col-md-12' %>
-    <div class="col-md-12"><%= t('.place_icon') %></div>
+  <div class="row spacer">
+    <%= label_tag :where, t('.where'), class: 'col-12' %>
+    <div class="col-12"><%= t('.place_icon') %></div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      <div class="btn-group btn-group-justified" role="group">
-        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-default back') %>
+    <div class="col-12">
+      <div class="btn-group d-flex col-12" role="group">
+        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-light btn-outline-secondary back') %>
         <%= link_to(t('buttons.continue'), '#', remote: true, class: 'btn btn-primary btn-continue',
                     role: :button, data: { current: '1', next: '2', url: new_request_path }) %>
       </div>
@@ -17,30 +17,30 @@
   </div>
 </div>
 <div id="form-page-2" class="hidden-page">
-  <div class="row form-group">
-    <%= label_tag :step, t('.step_two'), class: 'control-label col-md-12' %>
+  <div class="row">
+    <%= label_tag :step, t('.step_two'), class: 'col-form-label col-12' %>
   </div> 
-  <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
-    <%= label_tag :what, t('.what'), class: 'col-md-12 control-label' %>
-    <div class="col-md-12"><%= t('.problem_or_idea') %></div>
-    <div class="col-md-6 div-margin-top">
+  <div class="row spacer radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
+    <%= label_tag :what, t('.what'), class: 'col-12 col-form-label' %>
+    <div class="col-12"><%= t('.problem_or_idea') %></div>
+    <div class="col-6 div-margin-top">
       <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
         t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
     </div>
-    <div class="col-md-6 div-margin-top">
+    <div class="col-6 div-margin-top">
       <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
         t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
     </div>
   </div>
-  <div class="row form-group">
-    <div id="type-description" class="col-md-12" data-problem="<%= t('.describe_problem') %>"
+  <div class="row spacer">
+    <div id="type-description" class="col-12" data-problem="<%= t('.describe_problem') %>"
       data-idea="<%= t('.describe_idea') %>">
     </div>
   </div>
-  <div class="row form-group">
-      <div class="btn-group btn-group-justified col-md-12" role="group">
+  <div class="row">
+      <div class="btn-group d-flex col-12" role="group">
         <%= link_to(t('buttons.back'), '#', remote: true,
-                    class: 'btn btn-default btn-continue back', role: :button,
+                    class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                     data: { current: '2', next: '1' }) %>
         <%= link_to(t('buttons.continue'), '#', remote: true,
                     class: 'btn btn-primary btn-continue', role: :button,
@@ -49,33 +49,33 @@
   </div>
 </div>
 <div id="form-page-3" class="hidden-page">
-  <div class="row form-group">
-    <%= label_tag :step, t('.step_three'), class: 'control-label col-md-12' %>
+  <div class="row">
+    <%= label_tag :step, t('.step_three'), class: 'col-form-label col-12' %>
   </div>
   <%= label_tag :what_exactly, t('.what_exactly') %>
   <%= render partial: 'requests/desktop/category_select', locals: { type: nil, category: nil, service_code: nil } %> 
-  <div class="row form-group">
-    <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
-    <div class="col-md-12">
+  <div class="row">
+    <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
+    <div class="col-12">
       <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
                       data: { 'missing-message': t('requests.create.error.required.description') }) %>
     </div>
   </div>
-  <div class="row form-group">
-    <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
-    <div class="col-md-12"><%= t('.photo_hint') %></div>
-    <div class="col-md-12">
+  <div class="row spacer">
+    <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
+    <div class="col-12"><%= t('.photo_hint') %></div>
+    <div class="col-12">
       <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
     </div>
   </div>
-  <div class="row form-group">
-    <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
-    <div class="col-md-12"><%= t('.hint.text') %></div>
+  <div class="row spacer">
+    <%= label_tag :hint, t('.hint.label'), class: 'col-12 col-form-label' %>
+    <div class="col-12"><%= t('.hint.text') %></div>
   </div>
-  <div class="row form-group" class="hidden-page">
-    <div class="btn-group btn-group-justified col-md-12" role="group">
+  <div class="row" class="hidden-page">
+    <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-default btn-continue back', role: :button,
+                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                   data: { current: '3', next: '2' }) %>
       <%= link_to(t('buttons.continue'), '#', remote: true,
                   class: 'btn btn-primary btn-continue', role: :button,
@@ -84,15 +84,15 @@
   </div>
 </div>
 <div id="form-page-submit" class="hidden-page">
-  <div class="row form-group">
-    <%= label_tag :step, t('.step_four'), class: 'control-label col-md-12' %>
+  <div class="row">
+    <%= label_tag :step, t('.step_four'), class: 'col-form-label col-12' %>
   </div>
-  <div class="row form-group">
-    <%= label_tag :confirmation, t('.confirmation'), class: 'col-md-12 control-label' %>
+  <div class="row">
+    <%= label_tag :confirmation, t('.confirmation'), class: 'col-12 col-form-label' %>
   </div>
   <% if display?(:email) -%>
-    <div class="row form-group">
-      <div class="col-md-12">
+    <div class="row spacer">
+      <div class="col-12">
         <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
     </div>
@@ -100,28 +100,26 @@
   <% if display?(:privacy_policy) -%>
     <%= render partial: 'privacy_policy_form', locals: { form: f } %>
   <% else -%>
-    <div class="row form-group">
-      <div class="col-md-12">
+    <div class="row spacer">
+      <div class="col-12">
         <%= t('.confirmation_text_privacy_html') %>
       </div>
     </div>
   <% end -%>
-  <div class="row form-group">
-    <div class="col-md-12 div-margin-top">
+  <div class="row spacer">
+    <div class="col-12 div-margin-top">
       <%= t('.confirmation_text_html') %>
     </div>
-    <div class="col-md-12 div-margin-top">
+    <div class="col-12 div-margin-top">
       <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
     </div>
   </div>
-  <div class="row form-group">
-    <div class="btn-group btn-group-justified col-md-12" role="group">
+  <div class="row">
+    <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-default btn-continue back', role: :button,
+                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                   data: { current: 'submit', next: '3' }) %>
-      <div class="btn-group" role="group">
-        <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
-      </div>
+      <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
     </div>
   </div>
 </div>

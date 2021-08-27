@@ -1,5 +1,5 @@
 <div class="modal-header text-<%= @errors ? :warning : :success %>">
-  <span class="glyphicon glyphicon-<%= @errors ? :alert : 'ok-sign' %>"></span>
+  <i class="<%= @errors ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle' %>"></span>
   <%= t("#{ controller_name }.#{ context }.#{ action_name }.#{ @errors ? :error : :success }", @modal_title_options || {}) %>
 </div>
 <div class="modal-body">
@@ -19,5 +19,5 @@
   <% end -%>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('buttons.ok') %></button>
+  <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><%= t('buttons.ok') %></button>
 </div>

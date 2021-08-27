@@ -64,9 +64,9 @@ body
   font-size: 15px
   
 #headline
-  margin-top: 20px
+  margin: 20px 0;
   text-align: center
-  border-color: #bce8f1
+  border-bottom: 1px solid #bce8f1
   padding-bottom: 2px
   color: #337ab7
 
@@ -82,7 +82,7 @@ select
 .img-rounded
   border-radius: 4px
   
-.requests-img-panel
+.requests-img-card
   font-size: 13px
   
 .img-static
@@ -99,26 +99,31 @@ select
   margin-right: 20px
   max-width: 250px
 
+.requests-img-card
+  display: block
+
 .img-box
   width: 100%
   height: 180px
   background-repeat: no-repeat
   background-position: center center
+  margin-bottom: 1em
 
   .img-overlay-top
-    position: absolute
-    top: 8px
+    display: block
     padding-right: 5px
     padding-bottom: 2px
     padding-left: 5px
     font-weight: bold
     color: #333
+    position: relative
+    top: -15px
     background-color: rgba(255, 255, 255, 0.7)
 
   .img-overlay-bottom
-    position: absolute
-    right: 22px
-    bottom: 8px
+    left: 85px
+    top: 150px
+    position: relative
 
 .img-box:hover .img-overlay-top, .img-box:focus .img-overlay-top, .img-box:hover .img-overlay-bottom, .img-box:focus .img-overlay-bottom
   display: none
@@ -275,11 +280,12 @@ header
   border-bottom-right-radius: 4px
 
 .sidebar-toggler span:before
-  font-family: 'Glyphicons Halflings'
-  content: '\e250'
+  font-family: 'Font Awesome 5 Free'
+  font-weight: 900
+  content: "\F105";
 
 .sidebar-toggler.open span:before
-  content: '\e251'
+  content: "\F104";
 
 .address-search-field
   position: absolute
@@ -291,7 +297,7 @@ header
   height: 34px
   z-index: 1000
 
-  .panel-body
+  .card-body
     padding: 5px
 
   input
@@ -311,7 +317,7 @@ header
   a
     width: 136px
 
-.map-panel
+.map-card
   min-width: 80px
   max-width: 300px
   top: 80px
@@ -319,19 +325,20 @@ header
   right: 0
   z-index: 1000
 
-.map-panel .panel-heading
+.map-card .card-header
   padding: 6px 20px
   a
     display: block
     color: #fff
 
-.map-panel .panel-heading [data-toggle="collapse"] span:before
-  font-family: 'Glyphicons Halflings'
-  content: '\2212'
+.map-card .card-header [data-bs-toggle="collapse"] span:before
+  font-family: 'Font Awesome 5 Free'
+  font-weight: 900
+  content: "\F068"
   float: right
 
-.map-panel .panel-heading .collapsed[data-toggle="collapse"] span:before
-  content: '\2b'
+.map-card .card-header .collapsed[data-bs-toggle="collapse"] span:before
+  content: "\F067"
   padding-left: 6px
 
 .check-label
@@ -351,7 +358,7 @@ header
 .statistic-box-figure
   width: 100%
  
-  .label
+  .badge
     font-size: 16px
  
 .statistic-box-text
@@ -371,6 +378,9 @@ most-important
 .shariff .orientation-horizontal li
   margin-right: 6px
   width: auto
+
+.spacer
+  margin-bottom: 15px
 
 body.mobile
   header h1
@@ -423,3 +433,8 @@ body.mobile
 
   .btn-primary
     white-space: normal
+
+.form-control-clear
+  position: absolute
+  right: 1em
+  top: 0.7em

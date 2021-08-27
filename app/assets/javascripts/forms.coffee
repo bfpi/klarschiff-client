@@ -1,6 +1,6 @@
 $ ->
   KS.content().on 'click', '.has-clear .form-control-clear', ->
-    $(@).parents('.form-group').find('input').val ''
+    $(@).parents('.has-clear').find('input').val ''
 
   KS.content().on 'change', 'select[data-update]', ->
     if (target = $("##{ $(@).data('update') }"))? && (url = target.data('src'))?
@@ -24,11 +24,11 @@ $ ->
 
     if err.length > 0
       $.unique(err)
-      content = '<div class="modal-header text-warning"><span class="glyphicon glyphicon-alert"></span>'
+      content = '<div class="modal-header text-warning"><i class="fas fa-exclamation-triangle"></i>'
       content += $(e.target).data('validation-error-headline') + '</div>'
       content += '<div class="modal-body">' + err + '</div>'
       content += '<div class="modal-footer"><button type="button" class="btn'
-      content += ' btn-primary" data-dismiss="modal">Ok</button></div>'
+      content += ' btn-primary" data-bs-dismiss="modal">Ok</button></div>'
       KS.flash.show(content)
       e.preventDefault()
     else
@@ -44,8 +44,9 @@ $ ->
       $($(@).attr('href')).addClass('hidden').find('select').val null
     return false
 
-  KS.content().on 'click', 'form .more_attachment a', ->
+  KS.content().on 'click', 'form .more_attachment a', (e) ->
     $('#attachments').append($('#attachment-prototype').children().clone())
+    e.preventDefault()
 
   $(document).on 'click', '#areas-form-submit', (e) ->
     if $(@).data('context') == 'districts'

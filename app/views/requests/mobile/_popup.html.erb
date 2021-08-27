@@ -1,12 +1,12 @@
-<div class="row form-group">
+<div class="row">
   <h4>
-    <div class="col-md-12">
+    <div class="col-12">
       <%= @request.service %>
     </div>
   </h4>
-  <div class="col-md-12">
+  <div class="col-12">
     <%= link_to('#', id: 'open-request', data: { url: request_path(@request.id, mobile: @mobile)}) do %>
-      <h3 class="glyphicon glyphicon-eye-open"></h3>
+      <i class="fas fa-eye"></i>
     <% end -%>
 
     <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
@@ -14,11 +14,11 @@
     #<%= @request.id %>
   </div>
 </div>
-<div class="row form-group">
-  <div class="col-md-12"><%= status(@request, show_currently: false) %></div>
+<div class="row">
+  <div class="col-12"><%= status(@request, show_currently: false) %></div>
 </div>
 <% if (description = @request.description).present? -%>
-  <div class="row form-group">
-    <div class="col-md-12"><em><%= truncate(description, length: 40).html_safe %></em></div>
+  <div class="row">
+    <div class="col-12"><em><%= truncate(description, length: 40).html_safe %></em></div>
   </div>
 <% end -%>

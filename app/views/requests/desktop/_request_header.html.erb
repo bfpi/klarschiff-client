@@ -1,16 +1,16 @@
 <div class="request-header">
-  <div class="row form-group">
+  <div class="row">
     <h4>
-      <div class="col-md-10">
+      <div class="col-10">
         <%= @request.service %>
       </div>
-      <div class="col-md-2">
+      <div class="col-2">
         <%= link_to [:requests, back: true], class: 'back', data: { type: 'script', remote: true }, title: t('buttons.close') do %>
-          <span class="glyphicon glyphicon-remove"></span>
+          <i class="fas fa-times"></i>
         <% end -%>
       </div>
     </h4>
-    <div class="col-md-8">
+    <div class="col-8">
       <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
       <%= type %>
       #<%= @request.id %>
@@ -21,16 +21,16 @@
       <b>
         <%= link_to [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id),
           data: { turbolinks: false } do %>
-          <span class="glyphicon glyphicon-link"></span>
+          <i class="fas fa-link"></i>
         <% end -%>
       </b>
     </div>
-    <div class="col-md-4">
+    <div class="col-4">
       <%= l(@request.requested_datetime.to_date) %>
     </div>
   </div>
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row">
+    <div class="col-12">
       <div class="shariff" data-button-style="icon"
            data-title="<%= Settings::Client.name %> #<%= @request.id %> <%= @request.service %>"
            data-url="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, request: @request.id])) %>"

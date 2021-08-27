@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="btn-group btn-group-justified" role="group">
-    <%= link_to(t('buttons.submit_position'), new_request_path(mobile: @mobile), class: 'btn btn-primary describe') %>
-    <%= link_to(t('buttons.cancel'), '#', class: 'btn btn-default cancel') %>
+  <div class="btn-group d-flex col-12" role="group">
+    <%= link_to(t('buttons.submit_position'), new_request_path(mobile: @mobile), class: 'btn btn-primary describe col-6') %>
+    <%= link_to(t('buttons.cancel'), '#', class: 'btn btn-light btn-outline-secondary cancel col-6') %>
   </div>
 </div>

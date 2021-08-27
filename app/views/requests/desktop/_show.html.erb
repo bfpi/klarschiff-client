@@ -6,15 +6,15 @@
       <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: label_photo_required } %>
       <div class="request-desktop">
         <% if @request.description.present? -%>
-          <div class="row form-group">
-            <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
-            <div class="col-md-12"><em><%= @request.description %></em></div>
+          <div class="row">
+            <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
+            <div class="col-12"><em><%= @request.description %></em></div>
           </div>
         <% end -%>
         <% if display?(:votes) -%>
-          <div id="request-show" class="row form-group <%="#{ @request.service.type }" %>">
-            <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-md-12 control-label' %>
-            <div class="col-md-12">
+          <div id="request-show" class="row spacer <%="#{ @request.service.type }" %>">
+            <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-12 col-form-label' %>
+            <div class="col-12">
               <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
               <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
               <%= t('.votes_hint_html') %>
@@ -22,24 +22,24 @@
           </div>
         <% end -%>
         <% if !login_required? || @request.media_url.present? -%>
-          <div class="row form-group">
-            <div class="col-md-12">
-              <%= label_tag :media_url, Request.human_attribute_name(:media_url), class: 'control-label' %>
+          <div class="row spacer">
+            <div class="col-12">
+              <%= label_tag :media_url, Request.human_attribute_name(:media_url), class: 'col-form-label' %>
             </div>
             <% if label_photo_required -%>
-              <div class="col-md-12">
+              <div class="col-12">
                 <small><%= t('.hint_photo_required') %></small>
               </div>
             <% end -%>
-            <div class="col-md-12">
+            <div class="col-12">
               <% if (url = @request.media_url).present? -%>
-                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-rounded img-responsive" />
+                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid" />
               <% else -%>
                 <i>kein Foto vorhanden</i>
               <% end -%>
             </div>
             <% if @request.media_required? -%>
-              <div class="col-md-12">
+              <div class="col-12">
                 <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
                 <%= link_to(t('buttons.upload'), '#', remote: true,
                       class: 'btn btn-primary btn-continue', role: :button,
@@ -48,49 +48,51 @@
             <% end -%>
           </div>
         <% end -%>
-        <div class="row form-group">
-          <%= label_tag :status, Request.human_attribute_name(:status), class: 'col-md-12 control-label' %>
-          <div class="col-md-12"><%= status(@request) %></div>
+        <div class="row spacer">
+          <%= label_tag :status, Request.human_attribute_name(:status), class: 'col-12 col-form-label' %>
+          <div class="col-12"><%= status(@request) %></div>
         </div>
         <% if (notes = @request.status_notes).present? -%>
-          <div class="row form-group">
-            <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-md-12 control-label' %>
-            <div class="col-md-12"><em><%= notes.html_safe %></em></div>
+          <div class="row spacer">
+            <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-12 col-form-label' %>
+            <div class="col-12"><em><%= notes.html_safe %></em></div>
           </div>
         <% end -%>
-        <% options = { remote: true, class: 'btn btn-primary btn-block', role: :button } -%>
-        <div class="row form-group">
-          <% if display?(:votes) -%>
-            <div class="col-md-12">
+        <% if (expected_closure = @request.expected_closure).present? -%>
+          <div class="row spacer">
+            <%= label_tag :expected_closure, Request.human_attribute_name(:expected_closure), class: 'col-12 col-form-label' %>
+            <div class="col-12"><em><%= l(expected_closure.to_date) %></em></div>
+          </div>
+        <% end -%>
+        <% options = { remote: true, class: 'btn btn-primary', role: :button } -%>
+        <div class="row">
+          <div class="d-grid gap-2">
+            <% if display?(:votes) -%>
               <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
-            </div>
-          <% end -%>
-          <% if display?(:abuses) -%>
-            <div class="col-md-12">
+            <% end -%>
+            <% if display?(:abuses) -%>
               <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
-            </div>
-          <% end -%>
-          <div class="col-md-12">
+            <% end -%>
             <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list],
-                        options.merge(class: 'btn btn-primary btn-block')) if display?(:create_comment) %>
+                        options.merge(class: 'btn btn-primary')) if display?(:create_comment) %>
           </div>
         </div>
         <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
-          <div class="col-md-12">
-            <div class="btn-group btn-group-justified" role="group">
+          <div class="col-12">
+            <div class="btn-group d-flex col-12" role="group">
               <% if @id_list.first == @request.id -%>
-                <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'), '#', class: 'btn btn-default disabled') %>
+                <%= link_to(content_tag(:i, '', class: 'fas fa-backward'), '#', class: 'btn btn-light btn-outline-secondary disabled') %>
               <% else -%>
-                <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-backward'),
+                <%= link_to(content_tag(:i, '', class: 'fas fa-backward'),
                             request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
-                            remote: true, class: 'btn btn-default backward') %>
+                            remote: true, class: 'btn btn-light btn-outline-secondary backward') %>
               <% end -%>
               <% if @id_list.last == @request.id -%>
-                <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'), '#', class: 'btn btn-default disabled') %>
+                <%= link_to(content_tag(:i, '', class: 'fas fa-forward'), '#', class: 'btn btn-light btn-outline-secondary disabled') %>
               <% else -%>
-                <%= link_to(content_tag(:span, '', class: 'glyphicon glyphicon-forward'),
+                <%= link_to(content_tag(:i, '', class: 'fas fa-forward'),
                             request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
-                            remote: true, class: 'btn btn-default forward') %>
+                            remote: true, class: 'btn btn-light btn-outline-secondary forward') %>
               <% end -%>
             </div>
           </div>
@@ -98,33 +100,31 @@
       </div>
     </div>
     <div id="form-page-image-submit" class="hidden-page">
-      <div class="row form-group">
-        <%= label_tag :confirmation, t('.confirmation_foto'), class: 'col-md-12 control-label' %>
+      <div class="row">
+        <%= label_tag :confirmation, t('.confirmation_foto'), class: 'col-12 col-form-label' %>
       </div>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
           <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
         </div>
       </div>
-      <div class="row form-group">
-        <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
           <%= t('.confirmation_foto_text_privacy_html') %>
         </div>
-        <div class="col-md-12 div-margin-top">
+        <div class="col-12 div-margin-top">
           <%= t('.confirmation_foto_text_html') %>
         </div>
-        <div class="col-md-12 div-margin-top">
+        <div class="col-12 div-margin-top">
           <em class="text-danger"><%= t('.confirmation_foto_text_warning_html') %></em>
         </div>
       </div>
-      <div class="row form-group">
-        <div class="btn-group btn-group-justified col-md-12" role="group">
+      <div class="row">
+        <div class="btn-group d-flex col-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
-                      class: 'btn btn-default btn-continue back', role: :button,
+                      class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                       data: { current: 'image-submit', next: 'image' }) %>
-          <div class="btn-group" role="group">
-            <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
-          </div>
+          <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
         </div>
       </div>
     </div>

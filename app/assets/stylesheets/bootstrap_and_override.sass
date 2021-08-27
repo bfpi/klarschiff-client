@@ -1,5 +1,15 @@
-$screen-sm-min: 340px
-@import "bootstrap-sprockets"
+$blue: #337ab7;
+$card-border-color: #ddd;
+$card-cap-bg: #f5f5f5;
+$card-cap-color: #333;
+$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1210px, xxl: 1320px);
+$grid-breakpoints: (xs: 0, sm: 340px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px);
+$h4-font-size: 16px;
+$h5-font-size: 16px;
+$link-decoration: none;
+$yellow: #f0ad4e;
+$form-label-font-weight: 700;
+
 @import "bootstrap"
 
 a,
@@ -7,9 +17,18 @@ a:hover,
 a:focus
   color: inherit
 
+.alert ul
+  margin-bottom: 0
+
+ul
+  padding-left: unset
+
+label
+  font-weight: $form-label-font-weight
+
 h4,
 .h4
-  font-size: $font-size-h4 - 2
+  font-size: $h4-font-size - 2
   font-weight: bold
 
 h5,
@@ -19,20 +38,32 @@ h5,
 .heading
   margin-top: 10px
 
-.modal-header .glyphicon
-  padding-right: 0.5em
+.card.card-info
+  border: 1px solid #bce8f1;
+  .card-header
+    color: #31708f;
+    background-color: #d9edf7;
+    border-bottom: 1px solid #bce8f1;
 
-.panel-title
+.card
+  margin-bottom: 20px;
+
+.card.map-filter
+  border-color: $blue
+
+.card-title
   line-height: 2em
+  font-size: 16px;
 
-.panel-default > .panel-heading
+.card-default > .card-header
   @media (max-width: 400px)
     min-height: 5em
 
-.panel-body.list-group
+.card-body.list-group
   padding: 0
 
 .right-badges
+  display: inline;
   > .badge
     float: right
 
@@ -47,31 +78,41 @@ h5,
     &:last-child
       padding-bottom: 0
 
-.navbar-default .navbar-nav > li > a
+.navbar .navbar-nav > li > a
   color: #000
   font-size: 14px
   padding-left: 3px
   padding-right: 4px
 
-@media (min-width: $screen-sm-min)
-  .navbar-default .navbar-nav
+@media (max-width: breakpoint-max('sm'))
+  .hidden-xs
+    background-color: red
+    display: none
+
+@media (min-width: breakpoint-min('sm'))
+  .visible-xs
+    background-color: blue
+    display: none
+
+@media (min-width: breakpoint-min('sm'))
+  .navbar .navbar-nav
     width: 100%
     display: table
 
-  .navbar-default .navbar-nav > li
+  .navbar .navbar-nav > li
     display: table-cell
     float: unset
     text-align: center
 
-  .navbar-default .navbar-nav > li.menu-hamburger
+    i
+      font-size: 150%;
+
+  .navbar .navbar-nav > li.menu-hamburger
     float: right
     margin-right: 3px
 
-  .navbar-default .navbar-nav > li > a
+  .navbar .navbar-nav > li > a
     padding-left: unset
-    padding-right: unset
-
-  .navbar-default .navbar-nav > li > a > span.glyphicon
     padding-right: unset
 
 nav
@@ -79,15 +120,15 @@ nav
     .btn-group
       padding-top: 0.5em
 
-  .glyphicon
+  i
     font-size: 150%
     padding-right: 0.4em
 
-    @media (min-width: $screen-lg-min)
+    @media (min-width: breakpoint-min('lg'))
       padding-left: 0.3em
       padding-right: 0.3em
 
-    @media (min-width: 550px) and (max-width: $screen-md-max)
+    @media (min-width: 550px) and (max-width: breakpoint-max('md'))
       padding-left: 0.5em
       padding-right: 0.5em
 
@@ -105,11 +146,11 @@ nav
 
   .container,
   .nav > li > a
-    @media (min-width: $screen-lg-min)
+    @media (min-width: breakpoint-min('lg'))
       padding-left: 6px
       padding-right: 7px
 
-    @media (min-width: 392px) and (max-width: $screen-md-max)
+    @media (min-width: 392px) and (max-width: breakpoint-max('md'))
       padding-left: 8px
       padding-right: 9px
 
@@ -121,15 +162,15 @@ nav
       padding-left: 3px
       padding-right: 4px
 
-  .glyphicon + span
+  i + span
     position: relative
     top: -3px
 
-@media (min-width: $screen-sm-min) and (max-width: $screen-md-max)
+@media (min-width: breakpoint-min('sm')) and (max-width: breakpoint-max('md'))
   .container
     width: 100%
 
-.has-feedback.has-clear
+.has-clear
   /* Remove Internet Explorer native clear button */
   input::-ms-clear
     display: none
@@ -148,7 +189,7 @@ nav
       color: rgba(0, 0, 0, 0.7)
       cursor: pointer
 
-  .input-group .glyphicon
+  .input-group i
     top: 0
     z-index: 4
 
@@ -158,3 +199,6 @@ nav
 
 .font-weight-normal
   font-weight: normal
+
+p.list-group-item-text
+  margin-bottom: 0

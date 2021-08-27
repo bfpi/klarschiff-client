@@ -1,6 +1,6 @@
 KS.initializeJobsList = ->
   KS.makeJobsListSortable()
-  $('.list-group').on 'click', '.badge .glyphicon-map-marker', ->
+  $('.list-group').on 'click', '.badge .fa-map-marker-alt', ->
     KS.olMap.getView().setCenter(ol.proj.transform([$(this).data('long'), $(this).data('lat')], KS.projectionWGS84, KS.projection()))
     KS.olMap.getView().setZoom(<%= Settings::Map.zoom[:max] %>)
     KS.nav.switchTo 'map'
