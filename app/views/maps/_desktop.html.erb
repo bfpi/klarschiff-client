@@ -1,10 +1,10 @@
 <% content_for :nav do -%>
   <ul class="nav nav-pills">
-    <li class="active">
-      <a href="#request" id="requests" data-toggle="tab" class="header-tab" data-url="<%= requests_path %>"><%= t('.request') %></a>
+    <li class="nav-item">
+      <a href="#request" id="requests" class="nav-link active" data-bs-toggle="tab" class="header-tab" data-url="<%= requests_path %>"><%= t('.request') %></a>
     </li>
-    <li>
-      <a href="#watch" id="areas" data-toggle="tab" class="header-tab" data-url="<%= areas_path %>"><%= t('.watch') %></a>
+    <li class="nav-item">
+      <a href="#watch" id="areas" class="nav-link" data-bs-toggle="tab" class="header-tab" data-url="<%= areas_path %>"><%= t('.watch') %></a>
     </li>
   </ul>
 <% end -%>
@@ -20,27 +20,27 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-primary address-search-field">
-      <div class="panel-body">
+    <div class="card bg-primary address-search-field">
+      <div class="card-body">
         <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::AddressSearch.search_request_id_enabled ? '.search' : '.address_search')) %>
       </div>
     </div>
-    <div class="panel panel-primary map-panel">
-      <div class="panel-heading" id="map-heading" role="tab">
-        <%= link_to '#map-body', data: { toggle: 'collapse' }, class: 'collapsed',
+    <div class="card map-card map-filter">
+      <div class="card-header bg-primary" id="map-heading" role="tab">
+        <%= link_to '#map-body', data: { 'bs-toggle': 'collapse' }, class: 'collapsed',
           aria: { expanded: false, controls: 'map-body' } do %>
           <span>
             <%= t('.filter') %>
           </span>
         <% end -%>
       </div>
-      <div id="map-body" class="collapse" role="tabpanel" aria-labelledby="map-heading">
-        <div class="panel-body">
+      <div id="map-body" class="collapse" role="tabcard" aria-labelledby="map-heading">
+        <div class="card-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
               <div class="row">
                 <% %i(pending received in_process processed rejected).each do |st| -%>
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <%= check_box_tag "show_#{ st }", nil, true, class: 'show-feature', id: st, data: { key: 'status' } %>
                     <%= label_tag st, t("status.#{ st }"), class: 'check-label' %>
                   </div>
@@ -48,16 +48,16 @@
               </div>
             </div>
             <% unless service_code -%>
-              <div class="col-md-6">
+              <div class="col-6">
                 <div class="row">
                   <% %i(problem idea).each do |type| -%>
-                    <div class="col-md-12">
+                    <div class="col-12">
                       <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
                       <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
                     </div>
                   <% end -%>
                   <% if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived -%>
-                    <div class="col-md-12 archive">
+                    <div class="col-12 archive">
                       <%= check_box_tag "also_archived", nil, false, class: 'show-feature', id: :archive, data: { key: 'archive' } %>
                       <%= label_tag :archive, t('archive'), class: 'check-label' %>
                     </div>

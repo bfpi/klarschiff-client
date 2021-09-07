@@ -1,12 +1,12 @@
 <div class="requests">
-  <div class="panel panel-default">
-    <div class="panel-heading">
+  <div class="card">
+    <div class="card-header right-badges">
       <%= t('.title') %>
-      <span class="badge pull-right clickable" data-target="<%= map_path(mobile: @mobile) %>">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <span class="badge rounded-pill bg-secondary clickable" data-bs-target="<%= map_path(mobile: @mobile) %>">
+        <i class="fas fa-times"></i>
       </span>
-      <span class="badge pull-right clickable" data-target="<%= url_for(session[:referer_params].permit!) %>">
-        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+      <span class="badge rounded-pill bg-secondary clickable" data-bs-target="<%= url_for(session[:referer_params].permit!) %>">
+        <i class="fas fa-sync"></i>
       </span>
     </div>
     <% if @requests.present? -%>
@@ -20,7 +20,7 @@
               <% if display?(:trust) -%>
                 <%= mark_trust(req) %>
               <% end -%>
-              <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+              <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
             </div>
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">
@@ -31,7 +31,7 @@
                   <%= mark_trust(req) %>
                 <% end -%>
               </span>
-              <span class="badge"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></span>
+              <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
               <div class="list-group-item-text heading">
                 <%= req.service.group %> – <%= req.service_name %>
               </div>
@@ -40,7 +40,7 @@
         <% end -%>
       </div>
     <% else -%>
-      <div class="panel-body"><%= t('.empty_result') %></div>
+      <div class="card-body"><%= t('.empty_result') %></div>
     <% end -%>
   </div>
 </div>

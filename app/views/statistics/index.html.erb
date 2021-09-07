@@ -1,53 +1,53 @@
-<div class="page-header" id="headline">
+<div class="" id="headline">
   <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-info">
-      <div class="panel-heading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
       </div>
-      <div class="panel-body requests-img-panel">
-      	<div class="row form-group">
-          <div class="col-md-3">
-            <label for="area" class="control-label"><%= t('.filter_area') %></label>
-            <%= select_tag(:area, 
+      <div class="card-body requests-img-card">
+        <div class="row spacer">
+          <div class="col-3">
+            <label for="area" class="col-form-label"><%= t('.filter_area') %></label>
+            <%= select_tag(:area,
                            options_for_select([[Settings::Client.city_short, '']] + Area.where(with_districts: true).map {|a| [a.attributes[:name], a.attributes[:id]]}),
                            class: 'form-control map-parameter', data: { key: :area }) %>
           </div>
-          <div class="col-md-3">
-            <label for="start_date" class="control-label"><%= t('.filter_start_date') %></label>
+          <div class="col-3">
+            <label for="start_date" class="col-form-label"><%= t('.filter_start_date') %></label>
           	<%= select_tag(:start_date, 
                            start_dates(),
                            class: 'form-control map-parameter map-parameter-reload', data: { key: :start_date }) %>
           </div>
-          <div class="col-md-3">
-            <label for="service_code" class="control-label"><%= t('.filter_service_code') %></label>
+          <div class="col-3">
+            <label for="service_code" class="col-form-label"><%= t('.filter_service_code') %></label>
             <%= select_tag(:service_code, 
                            service_list(),
           	               prompt: t('.all'),
                            class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
           </div>
-          <div class="col-md-3">
+          <div class="col-3">
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-6">
           	<div id="ol-heatmap"></div>
           </div>
-          <div class="col-md-6 statistics">
-          	<div class="row form-group">
-          	  <div class="col-md-12">
+          <div class="col-6 statistics">
+          	<div class="row">
+          	  <div class="col-12">
           	  	<span id="request_count"></span>
           	  	<%= t('.request_count')%>
           	  </div>
           	</div>
-          	<div class="row form-group">
-          	  <div class="col-md-6">
+          	<div class="row">
+          	  <div class="col-6">
           	  	<div id="chart_top5"></div>
           	  </div>
-          	  <div class="col-md-6">
-          	  	<div class="panel panel-info">
-                  <div class="panel-heading">
+          	  <div class="col-6">
+          	  	<div class="card">
+                  <div class="card-header">
                   	<%= t('.top5')%>
                   </div>
                   <div class="list-group">
@@ -60,13 +60,13 @@
                 </div>
           	  </div>
           	</div>
-          	<div class="row form-group">
-          	  <div class="col-md-6">
+          	<div class="row">
+          	  <div class="col-6">
           	  	<div id="chart_status"></div>
           	  </div>
-          	  <div class="col-md-6">
-          	  	<div class="panel panel-info">
-                  <div class="panel-heading">
+          	  <div class="col-6">
+          	  	<div class="card">
+                  <div class="card-header">
                   	<%= t('.status')%>
                   </div>
                   <div class="list-group">
@@ -80,7 +80,7 @@
           	  </div>
           	</div>
           	<div class="row">
-          	  <div class="col-md-12">
+          	  <div class="col-12">
           	  	<%= t('.notice')%>
           	  </div>
           	</div>

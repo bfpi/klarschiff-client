@@ -1,7 +1,7 @@
 <div id="observations-form" class="area-container">
   <% if @error.present? -%>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-12">
         <div class="alert alert-danger" role="alert">
           <strong><%= t('.error') %></strong></br>
           <%= @error %>
@@ -12,16 +12,16 @@
   <%= form_for(:areas, method: :get, remote: true, html: { id: 'areas-form' }) do |f| %>
     <%= hidden_field_tag :context, @context %>
     <%= hidden_field_tag :from_form, true %>
-    <div class="row form-group">
-      <div class="col-md-12">
+    <div class="row spacer">
+      <div class="col-12">
         <%= t(".#{ @context }") %>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <div class="btn-group btn-group-justified">
-          <%= link_to t('buttons.cancel'), [:areas, back: true], remote: true, class: 'btn btn-default back' %>
-          <%= link_to t('buttons.resume'), 'javascript:;', id: 'areas-form-submit', remote: true, class: 'btn btn-primary',
+      <div class="col-12">
+        <div class="btn-group d-flex col-12">
+          <%= link_to t('buttons.cancel'), [:areas, back: true], remote: true, class: 'btn btn-light btn-outline-secondary back col-6' %>
+          <%= link_to t('buttons.resume'), 'javascript:;', id: 'areas-form-submit', remote: true, class: 'btn btn-primary col-6',
             data: { context: @context } %>
         </div>
       </div>

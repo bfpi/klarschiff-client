@@ -1,26 +1,26 @@
 <div id="areas-index" class="area-container">
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row spacer">
+    <div class="col-12">
       <%= t('.notice') %>
     </div>
   </div>
-  <div class="row form-group">
-    <%= label_tag :whole_area, t('.whole_area'), class: 'col-md-6 control-label' %>
-    <div class="col-md-6">
-      <%= link_to t('buttons.continue'), [:areas, area_code: -1], role: :button, remote: true, class: 'btn btn-primary btn-block' %>
+  <div class="row spacer">
+    <%= label_tag :whole_area, t('.whole_area'), class: 'col-6 col-form-label' %>
+    <div class="col-6 d-grid">
+      <%= link_to t('buttons.continue'), [:areas, area_code: -1], role: :button, remote: true, class: 'btn btn-primary' %>
     </div>
   </div>
-  <div class="row form-group">
-    <%= label_tag :districts, t('.districts'), class: 'col-md-6 control-label' %>
-    <div class="col-md-6">
+  <div class="row spacer">
+    <%= label_tag :districts, t('.districts'), class: 'col-6 col-form-label' %>
+    <div class="col-6 d-grid">
       <%= link_to t('buttons.choose'), [:areas, context: 'districts'], role: :button,
-        remote: true, class: 'btn btn-primary btn-block' %>
+        remote: true, class: 'btn btn-primary' %>
     </div>
   </div>
-  <div class="row">
-    <%= label_tag :own_area, t('.own_area'), class: 'col-md-6 control-label' %>
-    <div class="col-md-6">
-      <%= link_to t('buttons.create'), [:areas, context: 'draw'], role: :button, remote: true, class: 'btn btn-primary btn-block' %>
+  <div class="row spacer">
+    <%= label_tag :own_area, t('.own_area'), class: 'col-6 col-form-label' %>
+    <div class="col-6 d-grid">
+      <%= link_to t('buttons.create'), [:areas, context: 'draw'], role: :button, remote: true, class: 'btn btn-primary' %>
     </div>
   </div>
 </div>

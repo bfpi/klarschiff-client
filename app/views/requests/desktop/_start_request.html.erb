@@ -1,15 +1,15 @@
 <div id="request-start" class="request-container">
-  <div class="row form-group">
-    <div class="col-md-12">
+  <div class="row spacer">
+    <div class="col-12">
       <%= t('.new_request') %>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <%= link_to t('buttons.new_request'), [:new, :request, mobile: @mobile], remote: true,
         class: 'btn btn-primary' %>
     </div>
-    <div class="col-md-12">
+    <div class="col-12">
       <br/>
       <ul>
         <% %w(emergencies complex_requests personal_requests).each do |val| -%>

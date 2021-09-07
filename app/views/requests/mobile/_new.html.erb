@@ -1,45 +1,45 @@
 <div class="request">
   <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do %>
     <div id="form-page-2">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title"><%= t('.what') %></h4>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"><%= t('.what') %></h4>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <%= hidden_field_tag :mobile, @mobile %>
           <%= hidden_field_tag :confirm, !login_required? %>
           <%= hidden_field_tag 'request[lat]', @request.lat %>
           <%= hidden_field_tag 'request[long]', @request.long %>
           <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true, mobile: true) %>">
-            <% unless login_required? -%><div class="col-md-12"><%= t('.problem_or_idea') %></div><% end -%>
-            <div class="col-md-12 div-margin-top">
+            <% unless login_required? -%><div class="col-12"><%= t('.problem_or_idea') %></div><% end -%>
+            <div class="col-12 div-margin-top">
               <%= radio_button :request, :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
                 t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
             </div>
-            <div class="col-md-12 div-margin-top">
+            <div class="col-12 div-margin-top">
               <%= radio_button :request, :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
                 t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
             </div>
             <% if login_required? -%>
-              <div class="col-md-12 div-margin-top">
+              <div class="col-12 div-margin-top">
                 <%= radio_button :request, :type, 'tip', class: 'radio-type' %> <%= label_tag :request_type_tip,
                   t('tip', scope: 'service.types', count: 1), class: 'check-label' %>
               </div>
             <% end -%>
           </div>
           <% unless login_required? -%>
-            <div class="row form-group">
-              <div id="type-description" class="col-md-12" data-problem="<%= t('.describe_problem') %>"
+            <div class="row">
+              <div id="type-description" class="col-12" data-problem="<%= t('.describe_problem') %>"
                 data-idea="<%= t('.describe_idea') %>">
               </div>
             </div>
           <% end -%>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="row">
-            <div class="btn-group btn-group-justified col-md-12" role="group">
-              <%= link_to(t('buttons.back'), '#', remote: true, class: 'btn btn-default back') %>
-              <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue', role: :button,
+            <div class="btn-group d-flex col-12" role="group">
+              <%= link_to(t('buttons.back'), '#', remote: true, class: 'btn btn-light btn-outline-secondary back col-6') %>
+              <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
                           data: { current: '2', next: '3' }) %>
             </div>
           </div>
@@ -50,26 +50,26 @@
     </div>
     <% context = login_required? ? 'submit' : '4' -%>
     <div id="form-page-3" class="hidden-page">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title"><%= t('.what_exactly') %></h4>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"><%= t('.what_exactly') %></h4>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <%= render partial: 'requests/desktop/category_select', locals: { type: @request.type, category: @request.category, service_code: @request.service_code&.first } %> 
-          <div class="row form-group">
-            <%= label_tag :request_description, Request.human_attribute_name(:description), class: 'col-md-12 control-label' %>
-            <div class="col-md-12">
+          <div class="row">
+            <%= label_tag :request_description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
+            <div class="col-12">
               <%= text_area(:request, :description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
                               data: { 'missing-message': t('requests.create.error.required.description') }) %>
             </div>
           </div>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="row">
-            <div class="btn-group btn-group-justified col-md-12" role="group">
-              <%= link_to(t('buttons.back'), '#', class: 'btn btn-default btn-continue back', role: :button,
+            <div class="btn-group d-flex col-12" role="group">
+              <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
                           data: { current: '3', next: '2' }) %>
-              <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue', role: :button,
+              <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
                           data: { current: '3', next: context }) %>
             </div>
           </div>
@@ -79,52 +79,48 @@
       </div>
     </div>
     <div id="form-page-<%= context %>" class="hidden-page">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title"><%= t('.has_photo') %></h4>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"><%= t('.has_photo') %></h4>
         </div>
-        <div class="panel-body">
-          <div class="row form-group">
-            <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-md-12 control-label') %>
-            <% unless login_required? -%><div class="col-md-12"><%= t('.photo_hint') %></div><% end -%>
-            <div class="col-md-12">
+        <div class="card-body">
+          <div class="row">
+            <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
+            <% unless login_required? -%><div class="col-12"><%= t('.photo_hint') %></div><% end -%>
+            <div class="col-12">
               <%= file_field(:request, :media, multiple: false, accept: 'image/png,image/jpeg') %>
             </div>
           </div>
           <% unless login_required? -%>
-            <div class="row form-group">
-              <%= label_tag :hint, t('.hint.label'), class: 'col-md-12 control-label' %>
-              <div class="col-md-12"><%= t('.hint.text') %></div>
+            <div class="row">
+              <%= label_tag :hint, t('.hint.label'), class: 'col-12 col-form-label' %>
+              <div class="col-12"><%= t('.hint.text') %></div>
             </div>
           <% end -%>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <div class="row">
-            <div class="btn-group btn-group-justified col-md-12" role="group">
-              <%= link_to(t('buttons.back'), '#', class: 'btn btn-default btn-continue back', role: :button,
+            <div class="btn-group d-flex col-12" role="group">
+              <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
                           data: { current: context, next: '3' }) %>
-              <div class="btn-group" role="group">
-                <%= submit_tag(t("buttons.#{ login_required? ? 'save' : 'continue'}"), class: 'btn btn-primary') %>
-              </div>
+              <%= submit_tag(t("buttons.#{ login_required? ? 'save' : 'continue'}"), class: 'btn btn-primary col-6') %>
             </div>
           </div>
         </div>
       </div>
       <% step = login_required? ? '(3/3)' : '(3/4)' -%>
-      <div class="navbar navbar-default navbar-fixed-bottom actions">
+      <div class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom actions">
         <div class="container">
-          <div class="btn-group btn-group-justified" role="group">
-            <%= link_to('#', class: 'btn btn-default btn-continue back', role: :button, data: { current: context, next: '3'}) do %>
-              <span class="glyphicon glyphicon-backward"></span>
+          <div class="btn-group d-flex col-12" role="group">
+            <%= link_to('#', class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button, data: { current: context, next: '3'}) do %>
+              <i class="fas fa-backward"></i>
             <% end -%>
-            <div class="btn btn-default">
+            <div class="btn btn-light btn-outline-secondary">
               <span><strong>Foto <%= step %></strong></span>
             </div>
-            <div class="btn-group">
-              <%= button_tag(type: 'submit', role: :button, class: 'btn btn-default') do %>
-                <span class="glyphicon glyphicon-forward"></span>
-              <% end -%>
-            </div>
+            <%= button_tag(type: 'submit', role: :button, class: 'btn btn-light btn-outline-secondary') do %>
+              <i class="fas fa-forward"></i>
+            <% end -%>
           </div>
         </div>
       </div>

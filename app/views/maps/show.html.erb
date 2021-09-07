@@ -1,5 +1,5 @@
 <%= render partial: @mobile ? 'mobile' : 'desktop' %>
 
 <% if login_required? -%>
-  <%= content_tag(:div, nil, id: 'job-sound-path', 'data-file': audio_path('job.mp3')) %>
+  <%= content_tag(:div, nil, id: 'job-sound-path', 'data-file': asset_path('job.mp3')) %>
 <% end -%>

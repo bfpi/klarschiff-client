@@ -4,7 +4,7 @@ module RequestsHelper
     content_tag(:span, class: 'label label-default') do 
       content_tag(:span) do
         trust.times do
-          concat content_tag(:span, nil, class: 'glyphicon glyphicon-star', "aria-hidden" => true)
+          concat content_tag(:i, nil, class: 'fas fa-star')
         end
       end
     end if trust > 0
@@ -12,7 +12,7 @@ module RequestsHelper
 
   def mark_photo_required(request)
     if request.extended_attributes.photo_required
-      content_tag :span, nil, class: 'glyphicon glyphicon-camera', "title" => t('requests.desktop.show.hint_photo_required'), "aria-hidden" => true
+      content_tag :i, nil, class: 'fas fa-camera', "title" => t('requests.desktop.show.hint_photo_required')
     end
   end
 
