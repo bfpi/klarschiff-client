@@ -22,7 +22,7 @@
     <% end -%>
   </div>
   <% if multi_requests_enabled? -%>
-    <div id="request-category-2" class="row category hidden">
+    <div id="request-category-2" class="row category invisible">
       <div class="col-12">
         <%= select_tag(:request_category, categories(type), id: :request_category_2,
                        class: 'form-select', data: { update: :request_service_code_2 }) %>
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div id="request-category-3" class="row category hidden">
+    <div id="request-category-3" class="row category invisible">
       <div class="col-12">
         <%= select_tag(:request_category, categories(type), id: :request_category_3,
                        class: 'form-select', data: { update: :request_service_code_3 }) %>

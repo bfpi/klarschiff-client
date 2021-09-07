@@ -674,6 +674,6 @@ $ ->
   ).on('click', 'a.cancel', ->
     console.log 'cancel click'
     KS.clearNewFeature()
-    KS.map.actions().addClass 'hidden'
+    KS.map.actions().addClass 'invisible'
     return false
   )

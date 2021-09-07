@@ -9,6 +9,7 @@ $h5-font-size: 16px;
 $link-decoration: none;
 $yellow: #f0ad4e;
 $form-label-font-weight: 700;
+$input-group-addon-font-weight: 0;
 
 @import "bootstrap"
 
@@ -107,14 +108,6 @@ h5,
     i
       font-size: 150%;
 
-  .navbar .navbar-nav > li.menu-hamburger
-    float: right
-    margin-right: 3px
-
-  .navbar .navbar-nav > li > a
-    padding-left: unset
-    padding-right: unset
-
 nav
   &.navbar-fixed-bottom
     .btn-group
@@ -190,7 +183,6 @@ nav
       cursor: pointer
 
   .input-group i
-    top: 0
     z-index: 4
 
 .btn-group .btn.disabled

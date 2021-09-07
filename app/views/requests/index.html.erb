@@ -1,9 +1,9 @@
 <% spread = 3 %>
 
-<ul class="pagination">
+<ul class="pagination mt-3">
   <% if @page != 1 -%>
     <li class="page-item">
-      <%= link_to(content_tag(:span, "«"), url_for(controller: :statics, action: :requests, page: (@page - 1))) %>
+      <%= link_to(content_tag(:span, "«"), url_for(controller: :statics, action: :requests, page: (@page - 1)), class: 'page-link') %>
     </li>
   <% end -%>
 
@@ -16,38 +16,38 @@
 
   <% if start > 1 %>
     <li class="page-item">
-      <%= link_to(1, url_for(controller: :statics, action: :requests, page: 1)) %>
+      <%= link_to(1, url_for(controller: :statics, action: :requests, page: 1), class: 'page-link') %>
     </li>
   <% end %>
 
   <% if start > 2 %>
     <li class="page-item disabled">
-      <%= link_to("...", "#") %>
+      <%= link_to("...", "#", class: 'page-link') %>
     </li>
   <% end %>
 
   <% (ending - start).to_i.times do |i| -%>
     <% ix = (start + i) %>
     <li class="page-item <%= "active" if ix == @page %>">
-      <%= link_to(ix, url_for(controller: :statics, action: :requests, page: ix)) %>
+      <%= link_to(ix, url_for(controller: :statics, action: :requests, page: ix), class: 'page-link') %>
     </li>
   <% end -%>
 
   <% if ending < @pages %>
     <li class="page-item disabled">
-      <%= link_to("...", "#") %>
+      <%= link_to("...", "#", class: 'page-link') %>
     </li>
   <% end %>
 
   <% if ending <= @pages %>
     <li class="page-item">
-      <%= link_to(@pages, url_for(controller: :statics, action: :requests, page: @pages)) %>
+      <%= link_to(@pages, url_for(controller: :statics, action: :requests, page: @pages), class: 'page-link') %>
     </li>
   <% end %>
 
   <% if @page != @pages -%>
     <li class="page-item">
-      <%= link_to(content_tag(:span, "»"), url_for(controller: :statics, action: :requests, page: (@page + 1))) %>
+      <%= link_to(content_tag(:span, "»"), url_for(controller: :statics, action: :requests, page: (@page + 1)), class: 'page-link') %>
     </li>
   <% end -%>
 </ul>

@@ -13,14 +13,14 @@
         <%= hidden_field_tag 'request[media]', @path %>
         <div class="row map-image">
           <% if @request.media.present? && @media_size < max_image_size -%>
-            <div class="col-sm-6" id="ol-minimap"
+            <div class="col-6" id="ol-minimap"
                  data-lat="<%= req.lat %>" data-long="<%= req.long %>"
                  data-type="<%= service&.type %>" />
-            <div class="col-sm-6">
+            <div class="col-6">
               <img id="request-preview" src="" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid" />
             </div>
           <% else -%>
-            <div class="col-sm-12" id="ol-minimap"
+            <div class="col-12" id="ol-minimap"
                  data-lat="<%= req.lat %>" data-long="<%= req.long %>"
                  data-type="<%= service&.type %>" />
           <% end -%>

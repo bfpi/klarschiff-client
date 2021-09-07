@@ -19,7 +19,7 @@ $ ->
   KS.content().on 'submit', 'form.fileupload', (e) ->
     err = []
     $(e.target).find(':input[data-missing-message]').each ->
-      if !$(@).hasClass('hidden') && $(@).val() == null || $(this).val().length == 0
+      if !$(@).hasClass('invisible') && $(@).val() == null || $(this).val().length == 0
         err.push('<p>' + $(this).data('missing-message') + '</p>')
 
     if err.length > 0
@@ -38,10 +38,10 @@ $ ->
 
   KS.content().on 'click', 'form .category a[data-action]', ->
     if $(@).data('action') == 'show'
-      category = $($(@).attr('href')).removeClass('hidden').find('select').first()
+      category = $($(@).attr('href')).removeClass('invisible').find('select').first()
       category.val category.children(':first').val()
     else
-      $($(@).attr('href')).addClass('hidden').find('select').val null
+      $($(@).attr('href')).addClass('invisible').find('select').val null
     return false
 
   KS.content().on 'click', 'form .more_attachment a', (e) ->

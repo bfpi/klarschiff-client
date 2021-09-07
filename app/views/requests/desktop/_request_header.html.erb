@@ -1,15 +1,15 @@
 <div class="request-header">
-  <div class="row">
-    <h4>
-      <div class="col-10">
+  <div class="row mb-3">
+    <div class="col-10">
+      <h4>
         <%= @request.service %>
-      </div>
-      <div class="col-2">
-        <%= link_to [:requests, back: true], class: 'back', data: { type: 'script', remote: true }, title: t('buttons.close') do %>
-          <i class="fas fa-times"></i>
-        <% end -%>
-      </div>
-    </h4>
+      </h4>
+    </div>
+    <div class="col-2">
+      <%= link_to [:requests, back: true], class: 'back', data: { type: 'script', remote: true }, title: t('buttons.close') do %>
+        <i class="fas fa-times"></i>
+      <% end -%>
+    </div>
     <div class="col-8">
       <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
       <%= type %>

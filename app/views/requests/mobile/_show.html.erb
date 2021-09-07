@@ -38,14 +38,14 @@
       <div class="list-group">
         <div class="row map-image">
           <% if (url = @request.media_url).present? -%>
-            <div class="col-sm-6" id="ol-minimap"
+            <div class="col-6" id="ol-minimap"
                  data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
                  data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
-            <div class="col-sm-6">
+            <div class="col-6">
               <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid" />
             </div>
           <% else -%>
-            <div class="col-sm-12" id="ol-minimap"
+            <div class="col-12" id="ol-minimap"
                  data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
                  data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
           <% end -%>
