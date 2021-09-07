@@ -1,1 +1,1 @@
-<%= render file: "#{ Settings::Client.resources_overview_path }/#{ @file_name }.html" %>
+<%= render(file: "#{ Settings::Client.resources_overview_path }/#{ @file_name }.html").html_safe %>
