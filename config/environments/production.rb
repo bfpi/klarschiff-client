@@ -58,11 +58,14 @@ Rails.application.configure do
   config.action_mailer.logger = nil
 
   # Configuration for SMTP-Server
+  smtp_settings = File.open(Rails.root.join('config', 'settings.yml')) { |file|
+    YAML::load file
+  }.with_indifferent_access.dig(:protocol_mail, :smtp)
   config.action_mailer.smtp_settings = {
-    :address => Settings::ProtocolMail.smtp[:host],
-    :enable_starttls_auto => Settings::ProtocolMail.smtp[:starttls_enabled],
-    :user_name => Settings::ProtocolMail.smtp[:username],
-    :password => Settings::ProtocolMail.smtp[:password]
+    :address => smtp_settings[:host],
+    :enable_starttls_auto => smtp_settings[:starttls_enabled],
+    :user_name => smtp_settings[:username],
+    :password => smtp_settings[:password]
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
