@@ -36,7 +36,7 @@
   <body class="<%= 'mobile' if @mobile %>">
     <% unless @mobile -%>
       <header>
-        <div class="container">
+        <div class="container-fluid">
           <div class="row">
             <div class="col-2">
               <%= image_tag image_path('klarschiff.png'), id: 'logo1' %>
@@ -83,11 +83,11 @@
           </div>
         </div>
       </header>
-      <div id="main-content" class="container">
+      <div id="main-content" class="container-fluid">
         <%= yield %>
       </div>
       <footer class="footer">
-        <div class="container">
+        <div class="container-fluid">
           <div class="systray">
             <div class="text-center">
               <%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
@@ -105,7 +105,7 @@
     <% else -%>
       <% unless controller.controller_name == 'maps' -%>
         <header>
-          <div class="container">
+          <div class="container-fluid">
             <div class="row">
               <div class="col-12 text-center">
                 <%= image_tag image_path('klarschiff.png'), id: 'logo1', class: 'float-start' %>
@@ -121,12 +121,12 @@
           </div>
         </header>
       <% end -%>
-      <div id="main-content" class="container">
+      <div id="main-content" class="container-fluid">
         <%= yield %>
       </div>
       <% unless controller.controller_name == 'maps' -%>
         <footer class="footer">
-          <div class="container">
+          <div class="container-fluid">
             <div class="systray">
               <div class="text-center">
                 <% if Settings::Url.respond_to?(:external_privacy_url) -%>
