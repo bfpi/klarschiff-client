@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JobsController < ApplicationController
   before_action :conditions
 
@@ -5,7 +7,7 @@ class JobsController < ApplicationController
     return render(nothing: true) unless has_field_service_team?
 
     @jobs = Request.where(@conditions).try(:to_a)
-    session[:referer_params] = params.slice(:center, :radius)
+    session[:referer_params] = params.slice(:center, :radius, :controller, :action, :mobile, :ids)
     respond_to do |format|
       format.js
       format.json { render json: @jobs }
@@ -16,7 +18,7 @@ class JobsController < ApplicationController
     @jobs = Request.where(@conditions).try(:to_a)
 
     session[:id_list] = @jobs.map(&:id) if session[:id_list].blank?
-    @difference = @jobs.reject{|x| x if session[:id_list].include?(x.id) }
+    @difference = @jobs.reject { |x| x if session[:id_list].include?(x.id) }
 
     session[:id_list] = @jobs.map(&:id)
   end
@@ -32,7 +34,7 @@ class JobsController < ApplicationController
       Request.patch(j.id, { api_key: Request.api_key, email: @user.email, job_priority: ix })
     end
 
-    return render plain: true
+    render plain: true
   end
 
   private
