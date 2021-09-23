@@ -1,5 +1,5 @@
 # Klarschiff-Client
-Klarschiff client with integrated mobil and desktop layout. Additional functions supporting the field service can be opted in by configuration.
+Klarschiff client with integrated mobile and desktop layout. Additional functions supporting the field service can be opted in by configuration.
 
 ## Installation
 ### Voraussetzungen
