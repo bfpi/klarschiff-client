@@ -1,5 +1,5 @@
-# Klarschiff-FieldService / Klarschiff-Aussendienst-Client
-Klarschiff mobile client with additional functions supporting the field service
+# Klarschiff-Client
+Klarschiff client with integrated mobil and desktop layout. Additional functions supporting the field service can be opted in by configuration.
 
 ## Installation
 ### Voraussetzungen
@@ -23,7 +23,7 @@ Klarschiff mobile client with additional functions supporting the field service
   ```bash
   sudo mkdir -p /var/rails
   cd /var/rails
-  git clone https://github.com/bfpi/klarschiff-field_service.git
+  git clone https://github.com/bfpi/klarschiff-client.git
   ```
 - Intitialisierung und Datenholung der Git-Submodule in dem gerade angelegtem Verzeichnis
 
@@ -41,8 +41,8 @@ Klarschiff mobile client with additional functions supporting the field service
   - Ein erneuter Wechsel in das Verzeichnis legt anschließend die notwendigen Wrapper und das Gemset an
   
     ```bash
-    ruby-2.3.2 - #gemset created /usr/local/rvm/gems/ruby-2.3.2@klarschiff-field_service_r01
-    ruby-2.3.2 - #generating klarschiff-field_service_r01 wrappers................
+    ruby-2.3.2 - #gemset created /usr/local/rvm/gems/ruby-2.3.2@klarschiff-client_r01
+    ruby-2.3.2 - #generating klarschiff-client_r01 wrappers................
     ```
   - Falls ```bundler``` nicht (mehr) als Default-Gem durch RVM installiert wird, kann dies wie folgt nachgeholt werden:
   
