@@ -1,7 +1,5 @@
 $ ->
   $(document).on 'change', 'input[type="file"]', (e) ->
-    console.debug 'do resize'
-
     settings = {
       max_width: 2000
       max_height: 2000
