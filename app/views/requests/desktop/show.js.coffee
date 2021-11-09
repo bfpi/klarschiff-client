@@ -7,7 +7,9 @@ unless $('#request').hasClass('active')
   $('#request').addClass('active')
   $('#watch').removeClass('active')
 
+<% unless @id_list %>
 KS.olMap.getView().setZoom(11)
+<% end -%>
 KS.olMap.getView().setCenter(coord)
 
 <% if @refresh -%>
