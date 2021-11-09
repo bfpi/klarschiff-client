@@ -29,6 +29,7 @@ class RequestsController < ApplicationController
       format.html do
         @per_page = (params[:per_page].presence || 20).to_i
         @page = 1
+        @requests.sort_by!(&:requested_datetime).reverse!
         @pages = (@requests.count / @per_page.to_f).ceil
         path = Rails.root.join('public/static/requests')
         FileUtils.rm_rf path
