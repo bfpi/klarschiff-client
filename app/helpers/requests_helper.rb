@@ -54,12 +54,21 @@ module RequestsHelper
     street = ''
     housenumber = ''
     housenumber_addition = ''
-    require 'open-uri'
+
     uri = URI(Settings::AddressSearch.url)
-    query = request.long + ',' + request.lat
+    query = "#{request.long},#{request.lat}"
     uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse', class: 'address', radius: '100', in_epsg: '4326')
-    if (res = open(uri, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)) && res.status.include?('OK')
-      places = ActiveSupport::JSON.decode(res.read)['features']
+
+    res = if (proxy = ENV['HTTP_PROXY'] || ENV['http_proxy']).present? # Workaround for open-uri https-proxy problem
+      proxy = "http://#{proxy}" unless proxy.match(%r{^https?://})
+      p_uri = URI.parse(proxy)
+      Net::HTTP.Proxy p_uri.host, p_uri.port
+    else
+      Net::HTTP
+    end.get_response uri
+
+    if res && res.message.include?('OK')
+      places = ActiveSupport::JSON.decode(res.body)['features']
       places.each do |p|
         if p['properties']['objektgruppe'] == 'Adresse'
           street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
