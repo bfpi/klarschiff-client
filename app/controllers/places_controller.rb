@@ -17,7 +17,6 @@ class PlacesController < ApplicationController
         end
       end
 
-      require 'open-uri'
       uri = URI(Settings::AddressSearch.url)
       if !(localisator = Settings::AddressSearch.localisator).blank?
         query = Settings::AddressSearch.localisator + ' ' + @pattern
