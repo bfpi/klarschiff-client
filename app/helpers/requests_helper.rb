@@ -89,7 +89,7 @@ module RequestsHelper
     end
     request.service.document_url.
         gsub('{ks_id}', request.id.to_s).
-        gsub('{ks_user}', @user.id.to_s).
+        gsub('{ks_user}', @user.login).
         gsub('{ks_str}', street).
         gsub('{ks_hnr}', housenumber).
         gsub('{ks_hnr_z}', housenumber_addition).
