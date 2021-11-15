@@ -212,7 +212,7 @@ KS.styles =
   featureAttribution: (feature) ->
     new ol.style.Text
       text: feature.get("attribution")
-      font: '15px Font Awesome 5 Free'
+      font: '900 15px "Font Awesome 5 Free"'
       offsetX: 28
       offsetY: -22
       rotation: Math.PI / -2
@@ -467,14 +467,14 @@ class KS.FeatureData
       features = new Array
       $.each response, (index, elem) ->
         attribution = ""
-        attribution = "" if elem.extended_attributes.photo_required
+        attribution = "\uf030" if elem.extended_attributes.photo_required
+        <% if Settings::Map.show_trust %>
         if KS.login_required
-          <% if Settings::Map.show_trust %>
           count = 1
           while count <= elem.extended_attributes.trust
-            attribution += ""
+            attribution += "\uf005"
             count++
-          <% end %>
+        <% end %>
 
         coord = ol.proj.transform([elem.long, elem.lat], KS.projectionWGS84, KS.projection())
         f = new ol.Feature
