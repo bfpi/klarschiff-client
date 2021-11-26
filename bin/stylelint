@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+# vim: set ft=sh:
+echo "Checking StyleLint rules ..."
+yarn -s
+if [[ $# -gt 0 ]]; then
+  node_modules/.bin/stylelint $@
+else
+  node_modules/.bin/stylelint "**/*.scss" "**/*.css"
+fi

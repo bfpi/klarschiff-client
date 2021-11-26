@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+# vim: set ft=sh:
+echo "Checking ESLint rules ..."
+yarn -s
+if [[ $# -gt 0 ]]; then
+  node_modules/.bin/eslint --ext .js $@
+else
+  node_modules/.bin/eslint --ext .js .
+fi

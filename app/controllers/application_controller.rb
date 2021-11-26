@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include ClientConfig
   before_action :authenticate, if: :login_required?
@@ -9,7 +11,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_mobile
-    @mobile = (params[:mobile].presence && params[:mobile] == "true") || mobile_detected?
+    @mobile = (params[:mobile].presence && params[:mobile] == 'true') || mobile_detected?
   end
 
   def set_og_request
@@ -19,12 +21,14 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    @user ||= if (name = request.env["AUTHENTICATE_FULLNAME"].presence || request.env["AUTHENTICATE_DISPLAYNAME"]).present?
-              User.where(login: name, api_key: User.api_key)&.first
-            else
-              authenticate_with_http_basic { |user, pwd| User.create(login: user, password: pwd, api_key: User.api_key) }
-            end
-    request_http_basic_authentication unless @user && @user.valid?
+    @user ||= if (name = request.env['AUTHENTICATE_FULLNAME'].presence || request.env['AUTHENTICATE_DISPLAYNAME']).present?
+                User.where(login: name, api_key: User.api_key)&.first
+              else
+                authenticate_with_http_basic do |user, pwd|
+                  User.create(login: user, password: pwd, api_key: User.api_key)
+                end
+              end
+    request_http_basic_authentication unless @user&.valid?
   end
 
   def has_field_service_team?
@@ -39,10 +43,6 @@ class ApplicationController < ActionController::Base
 
   def mobile_detected?
     client = DeviceDetector.new(request.user_agent)
-    if client.known? && client.device_type != 'desktop'
-      true
-    else
-      false
-    end
+    client.known? && client.device_type != 'desktop'
   end
 end

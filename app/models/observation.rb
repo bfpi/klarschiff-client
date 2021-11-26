@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Observation < ActiveResource::Base
   include ResourceClient
-  
-  self.set_server_connection :city_sdk
+
+  set_server_connection :city_sdk
 end

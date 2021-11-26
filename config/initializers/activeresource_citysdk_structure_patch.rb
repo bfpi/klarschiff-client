@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_resource/base'
 require 'active_resource/validations'
 
@@ -5,8 +7,8 @@ module ActiveResource
   module ValidationsWithCitySDKErrorResponseCodes
     def save(options = {})
       super
-    rescue BadRequest, UnauthorizedAccess => error
-      @remote_errors = error
+    rescue BadRequest, UnauthorizedAccess => e
+      @remote_errors = e
       load_remote_errors(@remote_errors, true)
       false
     end
@@ -41,7 +43,7 @@ module ActiveResource
         else
           check_prefix_options(prefix_options)
           prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-          "#{ prefix(prefix_options) }#{ format_extension }#{ query_string(query_options) }"
+          "#{prefix(prefix_options)}#{format_extension}#{query_string(query_options)}"
         end
       end
     end
@@ -62,12 +64,16 @@ module ActiveResource
 
   module ErrorsWithCitySDKArrayStructure
     def from_json(json, save_cache = false)
-      decoded = ActiveSupport::JSON.decode(json) || {} rescue {}
-      if decoded.kind_of?(Array) && decoded.first.kind_of?(Hash)
+      decoded = begin
+        ActiveSupport::JSON.decode(json) || {}
+      rescue StandardError
+        {}
+      end
+      if decoded.is_a?(Array) && decoded.first.is_a?(Hash)
         clear unless save_cache
-        decoded.each { |error|
-          self.add :base, error['description']
-        }
+        decoded.each do |error|
+          add :base, error['description']
+        end
       else
         super
       end
@@ -78,18 +84,19 @@ module ActiveResource
 
   module ConnectionWithAdditionalRequestResponseRescues
     private
+
     def request(method, path, *arguments)
       super
     rescue ResourceInvalid, ForbiddenAccess => e
       def e.base_object_with_errors
         Base.new.tap { |b| b.load_remote_errors self }
       end
-      Rails.logger.error "CitySDKError: " << e.base_object_with_errors.errors.full_messages.join(', ')
+      Rails.logger.error 'CitySDKError: ' << e.base_object_with_errors.errors.full_messages.join(', ')
       raise e
     rescue ServerError => e
-      e.response.tap { |r| 
-        r.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{ e }") }])
-      }
+      e.response.tap do |r|
+        r.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{e}") }])
+      end
     end
   end
 

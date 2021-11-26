@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProtocolsController < ApplicationController
   def new
     @request = Request.find(params[:request_id])
@@ -6,7 +8,7 @@ class ProtocolsController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js { render "/application/#{ context }/new" }
+      format.js { render "/application/#{context}/new" }
     end
   end
 
@@ -17,6 +19,6 @@ class ProtocolsController < ApplicationController
     request_params[:mobile] = true if context.mobile?
     @redirect = request_path(params[:request_id], request_params)
     @success = I18n.t('protocols.create.success_text')
-    render "/application/#{ context }/create"
+    render "/application/#{context}/create"
   end
 end

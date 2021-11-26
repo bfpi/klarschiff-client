@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VotesController < ApplicationController
   def new
     @request = Request.find(params[:request_id])
@@ -8,7 +10,7 @@ class VotesController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js { render "/application/#{ context }/new" }
+      format.js { render "/application/#{context}/new" }
     end
   end
 
@@ -25,6 +27,6 @@ class VotesController < ApplicationController
       @errors = Array.wrap(@errors).map(&:messages)
       return render 'application/desktop/new'
     end
-    render "/application/#{ context }/create"
+    render "/application/#{context}/create"
   end
 end

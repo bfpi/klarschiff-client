@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class ObservationsController < ApplicationController
   helper :requests
-  
+
   def index
     respond_to do |format|
       format.xml do
         if (@key = params[:observation_key]).present?
           @requests = Request.where(observation_key: @key, extensions: true)
         else
-          states = Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
+          states = Settings::Map.default_requests_states.strip.split(', ').reject { |s| s == 'PENDING' }.join(', ')
           @requests = Request.where(detailed_status: states, keyword: 'problem, idea')
         end
       end

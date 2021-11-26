@@ -1,0 +1,2 @@
+*.js.coffee
+/node_modules

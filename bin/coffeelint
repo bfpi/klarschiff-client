@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+# vim: set ft=sh:
+echo "Checking CoffeeLint rules ..."
+yarn -s
+if [[ $# -gt 0 ]]; then
+  node_modules/.bin/coffeelint $@
+else
+  node_modules/.bin/coffeelint .
+fi

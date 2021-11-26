@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'starts#show'
 
@@ -5,18 +7,18 @@ Rails.application.routes.draw do
   resource :start, only: :show
 
   resources :areas, only: :index
-  resources :jobs, only: [:index, :update]
+  resources :jobs, only: %i[index update]
   get 'jobs/notification', to: 'jobs#notification'
 
-  resources :observations, only: [:index, :new, :create]
-  resources :places, only: [:index, :show]
+  resources :observations, only: %i[index new create]
+  resources :places, only: %i[index show]
   resources :requests do
-    resources :abuses, only: [:new, :create]
-    resources :comments, only: [:index, :new, :create]
-    resources :notes, only: [:index, :new, :create]
+    resources :abuses, only: %i[new create]
+    resources :comments, only: %i[index new create]
+    resources :notes, only: %i[index new create]
     resources :photos, only: [:create]
-    resources :protocols, only: [:new, :create]
-    resources :votes, only: [:new, :create]
+    resources :protocols, only: %i[new create]
+    resources :votes, only: %i[new create]
   end
   resources :services, only: :index
   resources :confirmations, only: [] do

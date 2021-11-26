@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Service < ActiveResource::Base
   include ResourceClient
-  self.set_server_connection :city_sdk
-  
+  set_server_connection :city_sdk
+
   cattr_reader :collection, instance_reader: false do
     Service.all.to_a
   end
@@ -19,28 +21,22 @@ class Service < ActiveResource::Base
   def type
     return nil unless keywords
     ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && case t
-    when "idee"
-      "idea"
-    when "tipp"
-      "tip"
-    else
-      t
-    end
+                                                                         when 'idee'
+                                                                           'idea'
+                                                                         when 'tipp'
+                                                                           'tip'
+                                                                         else
+                                                                           t
+                                                                         end
   end
 
-  def idea?
-    type.idea?
-  end
+  delegate :idea?, to: :type
 
-  def problem?
-    type.problem?
-  end
+  delegate :problem?, to: :type
 
-  def tipp?
-    type.tipp?
-  end
+  delegate :tipp?, to: :type
 
   def as_json(options = {})
-    super options.merge(only: [:service_code, :service_name], methods: [:type, :category])
+    super options.merge(only: %i[service_code service_name], methods: %i[type category])
   end
 end

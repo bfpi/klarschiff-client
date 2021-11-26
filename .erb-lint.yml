@@ -1,0 +1,32 @@
+---
+EnableDefaultLinters: true
+glob: "**/*.{html,text,js}{+*,}.erb"
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+linters:
+  ErbSafety:
+    enabled: true
+    #better_html_config: .better-html.yml
+  RequireInputAutocomplete:
+    enabled: false
+  FinalNewline:
+    enabled: false
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false
+      Rails/OutputSafety:
+        Exclude:
+          - '**/app/views/delegations/index.html.erb'
+          - '**/app/views/issues/index.html.erb'
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+

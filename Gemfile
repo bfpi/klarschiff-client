@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 ruby '~> 3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
 gem 'activeresource'
+gem 'rails', '~> 6.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.5'
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
 gem 'closure-compiler'
 gem 'coffee-rails'
+gem 'sass-rails', '>= 6'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
+gem 'bootstrap'
+gem 'jquery-form-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-form-rails'
 gem 'therubyracer'
-gem 'bootstrap'
 
 gem 'font-awesome-rails'
 gem 'net-ldap'
@@ -56,6 +58,11 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  
+
   gem 'listen'
+
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+
+  gem 'erb_lint', require: false
 end

@@ -58,14 +58,14 @@ Rails.application.configure do
   config.action_mailer.logger = nil
 
   # Configuration for SMTP-Server
-  smtp_settings = File.open(Rails.root.join('config', 'settings.yml')) { |file|
-    YAML::load file
-  }.with_indifferent_access.dig(:protocol_mail, :smtp)
+  smtp_settings = File.open(Rails.root.join('config', 'settings.yml')) do |file|
+    YAML.safe_load file
+  end.with_indifferent_access.dig(:protocol_mail, :smtp)
   config.action_mailer.smtp_settings = {
-    :address => smtp_settings[:host],
-    :enable_starttls_auto => smtp_settings[:starttls_enabled],
-    :user_name => smtp_settings[:username],
-    :password => smtp_settings[:password]
+    address: smtp_settings[:host],
+    enable_starttls_auto: smtp_settings[:starttls_enabled],
+    user_name: smtp_settings[:username],
+    password: smtp_settings[:password]
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -93,7 +93,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end

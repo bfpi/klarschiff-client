@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+# vim: set ft=sh:
+bin/rubocop
+bin/eslint
+bin/coffeelint
+bin/stylelint
+bin/erblint
