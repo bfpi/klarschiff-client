@@ -134,7 +134,7 @@ class RequestsController < ApplicationController
     return summary if params[:confirm] == 'true'
     if login_required?
       cookies[:last_type] = params[:request][:type]
-      cookies[:last_service_code] = params[:request][:service_code].presence&.last
+      cookies[:last_service_code] = params[:request][:service_code].presence&.first
       cookies[:last_group] = Service.find(cookies[:last_service_code]).group if cookies[:last_service_code]
     end
     ids = []
