@@ -9,6 +9,7 @@ urls:
   not_content_three_url: http://rathaus.rostock.de/sixcms/detail.php?template=seite_umweltamt_wasser_boden_alarmdienst_de&_sid1=&_sid2=rostock_01.c.198934.de&_sid3=39237&_sid4=39245
 
 client:
+  type: /client
   animate_refresh: 6
   service_code:
   key: hro
