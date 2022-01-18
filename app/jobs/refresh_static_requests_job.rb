@@ -8,6 +8,6 @@ class RefreshStaticRequestsJob < ApplicationJob
       Net::HTTP.Proxy p_uri.host, p_uri.port
     else
       Net::HTTP
-    end.get URI.join(Settings::Url.ks_server_url, 'requests')
+    end.get URI.join(Settings::Url.ks_server_url, "#{Settings::Client.relative_url_root}/", 'requests')
   end
 end
