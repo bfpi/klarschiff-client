@@ -2,10 +2,10 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  type = File.open(Rails.root.join('config', 'settings.yml')) { |file|
+  relative_url_root = File.open(Rails.root.join('config', 'settings.yml')) { |file|
     YAML::load file
-  }.with_indifferent_access.dig(:client, :type)
-  config.action_controller.relative_url_root = type if type.present?
+  }.with_indifferent_access.dig(:client, :relative_url_root)
+  config.action_controller.relative_url_root = relative_url_root if relative_url_root.present?
 
   # Code is not reloaded between requests.
   config.cache_classes = true
