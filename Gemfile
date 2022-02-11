@@ -6,7 +6,7 @@ ruby '~> 3.0.1'
 gem 'rails', '~> 6.1'
 gem 'activeresource'
 # Use Puma as the app server
-gem 'puma', '~> 5.5'
+gem 'puma', '~> 5.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 gem 'closure-compiler'
