@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     with_options only: [] do
       get :abuse
       get :issue
+      get :issue_with_photo
       get :photo
       get :revoke_issue
       get :vote
