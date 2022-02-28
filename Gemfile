@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
-gem 'activeresource', git: 'http://github.com/rails/activeresource.git', branch: 'master'
+gem 'activeresource', git: 'https://github.com/rails/activeresource.git', tag: 'v5.1.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'closure-compiler', '1.1.13'
