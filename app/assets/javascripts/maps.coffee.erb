@@ -1,5 +1,3 @@
-<% require_asset "OpenLayers#{ '.min' unless Rails.env.development? }" %>
-
 KS.projection = ->
   if typeof proj4 is 'function'
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
