@@ -1,13 +1,12 @@
 versions:
   ol: 6.13.0
-  proj4: 2.3.3
+  proj4: 2.7.5
   vertical_tabs: 1.2.2
   textresizer: 1.1.0
 
 javascripts:
   ol.js: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/build/ol.js
-  proj4js.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4-src.js
-  proj4js.min.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4.js
+  proj4js.js: https://cdnjs.cloudflare.com/ajax/libs/proj4js/<%= versions[:proj4] %>/proj4.js
   jquery.ui.touch-punch.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js
   jquery.ui.touch-punch.min.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js
   jquery.textresizer.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.js
