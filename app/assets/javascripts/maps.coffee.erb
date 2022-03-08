@@ -407,11 +407,11 @@ class KS.Layers
       map.addOverlay KS.popupOverlay
 
       KS.popupCloser.onclick = ->
-        KS.popupOverlay.setPosition(undefined);
-        KS.popupCloser.blur();
+        KS.popupOverlay.setPosition(undefined)
+        KS.popupCloser.blur()
         highlight_layer = KS.layers.findById('highlight_layer')
         highlight_layer.getSource().clear()
-        return false;
+        return false
 
   toggle: ->
       @active = (@active + 1) % 2

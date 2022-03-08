@@ -11,8 +11,8 @@ javascripts:
   jquery.ui.touch-punch.min.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js
   jquery.textresizer.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.js
   jquery.textresizer.min.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.min.js
-  ol3-ext.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.js
-  ol3-ext.min.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.js
+  ol-ext.js: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.js
+  ol-ext.min.js: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.min.js
   d3-v4.js: https://d3js.org/d3.v4.js
   d3-v4.min.js: https://d3js.org/d3.v4.min.js
   billboard.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.js
@@ -20,5 +20,5 @@ javascripts:
 
 stylesheets:
   ol.css: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/css/ol.css
-  ol3-ext.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.css
-  ol3-ext.min.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.css
+  ol-ext.css: https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.css
+  ol-ext.min.css: https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css
