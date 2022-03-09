@@ -38,10 +38,7 @@ class KS.HeatmapLayers
               origin: layer.tilegrid_origin
               resolutions: layer.resolutions
               matrixIds: layer.matrix_ids
-            attributions: [
-              new ol.Attribution
-                html: layer.attribution
-            ] if layer.attribution?
+            attributions: if layer.attribution? then layer.attribution else null
           visible: layer.visible
     @layers.push new ol.layer.Heatmap
       id: "heatmap"
