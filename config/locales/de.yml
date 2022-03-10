@@ -21,7 +21,7 @@ de:
   pagetitle: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   pagetitle_mobile_client: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   privacy: Datenschutz
-  privacy_policy_html: "Ich habe die <strong><a href=\"%{url}\" target=\"_blank\">Datenschutzerklärung</a></strong> nach der EU-DSGVO zur Kenntnis genommen und stimme der Verarbeitung meiner persönlichen Daten zu."
+  privacy_policy_html: "Ich bestätige die <strong><a href=\"%{url}\" target=\"_blank\">Datenschutzerklärung</a></strong> nach der EU-DSGVO zur Verarbeitung meiner persönlichen Daten."
   promotion: Werbung
   success: Vielen Dank!
   share_request: ' Gerne können Sie Ihre Meldung aber bereits bekannt machen:'
