@@ -295,6 +295,7 @@ de:
       create:
         error: Fehler bei neuer Meldung
         success: Die Meldung wurde erfolgreich abgesetzt. Sie haben eine E-Mail erhalten, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
+        success_default: Sie haben die Meldung in einem Amtsgebiet abgesetzt das noch nicht an Klarschiff-MV teilnimmt. Ihre Daten wurden an das Zuständige Amt weitergeleitet, werden jedoch nicht im Portal angezeigt.
       start_request:
         new_request: Bitte klicken Sie auf eine Meldung in der Karte oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaulichen oder verkehrsplanerischen Sachverhalte!

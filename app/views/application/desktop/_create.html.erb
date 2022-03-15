@@ -4,7 +4,8 @@
   </div>
   <div class="row mb-3">
     <div class="col-12">
-      <%= t("#{ controller_name }.#{ context }.create.success") %> <%= t(:share_request) if options && options[:id] %>
+      <% msg = "success#{'_default' if options && options[:default_group]}" -%>
+      <%= t("#{ controller_name }.#{ context }.create.#{msg}") %> <%= t(:share_request) if options && options[:id] %>
     </div>
     <% if options && options[:id] -%>
       <div class="col-12">
