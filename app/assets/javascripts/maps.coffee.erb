@@ -447,7 +447,6 @@ class KS.FeatureVector
     return vector = new ol.source.Vector
       format: new ol.format.TopoJSON
       loader: (extent, resolution, projection) ->
-        console.log('LOAD', extent)
         extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
         new KS.FeatureData(controller, extent, vector, is_request)
 
