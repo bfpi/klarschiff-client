@@ -3,7 +3,7 @@
     <div class="col-12">
       <strong>
         <%= form.check_box :privacy_policy_accepted, {}, true, nil  %>
-        <% url = Settings::Url.respond_to?(:external_privacy_url) ? Settings::Url.external_privacy_url : [:privacy, :static] -%>
+        <% url = Settings::Url.respond_to?(:external_privacy_url) ? Settings::Url.external_privacy_url : url_for([:privacy, :static]) -%>
         <%= t :privacy_policy_html, url: url %>
       </strong>
     </div>
