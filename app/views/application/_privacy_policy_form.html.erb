@@ -1,13 +1,10 @@
 <div class="row">
   <%= form.label :privacy_policy_accepted, class: 'font-weight-normal' do %>
     <div class="col-12">
-      <% url = Settings::Url.respond_to?(:external_privacy_url) ? Settings::Url.external_privacy_url : [:privacy, :static] -%>
-      <%= t :privacy_policy_html, url: url %>
-    </div>
-    <div class="col-12">
       <strong>
         <%= form.check_box :privacy_policy_accepted, {}, true, nil  %>
-        <%= form.object.class.human_attribute_name(:privacy_policy_accepted) %>
+        <% url = Settings::Url.respond_to?(:external_privacy_url) ? Settings::Url.external_privacy_url : url_for([:privacy, :static]) -%>
+        <%= t :privacy_policy_html, url: url %>
       </strong>
     </div>
   <% end -%>
