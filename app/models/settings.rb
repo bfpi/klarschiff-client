@@ -2,9 +2,7 @@ class Settings
   # Defines accessors for application configuration with values
   # defined in config/settings.yml
   # Each root node becomes an own module to scope the options
-  @@config ||= File.open(Rails.root.join('config', 'settings.yml')) { |file|
-    YAML::load file
-  }.with_indifferent_access.each do |context, options|
+  (@config ||= Config.for(:settings)).with_indifferent_access.each do |context, options|
     m = Module.new
     client = nil
     #setzen der Client-Parameter in Abhängigkeit des gestarteten Clients, wenn entsprechende Parameter nicht gesetzt wurden
