@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include ClientConfig
+
+  prepend_view_path 'overlay/views'
+
   before_action :authenticate, if: :login_required?
   before_action :set_mobile, :set_og_request
   helper_method :has_field_service_team?, :context
