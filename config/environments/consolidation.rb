@@ -86,3 +86,6 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+overlay = Rails.root.join('overlay/config/environments', File.basename(__FILE__))
+require overlay if File.exist?(overlay)
