@@ -72,10 +72,9 @@ class KS.HeatmapFeatureData
   constructor: (controller, extent, vector) ->
     controller = KS.generateHeatmapPath()
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
-    wgs84Sphere = new ol.Sphere(6378137)
     $.ajax(url: controller, dataType: 'json', data: {
       center: ol.extent.getCenter(extent),
-      radius: wgs84Sphere.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
+      radius: ol.sphere.getDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
     }).done (response) ->
       features = new Array
       KS.StatisticCategories = {}

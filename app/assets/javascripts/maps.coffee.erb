@@ -455,7 +455,6 @@ class KS.FeatureData
   constructor: (controller, extent, vector, is_request = false) ->
     controller = KS.generatePath() if is_request
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
-    wgs84Sphere = ol.geom.Polygon.circular(ol.extent.getCenter(extent), 6378137)
     $.ajax(url: controller, dataType: 'json', data: {
       center: ol.extent.getCenter(extent),
       radius: ol.sphere.getDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
