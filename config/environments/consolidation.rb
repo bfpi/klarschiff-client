@@ -68,14 +68,6 @@ Rails.application.configure do
   # Disable Logging for ActionMailer
    config.action_mailer.logger = nil
 
-  # Configuration for SMTP-Server
-   config.action_mailer.smtp_settings = {
-     :address => Settings::ProtocolMail.smtp[:host],
-     :enable_starttls_auto => Settings::ProtocolMail.smtp[:starttls_enabled],
-     :user_name => Settings::ProtocolMail.smtp[:username],
-     :password => Settings::ProtocolMail.smtp[:password]
-   }
-
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -86,3 +78,6 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end
+
+overlay = Rails.root.join('overlay/config/environments', File.basename(__FILE__))
+require overlay if File.exist?(overlay)

@@ -1,132 +1,145 @@
-urls:
-  ks_server_url: https://klarschiff.de
-  ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
-  ks_demo_url: https://klarschiff.de
-  ks_github_url: https://github.com/bfpi/klarschiff-field_service
-  font_origin_url: https://www.paratype.com
-  font_license_url: /resources/fonts/license.txt
-  not_content_two_url: https://polizei.mvnet.de/ssl/g8wache/cmswem/index.php?task=iw_anzeige
-  not_content_three_url: http://rathaus.rostock.de/sixcms/detail.php?template=seite_umweltamt_wasser_boden_alarmdienst_de&_sid1=&_sid2=rostock_01.c.198934.de&_sid3=39237&_sid4=39245
+development: &default
+  urls:
+    ks_server_url: https://klarschiff.de
+    ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
+    ks_demo_url: https://klarschiff.de
+    ks_github_url: https://github.com/bfpi/klarschiff-field_service
+    font_origin_url: https://www.paratype.com
+    font_license_url: /resources/fonts/license.txt
+    not_content_two_url: https://polizei.mvnet.de/ssl/g8wache/cmswem/index.php?task=iw_anzeige
+    not_content_three_url: http://rathaus.rostock.de/sixcms/detail.php?template=seite_umweltamt_wasser_boden_alarmdienst_de&_sid1=&_sid2=rostock_01.c.198934.de&_sid3=39237&_sid4=39245
 
-client:
-  relative_url_root: /client
-  animate_refresh: 6
-  service_code:
-  key: hro
-  login_required: true
-  multi_requests_enabled: true
-  name: Klarschiff
-  city_long: Demostadt
-  city_short: Demo
-  resources_path: /srv/www/htdocs/klarschiff_resources/
-  resources_url: https://demo.klarschiff.de/resources/
-  logo_url: /resources/images/logo.png
-  observations_area_limit: 35
-  show_email:
-  show_abuses:
-  show_votes:
-  show_create_comment:
-  show_comments:
-  show_edit_request:
-  show_edit_status:
-  show_protocol:
-  show_notes:
-  show_trust:
-  show_d3_document_url:
-  show_status_updates_for_supporter:
-  additional_content: false
-  start_date: 28.03.2012
-  max_image_size: 5242880
-  show_privacy_policy: false
+  client:
+    relative_url_root: /client
+    animate_refresh: 6
+    service_code:
+    key: hro
+    login_required: true
+    multi_requests_enabled: true
+    name: Klarschiff
+    city_long: Demostadt
+    city_short: Demo
+    resources_path: /srv/www/htdocs/klarschiff_resources/
+    resources_url: https://demo.klarschiff.de/resources/
+    logo_url: /resources/images/logo.png
+    observations_area_limit: 35
+    show_email:
+    show_abuses:
+    show_votes:
+    show_create_comment:
+    show_comments:
+    show_edit_request:
+    show_edit_status:
+    show_protocol:
+    show_notes:
+    show_trust:
+    show_d3_document_url:
+    show_status_updates_for_supporter:
+    additional_content: false
+    start_date: 28.03.2012
+    max_image_size: 5242880
+    show_privacy_policy: false
 
-vote:
-  min_requirement: 20
+  vote:
+    min_requirement: 20
 
-resource_servers:
-  city_sdk:
-    site: https://klarschiff.de/citysdk/
-    format: :json
+  resource_servers:
+    city_sdk:
+      site: https://klarschiff.de/citysdk/
+      format: :json
+      api_key: 1234567890abcdefghijklmnopqrstuv
+
+  address_search:
+    url: https://geo.sv.rostock.de/geocodr/query?
     api_key: 1234567890abcdefghijklmnopqrstuv
+    localisator: rostock
+    search_request_id_enabled: true
 
-address_search:
-  url: https://geo.sv.rostock.de/geocodr/query?
-  api_key: 1234567890abcdefghijklmnopqrstuv
-  localisator: rostock
-  search_request_id_enabled: true
+  protocol_mail:
+    recipient: recipient@klarschiff.de
+    sender: sender@klarschiff.de
+    smtp:
+      host: smtp.klarschiff.de
+      starttls_enabled: false
+      username: benutzer
+      password: passwort
 
-protocol_mail:
-  recipient: recipient@klarschiff.de
-  sender: sender@klarschiff.de
-  smtp:
-    host: smtp.klarschiff.de
-    starttls_enabled: false
-    username: benutzer
-    password: passwort
+  map:
+    show_trust: true
+    default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
+    center: [308555, 6000550]
+    mv_bbox_25833: [206885, 5890624, 460857, 6060841]
+    extent: [271264, 5938535, 356804, 6017573]
+    wmts_layers:
+      -
+        id: orkamv
+        url: https://www.orka-mv.de/geodienste/orkamv/wmts/orkamv/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
+        url_statistics: https://www.orka-mv.de/geodienste/orkamv/wmts/orkamv-graustufen/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
+        content: orkamv
+        content_statistics: orkamv-graustufen
+        matrix_set: epsg_25833
+        matrix_set_statistics: epsg_25833
+        format: png
+        request_encoding: REST
+        tilegrid_origin: [-464849.38, 6310160.14]
+        resolutions: [27.024570517098006, 19.109257071294042, 13.512285258549001, 9.55462853564702, 6.7561426292745, 4.77731426782351, 3.3780713146372494, 2.3886571339117544, 1.6890356573186245, 1.1943285669558772, 0.8445178286593122, 0.5971642834779384, 0.422258914329656, 0.29858214173896913, 0.21112945716482798, 0.14929107086948457]
+        matrix_ids: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        extent: [271264, 5938535, 356804, 6017573]
+        visible: true
+        attribution: >
+          Kartenbild © Hanse- und Universitätsstadt Rostock
+          (<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" style="color: #006CB7; text-decoration:none;">CC BY 4.0</a>) |
+          Kartendaten © <a href="http://www.openstreetmap.org" target="_blank" style="color: #006CB7; text-decoration: none;">OpenStreetMap</a>
+          (<a rel="license" href="http://opendatacommons.org/licenses/odbl" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
+          und LkKfS-MV
+      -
+        id: luftbilder
+        url: https://geo.sv.rostock.de/geodienste/luftbild_mv-20/wmts/hro.luftbild_mv-20.luftbild_mv-20/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
+        content: hro.luftbild_mv-20.luftbild_mv-20
+        matrix_set: epsg_25833
+        format: png
+        request_encoding: REST
+        tilegrid_origin: [-464849.38, 6310160.14]
+        resolutions: [27.024570517098006, 19.109257071294042, 13.512285258549001, 9.55462853564702, 6.7561426292745, 4.77731426782351, 3.3780713146372494, 2.3886571339117544, 1.6890356573186245, 1.1943285669558772, 0.8445178286593122, 0.5971642834779384, 0.422258914329656, 0.29858214173896913, 0.21112945716482798, 0.14929107086948457]
+        matrix_ids: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        extent: [271264, 5938535, 356804, 6017573]
+        visible: false
+        attribution: © GeoBasis-DE/M-V
+    wms_layers:
+      -
+        id: pois
+        url: https://geo.sv.rostock.de/geodienste/klarschiff-poi/wms?
+        projection: EPSG:25833
+        content: hro.klarschiff-poi.abfallbehaelter,hro.klarschiff-poi.ampeln,hro.klarschiff-poi.beleuchtung,hro.klarschiff-poi.brunnen,hro.klarschiff-poi.denkmale,hro.klarschiff-poi.hundetoiletten,hro.klarschiff-poi.recyclingcontainer,hro.klarschiff-poi.sitzgelegenheiten,hro.klarschiff-poi.sperrmuelltermine,hro.klarschiff-poi.gemeinde-hro-invers
+        format: image/png
+        extent: [271264, 5938535, 356804, 6017573]
+        visible: true
+    tracking_options:
+      enable_high_accuracy: true
+      timeout: 30000
+      maximum_age: 50000
+    zoom:
+      initial: 6
+      max: 14
+      min: 5
 
-map:
-  show_trust: true
-  default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
-  center: [308555, 6000550]
-  mv_bbox_25833: [206885, 5890624, 460857, 6060841]
-  extent: [271264, 5938535, 356804, 6017573]
-  wmts_layers:
-    -
-      id: orkamv
-      url: https://www.orka-mv.de/geodienste/orkamv/wmts/orkamv/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
-      url_statistics: https://www.orka-mv.de/geodienste/orkamv/wmts/orkamv-graustufen/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
-      content: orkamv
-      content_statistics: orkamv-graustufen
-      matrix_set: epsg_25833
-      matrix_set_statistics: epsg_25833
-      format: png
-      request_encoding: REST
-      tilegrid_origin: [-464849.38, 6310160.14]
-      resolutions: [27.024570517098006, 19.109257071294042, 13.512285258549001, 9.55462853564702, 6.7561426292745, 4.77731426782351, 3.3780713146372494, 2.3886571339117544, 1.6890356573186245, 1.1943285669558772, 0.8445178286593122, 0.5971642834779384, 0.422258914329656, 0.29858214173896913, 0.21112945716482798, 0.14929107086948457]
-      matrix_ids: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-      extent: [271264, 5938535, 356804, 6017573]
-      visible: true
-      attribution: >
-        Kartenbild © Hanse- und Universitätsstadt Rostock
-        (<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.de" target="_blank" style="color: #006CB7; text-decoration:none;">CC BY 4.0</a>) |
-        Kartendaten © <a href="http://www.openstreetmap.org" target="_blank" style="color: #006CB7; text-decoration: none;">OpenStreetMap</a>
-        (<a rel="license" href="http://opendatacommons.org/licenses/odbl" target="_blank" style="color: #006CB7; text-decoration: none;">ODbL</a>)
-        und LkKfS-MV
-    -
-      id: luftbilder
-      url: https://geo.sv.rostock.de/geodienste/luftbild_mv-20/wmts/hro.luftbild_mv-20.luftbild_mv-20/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png
-      content: hro.luftbild_mv-20.luftbild_mv-20
-      matrix_set: epsg_25833
-      format: png
-      request_encoding: REST
-      tilegrid_origin: [-464849.38, 6310160.14]
-      resolutions: [27.024570517098006, 19.109257071294042, 13.512285258549001, 9.55462853564702, 6.7561426292745, 4.77731426782351, 3.3780713146372494, 2.3886571339117544, 1.6890356573186245, 1.1943285669558772, 0.8445178286593122, 0.5971642834779384, 0.422258914329656, 0.29858214173896913, 0.21112945716482798, 0.14929107086948457]
-      matrix_ids: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-      extent: [271264, 5938535, 356804, 6017573]
-      visible: false
-      attribution: © GeoBasis-DE/M-V
-  wms_layers:
-    -
-      id: pois
-      url: https://geo.sv.rostock.de/geodienste/klarschiff-poi/wms?
-      projection: EPSG:25833
-      content: hro.klarschiff-poi.abfallbehaelter,hro.klarschiff-poi.ampeln,hro.klarschiff-poi.beleuchtung,hro.klarschiff-poi.brunnen,hro.klarschiff-poi.denkmale,hro.klarschiff-poi.hundetoiletten,hro.klarschiff-poi.recyclingcontainer,hro.klarschiff-poi.sitzgelegenheiten,hro.klarschiff-poi.sperrmuelltermine,hro.klarschiff-poi.gemeinde-hro-invers
-      format: image/png
-      extent: [271264, 5938535, 356804, 6017573]
-      visible: true
-  tracking_options:
-    enable_high_accuracy: true
-    timeout: 30000
-    maximum_age: 50000
-  zoom:
-    initial: 6
-    max: 14
-    min: 5
+  request:
+    permissable_states:
+      - IN_PROCESS
+      - PROCESSED
+      - REJECTED
 
-request:
-  permissable_states:
-    - IN_PROCESS
-    - PROCESSED
-    - REJECTED
+  auto_refresh:
+    timeout: 180000
 
-auto_refresh:
-  timeout: 180000
+test:
+  <<: *default
+
+alpha:
+  <<: *default
+
+consolidation:
+  <<: *default
+
+production:
+  <<: *default

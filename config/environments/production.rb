@@ -2,10 +2,6 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  relative_url_root = File.open(Rails.root.join('config', 'settings.yml')) { |file|
-    YAML::load file
-  }.with_indifferent_access.dig(:client, :relative_url_root)
-  config.action_controller.relative_url_root = relative_url_root if relative_url_root.present?
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -61,17 +57,6 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.logger = nil
 
-  # Configuration for SMTP-Server
-  smtp_settings = File.open(Rails.root.join('config', 'settings.yml')) { |file|
-    YAML::load file
-  }.with_indifferent_access.dig(:protocol_mail, :smtp)
-  config.action_mailer.smtp_settings = {
-    :address => smtp_settings[:host],
-    :enable_starttls_auto => smtp_settings[:starttls_enabled],
-    :user_name => smtp_settings[:username],
-    :password => smtp_settings[:password]
-  }
-
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -123,3 +108,6 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
+
+overlay = Rails.root.join('overlay/config/environments', File.basename(__FILE__))
+require overlay if File.exist?(overlay)

@@ -34,5 +34,22 @@ module KlarschiffFieldService
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Global settings from settings.yml
+    settings = File.open(Rails.root.join('config', 'settings.yml')) { |file|
+      YAML::load file
+    }.with_indifferent_access.dig(Rails.env)
+
+    relative_url_root = settings.dig(:client, :relative_url_root)
+    config.action_controller.relative_url_root = relative_url_root if relative_url_root.present?
+
+    # Configuration for SMTP-Server
+    smtp_settings = settings.dig(:protocol_mail, :smtp)
+    config.action_mailer.smtp_settings = {
+      :address => smtp_settings[:host],
+      :enable_starttls_auto => smtp_settings[:starttls_enabled],
+      :user_name => smtp_settings[:username],
+      :password => smtp_settings[:password]
+    }
   end
 end
