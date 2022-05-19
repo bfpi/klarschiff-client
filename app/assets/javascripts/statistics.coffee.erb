@@ -3,7 +3,6 @@ class KS.Heatmap
     @olHeatmap = new ol.Map
       target: 'ol-heatmap'
       moveTolerance: 10
-      controls: ol.control.defaults().extend([new KS.GeolocationControl])
       view: new ol.View
         projection: @projection
         center: <%= Settings::Map.center %>
