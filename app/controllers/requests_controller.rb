@@ -138,7 +138,7 @@ class RequestsController < ApplicationController
       cookies[:last_group] = Service.find(cookies[:last_service_code]).group if cookies[:last_service_code]
     end
     ids = []
-    default_group = false
+    create_message = nil
     service = nil
     if (codes = params[:request][:service_code]).present?
       payload = permissable_params
@@ -157,7 +157,7 @@ class RequestsController < ApplicationController
           end
         if result.is_a?(Net::HTTPCreated)
           req = Request.new.load(Request.format.decode(result.body))
-          default_group = req.request_default_group
+          create_message = req.create_message
           ids << req.id
         else
           (@errors ||= []) << result.errors
@@ -173,7 +173,7 @@ class RequestsController < ApplicationController
       @modal_title_options = { count: 1 }
     end
     if ids.present? && !service.nil?
-      @options = { id: ids.first, default_group: default_group && ids.count == 1 } if context == 'desktop'
+      @options = { id: ids.first, create_message: create_message } if context == 'desktop'
       @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile) unless context == 'desktop'
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
