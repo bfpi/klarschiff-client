@@ -3,7 +3,6 @@ class KS.Heatmap
     @olHeatmap = new ol.Map
       target: 'ol-heatmap'
       moveTolerance: 10
-      controls: ol.control.defaults().extend([new KS.GeolocationControl])
       view: new ol.View
         projection: @projection
         center: <%= Settings::Map.center %>
@@ -38,10 +37,7 @@ class KS.HeatmapLayers
               origin: layer.tilegrid_origin
               resolutions: layer.resolutions
               matrixIds: layer.matrix_ids
-            attributions: [
-              new ol.Attribution
-                html: layer.attribution
-            ] if layer.attribution?
+            attributions: if layer.attribution? then layer.attribution else null
           visible: layer.visible
     @layers.push new ol.layer.Heatmap
       id: "heatmap"
@@ -75,10 +71,9 @@ class KS.HeatmapFeatureData
   constructor: (controller, extent, vector) ->
     controller = KS.generateHeatmapPath()
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
-    wgs84Sphere = new ol.Sphere(6378137)
     $.ajax(url: controller, dataType: 'json', data: {
       center: ol.extent.getCenter(extent),
-      radius: wgs84Sphere.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
+      radius: ol.sphere.getDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
     }).done (response) ->
       features = new Array
       KS.StatisticCategories = {}

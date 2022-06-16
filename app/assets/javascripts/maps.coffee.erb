@@ -1,9 +1,8 @@
-<% require_asset "OpenLayers#{ '.min' unless Rails.env.development? }" %>
-
 KS.projection = ->
   if typeof proj4 is 'function'
     proj4.defs 'EPSG:25833', '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
     proj4.defs 'urn:ogc:def:crs:EPSG::25833', proj4.defs('EPSG:25833')
+    ol.proj.proj4.register proj4
     projection_25833 = ol.proj.get 'EPSG:25833'
     projection_25833.setExtent <%= Settings::Map.mv_bbox_25833 %>
     return projection_25833
@@ -342,10 +341,7 @@ class KS.Layers
               origin: layer.tilegrid_origin
               resolutions: layer.resolutions
               matrixIds: layer.matrix_ids
-            attributions: [
-              new ol.Attribution
-                html: layer.attribution
-            ] if layer.attribution?
+            attributions: if layer.attribution? then 'layer.attribution' else null
           visible: layer.visible
     for layer in <%= Settings::Map.wms_layers.to_json %>
       do (layer, @layers) ->
@@ -409,11 +405,11 @@ class KS.Layers
       map.addOverlay KS.popupOverlay
 
       KS.popupCloser.onclick = ->
-        KS.popupOverlay.setPosition(undefined);
-        KS.popupCloser.blur();
+        KS.popupOverlay.setPosition(undefined)
+        KS.popupCloser.blur()
         highlight_layer = KS.layers.findById('highlight_layer')
         highlight_layer.getSource().clear()
-        return false;
+        return false
 
   toggle: ->
       @active = (@active + 1) % 2
@@ -459,10 +455,9 @@ class KS.FeatureData
   constructor: (controller, extent, vector, is_request = false) ->
     controller = KS.generatePath() if is_request
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
-    wgs84Sphere = new ol.Sphere(6378137)
     $.ajax(url: controller, dataType: 'json', data: {
       center: ol.extent.getCenter(extent),
-      radius: wgs84Sphere.haversineDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
+      radius: ol.sphere.getDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
     }).done (response) ->
       features = new Array
       $.each response, (index, elem) ->

@@ -24,10 +24,11 @@
 #= require proj4js
 #= require shariff.complete
 #= require_self
-#= require_tree .
-#= require ol3-ext
+#= require ol
+#= require ol-ext
 #= require d3-v4
 #= require billboard
+#= require_tree .
 
 window.KS ||= {}
 
@@ -224,8 +225,8 @@ $ ->
 
 KS.reloadFeatures= () ->
   extent = KS.olMap.getView().calculateExtent(KS.olMap.getSize())
-  KS.layers.findById('features').getSource().getSource().clear(true)
+  KS.layers.findById('features').getSource().getSource().refresh()
   if KS.login_required && KS.getUrlParam('mobile')
-    KS.layers.findById('jobs').getSource().getSource().clear(true)
+    KS.layers.findById('jobs').getSource().getSource().refresh()
   extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
-  KS.HeatmapLayers.findById('heatmap').getSource().clear(true)
+  KS.HeatmapLayers.findById('heatmap').getSource().refresh()

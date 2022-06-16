@@ -1,27 +1,24 @@
 versions:
-  ol: 4.2.0
-  proj4: 2.3.3
+  ol: 6.13.0
+  proj4: 2.7.5
   vertical_tabs: 1.2.2
   textresizer: 1.1.0
 
 javascripts:
-  OpenLayers.js: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol-debug.js
-  OpenLayers.min.js: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol.js
-  proj4js.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4-src.js
-  proj4js.min.js: https://github.com/proj4js/proj4js/releases/download/<%= versions[:proj4] %>/proj4.js
+  ol.js: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/build/ol.js
+  proj4js.js: https://cdnjs.cloudflare.com/ajax/libs/proj4js/<%= versions[:proj4] %>/proj4.js
   jquery.ui.touch-punch.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js
   jquery.ui.touch-punch.min.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js
   jquery.textresizer.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.js
   jquery.textresizer.min.js: https://raw.githubusercontent.com/mariojvargas/jquery-textresizer/<%= versions[:textresizer] %>/jquery.textresizer.min.js
-  ol3-ext.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.js
-  ol3-ext.min.js: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.js
+  ol-ext.js: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.js
+  ol-ext.min.js: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.min.js
   d3-v4.js: https://d3js.org/d3.v4.js
   d3-v4.min.js: https://d3js.org/d3.v4.min.js
   billboard.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.js
   billboard.min.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.min.js
 
 stylesheets:
-  OpenLayers.css: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol-debug.css
-  OpenLayers.min.css: https://cdnjs.cloudflare.com/ajax/libs/openlayers/<%= versions[:ol] %>/ol.css
-  ol3-ext.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.css
-  ol3-ext.min.css: https://raw.githubusercontent.com/Viglino/ol3-ext/gh-pages/dist/ol3-ext.min.css
+  ol.css: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/css/ol.css
+  ol-ext.css: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.css
+  ol-ext.min.css: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.min.css
