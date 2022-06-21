@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 3.0.1'
+ruby '~> 3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
@@ -18,7 +18,6 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
-gem 'therubyracer'
 gem 'bootstrap'
 
 gem 'font-awesome-rails'
@@ -32,7 +31,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
+#gem 'sdoc', group: :doc
 
 gem 'device_detector'
 
