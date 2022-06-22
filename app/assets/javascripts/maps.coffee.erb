@@ -506,13 +506,14 @@ class KS.Geolocation
 
       featuresOverlay = new ol.layer.Vector
         id: 'geolocation'
-        map: map
         source: new ol.source.Vector
           features: feature_array
 
       if layer = KS.layers.findById('geolocation')
         layer.getSource().clear(true)
         map.removeLayer layer
+
+      map.addLayer featuresOverlay
 
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
