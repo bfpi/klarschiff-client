@@ -513,7 +513,6 @@ class KS.Geolocation
       if layer = KS.layers.findById('geolocation')
         layer.getSource().clear(true)
         map.removeLayer layer
-      map.addLayer featuresOverlay
 
       unless KS.position
         KS.geolocation.center(map) if KS.geolocation?
