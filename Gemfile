@@ -37,6 +37,7 @@ gem 'device_detector'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'net-imap', require: false # drop after gem mail >= v2.8.0
 gem 'net-pop', require: false # drop after gem mail >= v2.8.0
 gem 'net-smtp', require: false # drop after gem mail >= v2.8.0
 
