@@ -80,6 +80,7 @@ class KS.Map
     KS.popupContent = document.getElementById('popup-content')
     KS.crosshair = document.getElementById('crosshair')
     $(KS.popupContent).on('click', '#open-request', (event) ->
+      event.preventDefault()
       target = $(event.currentTarget)
       $.ajax(url: target.data('url'), dataType: 'script')
     )
