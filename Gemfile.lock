@@ -90,6 +90,7 @@ GEM
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     device_detector (1.0.7)
+    digest (3.1.0)
     erubi (1.10.0)
     execjs (2.8.1)
     ffi (1.15.5)
@@ -124,6 +125,16 @@ GEM
     minitest (5.16.1)
     msgpack (1.5.2)
     net-ldap (0.17.1)
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
+    net-protocol (0.1.3)
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     nio4r (2.5.8)
     nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
@@ -192,6 +203,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.2.1)
     tilt (2.0.10)
+    timeout (0.3.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -225,6 +237,8 @@ DEPENDENCIES
   jquery-ui-rails
   listen
   net-ldap
+  net-pop
+  net-smtp
   oj
   oj_mimic_json
   puma (~> 5.6)
