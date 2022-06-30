@@ -37,7 +37,7 @@ module KlarschiffFieldService
 
     # Global settings from settings.yml
     settings = File.open(Rails.root.join('config', 'settings.yml')) { |file|
-      YAML::load file
+      YAML::load file, aliases: true
     }.with_indifferent_access.dig(Rails.env)
 
     relative_url_root = settings.dig(:client, :relative_url_root)

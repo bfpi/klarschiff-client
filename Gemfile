@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '~> 3.0.1'
+ruby '~> 3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
@@ -18,7 +18,6 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
-gem 'therubyracer'
 gem 'bootstrap'
 
 gem 'font-awesome-rails'
@@ -32,11 +31,15 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
+# gem 'sdoc', group: :doc
 
 gem 'device_detector'
 
 gem 'bootsnap', '>= 1.1.0', require: false
+
+gem 'net-imap', require: false # drop after gem mail >= v2.8.0
+gem 'net-pop', require: false # drop after gem mail >= v2.8.0
+gem 'net-smtp', require: false # drop after gem mail >= v2.8.0
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -56,6 +59,6 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  
+
   gem 'listen'
 end
