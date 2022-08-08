@@ -18,7 +18,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
-gem 'bootstrap'
+gem 'bootstrap', '~> 5.1.3' # CSS variable usage in v5.2.x is incomplete until Bootstrap 6
 
 gem 'font-awesome-rails'
 gem 'net-ldap'
