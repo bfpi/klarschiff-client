@@ -222,7 +222,7 @@ class RequestsController < ApplicationController
     if (pos = params[:position]).present?
       @request.lat = pos[1]
       @request.long = pos[0]
-      unless Coordinate.new(@request.lat, @request.long).covered_by_juristiction?
+      unless (@coord = Coordinate.new(@request.lat, @request.long)).covered_by_juristiction?
         @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
         @modal_title_options = { count: 1 }
         return render :outside
