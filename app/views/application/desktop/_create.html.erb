@@ -4,7 +4,10 @@
   </div>
   <div class="row mb-3">
     <div class="col-12">
-      <%= t("#{ controller_name }.#{ context }.create.success") %> <%= t(:share_request) if options && options[:id] %>
+      <% if options -%>
+        <%= options.fetch :create_message, t("#{ controller_name }.#{ context }.create.success") %>
+        <%= t(:share_request) if options[:id] %>
+      <% end -%>
     </div>
     <% if options && options[:id] -%>
       <div class="col-12">

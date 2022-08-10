@@ -289,12 +289,11 @@ de:
           lat: Es konnte keine gültige Position ermittelt werden.
           long: Es konnte keine gültige Position ermittelt werden.
       success:
-        one: Neue Meldung erfolgreich abgesetzt
+        one: Neue Meldung erfolgreich angelegt
         other: "%{count} neue Meldungen wurden hinzugefügt."
     desktop: &requests
       create:
         error: Fehler bei neuer Meldung
-        success: Die Meldung wurde erfolgreich abgesetzt. Sie haben eine E-Mail erhalten, in der Sie Ihre Meldung noch einmal bestätigen müssen. Wenn Sie nicht innerhalb von 24 Stunden bestätigen, wird Ihre Meldung automatisch wieder gelöscht.
       start_request:
         new_request: Bitte klicken Sie auf eine Meldung in der Karte oder erstellen Sie eine neue Meldung.
         no_complex_requests: Keine komplexen städtebaulichen oder verkehrsplanerischen Sachverhalte!
