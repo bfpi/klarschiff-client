@@ -94,8 +94,8 @@ class KS.Map
       minZoom: <%= Settings::Map.zoom[:min] %>
 
     if region = KS.getUrlParam('region')
-      $.ajax(url: KS.areas_path + '&region=' + region + '&search_class=authority', dataType: 'json').done (response) ->
-        elem = response[0]
+      $.ajax(url: "#{KS.areas_path}&region=#{region}&search_class=authority", dataType: 'json').done (response) ->
+        return unless (elem = response[0])?
         format = new ol.format.WKT()
         grenze = format.readFeature(elem.grenze)
         mapView.fit grenze.getGeometry().transform(KS.projectionWGS84, KS.projection()).getExtent()
