@@ -85,16 +85,26 @@ class KS.Map
       $.ajax(url: target.data('url'), dataType: 'script')
     )
     KS.popupCloser = document.getElementById('popup-closer')
+
+    mapView = new ol.View
+      projection: @projection
+      center: <%= Settings::Map.center %>
+      zoom: <%= Settings::Map.zoom[:initial] %>
+      maxZoom: KS.maxZoom
+      minZoom: <%= Settings::Map.zoom[:min] %>
+
+    if region = KS.getUrlParam('region')
+      $.ajax(url: "#{KS.areas_path}&region=#{region}&search_class=authority", dataType: 'json').done (response) ->
+        return unless (elem = response[0])?
+        format = new ol.format.WKT()
+        grenze = format.readFeature(elem.grenze)
+        mapView.fit grenze.getGeometry().transform(KS.projectionWGS84, KS.projection()).getExtent()
+
     @olMap = new ol.Map
       target: 'ol-map'
       moveTolerance: 10
       controls: ol.control.defaults().extend([new KS.GeolocationControl, new KS.ViewSwitcherControl])
-      view: new ol.View
-        projection: @projection
-        center: <%= Settings::Map.center %>
-        zoom: <%= Settings::Map.zoom[:initial] %>
-        maxZoom: KS.maxZoom
-        minZoom: <%= Settings::Map.zoom[:min] %>
+      view: mapView
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
     KS.geolocation = new KS.Geolocation(@olMap)
