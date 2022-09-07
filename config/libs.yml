@@ -5,7 +5,7 @@ versions:
   textresizer: 1.1.0
 
 javascripts:
-  ol.js: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/build/ol.js
+  ol.js: https://raw.githubusercontent.com/openlayers/openlayers.github.io/main/dist/en/v<%= versions[:ol] %>/build/ol.js
   proj4js.js: https://cdnjs.cloudflare.com/ajax/libs/proj4js/<%= versions[:proj4] %>/proj4.js
   jquery.ui.touch-punch.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.js
   jquery.ui.touch-punch.min.js: https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js
@@ -19,6 +19,6 @@ javascripts:
   billboard.min.js: https://raw.githubusercontent.com/naver/billboard.js/1.2.0/dist/billboard.min.js
 
 stylesheets:
-  ol.css: https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v<%= versions[:ol] %>/css/ol.css
+  ol.css: https://raw.githubusercontent.com/openlayers/openlayers.github.io/main/dist/en/v<%= versions[:ol] %>/css/ol.css
   ol-ext.css: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.css
   ol-ext.min.css: https://cdn.jsdelivr.net/gh/Viglino/ol-ext@master/dist/ol-ext.min.css
