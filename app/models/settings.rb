@@ -14,7 +14,7 @@ class Settings
           end
           client = value
         else
-          value = (/email|abuses|votes|create_comment/ =~ name ? !client : client) if value.to_s.blank?
+          value = (/email|abuses|completions|votes|create_comment/ =~ name ? !client : client) if value.to_s.blank?
         end
       end
       m.define_singleton_method(name) { value }
