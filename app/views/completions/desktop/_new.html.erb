@@ -1,0 +1,38 @@
+<div id="new-completion" class="request-container">
+  <%= render partial: '/requests/desktop/request_header', locals: { label_photo_required: nil } %>
+  <%= render '/application/desktop/errors' %>
+  <%= form_for([:request, @completion], remote: true) do |f| %>
+    <div class="row">
+      <%= label_tag :completion, t('.title'), class: 'col-12 col-form-label' %>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <%= t('.hint.text') %>
+      </div>
+      <div class="col-12 div-margin-top">
+        <em class="text-danger"><%= t('.hint.warning_html') %></em>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12 div-margin-top">
+        <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
+      </div>
+    </div>
+    <% if display?(:privacy_policy) -%>
+      <%= render partial: 'privacy_policy_form', locals: { form: f } %>
+    <% else -%>
+      <div class="row mb-3">
+        <div class="col-12">
+          <%= t('.hint.privacy_html') %>
+        </div>
+      </div>
+    <% end -%>
+    <div class="row">
+      <div class="btn-group d-flex col-12 div-margin-top" role="group">
+        <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-light btn-outline-secondary col-6',
+                    role: :button) %>
+        <%= f.submit(t('buttons.save'), class: 'btn btn-primary col-6') %>
+      </div>
+    </div>
+  <% end -%>
+</div>
