@@ -35,7 +35,7 @@
               <% if (url = @request.media_url).present? -%>
                 <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid" />
               <% else -%>
-                <i>kein Foto vorhanden</i>
+                <i><%= t('.no_photo') %></i>
               <% end -%>
             </div>
             <% if @request.media_required? -%>

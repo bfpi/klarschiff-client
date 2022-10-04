@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '4', nxt: 'submit', current: '5', step: nil, text: 'Prüfung' } %>
+    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '4', nxt: 'submit', current: '5', step: nil, text: t('.check') } %>
   </div>
   <div id="form-page-submit" class="hidden-page">
     <div class="card">
@@ -88,6 +88,6 @@
         </div>
       </div>
     </div>
-    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '5', nxt: nil, current: 'submit', step: '(4/4)', text: 'Abschluss' } %>
+    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '5', nxt: nil, current: 'submit', step: '(4/4)', text: t('.close') } %>
   </div>
 <% end -%>
