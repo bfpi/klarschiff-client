@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module ClientConfig
   extend ActiveSupport::Concern
 
   included do
     helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?, :max_image_size
   end
-  
+
   def display?(par, req = nil)
     return display_completions?(req) if par == :completions
-    Settings::Client.send("show_#{ par }")
+    Settings::Client.send("show_#{par}")
   end
 
   def service_code

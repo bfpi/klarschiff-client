@@ -21,7 +21,7 @@ class Settings
     end
     const_set context.classify, m
   end
-  
+
   module Client
     class << self
       def method_missing(name, *args, &block)
