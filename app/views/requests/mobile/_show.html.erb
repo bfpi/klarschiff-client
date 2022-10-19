@@ -204,6 +204,10 @@
           </div>
         <% end -%>
         <div class="btn-group d-flex col-12" role="group">
+          <%= link_to(t('.actions.completion'), [:new, @request, :completion, id_list: @id_list, mobile: @mobile],
+                      options) if display?(:completions, @request) %>
+        </div>
+        <div class="btn-group d-flex col-12" role="group">
           <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list, mobile: @mobile],
                       options.merge(class: 'btn btn-light btn-outline-secondary col-6')) if display?(:create_comment) %>
           <% if display?(:d3_document_url) && @request.service.document_url.present? -%>

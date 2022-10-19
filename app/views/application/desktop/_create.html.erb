@@ -7,6 +7,8 @@
       <% if options -%>
         <%= options.fetch :create_message, t("#{ controller_name }.#{ context }.create.success") %>
         <%= t(:share_request) if options[:id] %>
+      <% else -%>
+        <%= t("#{ controller_name }.#{ context }.create.success") %>
       <% end -%>
     </div>
     <% if options && options[:id] -%>

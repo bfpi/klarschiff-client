@@ -20,6 +20,10 @@ class ConfirmationsController < ApplicationController
     confirm('photos', params[:confirmation_id])
   end
 
+  def completion
+    confirm('completions', params[:confirmation_id])
+  end
+
   private
 
   def confirm(action, confirmation_id)
