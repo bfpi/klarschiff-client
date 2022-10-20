@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '~> 3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 gem 'activeresource'
 # Use Puma as the app server
 gem 'puma', '~> 5.6'
