@@ -1,30 +1,24 @@
 class StaticsController < ApplicationController
   def api
-    @file_name = 'api'
   end
 
   def help
-    @file_name = 'hilfe'
-    render :api
+    render :hilfe
   end
 
   def imprint
-    @file_name = 'impressum'
-    render :api
+    render :impressum
   end
 
   def privacy
-    @file_name = 'datenschutz'
-    render :api
+    render :datenschutz
   end
 
   def promotion
-    @file_name = 'werbung'
-    render :api
+    render :werbung
   end
 
   def usage
-    @file_name = 'nutzungsbedingungen'
-    render :api
+    render :nutzungsbedingungen
   end
 end
