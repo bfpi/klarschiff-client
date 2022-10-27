@@ -1,3 +1,4 @@
+//= link logo.png
 //= link_tree ../images
 //= link_directory ../audios .mp3
 //= link_directory ../fonts .ttf

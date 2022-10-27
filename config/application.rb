@@ -43,9 +43,6 @@ module KlarschiffFieldService
     relative_url_root = settings.dig(:client, :relative_url_root)
     config.action_controller.relative_url_root = relative_url_root if relative_url_root.present?
 
-    config.assets.enabled = true
-    config.assets.paths.unshift Rails.root.join('overlay/assets/images')
-
     # Configuration for SMTP-Server
     smtp_settings = settings.dig(:protocol_mail, :smtp)
     config.action_mailer.smtp_settings = {
