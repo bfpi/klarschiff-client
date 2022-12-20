@@ -13,10 +13,12 @@ de:
   github: GitHub
   help: Hilfe
   imprint: Impressum
+  kod_protocol_from_user: 'KOD-Protokoll von %{user}'
   license: Lizenz
   list: Liste
   locate: Ortung
   mobile: mobil
+  not_assignable: nicht zuordenbar
   page_meta_description: "Melden Sie Probleme in der Infrastruktur der %{city_long}, die dann von der Stadtverwaltung bearbeitet werden."
   pagetitle: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
   pagetitle_mobile_client: "%{name} – Portal zur Bürgerbeteiligung der %{city_long}"
@@ -199,6 +201,19 @@ de:
         success_text: Ihre Lob, Ihre Hinweise oder Ihre Kritik wird dem entsprechenden Empfänger zugestellt.
       new:
         <<: *comments
+
+  confirmations:
+    confirm_error:
+      error_message: "Ihre Bestätigung konnte leider nicht akzeptiert werden.<br />Möglicherweise wurde die Bestätigung bereits durchgeführt."
+    confirm_success:
+      accepted: Ihre Bestätigung wurde akzeptiert.
+      get_to_issue: Hier gelangen Sie zur Meldung
+    error: Fehler
+    revoke_error:
+      error_message: Ihre Meldung konnte leider nicht gelöscht werden.
+    revoke_success:
+      issue_deleted: Ihre Meldung wurde gelöscht.
+
   completions:
     desktop: &completions
       create:
@@ -218,6 +233,7 @@ de:
       create:
         success: Abschlussmeldung erfolgreich abgesetzt
         error: Fehler bei Abschlussmeldung
+
   jobs:
     index:
       empty_result: Für heute liegen keine Aufträge vor.
@@ -373,10 +389,14 @@ de:
         confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
         confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
+        no_photo: kein Foto vorhanden
         votes_html: "Bisher <span class='request-votes'>%{votes}</span> Unterstützungen"
         votes_under_min_req_html: "Bisher <span class='request-votes under-min-req'>%{votes}</span> Unterstützungen"
         votes_min_req: "(%{min_req} nötig)"
         votes_hint_html: "<span class='glyphicon glyphicon-question-sign' rel='tooltip' title='Unterstützungen dienen nur als Indikator, ähnlich einer Umfrage. Die Prüfung auf Realisierbarkeit ist davon unabhängig und auch bei 20 Unterstützungen nicht garantiert!'></span>"
+    edit:
+      change: Ändern
+      current_location: auf aktuelle (GPS-)Position des Gerätes
     index:
       empty_result: Es liegen keine Meldungen vor.
       title: Meldungen
@@ -387,6 +407,9 @@ de:
       create:
         error: Fehler beim Anlegen der Meldung(en)
         success: Meldung(en) angelegt
+      request_form:
+        check: Prüfung
+        close: Abschluss
       update:
         error: Fehler beim Speichern der Änderungen
         success: Änderungen gespeichert

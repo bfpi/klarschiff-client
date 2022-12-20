@@ -66,8 +66,8 @@
               <%= f.text_field :long, readonly: true, class: 'form-control' %>
             </div>
             <div class="col-6">
-              <%= link_to 'Ändern', '#', class: 'btn btn-light btn-outline-secondary update-position', role: :button %>
-              auf aktuelle (GPS-)Position des Geräts
+              <%= link_to t('.change'), '#', class: 'btn btn-light btn-outline-secondary update-position', role: :button %>
+              <%= t('.current_location') %>
             </div>
           </div>
         </div>

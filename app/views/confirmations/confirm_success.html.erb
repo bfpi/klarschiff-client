@@ -7,8 +7,8 @@
   </h3>
 </div>
 
-<h2 class="text-center">Ihre Bestätigung wurde akzeptiert.</h2>
+<h2 class="text-center"><%= t('.accepted') %></h2>
 
 <div class="text-center">
-  Hier gelangen Sie zur Meldung: <span class="link"><%= link_to "##{@request.id}", [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id), data: { turbolinks: false } %></span>
+  <%= t('.get_to_issue') %>: <span class="link"><%= link_to "##{@request.id}", [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id), data: { turbolinks: false } %></span>
 </span>
