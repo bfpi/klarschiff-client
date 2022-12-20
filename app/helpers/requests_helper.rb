@@ -82,10 +82,10 @@ module RequestsHelper
         end
       end
       if street.blank?
-        street = t 'not_assignable'
+        street = t(:not_assignable)
       end
     else
-      street = t 'not_assignable'
+      street = t(:not_assignable)
     end
     request.service.document_url.
         gsub('{ks_id}', request.id.to_s).
