@@ -1,7 +1,8 @@
 class Service < ActiveResource::Base
   include ResourceClient
+
   self.set_server_connection :city_sdk
-  
+
   cattr_reader :collection, instance_reader: false do
     Service.all.to_a
   end

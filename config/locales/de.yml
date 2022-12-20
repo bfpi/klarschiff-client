@@ -214,6 +214,26 @@ de:
     revoke_success:
       issue_deleted: Ihre Meldung wurde gelöscht.
 
+  completions:
+    desktop: &completions
+      create:
+        error: Fehler bei Abschlussmeldung
+        success: Die Abschlussmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Abschlussmeldung noch einmal bestätigen müssen.
+      new:
+        title: Abschluss
+        hint:
+          text: >
+            Hier können Sie die vorliegende Meldung als abgeschlossen melden, wenn der Gegenstand der Meldung
+            bereits abgearbeitet ist (z.B. gemeldeter Sperrmüllhaufen beseitigt, defekte Straßenbeleuchtung repariert).
+          warning: 'Achtung: Die Stadtverwaltung stellt den Zustand der Meldung vor Ihrer Abschlussmeldung wieder her,
+            falls diese nicht der Realität entspricht.'
+          privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
+    mobile:
+      <<: *completions
+      create:
+        success: Abschlussmeldung erfolgreich abgesetzt
+        error: Fehler bei Abschlussmeldung
+
   jobs:
     index:
       empty_result: Für heute liegen keine Aufträge vor.
@@ -356,6 +376,7 @@ de:
         actions:
           abuse: Missbrauch
           comment: Lob, Hinweise oder Kritik
+          completion: Abschluss
           edit: Meldung bearbeiten
           kod: KOD-Protokoll
           list: zurück zur Liste

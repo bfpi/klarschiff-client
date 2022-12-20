@@ -32,6 +32,7 @@ development: &default
     show_edit_status:
     show_protocol:
     show_notes:
+    show_completions:
     show_trust:
     show_d3_document_url:
     show_status_updates_for_supporter:

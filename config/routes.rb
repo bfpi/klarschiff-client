@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :requests do
     resources :abuses, only: [:new, :create]
     resources :comments, only: [:index, :new, :create]
+    resources :completions, only: %i[new create]
     resources :notes, only: [:index, :new, :create]
     resources :photos, only: [:create]
     resources :protocols, only: [:new, :create]
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   resources :confirmations, only: [] do
     with_options only: [] do
       get :abuse
+      get :completion
       get :issue
       get :photo
       get :revoke_issue
