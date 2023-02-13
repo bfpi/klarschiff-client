@@ -61,7 +61,7 @@ $ ->
         coordinates = []
         if feature
           feature.getGeometry().getCoordinates()[0][0].forEach (coord) ->
-            coordinates[coordinates.length] = coord.toString().replace(/,/g, ' ')
+            coordinates[coordinates.length] = ol.proj.transform(coord, KS.projection(), KS.projectionWGS84).toString().replace(/,/g, ' ')
           geom_as_wkt = 'MULTIPOLYGON(((' + coordinates.join(',') + ')))'
           input = ($('<input>').attr({ 'type': 'hidden', 'name': 'geometry' }).val(geom_as_wkt))
           $('#areas-form').append(input)

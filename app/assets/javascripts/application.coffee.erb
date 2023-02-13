@@ -152,7 +152,7 @@ $ ->
     false
 
   $(document).on 'click', '#btn-start, .btn-start', () ->
-    $('#requests.header-tab').trigger('click')
+    $('#requests.header-tab')[0].click()
     false
 
   $(document).on 'click', '.btn-continue', () ->
