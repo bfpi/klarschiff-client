@@ -40,10 +40,10 @@ module RequestsHelper
   end
 
   def services(category = nil, current = nil)
-   services = Service.collection.select { |s| s.group == category }.map { |s|
+    services = Service.collection.select { |s| s.group == category }.map { |s|
       [s.service_name, s.service_code]
     }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder]
-   options_for_select services, current
+    options_for_select services, current
   end
 
   def service
