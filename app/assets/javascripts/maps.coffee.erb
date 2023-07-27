@@ -92,6 +92,7 @@ class KS.Map
       zoom: <%= Settings::Map.zoom[:initial] %>
       maxZoom: KS.maxZoom
       minZoom: <%= Settings::Map.zoom[:min] %>
+      enableRotation: false
 
     if region = KS.getUrlParam('region')
       $.ajax(url: "#{KS.areas_path}&region=#{region}&search_class=authority", dataType: 'json').done (response) ->
@@ -181,6 +182,7 @@ class KS.MiniMap
         projection: @projection
         center: coords
         zoom: 12
+        enableRotation: false
     @olMiniMap.getInteractions().forEach (interaction) ->
       interaction.setActive false
     KS.miniMapLayers = new KS.Layers(@olMiniMap, false)
