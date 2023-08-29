@@ -1,3 +1,6 @@
+
+require 'open-uri'
+
 class PlacesController < ApplicationController
   def index
     unless (@pattern = params[:pattern]).nil?
@@ -17,7 +20,7 @@ class PlacesController < ApplicationController
         end
       end
 
-      uri = URI(Settings::AddressSearch.url)
+      uri = URI.parse(Settings::AddressSearch.url)
       if !(localisator = Settings::AddressSearch.localisator).blank?
         query = Settings::AddressSearch.localisator + ' ' + @pattern
       else
@@ -29,10 +32,14 @@ class PlacesController < ApplicationController
       if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
         uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
       end
-      if (res = uri.open(uri_options)) && res.status.include?('OK')
-        Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
-          @places << Place.new(p)
+      begin
+        if (res = uri.open(uri_options)) && res.status.include?('OK')
+          Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
+            @places << Place.new(p)
+          end
         end
+      rescue OpenURI::HTTPError => error
+        Rails.logger.error "Geocodr Error: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
       end
     end
 
