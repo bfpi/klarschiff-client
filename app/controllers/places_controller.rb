@@ -38,8 +38,9 @@ class PlacesController < ApplicationController
             @places << Place.new(p)
           end
         end
-      rescue OpenURI::HTTPError => error
-        Rails.logger.error "Geocodr Error: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
+      rescue OpenURI::HTTPError
+        Rails.logger.error "Geocodr Error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
+        Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
       end
     end
 
