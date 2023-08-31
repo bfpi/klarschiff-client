@@ -37,7 +37,7 @@ KS.GeolocationControl = () ->
   elem.className = 'geolocation ol-unselectable ol-control'
   elem.appendChild(btn)
 
-  ol.control.Control.call this,
+  new ol.control.Control
     element: elem
     target: {}.target
 
@@ -69,7 +69,7 @@ KS.ViewSwitcherControl = () ->
   elem.className = 'view-switcher ol-control'
   elem.appendChild(btn)
 
-  ol.control.Control.call this,
+  new ol.control.Control
     element: elem
     target: {}.target
 ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
@@ -104,7 +104,7 @@ class KS.Map
     @olMap = new ol.Map
       target: 'ol-map'
       moveTolerance: 10
-      controls: ol.control.defaults().extend([new KS.GeolocationControl, new KS.ViewSwitcherControl])
+      controls: ol.control.defaults.defaults().extend([new KS.GeolocationControl, new KS.ViewSwitcherControl])
       view: mapView
     KS.layers = new KS.Layers(@olMap)
     addControls(@olMap)
