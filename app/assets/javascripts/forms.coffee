@@ -65,7 +65,9 @@ $ ->
           geom_as_wkt = 'MULTIPOLYGON(((' + coordinates.join(',') + ')))'
           input = ($('<input>').attr({ 'type': 'hidden', 'name': 'geometry' }).val(geom_as_wkt))
           $('#areas-form').append(input)
-    $('#areas-form').ajaxSubmit dataType: 'script'
+    $('#areas-form').ajaxSubmit
+      dataType: 'script',
+      data: $('#areas-form').find(':input')
     false
 
   KS.content().on 'change', '#new-photo input[type=file]', ->
