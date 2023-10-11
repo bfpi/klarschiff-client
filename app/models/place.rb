@@ -8,6 +8,7 @@ class Place
   end
 
   private
+  
   def label(properties)
     title = properties['_title_']
     title_without_community = title.split(', ')[-1]
