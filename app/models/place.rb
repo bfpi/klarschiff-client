@@ -18,7 +18,7 @@ class Place
     when 'Gemeindeteil'
       title_without_community
     else
-      properties['abkuerzung'].blank? ? title_without_community : title_without_community + ' (' + properties['abkuerzung'] + ')'
+      properties['abkuerzung'].blank? ? title_without_community : "#{title_without_community} (#{properties['abkuerzung']})"
     end
   end
 
