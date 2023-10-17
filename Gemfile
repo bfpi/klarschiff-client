@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 3.1.2'
 
@@ -16,7 +17,7 @@ gem 'coffee-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', github: 'jquery-ui-rails/jquery-ui-rails', tag: 'v7.0.0'
 gem 'jquery-form-rails'
 gem 'bootstrap', '~> 5.1.3' # CSS variable usage in v5.2.x is incomplete until Bootstrap 6
 
@@ -36,10 +37,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'device_detector'
 
 gem 'bootsnap', '>= 1.1.0', require: false
-
-gem 'net-imap', require: false # drop after gem mail >= v2.8.0
-gem 'net-pop', require: false # drop after gem mail >= v2.8.0
-gem 'net-smtp', require: false # drop after gem mail >= v2.8.0
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
