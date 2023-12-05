@@ -82,7 +82,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    autoprefixer-rails (10.4.15.0)
+    autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -104,7 +104,7 @@ GEM
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.4)
-    device_detector (1.1.1)
+    device_detector (1.1.2)
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.16.3)
@@ -139,7 +139,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
-    net-imap (0.4.5)
+    net-imap (0.4.7)
       date
       net-protocol
     net-ldap (0.18.0)
@@ -149,8 +149,8 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
-    nokogiri (1.15.4-x86_64-linux)
+    nio4r (2.7.0)
+    nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     oj (3.16.1)
     oj_mimic_json (1.0.1)
@@ -209,7 +209,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    spring (4.1.1)
+    spring (4.1.3)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
