@@ -15,9 +15,9 @@ class VotesController < ApplicationController
   def create
     vote = Vote.create(
       params.require(:vote).permit(:author).merge(
-        service_request_id: params[:request_id], privacy_policy_accepted: params[:vote][:privacy_policy_accepted].present?,
+        service_request_id: params[:request_id],
         status_updates_for_supporter: params[:vote][:status_updates_for_supporter].present?
-      )
+      ).merge(privacy_policy_params)
     )
     @redirect = request_path(params[:request_id], id_list: params[:vote][:id_list], mobile: @mobile).html_safe
     @errors = vote.errors unless vote.persisted?
