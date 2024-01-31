@@ -41,7 +41,7 @@ module KlarschiffFieldService
     }.with_indifferent_access.dig(Rails.env)
 
     relative_url_root = settings.dig(:client, :relative_url_root)
-    config.action_controller.relative_url_root = relative_url_root if relative_url_root.present?
+    config.relative_url_root = relative_url_root if relative_url_root.present?
 
     # Configuration for SMTP-Server
     smtp_settings = settings.dig(:protocol_mail, :smtp)
