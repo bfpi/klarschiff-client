@@ -315,11 +315,11 @@ d3@^7.8.5:
     d3-zoom "3"
 
 delaunator@5:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-5.0.0.tgz#60f052b28bd91c9b4566850ebf7756efe821d81b"
-  integrity sha512-AyLvtyJdbv/U1GkiS6gUUzclRoAY4Gs75qkMygJJhU75LW4DNuSF2RMzpxs9jw9Oz1BobHjTdkG3zdP55VxAqw==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-5.0.1.tgz#39032b08053923e924d6094fe2cde1a99cc51278"
+  integrity sha512-8nvh+XBe96aCESrGOqMp/84b13H9cdKbG5P2ejQCh4d4sK9RL4371qou9drQjMhvnPmhWl5hnmqbEE0fXr9Xnw==
   dependencies:
-    robust-predicates "^3.0.0"
+    robust-predicates "^3.0.2"
 
 earcut@^2.2.3:
   version "2.2.4"
@@ -327,9 +327,9 @@ earcut@^2.2.3:
   integrity sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==
 
 geotiff@^2.0.7:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/geotiff/-/geotiff-2.1.1.tgz#98667a2e35436d89f180e94ddb882247ffeb6d78"
-  integrity sha512-Ss6HQEhrlR2v0FmOGq88l0wa2oCmmGi6rXAMiUxR/T7Xe98evypEmyiji7lvVeVR/AXuxK0xDCWcwfWkSmOrAA==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/geotiff/-/geotiff-2.1.2.tgz#5d58555512a7950ae9a8496562c67c285e301318"
+  integrity sha512-xw7Cd6HXukUdfFSe5QCSjdhebTCGkk87x7fKURqQPFKT+TijCCwKvoksL7T3+B6mJWZSB7muTJlwVIQsLtbkMA==
   dependencies:
     "@petamoriken/float16" "^3.4.7"
     lerc "^3.0.0"
@@ -373,9 +373,9 @@ mgrs@1.0.0:
   integrity sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==
 
 ol-ext@^4.0.11:
-  version "4.0.13"
-  resolved "https://registry.yarnpkg.com/ol-ext/-/ol-ext-4.0.13.tgz#977d20a3d5f40f39ca10b34ca2c8411ef9032c31"
-  integrity sha512-eNUKmPXBp7pOI8lE/qhv+oIbCwFyrqW4gGcILxTlvjhICKyaNkcmXGm3lOvHd2PnsKBtbjwg2knHiJKpEQNDtg==
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/ol-ext/-/ol-ext-4.0.14.tgz#12389a2131356be2daa4324f83480f67c8b76df1"
+  integrity sha512-ooTz4D2eXrZ5EdAQZvG0zXh4Jc0cEQDQVTcVu0MdoOpswq550NQbLuA8jRILWesWbpNh/7AnntnLPqmoizI2uA==
 
 ol@^8.1.0:
   version "8.2.0"
@@ -408,9 +408,9 @@ pbf@3.2.1:
     resolve-protobuf-schema "^2.1.0"
 
 proj4@^2.9.0:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.9.2.tgz#5f6fe8c2db0f7f9a265546991adcd7b00961ef2e"
-  integrity sha512-bdyfNmtlWjQN/rHEHEiqFvpTUHhuzDaeQ6Uu1G4sPGqk+Xkxae6ahh865fClJokSGPBmlDOQWWaO6465TCfv5Q==
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.10.0.tgz#f6f5391b0f1b1fa4518d9ead150ea6b66e7ce9de"
+  integrity sha512-0eyB8h1PDoWxucnq88/EZqt7UZlvjhcfbXCcINpE7hqRN0iRPWE/4mXINGulNa/FAvK+Ie7F+l2OxH/0uKV36A==
   dependencies:
     mgrs "1.0.0"
     wkt-parser "^1.3.3"
@@ -444,7 +444,7 @@ resolve-protobuf-schema@^2.1.0:
   dependencies:
     protocol-buffers-schema "^3.3.1"
 
-robust-predicates@^3.0.0:
+robust-predicates@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/robust-predicates/-/robust-predicates-3.0.2.tgz#d5b28528c4824d20fc48df1928d41d9efa1ad771"
   integrity sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==
