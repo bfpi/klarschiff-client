@@ -7,12 +7,12 @@
   resolved "https://registry.yarnpkg.com/@petamoriken/float16/-/float16-3.8.4.tgz#cd3c02a7fe39f10ae3dd24ed33bd082053aadd66"
   integrity sha512-kB+NJ5Br56ZhElKsf0pM7/PQfrDdDVMRz8f0JM6eVOGE+L89z9hwcst9QvWBBnazzuqGTGtPsJNZoQ1JdNiGSQ==
 
-"@types/d3-selection@*", "@types/d3-selection@^3.0.9":
+"@types/d3-selection@*", "@types/d3-selection@^3.0.0":
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/@types/d3-selection/-/d3-selection-3.0.10.tgz#98cdcf986d0986de6912b5892e7c015a95ca27fe"
   integrity sha512-cuHoUgS/V3hLdjJOLTT691+G2QoqAjCVLmr4kJXR4ha56w1Zdu8UUQ5TxLRqudgNjwXeQxKMq4j+lyf9sWuslg==
 
-"@types/d3-transition@^3.0.7":
+"@types/d3-transition@^3.0.0":
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/@types/d3-transition/-/d3-transition-3.0.8.tgz#677707f5eed5b24c66a1918cde05963021351a8f"
   integrity sha512-ew63aJfQ/ms7QQ4X7pk5NxQ9fZH/z+i24ZfJ6tJSfqxJMrYLiK01EAs2/Rtw/JreGUsS3pLPNV644qXFGnoZNQ==
@@ -20,12 +20,12 @@
     "@types/d3-selection" "*"
 
 billboard.js@^3.9.4:
-  version "3.10.3"
-  resolved "https://registry.yarnpkg.com/billboard.js/-/billboard.js-3.10.3.tgz#e328d59f7f4cf495bbbfd43d4da1d798e63643bd"
-  integrity sha512-GtexPEGbN4gkcxKL6/9iU2VK5YBaUUdJ1wcG7eJEtihJMx/LWrAxqKCd2H0Kfrypc557yhs14SFsfhr9xD1BWA==
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/billboard.js/-/billboard.js-3.11.2.tgz#d619be53e26a097863c00905b1e59cbcba599686"
+  integrity sha512-EjrQypnOUP6+D92SSRzj8f54p7cU6rNTfnmmA7vkk0A0IyUuSLk77FCZkSQxBTW3lBad9G/2kQz9erUiSad+yA==
   dependencies:
-    "@types/d3-selection" "^3.0.9"
-    "@types/d3-transition" "^3.0.7"
+    "@types/d3-selection" "^3.0.0"
+    "@types/d3-transition" "^3.0.0"
     d3-axis "^3.0.0"
     d3-brush "^3.0.0"
     d3-drag "^3.0.0"
@@ -327,9 +327,9 @@ earcut@^2.2.3:
   integrity sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==
 
 geotiff@^2.0.7:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/geotiff/-/geotiff-2.1.2.tgz#5d58555512a7950ae9a8496562c67c285e301318"
-  integrity sha512-xw7Cd6HXukUdfFSe5QCSjdhebTCGkk87x7fKURqQPFKT+TijCCwKvoksL7T3+B6mJWZSB7muTJlwVIQsLtbkMA==
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/geotiff/-/geotiff-2.1.3.tgz#993f40f2aa6aa65fb1e0451d86dd22ca8e66910c"
+  integrity sha512-PT6uoF5a1+kbC3tHmZSUsLHBp2QJlHasxxxxPW47QIY1VBKpFB+FcDvX+MxER6UzgLQZ0xDzJ9s48B9JbOCTqA==
   dependencies:
     "@petamoriken/float16" "^3.4.7"
     lerc "^3.0.0"
@@ -373,9 +373,9 @@ mgrs@1.0.0:
   integrity sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==
 
 ol-ext@^4.0.11:
-  version "4.0.14"
-  resolved "https://registry.yarnpkg.com/ol-ext/-/ol-ext-4.0.14.tgz#12389a2131356be2daa4324f83480f67c8b76df1"
-  integrity sha512-ooTz4D2eXrZ5EdAQZvG0zXh4Jc0cEQDQVTcVu0MdoOpswq550NQbLuA8jRILWesWbpNh/7AnntnLPqmoizI2uA==
+  version "4.0.15"
+  resolved "https://registry.yarnpkg.com/ol-ext/-/ol-ext-4.0.15.tgz#309323f98b6f98c7b10a29ca3736869889205bf3"
+  integrity sha512-mL43OVkLRtGPt9YdVjPIhiIbKA2mLocYuA4s6V+2TL15WrdoWMuirMfpH4NpES6yMQcxXHySmGFatWVrUZpMxg==
 
 ol@^8.1.0:
   version "8.2.0"
