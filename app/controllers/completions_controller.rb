@@ -25,8 +25,7 @@ class CompletionsController < ApplicationController
   def permitted_completion_params
     params.require(:completion).permit(:author, :comment).merge(
       service_request_id: params[:request_id],
-      privacy_policy_accepted: params[:completion][:privacy_policy_accepted].present?
-    )
+    ).merge(privacy_policy_params)
   end
 
   def set_redirect_path

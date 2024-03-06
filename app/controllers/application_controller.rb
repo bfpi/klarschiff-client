@@ -40,6 +40,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def privacy_policy_params(model_name = controller_name.singularize.to_sym)
+    { privacy_policy_accepted: params[model_name][:privacy_policy_accepted].present? || login_required? }
+  end
+
   def mobile_detected?
     client = DeviceDetector.new(request.user_agent)
     if client.known? && client.device_type != 'desktop'

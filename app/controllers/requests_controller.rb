@@ -151,7 +151,7 @@ class RequestsController < ApplicationController
             Request.connection.post(
               Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email),
               Request.format.encode(
-                payload.merge(service_code: service_code, privacy_policy_accepted: params[:request][:privacy_policy_accepted].present?)
+                payload.merge(service_code: service_code).merge(privacy_policy_params)
               )
             )
           rescue ActiveResource::ResourceInvalid => e

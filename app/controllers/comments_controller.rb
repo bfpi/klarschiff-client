@@ -14,8 +14,7 @@ class CommentsController < ApplicationController
     comment = Comment.create(
       params.require(:comment).permit(:author, :comment).merge(
         api_key: Comment.api_key, service_request_id: params[:request_id],
-        privacy_policy_accepted: params[:comment][:privacy_policy_accepted].present?
-      )
+      ).merge(privacy_policy_params)
     )
     if comment.persisted?
       @redirect = request_path(params[:request_id], id_list: params[:comment][:id_list], mobile: @mobile).html_safe
