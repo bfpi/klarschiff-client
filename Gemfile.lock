@@ -166,7 +166,7 @@ GEM
       timeout
     net-smtp (0.4.0.1)
       net-protocol
-    nio4r (2.7.0)
+    nio4r (2.7.3)
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     oj (3.16.3)
@@ -175,7 +175,7 @@ GEM
     popper_js (2.11.8)
     psych (5.1.2)
       stringio
-    puma (6.4.2)
+    puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.8.0)
     rack (3.0.11)
@@ -287,7 +287,7 @@ DEPENDENCIES
   net-ldap
   oj
   oj_mimic_json
-  puma (~> 6.0)
+  puma (~> 6.4)
   rails (~> 7.1.0)
   rails-i18n
   responders
