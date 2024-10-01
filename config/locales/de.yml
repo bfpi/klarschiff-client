@@ -440,6 +440,7 @@ de:
     mobile:
       <<: *starts_show
       intro: Probleme und Ideen zu Ihrem lokalen Umfeld mitteilen und online die Bearbeitung verfolgen
+      hints: Keine Notfälle melden – stattdessen Notrufnummer 112 anrufen! Keine Havariemeldungen und andere Eilmeldungen einreichen – stattdessen Feuerwehr oder Polizei verständigen!
       button: Meldungen erstellen oder ansehen…
 
   votes:
