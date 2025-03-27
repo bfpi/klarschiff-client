@@ -53,4 +53,12 @@ public/static/
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Yarn an NPM related stuff
 /node_modules
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
