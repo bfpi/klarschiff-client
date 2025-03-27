@@ -354,7 +354,7 @@ class KS.Layers
               origin: layer.tilegrid_origin
               resolutions: layer.resolutions
               matrixIds: layer.matrix_ids
-            attributions: if layer.attribution? then 'layer.attribution' else null
+            attributions: if layer.attribution? then layer.attribution else null
           visible: layer.visible
     for layer in <%= Settings::Map.wms_layers.to_json %>
       do (layer, @layers) ->
