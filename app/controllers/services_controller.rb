@@ -3,7 +3,7 @@ class ServicesController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Service.where(lat: params[:lat], long: params[:long], group: params[:category], keywords: params[:type])
+    respond_with Service.where(params.permit(:lat, :long).merge(group: params[:category], keywords: params[:type]))
   rescue ActionController::UnknownFormat
     head :not_acceptable
   end
