@@ -17,7 +17,7 @@ gem 'coffee-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails-dox-fork', require: 'jquery-ui-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-form-rails'
 gem 'bootstrap', '~> 5.1.3' # CSS variable usage in v5.2.x is incomplete until Bootstrap 6
 
