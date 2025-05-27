@@ -1,0 +1,6 @@
+---
+:concurrency: 3
+:queues:  # queues are processed in following order, default queue will be processed only when the cron queue is empty
+  - cron
+  - default
+...
