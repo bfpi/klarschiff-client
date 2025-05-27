@@ -1,0 +1,23 @@
+services:
+  client:
+    container_name: klarschiff-client
+    image: klarschiff/client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      RAILS_ENV: ${RAILS_ENV:-production}
+      RAILS_RELATIVE_URL_ROOT: ${RAILS_RELATIVE_URL_ROOT:-/}
+      RAILS_SERVE_STATIC_FILES: true
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-$(pwgen 64 1)}
+      TZ: Europe/Berlin
+    ports:
+      - 3000:3000
+    #restart: always
+    volumes:
+      - ./log:/rails/log
+
+networks:
+  default:
+    name: klarschiff
+    external: true
