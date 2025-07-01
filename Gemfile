@@ -44,6 +44,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+gem 'sidekiq-cron'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

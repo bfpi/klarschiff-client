@@ -1,7 +1,12 @@
 services:
+  cache:
+    image: valkey/valkey:alpine
+    container_name: klarschiff-cache
+    restart: always
+
   client:
     container_name: klarschiff-client
-    image: klarschiff/client
+    image: ghcr.io/bfpi/klarschiff/client:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,7 +18,25 @@ services:
       TZ: Europe/Berlin
     ports:
       - 3000:3000
-    #restart: always
+    restart: always
+    volumes:
+      - ./log:/rails/log
+
+  client_jobs:
+    container_name: klarschiff-client-jobs
+    image: ghcr.io/bfpi/klarschiff/client:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bundle exec sidekiq
+    environment:
+      CACHE_URL: redis://cache:6379
+      RAILS_ENV: ${RAILS_ENV:-production}
+      RAILS_RELATIVE_URL_ROOT: ${RAILS_RELATIVE_URL_ROOT:-/}
+      RAILS_SERVE_STATIC_FILES: true
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-$(pwgen 64 1)}
+      TZ: Europe/Berlin
+    restart: always
     volumes:
       - ./log:/rails/log
 
