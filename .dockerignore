@@ -15,6 +15,7 @@
 .stylelintignore
 .stylelintrc.json
 Dockerfile
+bin/deploy
 coffeelint.json
 doc
 docker-compose.yml
