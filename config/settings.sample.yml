@@ -1,6 +1,6 @@
 development: &default
   urls:
-    ks_server_url: http://localhost:3000
+    ks_server_url: <%= ENV.fetch('KS_SERVER_URL', 'http://localhost:3000') %>
     ks_backend_vorgang_url: https://klarschiff.de/backend/vorgang/%s
     ks_demo_url: https://klarschiff.de
     ks_github_url: https://github.com/bfpi/klarschiff-field_service
