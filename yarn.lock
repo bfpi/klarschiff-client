@@ -12,19 +12,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/d3-selection@npm:*, @types/d3-selection@npm:^3.0.0":
+"@types/d3-selection@npm:*":
   version: 3.0.10
   resolution: "@types/d3-selection@npm:3.0.10"
   checksum: 10/a62227d59fdd2debda326ca58613af64f8a5819f68b94aecb6b990616f5889a6d3d12816521bcd0c5c44df5d81654c558ba49a4570a766c6460bf2a765bdb10b
   languageName: node
   linkType: hard
 
-"@types/d3-transition@npm:^3.0.0":
-  version: 3.0.8
-  resolution: "@types/d3-transition@npm:3.0.8"
+"@types/d3-selection@npm:^3.0.11":
+  version: 3.0.11
+  resolution: "@types/d3-selection@npm:3.0.11"
+  checksum: 10/2d2d993b9e9553d066566cb22916c632e5911090db99e247bd8c32855a344e6b7c25b674f3c27956c367a6b3b1214b09931ce854788c3be2072003e01f2c75d7
+  languageName: node
+  linkType: hard
+
+"@types/d3-transition@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@types/d3-transition@npm:3.0.9"
   dependencies:
     "@types/d3-selection": "npm:*"
-  checksum: 10/6b4d4062486857036263de499f3cde861935e11784e9f7b834254625d87655376e03eec61bca204fd5fde29434722d1633bb12c8654bcf62632fe126b3ac90ce
+  checksum: 10/dad647c485440f176117e8a45f31aee9427d8d4dfa174eaa2f01e702641db53ad0f752a144b20987c7189723c4f0afe0bf0f16d95b2a91aa28937eee4339c161
   languageName: node
   linkType: hard
 
@@ -35,12 +42,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"billboard.js@npm:^3.9.4":
-  version: 3.11.2
-  resolution: "billboard.js@npm:3.11.2"
+"billboard.js@npm:^3.15.1":
+  version: 3.16.0
+  resolution: "billboard.js@npm:3.16.0"
   dependencies:
-    "@types/d3-selection": "npm:^3.0.0"
-    "@types/d3-transition": "npm:^3.0.0"
+    "@types/d3-selection": "npm:^3.0.11"
+    "@types/d3-transition": "npm:^3.0.9"
     d3-axis: "npm:^3.0.0"
     d3-brush: "npm:^3.0.0"
     d3-drag: "npm:^3.0.0"
@@ -54,7 +61,7 @@ __metadata:
     d3-time-format: "npm:^4.1.0"
     d3-transition: "npm:^3.0.1"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/0ab3c72c900fbfd5de60f250eb01352f39e4c3751dc73be6b859e7a4a08116f6fe55fc1b6da630bfbe08cf888f7d2868436f1a9f9a895f003e733e3e01ee086f
+  checksum: 10/8c5ef517a7841188c58d12477cd9869f59d9743d01fd799e7bae9f2708aa3893dfcf29f83df135f2bcda05014f9ecf135f4695d0ad319b4d92480b21d6b091e8
   languageName: node
   linkType: hard
 
@@ -475,7 +482,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "klarschiff-client@workspace:."
   dependencies:
-    billboard.js: "npm:^3.9.4"
+    billboard.js: "npm:^3.15.1"
     d3: "npm:^7.8.5"
     jquery-ui-touch-punch: "npm:^0.2.3"
     ol: "npm:^10.3.0"
