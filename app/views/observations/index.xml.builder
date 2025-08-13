@@ -7,7 +7,7 @@ xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss':
     xml.description t(".feed_description#{ '_observation' if @key.present? }", name: Settings::Client.name, city_long: Settings::Client.city_long)
     xml.language 'de-de'
     @requests.each do |r|
-      xml.item do 
+      xml.item do
         xml.title "##{r.id} #{ t(r.service.type, scope: 'service.types', count: 1) } (#{ r.service.group } – #{ r.service })"
         xml.description do
           html_cont = <<-HTML

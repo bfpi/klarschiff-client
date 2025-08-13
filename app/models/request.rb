@@ -89,8 +89,9 @@ class Request < ActiveResource::Base
   end
 
   private
+
   def icon
-    "png/#{ attributes[:type] || service.type }-#{ icon_color }" if service
+    "png/#{attributes[:type] || service&.type || :blank}-#{icon_color}"
   end
 
   def icon_color
