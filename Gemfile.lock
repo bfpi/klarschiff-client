@@ -257,11 +257,11 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     useragent (0.16.11)
-    web-console (3.7.0)
-      actionview (>= 5.0)
-      activemodel (>= 5.0)
+    web-console (4.2.1)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
-      railties (>= 5.0)
+      railties (>= 6.0.0)
     websocket-driver (0.7.7)
       base64
       websocket-extensions (>= 0.1.0)
@@ -295,7 +295,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   spring
   turbolinks (~> 5)
-  web-console (~> 3.0)
+  web-console
 
 RUBY VERSION
    ruby 3.2.2p53
