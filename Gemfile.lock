@@ -295,7 +295,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   spring
   turbolinks (~> 5)
-  web-console (~> 3.0)
+  web-console
 
 RUBY VERSION
    ruby 3.2.2p53
