@@ -42,3 +42,6 @@ Rails.application.routes.draw do
   end
   resources :statistics, only: :index
 end
+
+overlay = Rails.root.join('overlay/config/routes.rb')
+require overlay if File.exist?(overlay)
