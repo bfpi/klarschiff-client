@@ -16,6 +16,7 @@ development: &default
     key: hro
     login_required: true
     multi_requests_enabled: true
+    skip_extra_homepage: false
     name: Klarschiff
     city_long: Demostadt
     city_short: Demo
