@@ -32,6 +32,8 @@ development: &default
     new_icon_anchor_y: 50
     service_type_idea: true
     service_type_problem: true
+    skip_type_selection: false
+    default_type:
     show_social_icons: true
     show_email:
     show_abuses:
@@ -48,6 +50,7 @@ development: &default
     show_status_updates_for_supporter:
     additional_content: false
     start_date: 28.03.2012
+    supported_file_types: image/png,image/jpeg
     max_image_size: 5242880
     show_privacy_policy: false
 
@@ -60,10 +63,19 @@ development: &default
       format: :json
       api_key: 1234567890abcdefghijklmnopqrstuv
 
-  address_search:
-    url: https://geo.sv.rostock.de/geocodr/query?
+  geocodr:
+    address_object_group: Adresse HRO
+    address_search_class: address_hro
     api_key: 1234567890abcdefghijklmnopqrstuv
-    localisator: rostock
+    localisator: rostock # darf leer sein
+    parcel_object_group: Flurstück
+    parcel_search_class: parcel
+    places_object_group: Adresse
+    places_search_class: address
+    property_owner_object_group: Flurstückseigentümer
+    property_owner_search_class: property_owner
+    proxy:
+    url: https://geo.sv.rostock.de/geocodr/query?
     search_request_id_enabled: true
 
   protocol_mail:
@@ -77,6 +89,8 @@ development: &default
 
   map:
     show_trust: true
+    overlap_layers: false
+    scale_bar: false
     default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
     center: [308555, 6000550]
     mv_bbox_25833: [206885, 5890624, 460857, 6060841]

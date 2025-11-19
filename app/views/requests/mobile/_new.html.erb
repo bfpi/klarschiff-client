@@ -16,10 +16,12 @@
               <%= radio_button :request, :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
                 t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
             </div>
-            <div class="col-12 div-margin-top">
-              <%= radio_button :request, :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
-                t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
-            </div>
+            <% if Settings::Client.service_type_idea %>
+              <div class="col-12 div-margin-top">
+                <%= radio_button :request, :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
+                  t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
+              </div>
+            <% end -%>
             <% if login_required? -%>
               <div class="col-12 div-margin-top">
                 <%= radio_button :request, :type, 'tip', class: 'radio-type' %> <%= label_tag :request_type_tip,
@@ -88,7 +90,7 @@
             <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
             <% unless login_required? -%><div class="col-12"><%= t('.photo_hint') %></div><% end -%>
             <div class="col-12">
-              <%= file_field(:request, :media, multiple: false, accept: 'image/png,image/jpeg') %>
+              <%= file_field(:request, :media, multiple: false, accept: Settings::Client.supported_file_types) %>
             </div>
           </div>
           <% unless login_required? -%>

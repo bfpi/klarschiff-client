@@ -16,44 +16,46 @@
     </div>
   </div>
 </div>
-<div id="form-page-2" class="hidden-page">
-  <div class="row">
-    <%= label_tag :step, t('.step_two'), class: 'col-form-label col-12' %>
-  </div> 
-  <div class="row mb-3 radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
-    <%= label_tag :what, t('.what'), class: 'col-12 col-form-label' %>
-    <div class="col-12"><%= t('.problem_or_idea') %></div>
-    <div class="col-6 div-margin-top">
-      <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
-        t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
+<% unless Settings::Client.skip_type_selection %>
+  <div id="form-page-2" class="hidden-page">
+    <div class="row">
+      <%= label_tag :step, t('.step_two'), class: 'col-form-label col-12' %>
     </div>
-    <div class="col-6 div-margin-top">
-      <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
-        t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
+    <div class="row mb-3 radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
+      <%= label_tag :what, t('.what'), class: 'col-12 col-form-label' %>
+      <div class="col-12"><%= t('.problem_or_idea') %></div>
+      <% %i(problem idea).each do |type| -%>
+        <% if Settings::Client.send "service_type_#{ type }" %>
+          <div class="col-6 div-margin-top">
+            <%= f.radio_button :type, type, class: 'radio-type' %> <%= label_tag "request_type_#{type}",
+              t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+          </div>
+        <% end -%>
+      <% end -%>
     </div>
-  </div>
-  <div class="row mb-3">
-    <div id="type-description" class="col-12" data-problem="<%= t('.describe_problem') %>"
-      data-idea="<%= t('.describe_idea') %>">
-    </div>
-  </div>
-  <div class="row">
-      <div class="btn-group d-flex col-12" role="group">
-        <%= link_to(t('buttons.back'), '#', remote: true,
-                    class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                    data: { current: '2', next: '1' }) %>
-        <%= link_to(t('buttons.continue'), '#', remote: true,
-                    class: 'btn btn-primary btn-continue', role: :button,
-                    data: { current: '2', next: '3' }) %>
+    <div class="row mb-3">
+      <div id="type-description" class="col-12" data-problem="<%= t('.describe_problem') %>"
+        data-idea="<%= t('.describe_idea') %>">
       </div>
+    </div>
+    <div class="row">
+        <div class="btn-group d-flex col-12" role="group">
+          <%= link_to(t('buttons.back'), '#', remote: true,
+                      class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                      data: { current: '2', next: '1' }) %>
+          <%= link_to(t('buttons.continue'), '#', remote: true,
+                      class: 'btn btn-primary btn-continue', role: :button,
+                      data: { current: '2', next: '3' }) %>
+        </div>
+    </div>
   </div>
-</div>
-<div id="form-page-3" class="hidden-page">
+<% end -%>
+<div id="form-page-<%= Settings::Client.skip_type_selection ? 2 : 3 %>" class="hidden-page">
   <div class="row">
-    <%= label_tag :step, t('.step_three'), class: 'col-form-label col-12' %>
+    <%= label_tag :step, t(Settings::Client.skip_type_selection ? '.step_two' : '.step_three'), class: 'col-form-label col-12' %>
   </div>
   <%= label_tag :what_exactly, t('.what_exactly') %>
-  <%= render partial: 'requests/desktop/category_select', locals: { type: nil, category: nil, service_code: nil } %> 
+  <%= render partial: 'requests/desktop/category_select', locals: { type: @request.type, category: services_by_type(@request.type).first, service_code: nil } %> 
   <div class="row">
     <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
     <div class="col-12">
@@ -65,7 +67,7 @@
     <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
     <div class="col-12"><%= t('.photo_hint') %></div>
     <div class="col-12">
-      <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+      <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
     </div>
   </div>
   <div class="row mb-3">
@@ -76,16 +78,16 @@
     <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
                   class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                  data: { current: '3', next: '2' }) %>
+                  data: { current: Settings::Client.skip_type_selection ? 2 : 3, next: Settings::Client.skip_type_selection ? 1 : 2 }) %>
       <%= link_to(t('buttons.continue'), '#', remote: true,
                   class: 'btn btn-primary btn-continue', role: :button,
-                  data: { current: '3', next: 'submit' }) %>
+                  data: { current: Settings::Client.skip_type_selection ? 2 : 3, next: 'submit' }) %>
     </div>
   </div>
 </div>
 <div id="form-page-submit" class="hidden-page">
   <div class="row">
-    <%= label_tag :step, t('.step_four'), class: 'col-form-label col-12' %>
+    <%= label_tag :step, t(Settings::Client.skip_type_selection ? '.step_three' : '.step_four'), class: 'col-form-label col-12' %>
   </div>
   <div class="row">
     <%= label_tag :confirmation, t('.confirmation'), class: 'col-12 col-form-label' %>
@@ -118,7 +120,7 @@
     <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
                   class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                  data: { current: 'submit', next: '3' }) %>
+                  data: { current: 'submit', next: Settings::Client.skip_type_selection ? 2 : 3 }) %>
       <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
     </div>
   </div>

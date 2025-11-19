@@ -23,7 +23,7 @@
     </div>
     <div class="card bg-primary address-search-field">
       <div class="card-body">
-        <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::AddressSearch.search_request_id_enabled ? '.search' : '.address_search')) %>
+        <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::Geocodr.search_request_id_enabled ? '.search' : '.address_search')) %>
       </div>
     </div>
     <div class="card map-card map-filter">
@@ -38,7 +38,7 @@
       <div id="map-body" class="collapse" role="tabcard" aria-labelledby="map-heading">
         <div class="card-body">
           <div class="row">
-            <div class="col-6">
+            <div class="col-6 status">
               <div class="row">
                 <% %i(pending received in_process processed rejected).each do |st| -%>
                   <div class="col-12">
@@ -49,13 +49,15 @@
               </div>
             </div>
             <% unless service_code -%>
-              <div class="col-6">
+              <div class="col-6 types">
                 <div class="row">
                   <% %i(problem idea).each do |type| -%>
-                    <div class="col-12">
-                      <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
-                      <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
-                    </div>
+                    <% if Settings::Client.send "service_type_#{ type }" %>
+                      <div class="col-12">
+                        <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
+                        <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+                      </div>
+                    <% end -%>
                   <% end -%>
                   <% if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived -%>
                     <div class="col-12 archive">
