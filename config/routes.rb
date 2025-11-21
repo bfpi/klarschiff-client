@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     get :promotion
     get :usage
     get :requests, to: redirect('/static/requests/1')
-    get 'requests/:page', to: 'statics#request', as: :requests_page
+    get 'requests/:page', to: 'statics#requests', as: :requests_page
   end
   resources :statistics, only: :index
 end

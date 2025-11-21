@@ -160,7 +160,7 @@ KS.drawChart= (chart, data) ->
       type: 'pie'
     bindto: chart)
 
-$ ->
+KS.initializeHeatmap= ->
   KS.olHeatmap = new KS.Heatmap
   $(document).on 'change', '#area', () ->
     area_id = $(this).val()
@@ -173,3 +173,6 @@ $ ->
     else
       KS.olHeatmap.getView().setZoom(<%= Settings::Map.zoom[:min] - 1 %>)
       KS.olHeatmap.getView().setCenter(<%= Settings::Map.center %>)
+
+$ ->
+  KS.initializeHeatmap()
