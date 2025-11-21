@@ -18,6 +18,8 @@ KS.olMap.getView().setCenter(coord)
 <% end -%>
 
 $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
+$('.static-overlay').hide() if $('.static-overlay').is(':visible')
+
 if $('.request-container').prop('id') == 'request-form'
   $('.request-container').hide()
   partial = "<div class='request-container overlay'><%= j render partial: 'requests/desktop/show' %></div>"

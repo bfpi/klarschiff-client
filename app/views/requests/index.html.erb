@@ -8,13 +8,13 @@
 <ul class="pagination mt-3">
   <% if @page != 1 -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1), class: 'page-link' %>
+      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1), class: 'page-link', remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 
   <% if start > 1 -%>
     <li class="page-item">
-      <%= link_to 1, requests_page_static_path(page: 1), class: 'page-link' %>
+      <%= link_to 1, requests_page_static_path(page: 1), class: 'page-link', remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end %>
 
@@ -27,7 +27,7 @@
   <% (ending - start).to_i.times do |i| -%>
     <% ix = (start + i) %>
     <li class="page-item <%= "active" if ix == @page %>">
-      <%= link_to ix, requests_page_static_path(page: ix), class: 'page-link' %>
+      <%= link_to ix, requests_page_static_path(page: ix), class: 'page-link', remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 
@@ -39,13 +39,13 @@
 
   <% if ending <= @pages -%>
     <li class="page-item">
-      <%= link_to @pages, requests_page_static_path(page: @pages), class: 'page-link' %>
+      <%= link_to @pages, requests_page_static_path(page: @pages), class: 'page-link', remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end %>
 
   <% if @page != @pages -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1), class: 'page-link' %>
+      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1), class: 'page-link', remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 </ul>
