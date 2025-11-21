@@ -66,5 +66,11 @@ module KlarschiffClient
         :password => smtp_settings[:password]
       }
     end
+
+    config.after_initialize do
+      Dir.glob("#{ Rails.root.join }/overlay/**/*").select { |f| f if f.include?('extension') }.each do |file|
+        require file unless Rails.application.config.cache_classes
+      end
+    end
   end
 end
