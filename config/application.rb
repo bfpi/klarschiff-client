@@ -24,8 +24,7 @@ module KlarschiffClient
     config.load_defaults 7.2
 
     config.autoload_paths << "#{root}/overlay/config"
-    #config.autoload_paths << "#{root}/overlay/controllers"
-    p config.autoload_paths.inspect
+    config.autoload_paths << "#{root}/overlay/controllers"
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -69,12 +68,6 @@ module KlarschiffClient
         :user_name => smtp_settings[:username],
         :password => smtp_settings[:password]
       }
-    end
-
-    config.after_initialize do
-      Dir.glob("#{ Rails.root.join }/overlay/**/*").select { |f| f if f.include?('extension') }.each do |file|
-        require file unless Rails.application.config.cache_classes
-      end
     end
   end
 end

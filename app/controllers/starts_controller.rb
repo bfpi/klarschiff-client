@@ -13,4 +13,7 @@ class StartsController < ApplicationController
     @processed_count = Request.count(also_archived: true, detailed_status: 'PROCESSED', keyword: 'problem, idea',
                                      start_date: Date.today - 30)
   end
+
+  overlay = Rails.root.join('overlay/controllers/staarts_controller_extension.rb')
+  extend StartsControllerExtension if File.exist?(overlay)
 end
