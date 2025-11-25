@@ -14,6 +14,6 @@ class StartsController < ApplicationController
                                      start_date: Date.today - 30)
   end
 
-  overlay = Rails.root.join('overlay/controllers/staarts_controller_extension.rb')
+  overlay = Rails.root.join('overlay/controllers/starts_controller_extension.rb')
   extend StartsControllerExtension if File.exist?(overlay)
 end
