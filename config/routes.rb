@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     get 'requests/:page', to: 'statics#requests', as: :requests_page
   end
   resources :statistics, only: :index
-end
 
-overlay = Rails.root.join('overlay/config/routes.rb')
-require overlay if File.exist?(overlay)
+  overlay = Rails.root.join('overlay/config/overlay_routes.rb')
+  extend OverlayRoutes if File.exist?(overlay)
+end
