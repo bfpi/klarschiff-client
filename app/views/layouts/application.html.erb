@@ -31,8 +31,11 @@
 
     <% custom_css_file_path = "#{ Settings::Client.resources_path }custom.css" %>
     <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css?#{ Time.current.to_i }" %>
-
     <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
+
+    <% custom_js_file_path = "#{ Settings::Client.resources_path }custom.js" %>
+    <% custom_js_file_url = "#{ Settings::Client.resources_url }custom.js?#{ Time.current.to_i }" %>
+    <%= javascript_include_tag custom_js_file_url if File.exist?(custom_js_file_path) %>
   </head>
   <body class="<%= 'mobile' if @mobile %>">
     <% unless @mobile -%>
@@ -72,14 +75,14 @@
             <div class="col-7 text-end">
               <%= link_to t(:list), [:requests, :static] %> |
               <%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
-              <%= link_to t(:help), [:help, :static] %> |
+              <%= link_to t(:help), help_static_path %> |
               <% if Settings::Url.respond_to?(:external_privacy_url) -%>
                 <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
               <% else -%>
-                <%= link_to t(:privacy), [:privacy, :static] %> |
+                <%= link_to t(:privacy), privacy_static_path %> |
               <% end -%>
-              <%= link_to t(:imprint), [:imprint, :static] %> |
-              <%= link_to t(:usage), [:usage, :static] %>
+              <%= link_to t(:imprint), imprint_static_path %> |
+              <%= link_to t(:usage), usage_static_path %>
             </div>
           </div>
         </div>
@@ -92,7 +95,7 @@
           <div class="systray">
             <div class="text-center">
               <%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), [:api, :static] %> |
+              <%= link_to t(:api), api_static_path %> |
               <% if Settings::Url.ks_demo_url.present? -%>
                 <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
               <% end -%>
@@ -135,10 +138,10 @@
                 <% if Settings::Url.respond_to?(:external_privacy_url) -%>
                   <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
                 <% else -%>
-                  <%= link_to t(:privacy), [:privacy, :static] %> |
+                  <%= link_to t(:privacy), privacy_static_path %> |
                 <% end -%>
-                <%= link_to t(:imprint), [:imprint, :static] %> |
-                <%= link_to t(:usage), [:usage, :static] %>
+                <%= link_to t(:imprint), imprint_static_path %> |
+                <%= link_to t(:usage), usage_static_path %>
               </div>
             </div>
           </div>
