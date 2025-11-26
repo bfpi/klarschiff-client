@@ -30,7 +30,8 @@
     <%= csrf_meta_tags %>
 
     <% custom_css_file_path = "#{ Settings::Client.resources_path }custom.css" %>
-    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css" %>
+    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css?#{ Time.current.to_i }" %>
+
     <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
   </head>
   <body class="<%= 'mobile' if @mobile %>">
