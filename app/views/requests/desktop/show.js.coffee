@@ -29,6 +29,8 @@ if $('.request-container').prop('id') == 'request-form'
     $('#request.tab-pane').append(partial)
 else
   $('.request-container').replaceWith("<%= j render partial: 'requests/desktop/show' %>")
+  <% if Settings::Client.show_social_icons %>
   new Shariff($('.shariff'), {});
+  <% end -%>
 
 $('#new-photo a[data-next=image-submit]').hide()
