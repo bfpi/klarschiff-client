@@ -26,6 +26,7 @@ development: &default
     resources_overview_remote: false
     logo_url: /resources/images/logo.png
     observations_area_limit: 35
+    show_social_icons: true
     show_email:
     show_abuses:
     show_votes:
