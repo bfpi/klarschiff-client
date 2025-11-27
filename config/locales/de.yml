@@ -424,14 +424,17 @@ de:
       unchecked: nicht abgehakt
       not-checkable: nicht abarbeitbar
 
-  starts:
-    show: &starts_show
-      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
-      news: Neuigkeiten
+  shared:
+    statistic:
       overall: neue Meldungen seit Start (%{start_date})
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat
       processed: Meldungen erledigt letzten Monat
+
+  starts:
+    show: &starts_show
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      news: Neuigkeiten
       recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
