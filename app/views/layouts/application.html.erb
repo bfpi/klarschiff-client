@@ -73,16 +73,7 @@
               </div>
             </div>
             <div class="col text-end">
-              <%= link_to t(:list), [:requests, :static] %> |
-              <%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
-              <%= link_to t(:help), help_static_path %> |
-              <% if Settings::Url.respond_to?(:external_privacy_url) -%>
-                <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
-              <% else -%>
-                <%= link_to t(:privacy), privacy_static_path %> |
-              <% end -%>
-              <%= link_to t(:imprint), imprint_static_path %> |
-              <%= link_to t(:usage), usage_static_path %>
+              <%= render partial: 'layouts/menue_top_right' %> 
             </div>
           </div>
         </div>
@@ -94,13 +85,7 @@
         <div class="container-fluid">
           <div class="systray">
             <div class="text-center">
-              <%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), api_static_path %> |
-              <% if Settings::Url.ks_demo_url.present? -%>
-                <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
-              <% end -%>
-              <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %> |
-              <%= link_to t(:promotion), [:promotion, :static] %>
+              <%= render partial: 'layouts/menue_bottom' %> 
             </div>
             <div class="text-center small">
               <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: "_blank" %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: "_blank" %>)

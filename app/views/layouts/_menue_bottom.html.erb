@@ -1,0 +1,7 @@
+<%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
+<%= link_to t(:api), api_static_path %> |
+<% if Settings::Url.ks_demo_url.present? -%>
+  <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
+<% end -%>
+<%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %> |
+<%= link_to t(:promotion), [:promotion, :static] %>

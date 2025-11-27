@@ -1,15 +1,11 @@
 <% content_for :nav do -%>
-  <ul class="nav nav-pills">
-    <li class="nav-item">
-      <a href="#request" id="requests" class="nav-link active header-tab" data-bs-toggle="tab" data-url="<%= requests_path %>"><%= t('.request') %></a>
-    </li>
-    <li class="nav-item">
-      <a href="#watch" id="areas" class="nav-link header-tab" data-bs-toggle="tab" data-url="<%= areas_path %>"><%= t('.watch') %></a>
-    </li>
-  </ul>
+  <%= render partial: 'layouts/menue_top_left' %> 
 <% end -%>
 <div id="content">
   <div id="ol-map" class="ol-map-desktop">
+    <div class="static-overlay">
+      <div class="static-overlay-content"></div>
+    </div>
     <div class="sidebar">
       <div class="tab-content">
         <div id="request" class="tab-pane active">
