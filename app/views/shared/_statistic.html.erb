@@ -1,0 +1,43 @@
+
+<div class="row">
+  <div class="<%= css_col %>">
+    <div class="statistic-box">
+      <div class="statistic-box-figure">
+        <span class="badge bg-warning"><%= statistic_overall_count %></span>
+      </div>
+      <div class="statistic-box-text">
+        <%= t('.overall', start_date: Settings::Client.start_date) %>
+      </div>
+    </div>
+  </div>
+  <div class="<%= css_col %>">
+    <div class="statistic-box">
+      <div class="statistic-box-figure">
+        <span class="badge bg-warning"><%= statistic_current_count %></span>
+      </div>
+      <div class="statistic-box-text">
+        <%= t('.current') %>
+      </div>
+    </div>
+  </div>
+  <div class="<%= css_col %>">
+    <div class="statistic-box">
+      <div class="statistic-box-figure">
+        <span class="badge bg-warning"><%= statistic_newest_count %></span>
+      </div>
+      <div class="statistic-box-text">
+        <%= t('.newest') %>
+      </div>
+    </div>
+  </div>
+  <div class="<%= css_col %>">
+    <div class="statistic-box">
+      <div class="statistic-box-figure">
+        <span class="badge bg-warning"><%= statistic_processed_count %></span>
+      </div>
+      <div class="statistic-box-text">
+        <%= t('.processed') %>
+      </div>
+    </div>
+  </div>
+</div>

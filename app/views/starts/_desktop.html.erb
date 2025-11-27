@@ -14,46 +14,7 @@
         <h5 class="card-title"><%= t('.statistics') %></h5>
       </div>
       <div class="card-body row">
-        <div class="col-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="badge bg-warning"><%= @overall_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.overall', start_date: Settings::Client.start_date) %>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="badge bg-warning"><%= @current_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.current') %>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="badge bg-warning"><%= @newest_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.newest') %>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="statistic-box">
-            <div class="statistic-box-figure">
-              <span class="badge bg-warning"><%= @processed_count %></span>
-            </div>
-            <div class="statistic-box-text">
-              <%= t('.processed') %>
-            </div>
-          </div>
-        </div>
+        <%= render(partial: "shared/statistic", locals: { css_col: 'col-3' }) %>
       </div>
     </div>
     <% if File.exist?(neuigkeiten = "#{ Settings::Client.resources_path }/neuigkeiten.html") -%>
