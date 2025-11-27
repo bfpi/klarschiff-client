@@ -1,25 +1,25 @@
-        <div class="" id="headline">
-          <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
-        </div>
-        <div class="intro row">
-          <div class="col-12 text-center">
-            <%= t('.intro') %>
-          </div>
-        </div>
-        <div class="hints row">
-          <div class="col-12 text-center fw-bold">
-            <%= t('.hints') %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="statistic">
-              <%= render(partial: "shared/statistic", locals: { css_col: 'col-12' }) %>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 text-center">
-            <%= link_to t('.button'), map_path(mobile: @mobile), class: 'btn btn-lg btn-primary', data: { turbolinks: false } %>
-          </div>
-        </div>      
+<div class="" id="headline">
+  <h3><%= t('.headline', city_short: Settings::Client.city_short) %></h3>
+</div>
+<div class="intro row">
+  <div class="col-12 text-center">
+    <%= t('.intro') %>
+  </div>
+</div>
+<div class="hints row">
+  <div class="col-12 text-center fw-bold">
+    <%= t('.hints') %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="statistic">
+      <%= render(partial: "shared/statistic", locals: { css_col: 'col-12' }) %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 text-center">
+    <%= link_to t('.button'), map_path(mobile: @mobile), class: 'btn btn-lg btn-primary', data: { turbolinks: false } %>
+  </div>
+</div>
