@@ -253,7 +253,7 @@ header
   top: 11px
   bottom: 21px
   position: absolute
-  z-index: 1000
+  z-index: 1500
   overflow-y: auto
   overflow-x: hidden
   border-top: 1px solid #bce8f1
@@ -448,3 +448,21 @@ body.mobile
   position: absolute
   right: 1em
   top: 0.7em
+ 
+.static-overlay
+  background-color: white;
+  bottom: 0;
+  display: none;
+  left: 0;
+  padding-left: 318px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1200;
+  overflow: scroll;
+
+.static-overlay .static-overlay-content
+  padding: 10px;
+
+.dropdown-menu
+  z-index: 1700;
