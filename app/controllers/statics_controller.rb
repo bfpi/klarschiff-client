@@ -32,6 +32,18 @@ class StaticsController < ApplicationController
     @page_number = params[:page].to_i || 1
   end
 
-  overlay = Rails.root.join('overlay/controllers/statics_controller_extension.rb')
-  extend StaticsControllerExtension if File.exist?(overlay)
+  def contact
+    @file_name = 'contact'
+    render :api
+  end
+
+  def news
+    @file_name = 'news'
+    render :api
+  end
+
+  def finance
+    @file_name = 'finance'
+    render :api
+  end
 end
