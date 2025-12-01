@@ -88,7 +88,7 @@
             <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
             <% unless login_required? -%><div class="col-12"><%= t('.photo_hint') %></div><% end -%>
             <div class="col-12">
-              <%= file_field(:request, :media, multiple: false, accept: 'image/png,image/jpeg') %>
+              <%= file_field(:request, :media, multiple: false, accept: Settings::Client.supported_file_types) %>
             </div>
           </div>
           <% unless login_required? -%>

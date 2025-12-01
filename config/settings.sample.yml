@@ -44,6 +44,7 @@ development: &default
     show_status_updates_for_supporter:
     additional_content: false
     start_date: 28.03.2012
+    supported_file_types: image/png,image/jpeg
     max_image_size: 5242880
     show_privacy_policy: false
 
