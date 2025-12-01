@@ -27,10 +27,12 @@
       <%= f.radio_button :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
         t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
     </div>
-    <div class="col-6 div-margin-top">
-      <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
-        t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
-    </div>
+    <% if Settings::Client.service_type_idea %>
+      <div class="col-6 div-margin-top">
+        <%= f.radio_button :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
+          t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
+      </div>
+    <% end -%>
   </div>
   <div class="row mb-3">
     <div id="type-description" class="col-12" data-problem="<%= t('.describe_problem') %>"
