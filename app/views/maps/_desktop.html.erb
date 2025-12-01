@@ -49,10 +49,12 @@
               <div class="col-6">
                 <div class="row">
                   <% %i(problem idea).each do |type| -%>
-                    <div class="col-12">
-                      <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
-                      <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
-                    </div>
+                    <% if Settings::Client.send "service_type_#{ type }" %>
+                      <div class="col-12">
+                        <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
+                        <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+                      </div>
+                    <% end -%>
                   <% end -%>
                   <% if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived -%>
                     <div class="col-12 archive">
