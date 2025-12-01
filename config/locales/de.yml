@@ -438,9 +438,10 @@ de:
     show: &starts_show
       headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
       news: Neuigkeiten
-      recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
+    recent_requests:
+      recent_requests: Kürzlich gemeldet
     desktop:
       <<: *starts_show
     mobile:
