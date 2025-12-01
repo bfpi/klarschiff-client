@@ -40,7 +40,7 @@
             </div>
             <% if @request.media_required? -%>
               <div class="col-12">
-                <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+                <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
                 <%= link_to(t('buttons.upload'), '#', remote: true,
                       class: 'btn btn-primary btn-continue', role: :button,
                       data: { current: 'image', next: 'image-submit' }) %>
