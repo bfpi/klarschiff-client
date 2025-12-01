@@ -241,13 +241,16 @@ de:
     notification:
       notification_title: "%{name} – Neuer Auftrag"
 
+  layouts:
+    menue_top_left:
+      request: Neue Meldung
+      watch: Beobachtung
+
   maps:
     desktop:
       address_search: Adressensuche
       search: Suche
       filter: Kartenfilter
-      request: Neue Meldung
-      watch: Beobachtung
 
   notes:
     create:
