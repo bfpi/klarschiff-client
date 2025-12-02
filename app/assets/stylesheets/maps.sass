@@ -38,7 +38,7 @@
     left: .5em
     top: 6.75em
 
-  .view-switcher
+  .view-switcher:not(.multiple)
     left: .5em
     top: 9.5em
 
@@ -99,7 +99,8 @@
   border: none
   padding: 0
 
-.ol-control button
+.ol-control button,
+.ol-control.multiple
   font-weight: normal
   font-size: 15px
   background-color: #337ab7
@@ -120,6 +121,21 @@
 .view-switcher.ol-control button
   width: 130px
   height: 34px
+
+.ol-control.multiple
+  height: auto
+  text-align: left
+  padding: 0.5em
+
+.ol-control.multiple label
+  font-weight: normal
+  margin-bottom: 0.5em
+
+.ol-control.multiple label input
+  margin-right: 0.5em
+
+.ol-control.multiple hr
+  margin: 0.5em 0
 
 .ol-touch .ol-control
   button
