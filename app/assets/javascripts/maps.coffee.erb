@@ -44,6 +44,18 @@ KS.GeolocationControl = () ->
 ol.inherits(KS.GeolocationControl, ol.control.Control)
 
 KS.ViewSwitcherControl = () ->
+  if <%= Settings::Map.overlap_layers %>
+    elem = KS.ViewSwitcherControlMultiple()
+  else
+    elem = KS.ViewSwitcherControlSingle()
+
+  new ol.control.Control
+    element: elem
+    target: {}.target
+ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
+
+KS.ViewSwitcherControlSingle = () ->
+  console.log 'KS.ViewSwitcherControlSingle'
   span = document.createElement('span')
   span.className = 'image'
   image = document.createElement('img')
@@ -68,11 +80,54 @@ KS.ViewSwitcherControl = () ->
   elem = document.createElement('div')
   elem.className = 'view-switcher ol-control'
   elem.appendChild(btn)
+  elem
 
-  new ol.control.Control
-    element: elem
-    target: {}.target
-ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
+KS.ViewSwitcherControlMultiple = () ->
+  elem = document.createElement('div')
+  elem.className = 'view-switcher ol-control multiple'
+
+  for layer in <%= Settings::Map.wmts_layers.to_json %>
+    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'base')
+  for layer in <%= Settings::Map.wms_layers.to_json %>
+    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'base')
+  elem.appendChild document.createElement('hr')
+  for layer in <%= Settings::Map.wfs_layers.to_json %>
+    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'overlap')
+
+  $(elem).on 'change', 'input', (elem) ->
+    item = event.target
+    if item.name == 'layer_base'
+      for l in KS.layers.layers
+        l.setVisible(l.get('id') == item.value ? true : false) if l.get('type') == 'base'
+    else
+      for l in KS.layers.layers
+        if l.get('id') == item.value
+          l.setVisible(item.checked)
+
+  elem
+
+KS.ViewSwitcherControlMultipleItem = (layer, type) ->
+  return if layer.type != type
+
+  div = document.createElement('div')
+  label = document.createElement('label')
+  if layer.type == 'base'
+    radio = document.createElement('input')
+    radio.setAttribute('type', 'radio')
+    radio.setAttribute('name', 'layer_base')
+    radio.setAttribute('value', layer.id)
+    radio.setAttribute('checked', 'checked') if layer.visible
+    label.appendChild(radio)
+  else
+    check = document.createElement('input')
+    check.setAttribute('type', 'checkbox')
+    check.setAttribute('name', 'layer_overlap_' + layer.id)
+    check.setAttribute('value', layer.id)
+    check.setAttribute('checked', 'checked') if layer.visible
+    label.appendChild(check)
+  label.appendChild document.createTextNode(layer.label)
+  div.appendChild(label)
+  div
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -343,6 +398,8 @@ class KS.Layers
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
           id: layer.id
+          type: layer.type
+          label: layer.label
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -360,12 +417,25 @@ class KS.Layers
       do (layer, @layers) ->
         @layers.push new ol.layer.Image
           id: layer.id
+          type: layer.type
+          label: layer.label
           extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
             params:
               "LAYERS": layer.content
               "FORMAT": layer.format
+          visible: layer.visible
+    for layer in <%= Settings::Map.wfs_layers.to_json %>
+      do (layer, @layers) ->
+        @layers.push new ol.layer.Vector
+          id: layer.id
+          type: layer.type
+          label: layer.label
+          source: new ol.source.Vector
+            url: layer.url
+            format: new ol.format.GML3
+          style: KS.styles.featureStyle
           visible: layer.visible
 
     @layers.push new ol.layer.Vector

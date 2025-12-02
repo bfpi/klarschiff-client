@@ -76,6 +76,7 @@ development: &default
 
   map:
     show_trust: true
+    overlap_layers: false
     default_requests_states: PENDING, RECEIVED, IN_PROCESS, PROCESSED, REJECTED
     center: [308555, 6000550]
     mv_bbox_25833: [206885, 5890624, 460857, 6060841]
