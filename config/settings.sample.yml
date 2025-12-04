@@ -125,6 +125,7 @@ development: &default
         format: image/png
         extent: [271264, 5938535, 356804, 6017573]
         visible: true
+    wfs_layers: []
     tracking_options:
       enable_high_accuracy: true
       timeout: 30000
