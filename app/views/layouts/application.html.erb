@@ -139,7 +139,7 @@
     <div id="image-sources">
       <% %w(problem idea).each do |type| -%>
         <% if Settings::Client.send "service_type_#{ type }" %>
-          <img id="new-idea" src="<%= image_path "icons/map/active/png/#{type}-gray.png" %>" />
+          <img id="new-<%= type %>" src="<%= image_path "icons/map/active/png/#{type}-gray.png" %>" />
         <% end -%>
       <% end -%>
       <img id="new-blank" src="<%= image_path 'icons/map/active/png/blank-gray.png' %>" />
