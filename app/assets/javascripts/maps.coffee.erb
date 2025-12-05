@@ -87,12 +87,15 @@ KS.ViewSwitcherControlMultiple = () ->
   elem.className = 'view-switcher ol-control multiple'
 
   for layer in <%= Settings::Map.wmts_layers.to_json %>
-    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'base')
+    child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
+    elem.appendChild child if child
   for layer in <%= Settings::Map.wms_layers.to_json %>
-    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'base')
+    child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
+    elem.appendChild child if child
   elem.appendChild document.createElement('hr')
-  for layer in <%= Settings::Map.wfs_layers.to_json %>
-    elem.appendChild KS.ViewSwitcherControlMultipleItem(layer, 'overlap')
+  for layer in <%= Settings::Map.wms_layers.to_json %>
+    child = KS.ViewSwitcherControlMultipleItem(layer, 'overlap')
+    elem.appendChild child if child
 
   $(elem).on 'change', 'input', (elem) ->
     item = event.target
@@ -110,21 +113,33 @@ KS.ViewSwitcherControlMultipleItem = (layer, type) ->
   return if layer.type != type
 
   div = document.createElement('div')
+  div.classList.add('form-check')
+  if layer.wrapper_class
+    div.classList.add(layer.wrapper_class)
   label = document.createElement('label')
+  label.classList.add('form-check-label')
+  label_for = ''
   if layer.type == 'base'
+    label_for = 'layer_base_' + layer.id
     radio = document.createElement('input')
     radio.setAttribute('type', 'radio')
     radio.setAttribute('name', 'layer_base')
+    radio.setAttribute('id', label_for)
     radio.setAttribute('value', layer.id)
+    radio.classList.add('form-check-input')
     radio.setAttribute('checked', 'checked') if layer.visible
-    label.appendChild(radio)
+    div.appendChild(radio)
   else
+    label_for = 'layer_overlap_' + layer.id
     check = document.createElement('input')
     check.setAttribute('type', 'checkbox')
-    check.setAttribute('name', 'layer_overlap_' + layer.id)
+    check.setAttribute('name', label_for)
+    check.setAttribute('id', label_for)
     check.setAttribute('value', layer.id)
+    check.classList.add('form-check-input')
     check.setAttribute('checked', 'checked') if layer.visible
-    label.appendChild(check)
+    div.appendChild(check)
+  label.setAttribute('for', label_for)
   label.appendChild document.createTextNode(layer.label)
   div.appendChild(label)
   div
@@ -425,17 +440,6 @@ class KS.Layers
             params:
               "LAYERS": layer.content
               "FORMAT": layer.format
-          visible: layer.visible
-    for layer in <%= Settings::Map.wfs_layers.to_json %>
-      do (layer, @layers) ->
-        @layers.push new ol.layer.Vector
-          id: layer.id
-          type: layer.type
-          label: layer.label
-          source: new ol.source.Vector
-            url: layer.url
-            format: new ol.format.GML3
-          style: KS.styles.featureStyle
           visible: layer.visible
 
     @layers.push new ol.layer.Vector
@@ -745,6 +749,9 @@ if id = KS.getUrlParam('request')
 
 $ ->
   KS.olMap = new KS.Map
+
+  if $('.view-switcher.multiple')
+    $('.map-card').css('top', $('.view-switcher.multiple').height() + 35);
 
   $(document).on('click', 'a.describe', (event) ->
     if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0
