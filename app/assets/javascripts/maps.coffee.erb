@@ -750,7 +750,7 @@ if id = KS.getUrlParam('request')
 $ ->
   KS.olMap = new KS.Map
 
-  if $('.view-switcher.multiple')
+  if $('.view-switcher.multiple').size() > 0
     $('.map-card').css('top', $('.view-switcher.multiple').height() + 35);
 
   $(document).on('click', 'a.describe', (event) ->
