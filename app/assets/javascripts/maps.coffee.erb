@@ -85,19 +85,27 @@ KS.ViewSwitcherControlSingle = () ->
 KS.ViewSwitcherControlMultiple = () ->
   elem = document.createElement('div')
   elem.className = 'view-switcher ol-control multiple'
+  text_span = document.createElement('span')
+  text_span.className = 'text'
+  text_span.innerHTML = "<%= I18n.t(:map_settings) %>"
+  elem.appendChild(text_span)
 
+  expand = document.createElement('div')
+  expand.className = 'expand'
+  expand.setAttribute 'style', 'display: none'
+  expand.appendChild document.createElement('hr')
   for layer in <%= Settings::Map.wmts_layers.to_json %>
     child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
-    elem.appendChild child if child
+    expand.appendChild child if child
   for layer in <%= Settings::Map.wms_layers.to_json %>
     child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
-    elem.appendChild child if child
-  elem.appendChild document.createElement('hr')
+    expand.appendChild child if child
+  expand.appendChild document.createElement('hr')
   for layer in <%= Settings::Map.wms_layers.to_json %>
     child = KS.ViewSwitcherControlMultipleItem(layer, 'overlap')
-    elem.appendChild child if child
+    expand.appendChild child if child
 
-  $(elem).on 'change', 'input', (elem) ->
+  $(expand).on 'change', 'input', (elem) ->
     item = event.target
     if item.name == 'layer_base'
       for l in KS.layers.layers
@@ -107,6 +115,24 @@ KS.ViewSwitcherControlMultiple = () ->
         if l.get('id') == item.value
           l.setVisible(item.checked)
 
+  elem.appendChild expand
+
+  toggler = document.createElement('div')
+  toggler.className = 'map-settings-toggler'
+  text_span = document.createElement('span')
+  toggler.appendChild(text_span)
+
+  toggleMapSettings = () ->
+    expand = $('.view-switcher .expand')
+    expand.toggle()
+    if expand.is(':visible')
+      expand.addClass('open')
+    else
+      expand.removeClass('open')
+    KS.positionViewSwitcher()
+
+  toggler.addEventListener('click', toggleMapSettings, false)
+  elem.appendChild toggler
   elem
 
 KS.ViewSwitcherControlMultipleItem = (layer, type) ->
@@ -746,11 +772,13 @@ if id = KS.getUrlParam('request')
     url += '&mobile=true'
   $.ajax(url: url, dataType: 'script')
 
+KS.positionViewSwitcher= () ->
+  if $('.view-switcher.multiple').size() > 0
+    $('.map-card').css('top', $('.view-switcher.multiple').height() + 60);
+
 $ ->
   KS.olMap = new KS.Map
-
-  if $('.view-switcher.multiple').size() > 0
-    $('.map-card').css('top', $('.view-switcher.multiple').height() + 35);
+  KS.positionViewSwitcher()
 
   $(document).on('click', 'a.describe', (event) ->
     if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0
