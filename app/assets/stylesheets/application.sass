@@ -290,6 +290,35 @@ header
 .sidebar-toggler.open span:before
   content: "\F104";
 
+.view-switcher .map-settings-toggler
+  background-color: #d9edf7
+  border-bottom: 1px solid #bce8f1
+  border-bottom-right-radius: 4px
+  border-right: 1px solid #bce8f1
+  border-top: 1px solid #bce8f1
+  border-top-right-radius: 4px
+  cursor: pointer
+  left: 25%;
+  padding: 0 20px;
+  position: absolute
+  text-align: center;
+  top: 100%;
+  width: 50%;
+  z-index: 1010
+
+.view-switcher .map-settings-toggler span:before
+  font-family: 'Font Awesome 5 Free'
+  font-weight: 900
+  content: "\F107";
+
+.view-switcher
+  .expand.open + .map-settings-toggler span:before
+    content: "\F106";
+
+.view-switcher span.text
+  display: block;
+  text-align: center;
+
 .address-search-field
   position: absolute
   background-color: #337ab7

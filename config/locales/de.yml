@@ -5,6 +5,7 @@ de:
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
   aerial_view: Luftbild
   archive: Archivdaten
+  map_settings: Karteneinstellungen
   map_view: Karte
   api: API
   demo: Demo
