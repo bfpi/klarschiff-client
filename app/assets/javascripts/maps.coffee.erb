@@ -55,7 +55,6 @@ KS.ViewSwitcherControl = () ->
 ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
 
 KS.ViewSwitcherControlSingle = () ->
-  console.log 'KS.ViewSwitcherControlSingle'
   span = document.createElement('span')
   span.className = 'image'
   image = document.createElement('img')
@@ -90,30 +89,36 @@ KS.ViewSwitcherControlMultiple = () ->
   text_span.innerHTML = "<%= I18n.t(:map_settings) %>"
   elem.appendChild(text_span)
 
+  switchLayers = []
+  for layer in <%= Settings::Map.wmts_layers.to_json %>
+    switchLayers.push layer
+  for layer in <%= Settings::Map.wms_layers.to_json %>
+    switchLayers.push layer
+
+  switchLayers.sort (a, b) ->
+    a.sorting - b.sorting
+
   expand = document.createElement('div')
   expand.className = 'expand'
   expand.setAttribute 'style', 'display: none'
-  expand.appendChild document.createElement('hr')
-  for layer in <%= Settings::Map.wmts_layers.to_json %>
-    child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
-    expand.appendChild child if child
-  for layer in <%= Settings::Map.wms_layers.to_json %>
-    child = KS.ViewSwitcherControlMultipleItem(layer, 'base')
-    expand.appendChild child if child
-  expand.appendChild document.createElement('hr')
-  for layer in <%= Settings::Map.wms_layers.to_json %>
-    child = KS.ViewSwitcherControlMultipleItem(layer, 'overlap')
+  for layer in switchLayers
+    if layer.addbefore
+      for additional in layer.addbefore
+        if additional == 'hr_spacer'
+          expand.appendChild document.createElement('hr')
+        else
+          additional_text = document.createElement('span')
+          additional_text.className = 'text'
+          additional_text.innerHTML = additional 
+          expand.appendChild(additional_text)
+    child = KS.ViewSwitcherControlMultipleItem(layer)
     expand.appendChild child if child
 
   $(expand).on 'change', 'input', (elem) ->
     item = event.target
-    if item.name == 'layer_base'
-      for l in KS.layers.layers
-        l.setVisible(l.get('id') == item.value ? true : false) if l.get('type') == 'base'
-    else
-      for l in KS.layers.layers
-        if l.get('id') == item.value
-          l.setVisible(item.checked)
+    for l in KS.layers.layers
+      if l.get('id') == item.value
+        l.setVisible(item.checked)
 
   elem.appendChild expand
 
@@ -135,36 +140,25 @@ KS.ViewSwitcherControlMultiple = () ->
   elem.appendChild toggler
   elem
 
-KS.ViewSwitcherControlMultipleItem = (layer, type) ->
-  return if layer.type != type
-
+KS.ViewSwitcherControlMultipleItem = (layer) ->
   div = document.createElement('div')
   div.classList.add('form-check')
-  if layer.wrapper_class
-    div.classList.add(layer.wrapper_class)
+  if layer.parent
+    div.classList.add('offset-1')
   label = document.createElement('label')
   label.classList.add('form-check-label')
   label_for = ''
-  if layer.type == 'base'
-    label_for = 'layer_base_' + layer.id
-    radio = document.createElement('input')
-    radio.setAttribute('type', 'radio')
-    radio.setAttribute('name', 'layer_base')
-    radio.setAttribute('id', label_for)
-    radio.setAttribute('value', layer.id)
-    radio.classList.add('form-check-input')
-    radio.setAttribute('checked', 'checked') if layer.visible
-    div.appendChild(radio)
-  else
-    label_for = 'layer_overlap_' + layer.id
-    check = document.createElement('input')
-    check.setAttribute('type', 'checkbox')
-    check.setAttribute('name', label_for)
-    check.setAttribute('id', label_for)
-    check.setAttribute('value', layer.id)
-    check.classList.add('form-check-input')
-    check.setAttribute('checked', 'checked') if layer.visible
-    div.appendChild(check)
+
+  label_for = 'layer_overlap_' + layer.id
+  check = document.createElement('input')
+  check.setAttribute('type', 'checkbox')
+  check.setAttribute('name', label_for)
+  check.setAttribute('id', label_for)
+  check.setAttribute('value', layer.id)
+  check.classList.add('form-check-input')
+  check.setAttribute('checked', 'checked') if layer.visible
+  div.appendChild(check)
+
   label.setAttribute('for', label_for)
   label.appendChild document.createTextNode(layer.label)
   div.appendChild(label)
@@ -208,7 +202,15 @@ class KS.Map
     return @olMap
 
   addControls = (map) ->
-    map.addControl new ol.control.ScaleLine
+    if <%= Settings::Map.scale_bar %>
+      scaleLineControl = new ol.control.ScaleLine(
+        bar: true
+        text: true
+        minWidth: 80
+      )
+      map.addControl scaleLineControl
+    else
+      map.addControl new ol.control.ScaleLine
 
     map.on 'pointermove', (e) ->
       pixel = map.getEventPixel(e.originalEvent)
@@ -435,12 +437,14 @@ class KS.Layers
   constructor: (map, overlay = true) ->
     @active = 0
     @layers = []
+
     for layer in <%= Settings::Map.wmts_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
           id: layer.id
           type: layer.type
           label: layer.label
+          sorting: layer.sorting
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -460,6 +464,7 @@ class KS.Layers
           id: layer.id
           type: layer.type
           label: layer.label
+          sorting: layer.sorting
           extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
@@ -467,6 +472,9 @@ class KS.Layers
               "LAYERS": layer.content
               "FORMAT": layer.format
           visible: layer.visible
+
+    @layers.sort (a, b) ->
+      a.get('sorting') - b.get('sorting')
 
     @layers.push new ol.layer.Vector
       id: "features"
