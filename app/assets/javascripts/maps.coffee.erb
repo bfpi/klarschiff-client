@@ -469,6 +469,7 @@ class KS.FeatureData
     controller = KS.generatePath() if is_request
     extent = ol.proj.transformExtent(extent, KS.projection(), KS.projectionWGS84)
     $.ajax(url: controller, dataType: 'json', data: {
+      map: true,
       center: ol.extent.getCenter(extent),
       radius: ol.sphere.getDistance(ol.extent.getBottomLeft(extent), ol.extent.getCenter(extent))
     }).done (response) ->
