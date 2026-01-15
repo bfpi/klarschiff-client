@@ -65,39 +65,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:^1.0.0":
-  version: 1.1.4
-  resolution: "color-name@npm:1.1.4"
-  checksum: 10/b0445859521eb4021cd0fb0cc1a75cecf67fceecae89b63f62b201cca8d345baf8b952c966862a9d9a2632987d4f6581f0ec8d957dfacece86f0a7919316f610
-  languageName: node
-  linkType: hard
-
-"color-parse@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "color-parse@npm:2.0.0"
-  dependencies:
-    color-name: "npm:^1.0.0"
-  checksum: 10/2eff4814877fa5641319598cb5ce668a504060d248bcbadf026ab6963217093ef7aae7de777fb394633393cf5cb0d7b68300e99dcf05279cf9201174427ba5da
-  languageName: node
-  linkType: hard
-
-"color-rgba@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "color-rgba@npm:3.0.0"
-  dependencies:
-    color-parse: "npm:^2.0.0"
-    color-space: "npm:^2.0.0"
-  checksum: 10/003b5fa70a77f46df3753e4b941154986163ccabbd9a8a80b2ca6cc4a0c9e505f3d4909c46a0b085e095d19b80297cf1c02dfefa33666b9ea1661ff52b3597bc
-  languageName: node
-  linkType: hard
-
-"color-space@npm:^2.0.0, color-space@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "color-space@npm:2.0.1"
-  checksum: 10/e74767555b10f2be11cc1c4244d81cd5788a5808ee7bd7c9afebefb567f8e27d6722f8096cb8777e6536662aecca83aa204090fed6537ee56bf0600cac966478
-  languageName: node
-  linkType: hard
-
 "commander@npm:7":
   version: 7.2.0
   resolution: "commander@npm:7.2.0"
@@ -485,9 +452,9 @@ __metadata:
     billboard.js: "npm:^3.15.1"
     d3: "npm:^7.8.5"
     jquery-ui-touch-punch: "npm:^0.2.3"
-    ol: "npm:^10.3.0"
-    ol-ext: "npm:^4.0.11"
-    proj4: "npm:^2.9.0"
+    ol: "npm:^10.7.0"
+    ol-ext: "npm:^4.0.37"
+    proj4: "npm:^2.20.2"
   languageName: unknown
   linkType: soft
 
@@ -505,27 +472,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ol-ext@npm:^4.0.11":
-  version: 4.0.15
-  resolution: "ol-ext@npm:4.0.15"
+"ol-ext@npm:^4.0.37":
+  version: 4.0.37
+  resolution: "ol-ext@npm:4.0.37"
   peerDependencies:
     ol: ">= 5.3.0"
-  checksum: 10/d9b313c3e4ed3d61ab4ad35b0be1fdf1456a2f253a581a2f9c28859ba0f22d8d86378ade6d8a18b4eb65c9916d9a277db2a1fde73aec4cbb816abe251d38e68a
+  checksum: 10/57ee631de847b0903fcda863e197361e35ec42c0ed874e8c7e5ba1f3b3f0b1d497dfa758998feed3ef73e211ced0f77f3ca76b142f5c05f040962214f9c2a8db
   languageName: node
   linkType: hard
 
-"ol@npm:^10.3.0":
-  version: 10.3.0
-  resolution: "ol@npm:10.3.0"
+"ol@npm:^10.7.0":
+  version: 10.7.0
+  resolution: "ol@npm:10.7.0"
   dependencies:
     "@types/rbush": "npm:4.0.0"
-    color-rgba: "npm:^3.0.0"
-    color-space: "npm:^2.0.1"
     earcut: "npm:^3.0.0"
     geotiff: "npm:^2.1.3"
     pbf: "npm:4.0.1"
     rbush: "npm:^4.0.0"
-  checksum: 10/729eb442cfdad59a1bda3c41b4e7a0f08040010ae119463682eb6aa8c140cebe0c3dce07c530d3f9f52f5662966286b27bc42d56890a4666e841b66e324193ee
+  checksum: 10/f39fdb6a4d8e89114b0c2a450a59e12c7a040c8c546a27909347a80279355412f9cb197709c9715cfce5f989fc9861d9be7ce4c629c939a9ade0fe01ac980e0d
   languageName: node
   linkType: hard
 
@@ -554,13 +519,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proj4@npm:^2.9.0":
-  version: 2.10.0
-  resolution: "proj4@npm:2.10.0"
+"proj4@npm:^2.20.2":
+  version: 2.20.2
+  resolution: "proj4@npm:2.20.2"
   dependencies:
     mgrs: "npm:1.0.0"
-    wkt-parser: "npm:^1.3.3"
-  checksum: 10/376a98aa267c98197109338f8693cf1621530745241549045f1e12d32417742e860435e8ab744dc8312ce1e352df48d45bb77fb9f706f260981e95e69a800b1b
+    wkt-parser: "npm:^1.5.1"
+  checksum: 10/5ec437a90759852b95c4f8bda2260b4e18376874da0433fa13245cb15f3592dc0c4b095d749def787432a6cdbdd6b1ba18eeae17430faf83e79e85e7d1bd2b8c
   languageName: node
   linkType: hard
 
@@ -631,10 +596,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wkt-parser@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "wkt-parser@npm:1.3.3"
-  checksum: 10/1745f8ab839837d9df012112ebd914d935a462a1c8a590796ddefea549041ae03472a60c307b9079d08d92bd2e6a2f584300b11c372e6179306ee50e9985f79c
+"wkt-parser@npm:^1.5.1":
+  version: 1.5.2
+  resolution: "wkt-parser@npm:1.5.2"
+  checksum: 10/2511aba6b86010a8c0771cd1adffc1455eb3e989701fe2622a521c3218058da89890f79853dbd0008d34c82b3334c29aaa41c97d5f7e9510a8f8e55f05ae6f42
   languageName: node
   linkType: hard
 
