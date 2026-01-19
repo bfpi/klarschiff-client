@@ -55,9 +55,9 @@ module RequestsHelper
     housenumber = ''
     housenumber_addition = ''
 
-    uri = URI(Settings::AddressSearch.url)
+    uri = URI(Settings::Geocodr.url)
     query = "#{request.long},#{request.lat}"
-    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse', class: 'address', radius: '100', in_epsg: '4326')
+    uri.query = URI.encode_www_form(key: Settings::Geocodr.api_key, query: query, type: 'reverse', class: 'address', radius: '100', in_epsg: '4326')
 
     res = if (proxy = ENV['HTTP_PROXY'] || ENV['http_proxy']).present? # Workaround for open-uri https-proxy problem
       proxy = "http://#{proxy}" unless proxy.match(%r{^https?://})
