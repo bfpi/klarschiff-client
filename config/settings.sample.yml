@@ -59,10 +59,19 @@ development: &default
       format: :json
       api_key: 1234567890abcdefghijklmnopqrstuv
 
-  address_search:
-    url: https://geo.sv.rostock.de/geocodr/query?
+  geocodr:
+    address_object_group: Adresse HRO
+    address_search_class: address_hro
     api_key: 1234567890abcdefghijklmnopqrstuv
-    localisator: rostock
+    localisator: rostock # darf leer sein
+    parcel_object_group: Flurstück
+    parcel_search_class: parcel
+    places_object_group: Adresse
+    places_search_class: address
+    property_owner_object_group: Flurstückseigentümer
+    property_owner_search_class: property_owner
+    proxy:
+    url: https://geo.sv.rostock.de/geocodr/query?
     search_request_id_enabled: true
 
   protocol_mail:

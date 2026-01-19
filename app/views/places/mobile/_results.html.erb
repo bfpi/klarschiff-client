@@ -3,24 +3,13 @@
     <div class="card-header"><%= t('.results') %></div>
     <div class="list-group">
       <% @places.each do |place| -%>
-        <% if place.geometry['transform_bbox'] %>
+        <% if place['transform_bbox'] %>
           <% @transform = true -%>
         <% else %>
           <% @transform = false -%>
         <% end %>
-        <% if place.geometry['type'] == 'Point' %>
-          <% @bbox = [place.geometry['coordinates'][0],place.geometry['coordinates'][1],place.geometry['coordinates'][0],place.geometry['coordinates'][1]] -%>
-        <% else %>
-          <% @bbox = [place.geometry['coordinates'][0][0][0],place.geometry['coordinates'][0][0][1],place.geometry['coordinates'][0][2][0],place.geometry['coordinates'][0][2][1]] -%>
-        <% end %>
-        <%= link_to(map_path(bbox: @bbox, mobile: @mobile), remote: true, class: 'list-group-item', :data => { :transform => @transform }) do %>
-          <% if place.properties['objektgruppe'] == 'Gemeindeteil' %>
-            <%= place.properties['_title_'].split(', ')[-1] %>
-          <% elsif not place.properties['abkuerzung'].blank? %>
-            <%= place.properties['_title_'].split(', ')[-1] + ' (' + place.properties['abkuerzung'] + ')' %>
-          <% else %>
-            <%= place.properties['_title_'].split(', ')[-1] %>
-          <% end %>
+        <%= link_to(map_path(bbox: place[:bbox], mobile: @mobile), remote: true, class: 'list-group-item', :data => { :transform => @transform }) do %>
+          <%= place[:label] %>
           <span class="badge rounded-pill bg-secondary float-end"><i class="fas fa-chevron-right"></i></span>
         <% end %>
       <% end -%>
