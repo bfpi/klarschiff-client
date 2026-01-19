@@ -59,6 +59,10 @@ development: &default
       format: :json
       api_key: 1234567890abcdefghijklmnopqrstuv
 
+  gaia:
+    type: Amt,Gemeinde,Ortsteil,Straße,Adresse,Gemarkung,Flur,Flurstück
+    url: https://www.geodaten-mv.de/geocoding-api/place/autocomplete?
+
   geocodr:
     address_object_group: Adresse HRO
     address_search_class: address_hro

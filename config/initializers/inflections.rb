@@ -9,6 +9,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular "abuse", "abuses"
 #   inflect.irregular "person", "people"
 #   inflect.uncountable %w( fish sheep )
+  inflect.uncountable %w( gaia )
 end
 
 # These inflection rules are supported but not enabled by default:
