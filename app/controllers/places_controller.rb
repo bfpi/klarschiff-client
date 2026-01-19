@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
     end
     unless @pattern.blank?
       @places = []
-      if Settings::AddressSearch.search_request_id_enabled && @pattern =~ /^(\d*)$/
+      if Settings::Geocodr.search_request_id_enabled && @pattern =~ /^(\d*)$/
         Request.where(
             detailed_status: Settings::Map.default_requests_states,
             service_request_id: $1).try(:to_a).map do |p|
@@ -20,27 +20,8 @@ class PlacesController < ApplicationController
         end
       end
 
-      uri = URI.parse(Settings::AddressSearch.url)
-      if !(localisator = Settings::AddressSearch.localisator).blank?
-        query = Settings::AddressSearch.localisator + ' ' + @pattern
-      else
-        query = @pattern
-      end
-      uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search', class: 'address', shape: 'bbox', limit: '5')
-      
-      uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
-      if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
-        uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
-      end
-      begin
-        if (res = uri.open(uri_options)) && res.status.include?('OK')
-          Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
-            @places << Place.new(p)
-          end
-        end
-      rescue OpenURI::HTTPError
-        Rails.logger.error "Geocodr Error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
-        Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
+      Geocodr.search_places(@pattern).each do |place|
+        @places << place
       end
     end
 

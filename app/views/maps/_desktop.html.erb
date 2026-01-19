@@ -20,7 +20,7 @@
     </div>
     <div class="card bg-primary address-search-field">
       <div class="card-body">
-        <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::AddressSearch.search_request_id_enabled ? '.search' : '.address_search')) %>
+        <%= text_field(:places, :search, class: 'form-control', placeholder: t(Settings::Geocodr.search_request_id_enabled ? '.search' : '.address_search')) %>
       </div>
     </div>
     <div class="card map-card map-filter">
