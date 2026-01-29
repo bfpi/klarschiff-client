@@ -42,9 +42,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"billboard.js@npm:^3.15.1":
-  version: 3.16.0
-  resolution: "billboard.js@npm:3.16.0"
+"billboard.js@npm:^3.18.0":
+  version: 3.18.0
+  resolution: "billboard.js@npm:3.18.0"
   dependencies:
     "@types/d3-selection": "npm:^3.0.11"
     "@types/d3-transition": "npm:^3.0.9"
@@ -61,7 +61,7 @@ __metadata:
     d3-time-format: "npm:^4.1.0"
     d3-transition: "npm:^3.0.1"
     d3-zoom: "npm:^3.0.0"
-  checksum: 10/8c5ef517a7841188c58d12477cd9869f59d9743d01fd799e7bae9f2708aa3893dfcf29f83df135f2bcda05014f9ecf135f4695d0ad319b4d92480b21d6b091e8
+  checksum: 10/22fca7d206b8e596768580e2fae7b66c732c60f2a9611dc0e227c9f1c2b342e5d4e9ca0cc363325b5c2412a0b738a3388648880cd41e4009e95f67c4dd783f39
   languageName: node
   linkType: hard
 
@@ -482,7 +482,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "klarschiff-client@workspace:."
   dependencies:
-    billboard.js: "npm:^3.15.1"
+    billboard.js: "npm:^3.18.0"
     d3: "npm:^7.8.5"
     jquery-ui-touch-punch: "npm:^0.2.3"
     ol: "npm:^10.3.0"
