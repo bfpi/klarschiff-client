@@ -46,4 +46,9 @@ class StaticsController < ApplicationController
     @file_name = 'finance'
     render :api
   end
+
+  def participation
+    @file_name = 'participation'
+    render :api
+  end
 end

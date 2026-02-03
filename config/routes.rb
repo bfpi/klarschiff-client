@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get :help
     get :imprint
     get :news
+    get :participation
     get :privacy
     get :promotion
     get 'requests/:page', to: 'statics#requests', as: :requests_page
