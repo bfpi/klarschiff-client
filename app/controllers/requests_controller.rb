@@ -3,11 +3,11 @@ class RequestsController < ApplicationController
     unless @back = params[:back]
       conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
       conditions.update service_code: service_code if service_code
-      conditions[:map] = params[:map] if params[:map]
-      conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
       conditions[:area_code] = params[:area] if params[:area]
-      conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
+      conditions[:map] = params[:map] if params[:map]
       conditions[:service_code] = params[:service_code] if params[:service_code]
+      conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+      conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
       if (center = params[:center]).present?
         conditions.update lat: center[0], long: center[1]
       end
