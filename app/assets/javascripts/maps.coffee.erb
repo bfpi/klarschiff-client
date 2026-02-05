@@ -390,15 +390,16 @@ KS.styles =
           color: '#FF8700'
 
   newFeature: (type) ->
+    image = "new-#{ type }"
     new ol.style.Style
       image: new ol.style.Icon
         anchorXUnits: 'pixels'
         anchorYUnits: 'pixels'
         anchor: [
-          16
-          50
+          KS.imageAnchorX(image)
+          KS.imageAnchorY(image)
         ]
-        src: KS.imagePath("new-#{ type }")
+        src: KS.imagePath(image)
         size: [56, 64]
 
   location: ->
@@ -432,6 +433,15 @@ KS.highlightStyle= (feature, icon) ->
 KS.imagePath = (type) ->
   $("#image-sources img##{ type }").attr 'src'
 
+KS.imageAnchorX = (type) ->
+  x = $("#image-sources img##{ type }").data 'anchor-x'
+  return x if x
+  16
+
+KS.imageAnchorY = (type) ->
+  y = $("#image-sources img##{ type }").data 'anchor-y'
+  return y if y
+  50
 
 class KS.Layers
   constructor: (map, overlay = true) ->
