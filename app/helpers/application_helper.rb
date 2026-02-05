@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+  def map_icon(icon)
+    overlay_path = "overlay/#{icon}"
+    asset_exists?(overlay_path) ? overlay_path : "icons/map/active/png/#{ icon }"
+  end
+
   def statistic_current_count
     Request.count(also_archived: false, detailed_status: states, keyword: 'problem, idea')
   end
@@ -20,5 +25,14 @@ module ApplicationHelper
 
   def states
    Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
+  end
+
+  private
+  def asset_exists?(path)
+    if Rails.configuration.assets.compile
+      Rails.application.precompiled_assets.include? path
+    else
+      Rails.application.assets_manifest.assets[path].present?
+    end
   end
 end

@@ -139,10 +139,10 @@
     <div id="image-sources">
       <% %w(problem idea).each do |type| -%>
         <% if Settings::Client.send "service_type_#{ type }" %>
-          <img id="new-<%= type %>" src="<%= image_path "icons/map/active/png/#{type}-gray.png" %>" />
+          <img id="new-<%= type %>" src="<%= image_path map_icon("#{type}-gray.png") %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
         <% end -%>
       <% end -%>
-      <img id="new-blank" src="<%= image_path 'icons/map/active/png/blank-gray.png' %>" />
+      <img id="new-blank" src="<%= image_path map_icon('blank-gray.png') %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
       <% if login_required? -%>
         <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>" />
       <% end -%>

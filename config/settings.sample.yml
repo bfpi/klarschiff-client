@@ -28,6 +28,8 @@ development: &default
     observations_area_limit: 35
     recent_requests: 6
     recent_requests_per_row: 2
+    new_icon_anchor_x: 16
+    new_icon_anchor_y: 50
     service_type_idea: true
     service_type_problem: true
     show_social_icons: true
