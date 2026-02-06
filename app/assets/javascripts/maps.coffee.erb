@@ -481,6 +481,7 @@ class KS.Layers
             params:
               "LAYERS": layer.content
               "FORMAT": layer.format
+            attributions: if layer.attribution? then layer.attribution else null
           visible: layer.visible
 
     @layers.sort (a, b) ->
