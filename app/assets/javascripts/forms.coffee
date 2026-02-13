@@ -4,7 +4,7 @@ $ ->
 
   KS.content().on 'change', 'select[data-update]', ->
     if (target = $("##{ $(@).data('update') }"))? && (url = target.data('src'))?
-      $.ajax(url: url, dataType: 'json', data: category: $(@).val()).done (response) ->
+      $.ajax(url: url, dataType: 'json', data: { category: $(@).val(), lat: $('#request_lat').val(), long: $('#request_long').val()}).done (response) ->
         target.html('').append "<option disabled='disabled' selected='selected' class='placeholder'>#{
           target.data('placeholder') }</option>"
         $(response).each ->
