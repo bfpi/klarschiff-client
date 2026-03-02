@@ -15,11 +15,15 @@
     </div>
     <div class="col-12">
       <br/>
-      <ul>
-        <% %w(emergencies complex_requests personal_requests).each do |val| -%>
-          <li><%= t(".no_#{ val }") %></li>
-        <% end -%>
-      </ul>
+      <% if I18n.exists?('requests.desktop.start_request.explanation_html') %>
+        <%= t('.explanation_html') %>
+      <% else %>
+        <ul>
+          <% %w(emergencies complex_requests personal_requests).each do |val| -%>
+            <li><%= t(".no_#{ val }") %></li>
+          <% end -%>
+        </ul>
+      <% end -%>
     </div>
   </div>
 </div>
