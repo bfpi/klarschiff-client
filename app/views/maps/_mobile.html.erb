@@ -38,7 +38,24 @@
           </li>
         <% end -%>
         <% if !login_required? -%>
-          <li class="float-end">
+          <li class="float-end d-block d-sm-none">
+            <a href="<%= imprint_static_path %>" class="imprint nav-link" title="<%= t("nav.imprint") %>" target="_blank">
+              <i class="fas fa-user"></i>
+              <span><%= t("nav.imprint") %></span>
+            </a>
+          </li>
+          <li class="float-end d-block d-sm-none">
+            <% privacy_link = if Settings::Url.respond_to?(:external_privacy_url)
+                                Settings::Url.external_privacy_url
+                              else
+                                privacy_static_path
+                              end %>
+            <a href="<%= privacy_link %>" class="privacy nav-link" title="<%= t("nav.privacy") %>" target="_blank">
+              <i class="fas fa-lock"></i>
+              <span><%= t("nav.privacy") %></span>
+            </a>
+          </li>
+          <li class="float-end d-none d-sm-block">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
               <span class="navbar-toggler-icon"></span>
             </button>
