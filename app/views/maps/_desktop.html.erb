@@ -35,7 +35,7 @@
       <div id="map-body" class="collapse" role="tabcard" aria-labelledby="map-heading">
         <div class="card-body">
           <div class="row">
-            <div class="col-6">
+            <div class="col-6 status">
               <div class="row">
                 <% %i(pending received in_process processed rejected).each do |st| -%>
                   <div class="col-12">
@@ -46,7 +46,7 @@
               </div>
             </div>
             <% unless service_code -%>
-              <div class="col-6">
+              <div class="col-6 types">
                 <div class="row">
                   <% %i(problem idea).each do |type| -%>
                     <% if Settings::Client.send "service_type_#{ type }" %>
