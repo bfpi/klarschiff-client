@@ -251,7 +251,7 @@ de:
     desktop:
       address_search: Adressensuche
       search: Suche
-      filter: Kartenfilter
+      filter: nach Meldung filtern
 
   notes:
     create:

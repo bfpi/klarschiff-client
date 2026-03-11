@@ -1,7 +1,11 @@
 <div id="request-start" class="request-container">
   <div class="row mb-3">
     <div class="col-12">
-      <%= t('.new_request') %>
+      <% if I18n.exists?('requests.desktop.start_request.new_request_html') %>
+        <%= t('.new_request_html') %>
+      <% else %>
+        <%= t('.new_request') %>
+      <% end %>
     </div>
   </div>
   <div class="row">
