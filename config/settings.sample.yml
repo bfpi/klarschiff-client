@@ -32,6 +32,8 @@ development: &default
     new_icon_anchor_y: 50
     service_type_idea: true
     service_type_problem: true
+    skip_type_selection: false
+    default_type:
     show_social_icons: true
     show_email:
     show_abuses:

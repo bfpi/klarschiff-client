@@ -1,9 +1,11 @@
 <div id="type-select">
   <div id="request-category-1" class="row category">
-    <div class="col-12">
-      <%= select_tag(:request_category, categories(type, category), id: :request_category_1,
-                     class: 'form-select', data: { update: :request_service_code_1 }) %>
-    </div>
+    <% if multiple_main_categories?(type) %>
+      <div class="col-12">
+        <%= select_tag(:request_category, categories(type, category), id: :request_category_1,
+                       class: 'form-select', data: { update: :request_service_code_1 }) %>
+      </div>
+    <% end -%>
     <div class="col-12">
       <%= select_tag(:request_service_code, services(category, service_code), id: :request_service_code_1,
                    class: 'form-select', name: 'request[service_code][]',
@@ -23,10 +25,12 @@
   </div>
   <% if multi_requests_enabled? -%>
     <div id="request-category-2" class="row category invisible mt-3">
-      <div class="col-12">
-        <%= select_tag(:request_category, categories(type), id: :request_category_2,
-                       class: 'form-select', data: { update: :request_service_code_2 }) %>
-      </div>
+      <% if multiple_main_categories?(type) %>
+        <div class="col-12">
+          <%= select_tag(:request_category, categories(type), id: :request_category_2,
+                         class: 'form-select', data: { update: :request_service_code_2 }) %>
+        </div>
+      <% end -%>
       <div class="col-12">
         <%= select_tag(:request_service_code, services(), id: :request_service_code_2,
                      class: 'form-select', name: 'request[service_code][]',
@@ -45,10 +49,12 @@
       </div>
     </div>
     <div id="request-category-3" class="row category invisible mt-3">
-      <div class="col-12">
-        <%= select_tag(:request_category, categories(type), id: :request_category_3,
-                       class: 'form-select', data: { update: :request_service_code_3 }) %>
-      </div>
+      <% if multiple_main_categories?(type) %>
+        <div class="col-12">
+          <%= select_tag(:request_category, categories(type), id: :request_category_3,
+                         class: 'form-select', data: { update: :request_service_code_3 }) %>
+        </div>
+      <% end -%>
       <div class="col-12">
         <%= select_tag(:request_service_code, services(), id: :request_service_code_3,
                      class: 'form-select', name: 'request[service_code][]',

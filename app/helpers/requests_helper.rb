@@ -32,7 +32,7 @@ module RequestsHelper
   end
 
   def categories(type, current = nil)
-    categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq
+    categories = services_by_type(type)
     unless current
       categories.insert 0, [t('placeholder.select.category'), disabled: true, selected: current.nil?, class: :placeholder]
     end
@@ -42,12 +42,20 @@ module RequestsHelper
   def services(category = nil, current = nil)
    services = Service.collection.select { |s| s.group == category }.map { |s|
       [s.service_name, s.service_code]
-    }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder]
+    }.insert 0, [t('placeholder.select.service'), disabled: true, class: :placeholder, selected: true]
    options_for_select services, current
   end
 
   def service
     Service.find(service_code) if service_code
+  end
+
+  def multiple_main_categories?(type)
+    services_by_type(type).size > 1
+  end
+
+  def services_by_type(type)
+    Service.collection.select { |s| s.type == type }.map(&:group).uniq
   end
 
   def d3_document_url(request)

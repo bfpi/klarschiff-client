@@ -181,13 +181,14 @@ $ ->
           else
             error.push response.error
       when 2
-        unless $('.radio-type').is(':checked')
-          error.push "<%= I18n.t('requests.desktop.new.error.required.type') %>"
+        if <%= Settings::Client.skip_type_selection %>
+          validate_categories(error)
+        else
+          unless $('.radio-type').is(':checked')
+            error.push "<%= I18n.t('requests.desktop.new.error.required.type') %>"
       when 3
-        unless $('#request_service_code_1').val()
-          error.push "<%= I18n.t('requests.desktop.new.error.required.category') %>"
-        unless $('#request_description').val().trim() != ''
-          error.push "<%= I18n.t('requests.desktop.new.error.required.description') %>"
+        if !<%= Settings::Client.skip_type_selection %>
+          validate_categories(error)
       else
 
     if $(@).data('next') == 1
@@ -209,6 +210,12 @@ $ ->
     else
       KS.buildError(error)
     false
+
+  validate_categories= (error) ->
+    unless $('#request_service_code_1').val()
+      error.push "<%= I18n.t('requests.desktop.new.error.required.category') %>"
+    unless $('#request_description').val().trim() != ''
+      error.push "<%= I18n.t('requests.desktop.new.error.required.description') %>"
 
   $('.start-card').find('.btn-primary').toArray()[0].focus() if $('.start-card').is(':visible')
 

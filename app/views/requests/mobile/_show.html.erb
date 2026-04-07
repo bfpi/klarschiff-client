@@ -53,10 +53,12 @@
       </div>
     <% end -%>
     <div class="list-group">
-      <div class="list-group-item">
-        <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
-        <p class="list-group-item-text"><%= @request.service.group %></p>
-      </div>
+      <% if multiple_main_categories?(@request.type) %>
+        <div class="list-group-item">
+          <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:group) %></h4>
+          <p class="list-group-item-text"><%= @request.service.group %></p>
+        </div>
+      <% end -%>
       <div class="list-group-item">
         <h4 class="list-group-item-heading"><%= Service.human_attribute_name(:service_name) %></h4>
         <p class="list-group-item-text"><%= @request.service %></p>
