@@ -5,7 +5,6 @@ de:
       citysdk: "%Y-%m-%dT%H:%M:%SZ"
   aerial_view: Luftbild
   archive: Archivdaten
-  map_settings: Kartenthemen
   map_view: Karte
   api: API
   demo: Demo
@@ -242,16 +241,13 @@ de:
     notification:
       notification_title: "%{name} – Neuer Auftrag"
 
-  layouts:
-    menue_top_left:
-      request: Neue Meldung
-      watch: Beobachtung
-
   maps:
     desktop:
       address_search: Adressensuche
       search: Suche
-      filter: nach Meldung filtern
+      filter: Kartenfilter
+      request: Neue Meldung
+      watch: Beobachtung
 
   notes:
     create:
@@ -428,21 +424,17 @@ de:
       unchecked: nicht abgehakt
       not-checkable: nicht abarbeitbar
 
-  shared:
-    statistic:
-      overall: neue Meldungen seit Start (%{start_date})
-      current: aktuell aktive Meldungen
-      newest: neue Meldungen letzten Monat
-      processed: Meldungen erledigt letzten Monat
-
   starts:
     show: &starts_show
       headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
       news: Neuigkeiten
+      overall: neue Meldungen seit Start (%{start_date})
+      current: aktuell aktive Meldungen
+      newest: neue Meldungen letzten Monat
+      processed: Meldungen erledigt letzten Monat
+      recent_requests: Kürzlich gemeldet
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
-    recent_requests:
-      recent_requests: Kürzlich gemeldet
     desktop:
       <<: *starts_show
     mobile:
@@ -485,3 +477,4 @@ de:
       top5: "Top 5"
       request_count: "Meldungen (mit gewählten Filtern)"
       notice: "Für weiterführende Analysen nutzen Sie gerne unseren RSS-Feed, die API, oder kontaktieren Sie uns."
+
