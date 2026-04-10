@@ -241,13 +241,16 @@ de:
     notification:
       notification_title: "%{name} – Neuer Auftrag"
 
+  layouts:
+    menue_top_left:
+      request: Neue Meldung
+      watch: Beobachtung
+
   maps:
     desktop:
       address_search: Adressensuche
       search: Suche
       filter: Kartenfilter
-      request: Neue Meldung
-      watch: Beobachtung
 
   notes:
     create:
@@ -424,17 +427,21 @@ de:
       unchecked: nicht abgehakt
       not-checkable: nicht abarbeitbar
 
-  starts:
-    show: &starts_show
-      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
-      news: Neuigkeiten
+  shared:
+    statistic:
       overall: neue Meldungen seit Start (%{start_date})
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat
       processed: Meldungen erledigt letzten Monat
-      recent_requests: Kürzlich gemeldet
+
+  starts:
+    show: &starts_show
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      news: Neuigkeiten
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
+    recent_requests:
+      recent_requests: Kürzlich gemeldet
     desktop:
       <<: *starts_show
     mobile:

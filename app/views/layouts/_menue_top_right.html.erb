@@ -1,0 +1,11 @@
+<%= link_to t(:list), [:requests, :static] %> |
+<%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
+<%= link_to t(:help), help_static_path %> |
+<% if Settings::Url.respond_to?(:external_privacy_url) -%>
+  <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
+<% else -%>
+  <%= link_to t(:privacy), privacy_static_path %> |
+<% end -%>
+<%= link_to t(:imprint), imprint_static_path %> |
+<%= link_to t(:usage), usage_static_path %>
+

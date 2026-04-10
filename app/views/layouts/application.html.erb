@@ -30,8 +30,12 @@
     <%= csrf_meta_tags %>
 
     <% custom_css_file_path = "#{ Settings::Client.resources_path }custom.css" %>
-    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css" %>
+    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css?#{ Time.current.to_i }" %>
     <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
+
+    <% custom_js_file_path = "#{ Settings::Client.resources_path }custom.js" %>
+    <% custom_js_file_url = "#{ Settings::Client.resources_url }custom.js?#{ Time.current.to_i }" %>
+    <%= javascript_include_tag custom_js_file_url if File.exist?(custom_js_file_path) %>
   </head>
   <body class="<%= 'mobile' if @mobile %>">
     <% unless @mobile -%>
@@ -54,7 +58,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-5">
+            <div class="col">
               <%= yield :nav %>
               <div class="btn-group btn-group-sm textresizer" id="textsizer">
                 <%= link_to '#', class: 'btn btn-sm btn-link', remote: true do %>
@@ -68,17 +72,8 @@
                 <% end -%>
               </div>
             </div>
-            <div class="col-7 text-end">
-              <%= link_to t(:list), [:requests, :static] %> |
-              <%= link_to t(:statistic), [:statistics], data: { turbolinks: false } %> |
-              <%= link_to t(:help), [:help, :static] %> |
-              <% if Settings::Url.respond_to?(:external_privacy_url) -%>
-                <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
-              <% else -%>
-                <%= link_to t(:privacy), [:privacy, :static] %> |
-              <% end -%>
-              <%= link_to t(:imprint), [:imprint, :static] %> |
-              <%= link_to t(:usage), [:usage, :static] %>
+            <div class="col text-end">
+              <%= render partial: 'layouts/menue_top_right' %> 
             </div>
           </div>
         </div>
@@ -90,13 +85,7 @@
         <div class="container-fluid">
           <div class="systray">
             <div class="text-center">
-              <%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
-              <%= link_to t(:api), [:api, :static] %> |
-              <% if Settings::Url.ks_demo_url.present? -%>
-                <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: "_blank" %> |
-              <% end -%>
-              <%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %> |
-              <%= link_to t(:promotion), [:promotion, :static] %>
+              <%= render partial: 'layouts/menue_bottom' %> 
             </div>
             <div class="text-center small">
               <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: "_blank" %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: "_blank" %>)
@@ -134,10 +123,10 @@
                 <% if Settings::Url.respond_to?(:external_privacy_url) -%>
                   <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
                 <% else -%>
-                  <%= link_to t(:privacy), [:privacy, :static] %> |
+                  <%= link_to t(:privacy), privacy_static_path %> |
                 <% end -%>
-                <%= link_to t(:imprint), [:imprint, :static] %> |
-                <%= link_to t(:usage), [:usage, :static] %>
+                <%= link_to t(:imprint), imprint_static_path %> |
+                <%= link_to t(:usage), usage_static_path %>
               </div>
             </div>
           </div>
@@ -148,9 +137,12 @@
       <img id="throbber-img" src="<%= image_path 'throbber.gif' %>" />
     </div>
     <div id="image-sources">
-      <img id="new-idea" src="<%= image_path 'icons/map/active/png/idea-gray.png' %>" />
-      <img id="new-problem" src="<%= image_path 'icons/map/active/png/problem-gray.png' %>" />
-      <img id="new-blank" src="<%= image_path 'icons/map/active/png/blank-gray.png' %>" />
+      <% %w(problem idea).each do |type| -%>
+        <% if Settings::Client.send "service_type_#{ type }" %>
+          <img id="new-<%= type %>" src="<%= image_path map_icon("#{type}-gray.png") %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
+        <% end -%>
+      <% end -%>
+      <img id="new-blank" src="<%= image_path map_icon('blank-gray.png') %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
       <% if login_required? -%>
         <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>" />
       <% end -%>
