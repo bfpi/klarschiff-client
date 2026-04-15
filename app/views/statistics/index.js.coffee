@@ -1,4 +1,3 @@
-
 $('.static-overlay .static-overlay-content').html('<%= j render(partial: "index").html_safe %>')
 $('.static-overlay').show()
 $('.sidebar .tab-content > *').removeClass('active')
