@@ -29,12 +29,12 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
 
-    <% custom_css_file_path = "#{ Settings::Client.resources_path }custom.css" %>
-    <% custom_css_file_url = "#{ Settings::Client.resources_url }custom.css?#{ Time.current.to_i }" %>
+    <% custom_css_file_path = "#{Settings::Client.resources_path}custom.css" %>
+    <% custom_css_file_url = "#{Settings::Client.resources_url}custom.css?#{Time.current.to_i}" %>
     <%= stylesheet_link_tag custom_css_file_url if File.exist?(custom_css_file_path) %>
 
-    <% custom_js_file_path = "#{ Settings::Client.resources_path }custom.js" %>
-    <% custom_js_file_url = "#{ Settings::Client.resources_url }custom.js?#{ Time.current.to_i }" %>
+    <% custom_js_file_path = "#{Settings::Client.resources_path}custom.js" %>
+    <% custom_js_file_url = "#{Settings::Client.resources_url}custom.js?#{Time.current.to_i}" %>
     <%= javascript_include_tag custom_js_file_url if File.exist?(custom_js_file_path) %>
   </head>
   <body class="<%= 'mobile' if @mobile %>">
