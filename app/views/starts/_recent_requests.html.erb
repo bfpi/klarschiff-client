@@ -10,8 +10,7 @@
   <div class="card-body">
     <div class="row form-group">
       <div class="col-md-12">
-
-        <div class="row ">
+        <div class="row">
           <% @recent_requests.each.with_index(1) do |req, i| -%>
             <% if i.odd? -%>
               <div class="<%= @recent_requests_col %>">
@@ -44,7 +43,6 @@
             <% end -%>
           <% end -%>
         </div>
-
       </div>
     </div>
   </div>
