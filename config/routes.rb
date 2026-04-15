@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   root 'starts#show'
 
   resource :map, only: :show
-  resource :start do
-    get :show
+  resource :start, only: :show do
     get :recent_requests
   end
 
@@ -12,7 +11,6 @@ Rails.application.routes.draw do
   get 'jobs/notification', to: 'jobs#notification'
 
   resources :observations, only: [:index, :new, :create]
-  resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]
     resources :comments, only: [:index, :new, :create]
@@ -33,7 +31,7 @@ Rails.application.routes.draw do
       get :vote
     end
   end
-  resource :static do
+  resource :static, only: [] do
     get :api
     get :contact
     get :finance
