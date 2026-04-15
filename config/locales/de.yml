@@ -170,6 +170,11 @@ de:
         success: Missbrauchsmeldung erfolgreich abgesetzt
         error: Fehler bei Missbrauchsmeldung
 
+  application:
+    menue_top_left:
+      request: Neue Meldung
+      watch: Beobachtung
+
   areas:
     areas_form:
       districts: Bitte wählen Sie in der Karte den/die Ortsteil(e), den/die Sie beobachten möchten.
@@ -240,11 +245,6 @@ de:
       title: Aufträge
     notification:
       notification_title: "%{name} – Neuer Auftrag"
-
-  layouts:
-    menue_top_left:
-      request: Neue Meldung
-      watch: Beobachtung
 
   maps:
     desktop:
