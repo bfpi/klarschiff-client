@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def map_icon(icon)
     overlay_path = "overlay/#{icon}"
-    asset_exists?(overlay_path) ? overlay_path : "icons/map/active/png/#{ icon }"
+    asset_exists?(overlay_path) ? overlay_path : "icons/map/active/png/#{icon}"
   end
 
   def statistic_current_count
@@ -14,20 +14,20 @@ module ApplicationHelper
   end
 
   def statistic_newest_count
-    Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea',
-                                  start_date: Date.today - 30)
+    Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea', start_date: Date.today - 30)
   end
 
   def statistic_processed_count
     Request.count(also_archived: true, detailed_status: 'PROCESSED', keyword: 'problem, idea',
-                                     start_date: Date.today - 30)
+                  start_date: Date.today - 30)
   end
 
   def states
-   Settings::Map.default_requests_states.strip.split(', ').select { |s| s != 'PENDING' }.join(', ')
+    Settings::Map.default_requests_states.strip.split(', ').reject { |s| s == 'PENDING' }.join ', '
   end
 
   private
+
   def asset_exists?(path)
     if Rails.configuration.assets.compile
       Rails.application.precompiled_assets.include? path

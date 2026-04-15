@@ -103,14 +103,14 @@ class KS.HeatmapFeatureData
       vector.addFeatures features
       KS.updateStatistics(features.length)
 
-KS.generateHeatmapPath= () ->
+KS.generateHeatmapPath = () ->
   params = KS.getMapPanelParams()
   path = KS.requests_path
   unless params == ''
     path += "#{ if path.contains?('?') then '&' else '?' }#{ params }"
   path
 
-KS.updateStatistics= (featuresCount) ->
+KS.updateStatistics = (featuresCount) ->
   $('#request_count').html(featuresCount)
   $('.statistics [data-top5] [data-field=count]').html('')
   $('.statistics [data-top5] [data-field=label]').html('&nbsp;')
@@ -160,7 +160,7 @@ KS.drawChart= (chart, data) ->
       type: 'pie'
     bindto: chart)
 
-KS.initializeHeatmap= ->
+KS.initializeHeatmap = ->
   KS.olHeatmap = new KS.Heatmap
   $(document).on 'change', '#area', () ->
     area_id = $(this).val()
