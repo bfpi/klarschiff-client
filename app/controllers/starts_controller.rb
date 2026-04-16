@@ -1,5 +1,4 @@
 class StartsController < ApplicationController
-  include ApplicationHelper
   def show
     @request_id = params[:request]
     if login_required?
