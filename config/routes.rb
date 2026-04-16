@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'jobs/notification', to: 'jobs#notification'
 
   resources :observations, only: [:index, :new, :create]
+  resources :places, only: [:index, :show]
   resources :requests do
     resources :abuses, only: [:new, :create]
     resources :comments, only: [:index, :new, :create]
