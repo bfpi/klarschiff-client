@@ -1,5 +1,8 @@
 class KS.Heatmap
   constructor: (@projection = KS.projection()) ->
+    if !$('#ol-heatmap').is(':visible')
+      return;
+
     @olHeatmap = new ol.Map
       target: 'ol-heatmap'
       moveTolerance: 10

@@ -230,5 +230,6 @@ KS.reloadFeatures= () ->
   KS.layers.findById('features').getSource().getSource().refresh()
   if KS.login_required && KS.getUrlParam('mobile')
     KS.layers.findById('jobs').getSource().getSource().refresh()
-  extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
-  KS.HeatmapLayers.findById('heatmap').getSource().refresh()
+  if $('#ol-heatmap').is(':visible')
+    extent = KS.olHeatmap.getView().calculateExtent(KS.olHeatmap.getSize())
+    KS.HeatmapLayers.findById('heatmap').getSource().refresh()
