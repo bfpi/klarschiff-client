@@ -6,13 +6,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <% if Settings::Client.skip_type_selection && Settings::Client.default_type %>
-        <%= link_to t('buttons.new_request'), [:new, :request, mobile: @mobile, type: Settings::Client.default_type], remote: true,
-          class: 'btn btn-primary' %>
-      <% else %>
-        <%= link_to t('buttons.new_request'), [:new, :request, mobile: @mobile], remote: true,
-          class: 'btn btn-primary' %>
-      <% end -%>
+      <%= link_to t('buttons.new_request'), [:new, :request, mobile: @mobile], remote: true,
+        class: 'btn btn-primary' %>
     </div>
     <div class="col-12">
       <br/>
