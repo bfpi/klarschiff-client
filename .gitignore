@@ -49,7 +49,7 @@ public/search/conf/config.php
 
 # Cache für statische Meldungsliste
 public/static/
-public/resources/
+public/resources
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
