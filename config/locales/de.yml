@@ -170,6 +170,11 @@ de:
         success: Missbrauchsmeldung erfolgreich abgesetzt
         error: Fehler bei Missbrauchsmeldung
 
+  application:
+    menue_top_left:
+      request: Neue Meldung
+      watch: Beobachtung
+
   areas:
     areas_form:
       districts: Bitte wählen Sie in der Karte den/die Ortsteil(e), den/die Sie beobachten möchten.
@@ -245,9 +250,7 @@ de:
     desktop:
       address_search: Adressensuche
       search: Suche
-      filter: Kartenfilter
-      request: Neue Meldung
-      watch: Beobachtung
+      filter: nach Meldung filtern
 
   notes:
     create:
@@ -424,17 +427,21 @@ de:
       unchecked: nicht abgehakt
       not-checkable: nicht abarbeitbar
 
-  starts:
-    show: &starts_show
-      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
-      news: Neuigkeiten
+  shared:
+    statistic:
       overall: neue Meldungen seit Start (%{start_date})
       current: aktuell aktive Meldungen
       newest: neue Meldungen letzten Monat
       processed: Meldungen erledigt letzten Monat
-      recent_requests: Kürzlich gemeldet
+
+  starts:
+    show: &starts_show
+      headline: "Einfach mitmachen – Gemeinsam für unser %{city_short}!"
+      news: Neuigkeiten
       statistics: Statistik
       subscribe_requests_feed: Meldungen als RSS-Feed abonnieren…
+    recent_requests:
+      recent_requests: Kürzlich gemeldet
     desktop:
       <<: *starts_show
     mobile:

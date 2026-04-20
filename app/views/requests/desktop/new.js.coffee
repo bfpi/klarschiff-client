@@ -1,3 +1,4 @@
+$('.static-overlay').hide() if $('.static-overlay').is(':visible')
 <% if params[:switch_type] -%>
 KS.layers.findById('new_feature').getSource().getFeatures()[0].setStyle(KS.styles.newFeature("<%= @type %>"))
 $('#type-select').replaceWith("<%= j render partial: 'requests/desktop/category_select', locals: { type: @type, category: nil, service_code: nil } %>")

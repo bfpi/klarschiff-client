@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'starts#show'
 
   resource :map, only: :show
-  resource :start, only: :show
+  resource :start, only: :show do
+    get :recent_requests
+  end
 
   resources :areas, only: :index
   resources :jobs, only: [:index, :update]
@@ -30,15 +32,19 @@ Rails.application.routes.draw do
       get :vote
     end
   end
-  resource :static do
+  resource :static, only: [] do
     get :api
+    get :contact
+    get :finance
     get :help
     get :imprint
+    get :news
+    get :participation
     get :privacy
     get :promotion
-    get :usage
+    get 'requests/:page', to: 'statics#requests', as: :requests_page
     get :requests, to: redirect('/static/requests/1')
-    get 'requests/:page', to: 'statics#request', as: :requests_page
+    get :usage
   end
   resources :statistics, only: :index
 end

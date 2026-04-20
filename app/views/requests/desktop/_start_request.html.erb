@@ -1,7 +1,11 @@
 <div id="request-start" class="request-container">
   <div class="row mb-3">
     <div class="col-12">
-      <%= t('.new_request') %>
+      <% if I18n.exists?('requests.desktop.start_request.new_request_html') %>
+        <%= t('.new_request_html') %>
+      <% else %>
+        <%= t('.new_request') %>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -11,11 +15,15 @@
     </div>
     <div class="col-12">
       <br/>
-      <ul>
-        <% %w(emergencies complex_requests personal_requests).each do |val| -%>
-          <li><%= t(".no_#{ val }") %></li>
-        <% end -%>
-      </ul>
+      <% if I18n.exists?('requests.desktop.start_request.explanation_html') %>
+        <%= t('.explanation_html') %>
+      <% else %>
+        <ul>
+          <% %w(emergencies complex_requests personal_requests).each do |val| -%>
+            <li><%= t(".no_#{ val }") %></li>
+          <% end -%>
+        </ul>
+      <% end -%>
     </div>
   </div>
 </div>

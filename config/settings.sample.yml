@@ -16,13 +16,22 @@ development: &default
     key: hro
     login_required: true
     multi_requests_enabled: true
+    skip_extra_homepage: false
     name: Klarschiff
     city_long: Demostadt
     city_short: Demo
     resources_path: /srv/www/htdocs/klarschiff_resources/
     resources_url: https://demo.klarschiff.de/resources/
+    resources_overview_path: /srv/www/htdocs/klarschiff_resources/requests/
+    resources_overview_remote: false
     logo_url: /resources/images/logo.png
     observations_area_limit: 35
+    recent_requests: 6
+    recent_requests_per_row: 2
+    new_icon_anchor_x: 16
+    new_icon_anchor_y: 50
+    service_type_idea: true
+    service_type_problem: true
     show_social_icons: true
     show_email:
     show_abuses:
