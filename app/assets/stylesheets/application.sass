@@ -449,7 +449,8 @@ body.mobile
   right: 1em
   top: 0.7em
  
-.static-overlay
+.static-overlay,
+.statistic-overlay
   background-color: white
   bottom: 0
   display: none
@@ -461,8 +462,11 @@ body.mobile
   z-index: 1200
   overflow: scroll
 
-.static-overlay .static-overlay-content
-  padding: 10px
+  .overlay-content
+    padding: 10px
+
+.statistic-overlay
+  display: none
 
 .dropdown-menu
   z-index: 1700

@@ -12,7 +12,7 @@
             <label for="area" class="col-form-label"><%= t('.filter_area') %></label>
             <%= select_tag :area, options_for_select(
                   [[Settings::Client.city_short, '']] +
-                    Area.where(with_districts: true).map { |a| [a.attributes[:name], a.attributes[:id]] }.sort
+                    Area.where(with_districts: true, skip_coordinates: true).map { |a| [a.attributes[:name], a.attributes[:id]] }.sort
                   ), class: 'form-control map-parameter', data: { key: :area } %>
           </div>
           <div class="col-3">
