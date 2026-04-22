@@ -114,6 +114,7 @@ $ ->
   $(document).on 'click', '.header-tab', () ->
     $('.sidebar-toggler').trigger('click') unless $('.sidebar').is(':visible')
     $('.static-overlay').hide() if $('.static-overlay').is(':visible')
+    $('.statistic-overlay').hide() if $('.statistic-overlay').is(':visible')
 
     return unless $(@).data('tab')
     unless $('.' + $(@).data('tab') + '-container').length > 0
