@@ -1,0 +1,26 @@
+name: Rails Tests
+
+on:
+  - push
+  - workflow_call
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: yarn install
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Prepare Assets
+        run: bundle exec rails assets:precompile
+      - name: Run Rails Tests
+        run: bundle exec rails test -b -d
+

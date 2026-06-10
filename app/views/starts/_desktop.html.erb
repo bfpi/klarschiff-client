@@ -6,7 +6,7 @@
     <%= render(partial: 'recent_requests') %>
   </div>
   <div class="col-9">
-    <% Dir.glob("#{ Settings::Client.resources_path }/starts/*").sort.each do |file| %>
+    <% Dir.glob("#{Settings::Client.resources_path}/starts/*").each do |file| %>
       <%= render(file: file).html_safe %>
     <% end -%>
     <div id="statistic-card" class="card card-info">
@@ -14,7 +14,7 @@
         <h5 class="card-title"><%= t('.statistics') %></h5>
       </div>
       <div class="card-body row">
-        <%= render(partial: "shared/statistic", locals: { css_col: 'col-3' }) %>
+        <%= render(partial: 'shared/statistic', locals: { css_col: 'col-3' }) %>
       </div>
     </div>
     <% if File.exist?(neuigkeiten = "#{ Settings::Client.resources_path }/neuigkeiten.html") -%>

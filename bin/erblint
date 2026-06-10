@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+# vim: set ft=sh:
+echo "Checking ERB Lint rules ..."
+if [[ $# -gt 0 ]]; then
+  bundle exec erb_lint $@
+else
+  bundle exec erb_lint --lint-all
+fi

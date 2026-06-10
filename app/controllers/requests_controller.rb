@@ -1,12 +1,17 @@
 class RequestsController < ApplicationController
   def index
     unless @back = params[:back]
-      conditions = login_required? ? { agency_responsible: @user.field_service_team, negation: "agency_responsible" } : {}
+      conditions = if login_required?
+                     { agency_responsible: @user.field_service_team,
+                       negation: 'agency_responsible' }
+                   else
+                     {}
+                   end
       conditions.update service_code: service_code if service_code
       conditions[:area_code] = params[:area] if params[:area]
       conditions[:map] = params[:map] if params[:map]
       conditions[:service_code] = params[:service_code] if params[:service_code]
-      conditions[:service_request_id] = params[:ids].join(",") if params[:ids]
+      conditions[:service_request_id] = params[:ids].join(',') if params[:ids]
       conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
       if (center = params[:center]).present?
         conditions.update lat: center[0], long: center[1]
@@ -20,8 +25,8 @@ class RequestsController < ApplicationController
           conditions.update(status: '') if states.blank?
         end
       end
-      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
-        conditions.update(also_archived: true) unless params[:archive].blank?
+      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived && params[:archive].present?
+        conditions.update(also_archived: true)
       end
       @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
       session[:referer_params] = params.slice(:controller, :action, :mobile, :ids)
@@ -45,11 +50,12 @@ class RequestsController < ApplicationController
       end
       format.js do
         if @mobile
-          render "/requests/mobile/index"
+          render '/requests/mobile/index'
+        elsif @back
+          render('/requests/desktop/index')
         else
-          @back ? render('/requests/desktop/index') :
-            redirect_to("#{ Settings::Url.ks_server_url }#{ request_path(@requests.first,
-                        id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile) }")
+          redirect_to("#{Settings::Url.ks_server_url}#{ request_path(@requests.first,
+                                                                     id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile) }")
         end
       end
       format.json { render json: @requests }
@@ -58,6 +64,7 @@ class RequestsController < ApplicationController
 
   def show
     return head(:not_found) unless (id = params[:id]).present?
+
     if params[:direct] || login_required?
       conditions = { service_request_id: id }
       if (states = Settings::Map.default_requests_states).present?
@@ -67,6 +74,7 @@ class RequestsController < ApplicationController
         conditions[:also_archived] = true
       end
       return head(:not_found) unless @request = Request.where(conditions).first
+
       @direct = true
     else
       @request = Request.find(id)
@@ -75,31 +83,7 @@ class RequestsController < ApplicationController
     @photo = Photo.new(service_request_id: @request.id, author: nil)
     @refresh = params[:refresh].presence
     @id_list = params[:id_list].try(:map, &:to_i).presence
-    render "/requests/#{ context }/show"
-  end
-
-  def edit
-    return head(:not_found) unless (id = params[:id]).present?
-    @request = Request.find(id)
-    @id_list = params[:id_list].try(:map, &:to_i).presence
-  end
-
-  def update
-    return head(:not_found) unless (id = params[:id]).present?
-    result =
-      begin
-        Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
-                      Request.format.encode(permissable_params))
-      rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
-        e.base_object_with_errors
-      end
-    if result.is_a?(Net::HTTPOK)
-      @redirect = request_path(id, id_list: params[:request][:id_list], mobile: @mobile).html_safe
-      @success = I18n.t('messages.success.request_update')
-    else
-      @errors = result.errors
-      @modal_title_options = { count: 1 }
-    end
+    render "/requests/#{context}/show"
   end
 
   def new
@@ -107,19 +91,20 @@ class RequestsController < ApplicationController
       format.html { head(:forbidden) }
       format.js do
         return new_mobile_request if @mobile
+
         if params[:switch_type]
           @type = params[:type]
         else
           @service = Service.find(service_code) if service_code
           @request = Request.new(type: @service&.type)
         end
-        render "requests/#{ context }/new"
+        render "requests/#{context}/new"
       end
       format.json do
         req = Request.new(position: params[:position])
 
         coord = Coordinate.new(req.lat, req.long)
-        unless coord.redirect_url.blank?
+        if coord.redirect_url.present?
           response.headers['X-Redirect-Url'] = coord.redirect_url
           return head :see_other
         end
@@ -133,8 +118,16 @@ class RequestsController < ApplicationController
     end
   end
 
+  def edit
+    return head(:not_found) unless (id = params[:id]).present?
+
+    @request = Request.find(id)
+    @id_list = params[:id_list].try(:map, &:to_i).presence
+  end
+
   def create
     return summary if params[:confirm] == 'true'
+
     if login_required?
       cookies[:last_type] = params[:request][:type]
       cookies[:last_service_code] = params[:request][:service_code].presence&.first
@@ -150,7 +143,8 @@ class RequestsController < ApplicationController
         result =
           begin
             Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email),
+              Request.collection_path(nil, api_key: Request.api_key,
+                                           email: display?(:email) ? params[:request][:email] : @user.email),
               Request.format.encode(
                 payload.merge(service_code: service_code).merge(privacy_policy_params)
               )
@@ -168,11 +162,11 @@ class RequestsController < ApplicationController
         end
       end
     else
-      if @mobile
-        @errors = Request.new.errors.tap { |errors| errors.add :service_code, :blank }
-      else
-        @errors = Request.new.errors.tap { |errors| errors.add :base, :service_code_required }
-      end
+      @errors = if @mobile
+                  Request.new.errors.tap { |errors| errors.add :service_code, :blank }
+                else
+                  Request.new.errors.tap { |errors| errors.add :base, :service_code_required }
+                end
       @modal_title_options = { count: 1 }
     end
     if ids.present? && !service.nil?
@@ -180,7 +174,7 @@ class RequestsController < ApplicationController
       @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile) unless context == 'desktop'
       @modal_title_options = { count: ids.size } if @errors.blank?
       @success = I18n.t('messages.success.request_create', count: ids.size,
-                        type: I18n.t(service.type, scope: 'service.types', count: ids.size))
+                                                           type: I18n.t(service.type, scope: 'service.types', count: ids.size))
     end
     if context == 'desktop' && @errors.present?
       @errors = Array.wrap(@errors).map(&:messages)
@@ -188,7 +182,7 @@ class RequestsController < ApplicationController
     end
     @modal_title_options ||= { count: codes.size }
     if (errors = @errors.try(:dup)).is_a? Array
-      @errors = Request.new.errors.tap { |e|
+      @errors = Request.new.errors.tap do |e|
         errors.map(&:messages).each do |messages|
           messages.each do |key, values|
             values.uniq.each do |message|
@@ -196,9 +190,28 @@ class RequestsController < ApplicationController
             end
           end
         end
-      }
+      end
     end
-    render "/application/#{ context }/create"
+    render "/application/#{context}/create"
+  end
+
+  def update
+    return head(:not_found) unless (id = params[:id]).present?
+
+    result =
+      begin
+        Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
+                      Request.format.encode(permissable_params))
+      rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
+        e.base_object_with_errors
+      end
+    if result.is_a?(Net::HTTPOK)
+      @redirect = request_path(id, id_list: params[:request][:id_list], mobile: @mobile).html_safe
+      @success = I18n.t('messages.success.request_update')
+    else
+      @errors = result.errors
+      @modal_title_options = { count: 1 }
+    end
   end
 
   private
@@ -216,7 +229,7 @@ class RequestsController < ApplicationController
     end
     render 'requests/mobile/request_form'
   end
-  
+
   def new_mobile_request
     if login_required?
       @request = Request.new(type: cookies[:last_type], category: cookies[:last_group],
@@ -239,17 +252,18 @@ class RequestsController < ApplicationController
       return render 'requests/mobile/new'
     end
     return render 'requests/mobile/new_position' if params[:position].blank?
+
     render 'requests/mobile/new'
   end
 
   def permissable_params
-    keys = [:service_code, :description, :email, :privacy_policy_accepted]
-    keys += [:detailed_status, :job_status] if action_name == 'update'
-    keys |= [:lat, :long] if ['create', 'new', 'update'].include?(action_name)
+    keys = %i[service_code description email privacy_policy_accepted]
+    keys += %i[detailed_status job_status] if action_name == 'update'
+    keys |= %i[lat long] if %w[create new update].include?(action_name)
     data = params.require(:request).permit(keys)
     if (img = params[:request][:media]).present?
       if img.is_a? String
-        File.open("tmp/#{img}", 'rb') { |file| data[:media] =  Base64.encode64(file.read) }
+        File.open("tmp/#{img}", 'rb') { |file| data[:media] = Base64.encode64(file.read) }
         FileUtils.rm "tmp/#{img}"
       else
         data[:media] = Base64.encode64(img.tempfile.read)

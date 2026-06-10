@@ -9,6 +9,7 @@ module ClientConfig
 
   def display?(par, req = nil)
     return display_completions?(req) if par == :completions
+
     Settings::Client.send("show_#{par}")
   end
 

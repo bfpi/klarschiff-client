@@ -1,5 +1,4 @@
 class ConfirmationsController < ApplicationController
-
   def issue
     confirm(nil, params[:confirmation_id])
   end
@@ -28,11 +27,12 @@ class ConfirmationsController < ApplicationController
 
   def confirm(action, confirmation_id)
     uri = ['requests']
-    uri << action unless action.blank?
+    uri << action if action.present?
     uri << confirmation_id
     uri << 'confirm.json'
     json = JSON.parse(JSON.parse(call(uri.join('/')).read_body.to_json))
     return render_error(:confirm) if json.blank? || (json.first.is_a?(Hash) && json.first['code'].present?)
+
     @request = Request.find(json['service_request_id'].to_i)
     render_success(:confirm)
   end
@@ -41,6 +41,7 @@ class ConfirmationsController < ApplicationController
     uri = "requests/#{confirmation_id}/revoke.json"
     json = JSON.parse(JSON.parse(call(uri).read_body.to_json))
     return render_error(:revoke) if json.blank? || (json.first.is_a?(Hash) && json.first['code'].present?)
+
     render_success(:revoke)
   end
 
@@ -57,5 +58,4 @@ class ConfirmationsController < ApplicationController
   def render_success(template_prefix)
     render template: "confirmations/#{template_prefix}_success"
   end
-
 end

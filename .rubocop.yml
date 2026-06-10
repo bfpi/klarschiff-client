@@ -1,0 +1,46 @@
+plugins:
+  - rubocop-capybara
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'config/ci.rb'
+    - 'config.ru'
+    - 'db/schema.rb'
+    - 'Rakefile'
+    - 'vendor/**/**'
+  NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'config/application.rb'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'config/environments/*'
+    - 'config/initializers/assets.rb'
+    - 'config/initializers/content_security_policy.rb'
+    - 'config/initializers/filter_parameter_logging.rb'
+    - 'config/initializers/inflections.rb'
+    - 'config/initializers/permissions_policy.rb'
+    - 'config/puma.rb'
+    - 'Gemfile'
+
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/*'
+
+Style/StringLiterals:
+  Exclude:
+    - 'config/application.rb'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'config/environments/*'
+    - 'config/initializers/assets.rb'
+    - 'config/puma.rb'

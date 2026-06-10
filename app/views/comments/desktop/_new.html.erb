@@ -33,8 +33,8 @@
     <% end -%>
     <div class="row">
       <div class="btn-group d-flex col-12 div-margin-top" role="group">
-        <%= link_to(t('buttons.back'), [@request, id_list: @id_list], remote: true, class: 'btn btn-light btn-outline-secondary',
-                    role: :button) %>
+        <%= link_to(t('buttons.back'), [@request, { id_list: @id_list }], remote: true, class: 'btn btn-light btn-outline-secondary',
+                                                                          role: :button) %>
         <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
       </div>
     </div>

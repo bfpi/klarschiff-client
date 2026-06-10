@@ -11,9 +11,9 @@
   <div class="row">
     <div class="col-12">
       <div class="btn-group d-flex col-12" role="group">
-        <%= link_to(t('buttons.cancel'), [:map, cancel: true], remote: true, class: 'btn btn-light btn-outline-secondary back') %>
+        <%= link_to(t('buttons.cancel'), [:map, { cancel: true }], remote: true, class: 'btn btn-light btn-outline-secondary back') %>
         <%= link_to(t('buttons.continue'), '#', remote: true, class: 'btn btn-primary btn-continue',
-                    role: :button, data: { current: '1', next: '3', url: new_request_path }) %>
+                                                role: :button, data: { current: '1', next: '3', url: new_request_path }) %>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
     <%= label_tag :what_exactly, t('.what_exactly'), class: 'col-12' %>
     <div class="col-12">
       <%= f.text_area(:description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
-                      data: { 'missing-message': t('requests.create.error.required.description') }) %>
+                                    data: { 'missing-message': t('requests.create.error.required.description') }) %>
     </div>
   </div>
   <div class="row">
@@ -43,11 +43,11 @@
   <div class="row" class="hidden-page">
     <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                  data: { current: '3', next: '1' }) %>
+                                          class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                                          data: { current: '3', next: '1' }) %>
       <%= link_to(t('buttons.continue'), '#', remote: true,
-                  class: 'btn btn-primary btn-continue', role: :button,
-                  data: { current: '3', next: 'submit' }) %>
+                                              class: 'btn btn-primary btn-continue', role: :button,
+                                              data: { current: '3', next: 'submit' }) %>
     </div>
   </div>
 </div>
@@ -85,8 +85,8 @@
   <div class="row">
     <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                  data: { current: 'submit', next: '3' }) %>
+                                          class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                                          data: { current: 'submit', next: '3' }) %>
       <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
     </div>
   </div>

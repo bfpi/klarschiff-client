@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def map_icon(icon)
     overlay_path = "overlay/#{icon}"
     asset_exists?(overlay_path) ? overlay_path : "icons/map/active/png/#{icon}"

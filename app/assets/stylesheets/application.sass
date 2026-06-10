@@ -19,25 +19,25 @@
  
 @font-face
   font-family: 'PT Sans'
-  src: url(asset-path('PTS55F_W.ttf'))
+  src: url("asset-path('PTS55F_W.ttf')")
   font-weight: normal
   font-style: normal
 
-@font-face
+  @font-face
   font-family: 'PT Sans'
-  src: url(asset-path('PTS56F_W.ttf'))
+  src: url("asset-path('PTS56F_W.ttf')")
   font-weight: normal
   font-style: italic
 
-@font-face
+  @font-face
   font-family: 'PT Sans'
-  src: url(asset-path('PTS75F_W.ttf'))
+  src: url("asset-path('PTS75F_W.ttf')")
   font-weight: bold
   font-style: normal
 
 @font-face
   font-family: 'PT Sans'
-  src: url(asset-path('PTS76F_W.ttf'))
+  src: url("asset-path('PTS76F_W.ttf')")
   font-weight: bold
   font-style: italic
 
@@ -45,19 +45,19 @@
   font-family: 'Font Awesome 5 Brands'
   font-style: normal
   font-weight: normal
-  src: url(asset-path('fa-brands-400.ttf'))
+  src: url("asset-path('fa-brands-400.ttf')")
 
 @font-face
   font-family: 'Font Awesome 5 Free'
   font-style: normal
   font-weight: normal
-  src: url(asset-path('fa-regular-400.ttf'))
+  src: url("asset-path('fa-regular-400.ttf')")
 
 @font-face
   font-family: 'Font Awesome 5 Free'
   font-style: normal
   font-weight: 900
-  src: url(asset-path('fa-solid-900.ttf'))
+  src: url("asset-path('fa-solid-900.ttf')")
   
 html
   color-scheme: only light
@@ -67,7 +67,7 @@ body
   font-size: 15px
   
 #headline
-  margin: 20px 0;
+  margin: 20px 0
   text-align: center
   border-bottom: 1px solid #bce8f1
   padding-bottom: 2px
@@ -211,7 +211,7 @@ header
 
 .footer
   position: fixed
-  bottom: 0px
+  bottom: 0
   padding: 10px 0
   width: 100%
   height: 60px
@@ -285,10 +285,10 @@ header
 .sidebar-toggler span:before
   font-family: 'Font Awesome 5 Free'
   font-weight: 900
-  content: "\F105";
+  content: '\F105'
 
 .sidebar-toggler.open span:before
-  content: "\F104";
+  content: '\F104'
 
 .address-search-field
   position: absolute
@@ -305,7 +305,7 @@ header
 
   input
     max-height: 20px
-    padding: 0px 10px
+    padding: 0 10px
     font-size: 15px
     border: none
     border-radius: 0
@@ -313,7 +313,7 @@ header
 .view-switcher
   margin-top: 10px
   position: absolute
-  top: 0px
+  top: 0
   z-index: 100
   right: 0
 
@@ -334,14 +334,14 @@ header
     display: block
     color: #fff
 
-.map-card .card-header [data-bs-toggle="collapse"] span:before
+.map-card .card-header [data-bs-toggle='collapse'] span:before
   font-family: 'Font Awesome 5 Free'
   font-weight: 900
-  content: "\F068"
+  content: '\F068'
   float: right
 
-.map-card .card-header .collapsed[data-bs-toggle="collapse"] span:before
-  content: "\F067"
+.map-card .card-header .collapsed[data-bs-toggle='collapse'] span:before
+  content: '\F067'
   padding-left: 6px
 
 .check-label
@@ -427,7 +427,7 @@ body.mobile
     padding: 0
 
     .navbar-nav
-      margin: 0.5em;
+      margin: 0.5em
 
   #places_results
     margin-top: 20px

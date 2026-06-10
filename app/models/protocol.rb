@@ -7,8 +7,8 @@ class Protocol
   attr_accessor :user, :process_number, :message_number, :text, :attachments
 
   def initialize(hash = {})
-    hash.each do |k,v|
-      self.send(:"#{ k }=", v)
+    hash.each do |k, v|
+      send(:"#{k}=", v)
     end
   end
 

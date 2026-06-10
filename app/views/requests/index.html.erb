@@ -8,49 +8,49 @@
 <ul class="pagination mt-3">
   <% if @page != 1 -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "«"), requests_page_static_path(page: @page - 1), class: 'page-link',
-                  remote: Settings::Client.resources_overview_remote %>
+      <%= link_to content_tag(:span, '«'), requests_page_static_path(page: @page - 1), class: 'page-link',
+                                                                                       remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 
   <% if start > 1 -%>
     <li class="page-item">
       <%= link_to 1, requests_page_static_path(page: 1), class: 'page-link',
-                  remote: Settings::Client.resources_overview_remote %>
+                                                         remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end %>
 
   <% if start > 2 -%>
     <li class="page-item disabled">
-      <%= link_to "...", "#", class: 'page-link' %>
+      <%= link_to '...', '#', class: 'page-link' %>
     </li>
   <% end %>
 
   <% (ending - start).to_i.times do |i| -%>
     <% ix = (start + i) %>
-    <li class="page-item <%= "active" if ix == @page %>">
+    <li class="page-item <%= 'active' if ix == @page %>">
       <%= link_to ix, requests_page_static_path(page: ix), class: 'page-link',
-                  remote: Settings::Client.resources_overview_remote %>
+                                                           remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 
   <% if ending < @pages -%>
     <li class="page-item disabled">
-      <%= link_to "...", "#", class: 'page-link' %>
+      <%= link_to '...', '#', class: 'page-link' %>
     </li>
   <% end %>
 
   <% if ending <= @pages -%>
     <li class="page-item">
       <%= link_to @pages, requests_page_static_path(page: @pages), class: 'page-link',
-                  remote: Settings::Client.resources_overview_remote %>
+                                                                   remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end %>
 
   <% if @page != @pages -%>
     <li class="page-item">
-      <%= link_to content_tag(:span, "»"), requests_page_static_path(page: @page + 1), class: 'page-link',
-                  remote: Settings::Client.resources_overview_remote %>
+      <%= link_to content_tag(:span, '»'), requests_page_static_path(page: @page + 1), class: 'page-link',
+                                                                                       remote: Settings::Client.resources_overview_remote %>
     </li>
   <% end -%>
 </ul>
@@ -63,25 +63,25 @@
     <% if @requests.present? -%>
     <div class="list-group">
       <% @requests.each do |req| -%>
-        <%= link_to(url_for([:map, request: req.id]), class: 'list-group-item', data: { turbolinks: false }) do %>
+        <%= link_to(url_for([:map, { request: req.id }]), class: 'list-group-item', data: { turbolinks: false }) do %>
           <h4 class="list-group-item-heading right-badges">
-            <%= image_tag(image_path(req.icon_list), alt: "#{ req.service.type }, #{ req.extended_attributes.detailed_status }") %>
+            <%= image_tag(image_path(req.icon_list), alt: "#{req.service.type}, #{req.extended_attributes.detailed_status}") %>
             #<%= req.id %> <%= req.service.group %> – <%= req.service_name %> – <%= l(req.requested_datetime.to_date) %>
             <%= mark_photo_required(req) %>
             <span class="badge rounded-pill bg-secondary"><i class="fas fa-chevron-right"></i></span>
           </h4>
           <p class="list-group-item-text">
-    		<% if req.description.present? -%>
-    		  <b><%= Request.human_attribute_name(:description) %></b><br />
-              <em><%= req.description %></em><br />
-    		<% end -%>
+        <% if req.description.present? -%>
+          <b><%= Request.human_attribute_name(:description) %></b><br>
+              <em><%= req.description %></em><br>
+        <% end -%>
 
-            <b><%= Request.human_attribute_name(:status) %></b><br />
-            <em><%= status(req) %></em><br />
+            <b><%= Request.human_attribute_name(:status) %></b><br>
+            <em><%= status(req) %></em><br>
 
             <% if (notes = req.status_notes).present? -%>
-              <b><%= Request.human_attribute_name(:status_notes) %></b><br />
-              <em><%= notes.html_safe %></em><br />
+              <b><%= Request.human_attribute_name(:status_notes) %></b><br>
+              <em><%= notes.html_safe %></em><br>
             <% end -%>
           </p>
         <% end %>
@@ -94,4 +94,3 @@
     <% end -%>
   </div>
 </div>
-

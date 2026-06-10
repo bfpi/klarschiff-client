@@ -1,6 +1,6 @@
 class ObservationsController < ApplicationController
   helper :requests
-  
+
   def index
     respond_to do |format|
       format.xml do

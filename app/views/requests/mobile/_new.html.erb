@@ -14,16 +14,16 @@
             <% unless login_required? -%><div class="col-12"><%= t('.problem_or_idea') %></div><% end -%>
             <div class="col-12 div-margin-top">
               <%= radio_button :request, :type, 'problem', class: 'radio-type' %> <%= label_tag :request_type_problem,
-                t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
+                                                                                                t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
             </div>
             <div class="col-12 div-margin-top">
               <%= radio_button :request, :type, 'idea', class: 'radio-type' %> <%= label_tag :request_type_idea,
-                t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
+                                                                                             t('idea', scope: 'service.types', count: 1), class: 'check-label' %>
             </div>
             <% if login_required? -%>
               <div class="col-12 div-margin-top">
                 <%= radio_button :request, :type, 'tip', class: 'radio-type' %> <%= label_tag :request_type_tip,
-                  t('tip', scope: 'service.types', count: 1), class: 'check-label' %>
+                                                                                              t('tip', scope: 'service.types', count: 1), class: 'check-label' %>
               </div>
             <% end -%>
           </div>
@@ -40,7 +40,7 @@
             <div class="btn-group d-flex col-12" role="group">
               <%= link_to(t('buttons.back'), '#', remote: true, class: 'btn btn-light btn-outline-secondary back col-6') %>
               <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
-                          data: { current: '2', next: '3' }) %>
+                                                      data: { current: '2', next: '3' }) %>
             </div>
           </div>
         </div>
@@ -55,12 +55,12 @@
           <h4 class="card-title"><%= t('.what_exactly') %></h4>
         </div>
         <div class="card-body">
-          <%= render partial: 'requests/desktop/category_select', locals: { type: @request.type, category: @request.category, service_code: @request.service_code&.first } %> 
+          <%= render partial: 'requests/desktop/category_select', locals: { type: @request.type, category: @request.category, service_code: @request.service_code&.first } %>
           <div class="row mt-3">
             <%= label_tag :request_description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
             <div class="col-12">
               <%= text_area(:request, :description, rows: 5, class: 'form-control', placeholder: t('placeholder.description'),
-                              data: { 'missing-message': t('requests.create.error.required.description') }) %>
+                                                    data: { 'missing-message': t('requests.create.error.required.description') }) %>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@
           <div class="row">
             <div class="btn-group d-flex col-12" role="group">
               <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                          data: { current: '3', next: '2' }) %>
+                                                  data: { current: '3', next: '2' }) %>
               <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
-                          data: { current: '3', next: context }) %>
+                                                      data: { current: '3', next: context }) %>
             </div>
           </div>
         </div>
@@ -102,8 +102,8 @@
           <div class="row">
             <div class="btn-group d-flex col-12" role="group">
               <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                          data: { current: context, next: '3' }) %>
-              <%= submit_tag(t("buttons.#{ login_required? ? 'save' : 'continue'}"), class: 'btn btn-primary col-6') %>
+                                                  data: { current: context, next: '3' }) %>
+              <%= submit_tag(t("buttons.#{login_required? ? 'save' : 'continue'}"), class: 'btn btn-primary col-6') %>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
       <div class="navbar navbar-expand-sm navbar-light bg-light fixed-bottom actions">
         <div class="container">
           <div class="btn-group d-flex col-12" role="group">
-            <%= link_to('#', class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button, data: { current: context, next: '3'}) do %>
+            <%= link_to('#', class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button, data: { current: context, next: '3' }) do %>
               <i class="fas fa-backward"></i>
             <% end -%>
             <div class="btn btn-light btn-outline-secondary">

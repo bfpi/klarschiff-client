@@ -1,7 +1,7 @@
 <div class="modal-header text-<%= @errors ? :warning : :success %>">
   <span>
     <i class="<%= @errors ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle' %>"></i>
-    &nbsp;<%= t "#{ controller_name }.#{ context }.#{ action_name }.#{ @errors ? :error : :success }", **(@modal_title_options || {}) %>
+    &nbsp;<%= t "#{controller_name}.#{context}.#{action_name}.#{@errors ? :error : :success}", **(@modal_title_options || {}) %>
   </span>
 </div>
 <div class="modal-body">

@@ -17,7 +17,7 @@
           <%= link_to(request_path(job.id, id_list: @jobs.map(&:id), mobile: @mobile), remote: true, method: :get, class: 'list-group-item', 'data-job-id': job.id) do %>
             <div class="hidden-xs">
               <h4 class="list-group-item-heading right-badges">
-                <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+                <%= image_tag(image_path(job.icon_list), alt: "#{job.service.type}, #{job.extended_attributes.detailed_status}") %>
                 <i class="fas fa-flag <%= job.flag_color_class %>"></i>
                 #<%= job.id %> <%= job.service.group %> – <%= job.service_name %>
                 <%= mark_photo_required(job) %>
@@ -37,7 +37,7 @@
             </div>
             <div class="visible-xs right-badges">
               <span class="list-group-item-heading">
-                <%= image_tag(image_path(job.icon_list), alt: "#{ job.service.type }, #{ job.extended_attributes.detailed_status }") %>
+                <%= image_tag(image_path(job.icon_list), alt: "#{job.service.type}, #{job.extended_attributes.detailed_status}") %>
                 <i class="fas fa-flag <%= job.flag_color_class %>"></i>
                 #<%= job.id %>
                 <%= mark_photo_required(job) %>

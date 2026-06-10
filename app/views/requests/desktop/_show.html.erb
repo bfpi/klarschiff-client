@@ -12,10 +12,10 @@
           </div>
         <% end -%>
         <% if display?(:votes) -%>
-          <div id="request-show" class="row mb-3 <%="#{ @request.service.type }" %>">
+          <div id="request-show" class="row mb-3 <%= @request.service.type.to_s %>">
             <%= label_tag :votes, Request.human_attribute_name(:votes), class: 'col-12 col-form-label' %>
             <div class="col-12">
-              <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
+              <%= t(".votes#{'_under_min_req' if @request.idea? && @request.under_req?}_html", votes: @request.votes) %>
               <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
               <%= t('.votes_hint_html') %>
             </div>
@@ -33,7 +33,7 @@
             <% end -%>
             <div class="col-12">
               <% if (url = @request.media_url).present? -%>
-                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid" />
+                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid">
               <% else -%>
                 <i><%= t('.no_photo') %></i>
               <% end -%>
@@ -42,8 +42,8 @@
               <div class="col-12">
                 <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
                 <%= link_to(t('buttons.upload'), '#', remote: true,
-                      class: 'btn btn-primary btn-continue', role: :button,
-                      data: { current: 'image', next: 'image-submit' }) %>
+                                                      class: 'btn btn-primary btn-continue', role: :button,
+                                                      data: { current: 'image', next: 'image-submit' }) %>
               </div>
             <% end -%>
           </div>
@@ -67,12 +67,16 @@
         <% options = { remote: true, class: 'btn btn-primary', role: :button } -%>
         <div class="row">
           <div class="d-grid gap-2">
-            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list], options) if display?(:votes) %>
-            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list], options) if display?(:abuses) %>
-            <%= link_to(t('.actions.completion'), [:new, @request, :completion, id_list: @id_list, mobile: @mobile],
-                      options) if display?(:completions, @request) %>
-            <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list],
-                        options.merge(class: 'btn btn-primary')) if display?(:create_comment) %>
+            <%= link_to(t('.actions.vote'), [:new, @request, :vote, { id_list: @id_list }], options) if display?(:votes) %>
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, { id_list: @id_list }], options) if display?(:abuses) %>
+            <%= if display?(:completions, @request)
+                  link_to(t('.actions.completion'), [:new, @request, :completion, { id_list: @id_list, mobile: @mobile }],
+                          options)
+                end %>
+            <%= if display?(:create_comment)
+                  link_to(t('.actions.comment'), [:new, @request, :comment, { id_list: @id_list }],
+                          options.merge(class: 'btn btn-primary'))
+                end %>
           </div>
         </div>
         <% if @id_list.try(:include?, @request.id) && @id_list.count > 1 -%>
@@ -120,8 +124,8 @@
       <div class="row">
         <div class="btn-group d-flex col-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
-                      class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                      data: { current: 'image-submit', next: 'image' }) %>
+                                              class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                                              data: { current: 'image-submit', next: 'image' }) %>
           <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
         </div>
       </div>

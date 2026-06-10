@@ -13,7 +13,7 @@
         <div class="row">
           <% @recent_requests.each.with_index(1) do |req, i| -%>
             <div class="<%= @recent_requests_col %>">
-              <div class="recent_request">
+              <div class="recent-request">
                 <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
                   data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>

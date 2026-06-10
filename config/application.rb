@@ -36,8 +36,10 @@ module KlarschiffClient
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.time_zone = 'Europe/Berlin'
+
     config.i18n.default_locale = :de
-    config.time_zone = 'Berlin'
+    config.i18n.available_locales = %i[de en]
 
     ActionView::RecordIdentifier.send(:remove_const, "JOIN")
     ActionView::RecordIdentifier.const_set("JOIN", "-")
@@ -54,17 +56,19 @@ module KlarschiffClient
         YAML.load file, aliases: true
       end.with_indifferent_access[Rails.env]
 
-      relative_url_root = settings.dig(:client, :relative_url_root)
-      config.relative_url_root = relative_url_root if relative_url_root.present?
+      if settings
+        relative_url_root = settings.dig(:client, :relative_url_root)
+        config.relative_url_root = relative_url_root if relative_url_root.present?
 
-      # Configuration for SMTP-Server
-      smtp_settings = settings.dig(:protocol_mail, :smtp)
-      config.action_mailer.smtp_settings = {
-        :address => smtp_settings[:host],
-        :enable_starttls_auto => smtp_settings[:starttls_enabled],
-        :user_name => smtp_settings[:username],
-        :password => smtp_settings[:password]
-      }
+        # Configuration for SMTP-Server
+        smtp_settings = settings.dig(:protocol_mail, :smtp)
+        config.action_mailer.smtp_settings = {
+          :address => smtp_settings[:host],
+          :enable_starttls_auto => smtp_settings[:starttls_enabled],
+          :user_name => smtp_settings[:username],
+          :password => smtp_settings[:password]
+        }
+      end
     end
   end
 end

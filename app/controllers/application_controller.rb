@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
   before_action :set_mobile, :set_og_request
   helper_method :has_field_service_team?, :context
   protect_from_forgery prepend: true
-  skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? }
+  skip_before_action :verify_authenticity_token, if: -> { Rails.env.local? }
 
   protected
 
   def set_mobile
-    @mobile = (params[:mobile].presence && params[:mobile] == "true") || mobile_detected?
+    @mobile = (params[:mobile].presence && params[:mobile] == 'true') || mobile_detected?
   end
 
   def set_og_request
@@ -22,11 +22,13 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    @user ||= if (name = request.env["AUTHENTICATE_FULLNAME"].presence || request.env["AUTHENTICATE_DISPLAYNAME"]).present?
-              User.where(login: name, api_key: User.api_key)&.first
-            else
-              authenticate_with_http_basic { |user, pwd| User.create(login: user, password: pwd, api_key: User.api_key) }
-            end
+    @user ||= if (name = request.env['AUTHENTICATE_FULLNAME'].presence || request.env['AUTHENTICATE_DISPLAYNAME']).present?
+                User.where(login: name, api_key: User.api_key)&.first
+              else
+                authenticate_with_http_basic do |user, pwd|
+                  User.create(login: user, password: pwd, api_key: User.api_key)
+                end
+              end
     request_http_basic_authentication unless @user && @user.valid?
   end
 

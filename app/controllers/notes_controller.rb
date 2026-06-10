@@ -5,7 +5,7 @@ class NotesController < ApplicationController
     @id_list = params[:id_list].try(:map, &:to_i).presence
     respond_to do |format|
       format.html { head :forbidden }
-      format.js { render "/application/#{ context }/new" }
+      format.js { render "/application/#{context}/new" }
     end
   end
 
@@ -14,7 +14,8 @@ class NotesController < ApplicationController
       begin
         note = Note.create(params.require(:note).permit(:comment).merge(
           service_request_id: params[:request_id], author: display?(:email) ? params[:author] : @user.email,
-          api_key: Note.api_key).merge(privacy_policy_params))
+          api_key: Note.api_key
+        ).merge(privacy_policy_params))
       rescue ActiveResource::ForbiddenAccess => e
         e.base_object_with_errors
       end
@@ -28,6 +29,6 @@ class NotesController < ApplicationController
     else
       @errors = result.errors
     end
-    render "/application/#{ context }/create"
+    render "/application/#{context}/create"
   end
 end
