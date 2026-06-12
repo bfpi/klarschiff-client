@@ -22,29 +22,29 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v3
 
-      - name: Log in to GHCR with GitHub Actions token
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build image with Docker Compose
-        env:
-          GITHUB_BRANCH: ${{ github.ref_name }}
-          GITHUB_COMMIT_HASH: ${{ github.sha }}
-        run: docker compose build client
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
 
-      - name: Push image with tags
-        run: |
-          IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
-          docker push "$IMAGE"
+          tags: |
+            type=ref,event=branch
 
-          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            TAG="${IMAGE%:*}:${GITHUB_REF#refs/tags/}"
-            docker tag "$IMAGE" "$TAG"
-            docker push "$TAG"
-          fi
+            type=ref,event=tag
 
-      - name: Docker logout
-        if: always()
-        run: docker logout ghcr.io
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
