@@ -31,10 +31,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get image name from docker compose
+        id: image
+        run: |
+          IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
+          IMAGE_BASE="${IMAGE%:latest}"
+          echo "image=$IMAGE_BASE" >> $GITHUB_OUTPUT
+
       - id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/bfpi/klarschiff/client
+          images: ${{ steps.image.outputs.image }}
 
           tags: |
             type=ref,event=branch
