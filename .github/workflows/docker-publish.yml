@@ -46,7 +46,6 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
-            type=raw,value=latest,enable={{is_branch}},include=refs/heads/docker
 
       - uses: docker/build-push-action@v6
         with:
@@ -54,3 +53,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+        - name: Add latest tag for docker branch only
+          if: github.ref_name == 'docker'
+          run: |
+            IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
+            IMAGE_BASE="${IMAGE%:latest}"
+
+            docker tag "$IMAGE_BASE:docker" "$IMAGE_BASE:latest"
+            docker push "$IMAGE_BASE:latest"
