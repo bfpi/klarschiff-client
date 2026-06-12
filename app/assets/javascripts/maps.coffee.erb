@@ -9,7 +9,6 @@ KS.projection = ->
   else
     console.log 'Proj4J ist nicht geladen!'
 
-KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 #KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
@@ -205,13 +204,30 @@ class KS.Map
     )
     KS.popupCloser = document.getElementById('popup-closer')
 
-    mapView = new ol.View
+    options = {
       projection: @projection
       center: <%= Settings::Map.center %>
-      zoom: <%= Settings::Map.zoom[:initial] %>
-      maxZoom: KS.maxZoom
-      minZoom: <%= Settings::Map.zoom[:min] %>
       enableRotation: false
+    }
+
+    minZoom = <%= Settings::Map.zoom[:min] if Settings::Map.zoom %>
+    maxZoom = <%= Settings::Map.zoom[:max] if Settings::Map.zoom %>
+    initialZoom = <%= Settings::Map.zoom[:initial] if Settings::Map.zoom %>
+
+    minResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:min] : false %>
+    maxResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:max] : false %>
+    initialResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:initial] : false %>
+
+    if minResolution && maxResolution && initialResolution
+      options['minResolution'] = minResolution
+      options['maxResolution'] = maxResolution
+      options['resolution'] = initialResolution
+    else
+      options['minZoom'] = minZoom if minZoom
+      options['maxZoom'] = maxZoom if maxZoom
+      options['zoom'] = initialZoom if initialZoom
+
+    mapView = new ol.View(options)
 
     if region = KS.getUrlParam('region')
       $.ajax(url: "#{KS.areas_path}&region=#{region}&search_class=authority", dataType: 'json').done (response) ->

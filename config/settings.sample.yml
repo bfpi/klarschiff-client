@@ -143,6 +143,7 @@ development: &default
       initial: 6
       max: 14
       min: 5
+    resolution: false
 
   request:
     permissable_states:
