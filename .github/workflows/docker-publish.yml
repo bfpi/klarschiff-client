@@ -30,16 +30,19 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get image name from docker compose
+        id: image
+        run: |
+          IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+
       - id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
-
+          images: ${{ steps.image.outputs.image }}
           tags: |
             type=ref,event=branch
-
             type=ref,event=tag
-
             type=raw,value=latest,enable={{is_default_branch}}
 
       - uses: docker/build-push-action@v6
