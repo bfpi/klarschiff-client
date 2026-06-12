@@ -4,7 +4,7 @@ services:
     container_name: klarschiff-cache
     restart: always
 
-  client:
+  web:
     container_name: klarschiff-client
     image: ghcr.io/bfpi/klarschiff/client:latest
     build:
@@ -25,7 +25,7 @@ services:
     volumes:
       - ./log:/rails/log
 
-  client_jobs:
+  jobs:
     container_name: klarschiff-client-jobs
     image: ghcr.io/bfpi/klarschiff/client:latest
     build:
