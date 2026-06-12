@@ -54,11 +54,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-        - name: Add latest tag for docker branch only
-          if: github.ref_name == 'docker'
-          run: |
-            IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
-            IMAGE_BASE="${IMAGE%:latest}"
+      - name: Add latest tag for docker branch only
+        if: github.ref_name == 'docker'
+        run: |
+          IMAGE=$(docker compose config --format json | jq -r '.services.client.image')
+          IMAGE_BASE="${IMAGE%:latest}"
 
-            docker tag "$IMAGE_BASE:docker" "$IMAGE_BASE:latest"
-            docker push "$IMAGE_BASE:latest"
+          docker tag "$IMAGE_BASE:docker" "$IMAGE_BASE:latest"
+          docker push "$IMAGE_BASE:latest"
