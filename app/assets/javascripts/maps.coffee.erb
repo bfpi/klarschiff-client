@@ -96,7 +96,7 @@ KS.ViewSwitcherControlMultiple = () ->
     switchLayers.push layer
 
   switchLayers.sort (a, b) ->
-    a.sorting - b.sorting
+    a.switcher_sorting - b.switcher_sorting
 
   expand = document.createElement('div')
   expand.className = 'expand'
@@ -111,14 +111,25 @@ KS.ViewSwitcherControlMultiple = () ->
           additional_text.className = 'text'
           additional_text.innerHTML = additional 
           expand.appendChild(additional_text)
+
     child = KS.ViewSwitcherControlMultipleItem(layer)
     expand.appendChild child if child
 
-  $(expand).on 'change', 'input', (elem) ->
+  $(expand).on 'change', 'input[data-action=visibility]', (elem) ->
     item = event.target
     for l in KS.layers.layers
       if l.get('id') == item.value
         l.setVisible(item.checked)
+        if item.checked
+          $('#layer_opacity_' + item.value).show()
+        else
+          $('#layer_opacity_' + item.value).hide()
+
+  $(expand).on 'change', 'input[data-action=opacity]', (elem) ->
+    item = $(event.target)
+    for l in KS.layers.layers
+      if l.get('id') == item.data('layer')
+        l.setOpacity(parseFloat(item.val()))
 
   elem.appendChild expand
 
@@ -157,11 +168,29 @@ KS.ViewSwitcherControlMultipleItem = (layer) ->
   check.setAttribute('value', layer.id)
   check.classList.add('form-check-input')
   check.setAttribute('checked', 'checked') if layer.visible
+  check.setAttribute('data-action', 'visibility')
   div.appendChild(check)
 
   label.setAttribute('for', label_for)
   label.appendChild document.createTextNode(layer.label)
   div.appendChild(label)
+
+  if layer.opacity_adjustable
+    range_for = 'layer_opacity_' + layer.id
+    opacity_range = document.createElement('input')
+    opacity_range.setAttribute('name', range_for)
+    opacity_range.setAttribute('id', range_for)
+    opacity_range.setAttribute('type', 'range')
+    opacity_range.setAttribute('min', 0)
+    opacity_range.setAttribute('max', 1)
+    opacity_range.setAttribute('value', 1)
+    opacity_range.setAttribute('step', 0.01)
+    opacity_range.setAttribute('data-layer', layer.id)
+    opacity_range.setAttribute('data-action', 'opacity')
+    unless layer.visible
+      opacity_range.setAttribute('style', 'display: none;')
+    div.appendChild(opacity_range)
+
   div
 
 class KS.Map
@@ -455,6 +484,8 @@ class KS.Layers
           type: layer.type
           label: layer.label
           sorting: layer.sorting
+          switcher_sorting: layer.switcher_sorting || layer.sorting
+          opacity_adjustable: layer.opacity_adjustable
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -474,6 +505,8 @@ class KS.Layers
           id: layer.id
           type: layer.type
           label: layer.label
+          switcher_sorting: layer.switcher_sorting || layer.sorting
+          opacity_adjustable: layer.opacity_adjustable
           sorting: layer.sorting
           extent: layer.extent
           source: new ol.source.ImageWMS
