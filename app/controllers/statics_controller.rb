@@ -19,6 +19,7 @@ class StaticsController < ApplicationController
   end
 
   def promotion
+    return head(:not_found) unless Settings::StaticPage.promotion
     @file_name = 'werbung'
     render :api
   end
@@ -33,21 +34,19 @@ class StaticsController < ApplicationController
   end
 
   def contact
+    return head(:not_found) unless Settings::StaticPage.contact
     @file_name = 'contact'
     render :api
   end
 
   def news
+    return head(:not_found) unless Settings::StaticPage.news
     @file_name = 'news'
     render :api
   end
 
-  def finance
-    @file_name = 'finance'
-    render :api
-  end
-
   def participation
+    return head(:not_found) unless Settings::StaticPage.participation
     @file_name = 'participation'
     render :api
   end

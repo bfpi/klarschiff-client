@@ -1,8 +1,44 @@
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a href="#request" id="requests" class="nav-link active header-tab" data-bs-toggle="tab" data-url="<%= requests_path %>"><%= t('.request') %></a>
+    <a href="#request" id="requests" class="nav-link active header-tab" data-bs-toggle="tab" data-url="<%= requests_path %>"><%= t(:request) %></a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <%= t(:info) %>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li>
+        <a href="#watch" id="areas" class="dropdown-item" data-bs-toggle="tab" data-url="<%= areas_path %>"><%= t(:watch) %></a>
+      </li>
+      <li>
+        <%= link_to t(:recent_requests), recent_requests_start_path, class: 'dropdown-item', remote: true %>
+      </li>
+      <li>
+        <%= link_to t(:list), requests_static_path, class: 'dropdown-item', remote: true %>
+      </li>
+      <% if Settings::StaticPage.news %>
+        <li>
+          <%= link_to t(:news), news_static_path, class: 'dropdown-item', remote: true %>
+        </li>
+      <% end -%>
+      <% if Settings::StaticPage.promotion %>
+        <li>
+          <%= link_to t(:promotion), promotion_static_path, class: 'dropdown-item', remote: true %>
+        </li>
+      <% end -%>
+      <% if Settings::StaticPage.participation %>
+        <li>
+          <%= link_to t(:participation), participation_static_path, class: 'dropdown-item', remote: true %>
+        </li>
+      <% end -%>
+    </ul>
   </li>
   <li class="nav-item">
-    <a href="#watch" id="areas" class="nav-link header-tab" data-bs-toggle="tab" data-url="<%= areas_path %>"><%= t('.watch') %></a>
+    <%= link_to t(:statistic), statistics_path, class: 'nav-link', remote: true %>
   </li>
+  <% if Settings::StaticPage.contact %>
+    <li class="nav-item">
+      <%= link_to t(:contact), contact_static_path, class: 'nav-link', remote: true %>
+    </li>
+  <% end -%>
 </ul>
