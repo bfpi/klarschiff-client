@@ -11,6 +11,11 @@
     <%= t('.hints') %>
   </div>
 </div>
+<div class="row mb-5">
+  <div class="col-12 text-center">
+    <%= link_to t('.button'), map_path(mobile: @mobile), class: 'btn btn-lg btn-primary', data: { turbolinks: false } %>
+  </div>
+</div>
 <div class="row">
   <div class="col-12">
     <div class="statistic">
@@ -18,8 +23,4 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-12 text-center">
-    <%= link_to t('.button'), map_path(mobile: @mobile), class: 'btn btn-lg btn-primary', data: { turbolinks: false } %>
-  </div>
-</div>
+

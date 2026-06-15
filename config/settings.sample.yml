@@ -16,7 +16,6 @@ development: &default
     key: hro
     login_required: false
     multi_requests_enabled: false
-    skip_extra_homepage: false
     name: Klarschiff
     city_long: Demostadt
     city_short: Demo
@@ -49,6 +48,12 @@ development: &default
     start_date: 28.03.2012
     max_image_size: 5242880
     show_privacy_policy: false
+
+  static_pages:
+    contact: false
+    news: false
+    participation: false
+    promotion: false
 
   vote:
     min_requirement: 20

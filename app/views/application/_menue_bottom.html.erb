@@ -1,7 +1,6 @@
-<%= link_to t(:mobile), [:start, { mobile: true }], data: { turbolinks: false } %> |
-<%= link_to t(:api), api_static_path %> |
+<%= link_to t(:mobile), [:start, mobile: true], data: { turbolinks: false } %> |
+<%= link_to t(:api), api_static_path, remote: true %> |
 <% if Settings::Url.ks_demo_url.present? -%>
   <%= link_to t(:demo), Settings::Url.ks_demo_url, data: { turbolinks: false }, target: '_blank', rel: 'noopener' %> |
 <% end -%>
-<%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: '_blank', rel: 'noopener' %> |
-<%= link_to t(:promotion), %i[promotion static] %>
+<%= link_to t(:github), Settings::Url.ks_github_url, data: { turbolinks: false }, target: "_blank" %>
