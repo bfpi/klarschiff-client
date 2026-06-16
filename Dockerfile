@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM ruby:3.2-slim AS base
+FROM ruby:4.0-slim-bookworm AS base
 
 LABEL org.opencontainers.image.source="https://github.com/bfpi/klarschiff-client"
 LABEL org.opencontainers.image.authors="BFPI GmbH"
