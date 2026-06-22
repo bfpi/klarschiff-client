@@ -9,6 +9,8 @@ class Service < ActiveResource::Base
 
   alias_attribute :category, :group
 
+  delegate :idea?, :problem?, :tipp?, to: :type
+
   def self.[](code)
     collection.find { |s| s.service_code.to_s == code.to_s }
   end
@@ -19,22 +21,16 @@ class Service < ActiveResource::Base
 
   def type
     return nil unless keywords
-
-    ActiveSupport::StringInquirer.new (t = keywords.split(';').first) && case t
-                                                                         when 'idee'
-                                                                           'idea'
-                                                                         when 'tipp'
-                                                                           'tip'
-                                                                         else
-                                                                           t
-                                                                         end
+    keyword = (t = keywords.split(';').first) && case t
+                                                 when 'idee'
+                                                   'idea'
+                                                 when 'tipp'
+                                                   'tip'
+                                                 else
+                                                   t
+                                                 end
+    ActiveSupport::StringInquirer.new keyword
   end
-
-  delegate :idea?, to: :type
-
-  delegate :problem?, to: :type
-
-  delegate :tipp?, to: :type
 
   def as_json(options = {})
     super(options.merge(only: %i[service_code service_name], methods: %i[type category]))
