@@ -1,7 +1,4 @@
-class Area < ActiveResource::Base
-  include ResourceClient
-
-  set_server_connection :city_sdk
+class Area < ApplicationResource
 
   attr_accessor :id, :name, :grenze
 end

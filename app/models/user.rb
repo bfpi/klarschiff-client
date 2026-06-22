@@ -1,5 +1,2 @@
-class User < ActiveResource::Base
-  include ResourceClient
-
-  set_server_connection :city_sdk
+class User < ApplicationResource
 end

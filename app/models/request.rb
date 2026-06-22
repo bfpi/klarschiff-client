@@ -1,7 +1,4 @@
-class Request < ActiveResource::Base
-  include ResourceClient
-
-  set_server_connection :city_sdk
+class Request < ApplicationResource
   default_query_options[:extensions] = true
 
   alias_attribute :id, :service_request_id
@@ -129,10 +126,7 @@ class Request < ActiveResource::Base
     where(params.merge({ just_count: true })).first.count
   end
 
-  class ExtendedAttributes < ActiveResource::Base
-    include ResourceClient
-
-    set_server_connection :city_sdk
+  class ExtendedAttributes < ApplicationResource
 
     # Overwrite Object#trust, #job_status
     %i[trust job_status].each do |tmp|

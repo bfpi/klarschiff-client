@@ -1,6 +1,3 @@
-class Note < ActiveResource::Base
-  include ResourceClient
-
-  set_server_connection :city_sdk
+class Note < ApplicationResource
   self.prefix = File.join(site.path, '/requests/notes/:service_request_id')
 end
