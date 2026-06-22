@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
       - run: bin/eslint
   coffeelint:
     name: Coffee JS files
@@ -20,5 +20,5 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
       - run: bin/coffeelint
