@@ -44,3 +44,7 @@ Style/StringLiterals:
     - 'config/environments/*'
     - 'config/initializers/assets.rb'
     - 'config/puma.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
