@@ -14,9 +14,16 @@ AllCops:
     - 'vendor/**/**'
   NewCops: enable
 
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
 
 Style/FrozenStringLiteralComment:
   Exclude:
@@ -44,7 +51,3 @@ Style/StringLiterals:
     - 'config/environments/*'
     - 'config/initializers/assets.rb'
     - 'config/puma.rb'
-
-Metrics/ClassLength:
-  Exclude:
-    - 'test/**/*'
