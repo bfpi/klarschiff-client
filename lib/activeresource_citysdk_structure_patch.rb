@@ -1,17 +1,22 @@
+# frozen_string_literal: true
+
 require 'active_resource/base'
 require 'active_resource/validations'
 
+# ActiveResource patches for CitySDK-specific response handling.
 module ActiveResource
+  # Patch to surface API validation errors as remote errors.
   module ValidationsWithCitySDKErrorResponseCodes
     def save(options = {})
       super
-    rescue BadRequest, UnauthorizedAccess => error
-      @remote_errors = error
+    rescue BadRequest, UnauthorizedAccess => e
+      @remote_errors = e
       load_remote_errors(@remote_errors, true)
       false
     end
   end
 
+  # Patch to normalize array-based payloads before ActiveResource loads them.
   module LoadWithCitySDKArrayStructure
     def load(attributes, remove_root = false, persisted = false) # rubocop:disable Style/OptionalBooleanParameter
       normalized_attributes = if attributes.is_a?(Array)
@@ -24,30 +29,33 @@ module ActiveResource
     end
   end
 
+  # Base class extensions for CitySDK-specific resource behavior.
   class Base
     prepend ValidationsWithCitySDKErrorResponseCodes
     prepend LoadWithCitySDKArrayStructure
 
+    # Ensure find calls inherit the default query options.
     module FindWithExtendedDefaultQueryOptions
       def find(*args)
-        scope = args.slice!(0)
-        options = args.slice!(0) || {}
-        (options[:params] ||= {}).merge! default_query_options
-        super scope, options
+        scope = args.shift
+        options = args.shift || {}
+        (options[:params] ||= {}).merge!(default_query_options)
+        super(scope, options)
       rescue ActiveResource::ResourceInvalid => e
-        Rails.logger.error e.message
+        Rails.logger.error(e.message)
         raise
       end
     end
 
+    # Ensure collection paths use the CitySDK URL format when needed.
     module CollectionPathWithCitySDKUrlFormat
       def collection_path(prefix_options = {}, query_options = nil)
         if prefix_options.blank?
-          super prefix_options, query_options
+          super
         else
           check_prefix_options(prefix_options)
           prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-          "#{ prefix(prefix_options) }#{ format_extension }#{ query_string(query_options) }"
+          "#{prefix(prefix_options)}#{format_extension}#{query_string(query_options)}"
         end
       end
     end
@@ -57,45 +65,62 @@ module ActiveResource
       prepend CollectionPathWithCitySDKUrlFormat
 
       def default_query_options
-        @@default_query_options ||= {}
-        if (key = api_key) && @@default_query_options[:api_key].blank?
-          @@default_query_options[:api_key] = key
+        @default_query_options ||= {}
+        if (key = api_key) && @default_query_options[:api_key].blank?
+          @default_query_options[:api_key] = key
         end
-        @@default_query_options
+        @default_query_options
       end
     end
   end
 
+  # Patch to parse array-based error payloads from CitySDK.
   module ErrorsWithCitySDKArrayStructure
-    def from_json(json, save_cache = false)
-      decoded = ActiveSupport::JSON.decode(json) || {} rescue {}
-      if decoded.kind_of?(Array) && decoded.first.kind_of?(Hash)
-        clear unless save_cache
-        decoded.each { |error|
-          self.add :base, error['description']
-        }
-      else
-        super
+    def from_json(json, save_cache = false) # rubocop:disable Style/OptionalBooleanParameter
+      decoded = parse_json_response(json)
+      return super unless decoded.is_a?(Array) && decoded.first.is_a?(Hash)
+
+      clear unless save_cache
+      decoded.each do |error|
+        add :base, error['description']
       end
+    end
+
+    private
+
+    def parse_json_response(json)
+      ActiveSupport::JSON.decode(json) || {}
+    rescue StandardError
+      {}
     end
   end
 
   Errors.prepend ErrorsWithCitySDKArrayStructure
 
+  # Patch to enrich ActiveResource request error handling for CitySDK responses.
   module ConnectionWithAdditionalRequestResponseRescues
     private
+
     def request(method, path, *arguments)
       super
     rescue ResourceInvalid, ForbiddenAccess => e
-      def e.base_object_with_errors
-        Base.new.tap { |b| b.load_remote_errors self }
-      end
-      Rails.logger.error "CitySDKError: " << e.base_object_with_errors.errors.full_messages.join(', ')
+      enhance_error_with_base_object(e)
       raise e
     rescue ServerError => e
-      e.response.tap { |r| 
-        r.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{ e }") }])
-      }
+      handle_server_error(e)
+    end
+
+    def enhance_error_with_base_object(error)
+      error.define_singleton_method(:base_object_with_errors) do
+        Base.new.tap { |base| base.load_remote_errors(self) }
+      end
+      Rails.logger.error("CitySDKError: #{error.base_object_with_errors.errors.full_messages.join(', ')}")
+    end
+
+    def handle_server_error(error)
+      error.response.tap do |response|
+        response.body = ActiveSupport::JSON.encode([{ errors: Rails.logger.error("CitySDKError: #{error}") }])
+      end
     end
   end
 
