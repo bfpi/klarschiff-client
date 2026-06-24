@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Request < ApplicationResource
   default_query_options[:extensions] = true
 
@@ -69,14 +71,14 @@ class Request < ApplicationResource
   end
 
   def flag_color_class
-    'job-status ' << case job_status
-                     when 'NOT_CHECKABLE'
-                       'not-checkable'
-                     when 'CHECKED'
-                       'checked'
-                     else
-                       'unchecked'
-                     end
+    'job-status ' + case job_status
+                    when 'NOT_CHECKABLE'
+                      'not-checkable'
+                    when 'CHECKED'
+                      'checked'
+                    else
+                      'unchecked'
+                    end
   end
 
   def as_json(options = {})
