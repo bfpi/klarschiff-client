@@ -3,11 +3,12 @@ name: Build and Push via Docker Compose
 on:
   push:
     branches:
-      - docker
-      - test
       - master
     tags:
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
   publish:
@@ -53,7 +54,9 @@ jobs:
         with:
           images: ${{ steps.image.outputs.image }}
           tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch
+            type=ref,event=pr
             type=ref,event=tag
 
       # --------------------------------------------------
@@ -68,24 +71,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       # --------------------------------------------------
-      # 4) latest nur für docker branch
-      #
-      # in step 2 könnte der latest-Tag auch gesetzt werden, wenn es der master-branch sein soll
-      # dann wäe step 4 (hier) nicht mehr notwendig
-      # type=raw,value=latest,enable={{is_default_branch}}
-      # --------------------------------------------------
-      - name: Push latest tag (only docker branch)
-        if: github.ref_name == 'docker'
-        run: |
-          IMAGE=$(docker compose config --format json | jq -r '.services.web.image')
-          IMAGE_BASE="${IMAGE%:latest}"
-
-          docker pull "${IMAGE_BASE}:docker"
-          docker tag "${IMAGE_BASE}:docker" "${IMAGE_BASE}:latest"
-          docker push "${IMAGE_BASE}:latest"
-
-      # --------------------------------------------------
-      # 5) Cleanup
+      # 4) Cleanup
       # --------------------------------------------------
       - name: Docker logout
         if: always()
