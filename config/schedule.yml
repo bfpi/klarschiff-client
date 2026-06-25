@@ -1,0 +1,10 @@
+<% [
+     ['0 * * * *', :RefreshStaticRequestsJob]
+   ].each do |cron, name| %>
+<%= name %>:
+  active_job: true
+  class: <%= name %>
+  cron: '<%= cron %>'
+  queue: cron
+  symbolize_args: true
+<% end %>
