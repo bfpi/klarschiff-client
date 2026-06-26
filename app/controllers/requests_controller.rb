@@ -262,13 +262,15 @@ class RequestsController < ApplicationController
     keys |= %i[lat long] if %w[create new update].include?(action_name)
     data = params.require(:request).permit(keys)
     if (img = params[:request][:media]).present?
-      if img.is_a? String
-        File.open("tmp/#{img}", 'rb') { |file| data[:media] = Base64.encode64(file.read) }
-        FileUtils.rm "tmp/#{img}"
-      else
-        data[:media] = Base64.encode64(img.tempfile.read)
-      end
+      data[:media] = img.is_a?(String) ? encode_file_from_path(img) : Base64.encode64(img.tempfile.read)
     end
     data
+  end
+
+  def encode_file_from_path(filename)
+    safe_path = Rails.root.join('tmp', File.basename(filename))
+    Base64.encode64(File.read(safe_path))
+  ensure
+    FileUtils.rm_f(safe_path)
   end
 end
