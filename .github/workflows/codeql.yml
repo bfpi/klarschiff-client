@@ -20,6 +20,9 @@ on:
   schedule:
     - cron: '21 8 * * 2'
 
+env:
+  RAILS_ENV: test
+
 jobs:
   analyze:
     name: Analyze

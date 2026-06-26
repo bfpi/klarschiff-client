@@ -3,6 +3,9 @@ name: RuboCop
 on:
   - workflow_dispatch
 
+env:
+  RAILS_ENV: test
+
 jobs:
   rubocop:
     name: Run

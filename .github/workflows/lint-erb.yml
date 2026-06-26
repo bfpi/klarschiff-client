@@ -3,6 +3,9 @@ name: ERB Templates
 on:
   - workflow_dispatch
 
+env:
+  RAILS_ENV: test
+
 jobs:
   erblint:
     name: ERB files
