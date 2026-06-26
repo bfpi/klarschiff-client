@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :set_mobile, :set_og_request
   helper_method :has_field_service_team?, :context
   protect_from_forgery prepend: true
-  skip_before_action :verify_authenticity_token, if: -> { Rails.env.local? }
 
   protected
 
