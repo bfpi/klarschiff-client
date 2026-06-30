@@ -3,6 +3,12 @@ name: Rails Tests
 on:
   - workflow_dispatch
 
+env:
+  RAILS_ENV: test
+
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest

@@ -43,6 +43,14 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
 
+  gem 'pronto-rubocop', require: false
+  gem 'rubocop-capybara'
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+
+  gem 'erb_lint', require: false
+
   gem 'minitest'
   gem 'minitest-mock'
 
@@ -54,15 +62,6 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   # gem 'listen', '~> 3.2'
   # gem 'web-console', '>= 3.3.0'
-
-  gem 'bullet'
-  gem 'pronto-rubocop', require: false
-  gem 'rubocop-capybara'
-  gem 'rubocop-minitest', require: false
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-
-  gem 'erb_lint', require: false
 end
 
 group :test do
@@ -77,11 +76,12 @@ gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'bootstrap', '~> 5.1.3' # CSS variable usage in v5.2.x is incomplete until Bootstrap 6
+
 # Use jquery as the JavaScript library
+gem 'jquery-form-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-form-rails'
-gem 'bootstrap', '~> 5.1.3' # CSS variable usage in v5.2.x is incomplete until Bootstrap 6
 
 gem 'font-awesome-rails'
 gem 'net-ldap'

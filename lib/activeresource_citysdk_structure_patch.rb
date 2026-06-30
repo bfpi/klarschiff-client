@@ -3,8 +3,8 @@
 require 'active_resource/base'
 require 'active_resource/validations'
 
-# ActiveResource patches for CitySDK-specific response handling.
-module ActiveResource
+# Module to patch several CitySDK sepcific issues for ActiveResource
+module ActiveresourceCitysdkStructurePatch
   # Patch to surface API validation errors as remote errors.
   module ValidationsWithCitySDKErrorResponseCodes
     def save(options = {})
@@ -15,6 +15,7 @@ module ActiveResource
       false
     end
   end
+  ActiveResource::Base.prepend ValidationsWithCitySDKErrorResponseCodes
 
   # Patch to normalize array-based payloads before ActiveResource loads them.
   module LoadWithCitySDKArrayStructure
@@ -28,51 +29,45 @@ module ActiveResource
       super(normalized_attributes.to_h, remove_root, persisted)
     end
   end
+  ActiveResource::Base.prepend LoadWithCitySDKArrayStructure
 
-  # Base class extensions for CitySDK-specific resource behavior.
-  class Base
-    prepend ValidationsWithCitySDKErrorResponseCodes
-    prepend LoadWithCitySDKArrayStructure
-
-    # Ensure find calls inherit the default query options.
-    module FindWithExtendedDefaultQueryOptions
-      def find(*args)
-        scope = args.shift
-        options = args.shift || {}
-        (options[:params] ||= {}).merge!(default_query_options)
-        super(scope, options)
-      rescue ActiveResource::ResourceInvalid => e
-        Rails.logger.error(e.message)
-        raise
-      end
+  # Ensure find calls inherit the default query options.
+  module FindWithExtendedDefaultQueryOptions
+    def find(*args)
+      scope = args.shift
+      options = args.shift || {}
+      (options[:params] ||= {}).merge!(default_query_options)
+      super(scope, options)
+    rescue ActiveResource::ResourceInvalid => e
+      Rails.logger.error(e.message)
+      raise
     end
 
-    # Ensure collection paths use the CitySDK URL format when needed.
-    module CollectionPathWithCitySDKUrlFormat
-      def collection_path(prefix_options = {}, query_options = nil)
-        if prefix_options.blank?
-          super
-        else
-          check_prefix_options(prefix_options)
-          prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-          "#{prefix(prefix_options)}#{format_extension}#{query_string(query_options)}"
-        end
+    private
+
+    def default_query_options
+      @default_query_options ||= {}
+      if (key = api_key) && @default_query_options[:api_key].blank?
+        @default_query_options[:api_key] = key
       end
+      @default_query_options
     end
+  end
+  ActiveResource::Base.singleton_class.prepend FindWithExtendedDefaultQueryOptions
 
-    class << self
-      prepend FindWithExtendedDefaultQueryOptions
-      prepend CollectionPathWithCitySDKUrlFormat
-
-      def default_query_options
-        @default_query_options ||= {}
-        if (key = api_key) && @default_query_options[:api_key].blank?
-          @default_query_options[:api_key] = key
-        end
-        @default_query_options
+  # Ensure collection paths use the CitySDK URL format when needed.
+  module CollectionPathWithCitySDKUrlFormat
+    def collection_path(prefix_options = {}, query_options = nil)
+      if prefix_options.blank?
+        super
+      else
+        check_prefix_options(prefix_options)
+        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+        "#{prefix(prefix_options)}#{format_extension}#{query_string(query_options)}"
       end
     end
   end
+  ActiveResource::Base.singleton_class.prepend CollectionPathWithCitySDKUrlFormat
 
   # Patch to parse array-based error payloads from CitySDK.
   module ErrorsWithCitySDKArrayStructure
@@ -94,8 +89,7 @@ module ActiveResource
       {}
     end
   end
-
-  Errors.prepend ErrorsWithCitySDKArrayStructure
+  ActiveResource::Errors.prepend ErrorsWithCitySDKArrayStructure
 
   # Patch to enrich ActiveResource request error handling for CitySDK responses.
   module ConnectionWithAdditionalRequestResponseRescues
@@ -103,10 +97,10 @@ module ActiveResource
 
     def request(method, path, *arguments)
       super
-    rescue ResourceInvalid, ForbiddenAccess => e
+    rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
       enhance_error_with_base_object(e)
       raise e
-    rescue ServerError => e
+    rescue ActiveResource::ServerError => e
       handle_server_error(e)
     end
 
@@ -123,6 +117,5 @@ module ActiveResource
       end
     end
   end
-
-  Connection.prepend ConnectionWithAdditionalRequestResponseRescues
+  ActiveResource::Connection.prepend ConnectionWithAdditionalRequestResponseRescues
 end

@@ -3,6 +3,12 @@ name: RuboCop
 on:
   - workflow_dispatch
 
+permissions:
+  contents: read
+
+env:
+  RAILS_ENV: test
+
 jobs:
   rubocop:
     name: Run

@@ -20,6 +20,9 @@ on:
 permissions:
   contents: read
 
+env:
+  RAILS_ENV: test
+
 jobs:
   brakeman-scan:
     permissions:

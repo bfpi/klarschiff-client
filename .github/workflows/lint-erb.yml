@@ -3,6 +3,12 @@ name: ERB Templates
 on:
   - workflow_dispatch
 
+permissions:
+  contents: read
+
+env:
+  RAILS_ENV: test
+
 jobs:
   erblint:
     name: ERB files
