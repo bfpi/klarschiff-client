@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"@petamoriken/float16@npm:^3.4.7":
-  version: 3.8.4
-  resolution: "@petamoriken/float16@npm:3.8.4"
-  checksum: 10/1e12713c1ef15134ffbb815449f7fd30bddd158935084709efbc7a9e1d7330b7d5045f7b18e094ec6df19e3f189c0b18504db6cf348e13a484b75e4e0efe2163
+"@petamoriken/float16@npm:^3.9.3":
+  version: 3.9.3
+  resolution: "@petamoriken/float16@npm:3.9.3"
+  checksum: 10/8d8a3a2b79fce45bcf00e9612e46531d261fb55edc655205415ae4629c8dc2bb21a02811250e2af1f6000e6d7ebc868b3d15a16db4a7719e95b9de589ec05f48
   languageName: node
   linkType: hard
 
@@ -39,6 +39,16 @@ __metadata:
   version: 4.0.0
   resolution: "@types/rbush@npm:4.0.0"
   checksum: 10/ee37c7fa322a83af4e754180022253b7e2bbbb853c9a6d8ffce1ea1e59bbb0eef3a347e2f37934bb1afa4d40ea2ea44409d7cee751cb8ac8dbded13dc9160a64
+  languageName: node
+  linkType: hard
+
+"@zarrita/storage@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@zarrita/storage@npm:0.2.0"
+  dependencies:
+    reference-spec-reader: "npm:^0.2.0"
+    unzipit: "npm:2.0.0"
+  checksum: 10/f5a46571732310573b78263f8b4b20ebe2cb09c4b93b2dd4a06f6002a8868b6dd7b27f1c6a27be7d6e4cb4c1834bd7f35da87cadbd1d374c60081a7b5012e279
   languageName: node
   linkType: hard
 
@@ -406,19 +416,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"geotiff@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "geotiff@npm:2.1.3"
+"fflate@npm:^0.8.0":
+  version: 0.8.3
+  resolution: "fflate@npm:0.8.3"
+  checksum: 10/6ebf528dc9c56e78e715eac615b009b25dc33e15c1920b11ebba44e6d76181c647756a81a23e19247907496b93aa99928514c53090579a65109e026ac2824aa7
+  languageName: node
+  linkType: hard
+
+"geotiff@npm:^3.0.5 || ^3.1.0-beta.0":
+  version: 3.1.0-beta.0
+  resolution: "geotiff@npm:3.1.0-beta.0"
   dependencies:
-    "@petamoriken/float16": "npm:^3.4.7"
+    "@petamoriken/float16": "npm:^3.9.3"
     lerc: "npm:^3.0.0"
     pako: "npm:^2.0.4"
     parse-headers: "npm:^2.0.2"
     quick-lru: "npm:^6.1.1"
-    web-worker: "npm:^1.2.0"
-    xml-utils: "npm:^1.0.2"
-    zstddec: "npm:^0.1.0"
-  checksum: 10/91475680b882c11e6c28b4538c8703da03a13fa1b3f8f9d456aa3b274cb71fb01f04aadb29006c3a607c20b724b936a95899ad8ef65d26a11eed59ba9f81c61f
+    web-worker: "npm:^1.5.0"
+    xml-utils: "npm:^1.10.2"
+    zstddec: "npm:^0.2.0"
+  checksum: 10/4d872cd1bead469fd2a3d457f0b2255542b83427c3a8de6fc6bab10f4ca53d9d09108de2d98bd4dd9f83e14de9bea086c74ac6092ba986be845f6c8420845915
   languageName: node
   linkType: hard
 
@@ -472,6 +489,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"numcodecs@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "numcodecs@npm:0.3.2"
+  dependencies:
+    fflate: "npm:^0.8.0"
+  checksum: 10/8ae6182ae4aacd574d40b57877b6627de6a0df14d4c4e0100d147770555c66d6fd5d6df15ef9a7e1f34a1413899f5772cf3decd3cd5c2a00f2cc8ff076fab8ad
+  languageName: node
+  linkType: hard
+
 "ol-ext@npm:^4.0.37":
   version: 4.0.37
   resolution: "ol-ext@npm:4.0.37"
@@ -482,15 +508,16 @@ __metadata:
   linkType: hard
 
 "ol@npm:^10.7.0":
-  version: 10.7.0
-  resolution: "ol@npm:10.7.0"
+  version: 10.9.0
+  resolution: "ol@npm:10.9.0"
   dependencies:
     "@types/rbush": "npm:4.0.0"
     earcut: "npm:^3.0.0"
-    geotiff: "npm:^2.1.3"
+    geotiff: "npm:^3.0.5 || ^3.1.0-beta.0"
     pbf: "npm:4.0.1"
     rbush: "npm:^4.0.0"
-  checksum: 10/f39fdb6a4d8e89114b0c2a450a59e12c7a040c8c546a27909347a80279355412f9cb197709c9715cfce5f989fc9861d9be7ce4c629c939a9ade0fe01ac980e0d
+    zarrita: "npm:^0.7.1"
+  checksum: 10/efd9419548e033169096848f7cb4df86adc79ec426004f66994315f88db350025c58baab0d3962d68d1a1a6a6b86bfccce7cd5f9c4b229b523b0b8584ed0fbbc
   languageName: node
   linkType: hard
 
@@ -559,6 +586,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reference-spec-reader@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "reference-spec-reader@npm:0.2.0"
+  checksum: 10/cd148828ccf18679654da88ebf9b2c73e7046d1c2b63071f5ba06c07fe15c50d734074ba654fdff872f3cab0895e04b55eaef9a74f2e68aae3db62afd3f04eee
+  languageName: node
+  linkType: hard
+
 "resolve-protobuf-schema@npm:^2.1.0":
   version: 2.1.0
   resolution: "resolve-protobuf-schema@npm:2.1.0"
@@ -589,10 +623,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-worker@npm:^1.2.0":
-  version: 1.3.0
-  resolution: "web-worker@npm:1.3.0"
-  checksum: 10/9dd89763997a7fa4c50128bed088137775c6033cc2aead24fd82e8292991bb1d3ffc672b47df16eed86c9268d2bf230d5bb3e0d06f41a7b3c0c4c36abf4c1ba7
+"unzipit@npm:2.0.0":
+  version: 2.0.0
+  resolution: "unzipit@npm:2.0.0"
+  checksum: 10/fbd0e34514bc5b0b965f64da5636581c7106917da7b101cc1bee3f5d41ebd6e610c6f5eff59bd6300c6773133c4c558fc9cb4024c2a58de9c5ab6fa469f67fb5
+  languageName: node
+  linkType: hard
+
+"web-worker@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "web-worker@npm:1.5.0"
+  checksum: 10/1209461e2c731fe8e8297c95a8a324c6dd00fd9f3c489ed79d18a15592731324762b7b06c8b6bc404596259aa13cd413119e0153e12a80f47a7f374960461e0d
   languageName: node
   linkType: hard
 
@@ -603,16 +644,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml-utils@npm:^1.0.2":
-  version: 1.7.0
-  resolution: "xml-utils@npm:1.7.0"
-  checksum: 10/cc152e7397a67c90dbbdc0145004027ef3486e8db0f243fb2937ee4454a9a5b766ed96d0d0f6fa7951c8ddce338bb436d9166b241b41208a3d6b8f1c76a6f5aa
+"xml-utils@npm:^1.10.2":
+  version: 1.10.2
+  resolution: "xml-utils@npm:1.10.2"
+  checksum: 10/f783298c4b8c415ef69476c927c60073710025d8e93db3a3489f9e830e09bb99a611678dca64d1e0a4b6116364480d3ff8fbc217a5817684a09b78f4deaf3de4
   languageName: node
   linkType: hard
 
-"zstddec@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "zstddec@npm:0.1.0"
-  checksum: 10/818d7a7b910509bed32a5ae42352dc45e87e4ee8470c27352859824540efceb9643864afbbb93564beb76822d72a946a6ee7cfbf01627ee34a1cd9656f2857b8
+"zarrita@npm:^0.7.1":
+  version: 0.7.3
+  resolution: "zarrita@npm:0.7.3"
+  dependencies:
+    "@zarrita/storage": "npm:^0.2.0"
+    numcodecs: "npm:^0.3.2"
+  checksum: 10/8fa57e638a1243cad829bcdacbf5c07f18318882f4a14229aae0cdd967f208e84400deeaba044b6bb5f0975a2303e5d74a7a4f15d5294e420522ad9dcb1da988
+  languageName: node
+  linkType: hard
+
+"zstddec@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "zstddec@npm:0.2.0"
+  checksum: 10/d8839aa683f6d7d8874a520d1848ad7540394bb6bc9f3586c24bb7bc1cd90dc7789a576a23f70db7272adc286afcc35d3676f478ced734dfdc28828f8342d4c4
   languageName: node
   linkType: hard
