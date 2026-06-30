@@ -6,6 +6,9 @@ on:
 env:
   RAILS_ENV: test
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest

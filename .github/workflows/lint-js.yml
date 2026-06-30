@@ -3,6 +3,9 @@ name: Javascripts
 on:
   - workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   eslint:
     name: Plain JS files
