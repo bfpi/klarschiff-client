@@ -63,7 +63,7 @@ jobs:
       # 3) Build + Push (buildx statt compose build)
       # --------------------------------------------------
       - name: Build and push image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
