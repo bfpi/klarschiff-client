@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module StatisticsHelper
   def start_dates
     ret = []

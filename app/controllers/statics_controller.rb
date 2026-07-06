@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class StaticsController < ApplicationController
   def api
     @file_name = 'api'

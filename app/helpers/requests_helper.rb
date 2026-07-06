@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RequestsHelper
   def mark_trust(request)
     trust = request.extended_attributes.trust

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class StartsController < ApplicationController
   def show
     @request_id = params[:request]

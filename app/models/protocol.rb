@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Protocol
   extend ActiveModel::Naming
   extend ActiveModel::Translation

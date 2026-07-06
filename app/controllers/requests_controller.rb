@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RequestsController < ApplicationController
   def index
     unless @back = params[:back]
