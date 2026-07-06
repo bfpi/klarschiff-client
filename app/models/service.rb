@@ -20,6 +20,7 @@ class Service < ApplicationResource
 
   def type
     return nil unless keywords
+
     keyword = (t = keywords.split(';').first) && case t
                                                  when 'idee'
                                                    'idea'
