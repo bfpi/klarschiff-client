@@ -42,7 +42,7 @@ module KlarschiffClient
     config.i18n.available_locales = %i[de en]
 
     ActionView::RecordIdentifier.send(:remove_const, "JOIN")
-    ActionView::RecordIdentifier.const_set("JOIN", "-")
+    ActionView::RecordIdentifier.const_set(:JOIN, "-")
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
