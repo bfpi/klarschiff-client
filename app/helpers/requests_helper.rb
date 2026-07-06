@@ -74,7 +74,7 @@ module RequestsHelper
             Net::HTTP
           end.get_response uri
 
-    if res && res.message.include?('OK')
+    if res&.message&.include?('OK')
       places = ActiveSupport::JSON.decode(res.body)['features']
       places.each do |p|
         if p['properties']['objektgruppe'] == 'Adresse'
