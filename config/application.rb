@@ -63,10 +63,10 @@ module KlarschiffClient
         # Configuration for SMTP-Server
         smtp_settings = settings.dig(:protocol_mail, :smtp)
         config.action_mailer.smtp_settings = {
-          :address => smtp_settings[:host],
-          :enable_starttls_auto => smtp_settings[:starttls_enabled],
-          :user_name => smtp_settings[:username],
-          :password => smtp_settings[:password]
+          address: smtp_settings[:host],
+          enable_starttls_auto: smtp_settings[:starttls_enabled],
+          user_name: smtp_settings[:username],
+          password: smtp_settings[:password]
         }
       end
     end
