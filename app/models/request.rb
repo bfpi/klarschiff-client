@@ -129,7 +129,6 @@ class Request < ApplicationResource
   end
 
   class ExtendedAttributes < ApplicationResource
-
     # Overwrite Object#trust, #job_status
     %i[trust job_status].each do |tmp|
       define_method(tmp) { attributes[tmp] }
