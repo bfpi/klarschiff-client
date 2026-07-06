@@ -19,9 +19,8 @@ module StatisticsHelper
       tmp[group] << content_tag('option', service.service_name, value: service.service_code)
     end
 
-    ret = []
-    tmp.each do |label, groups|
-      ret << content_tag('optgroup', groups.join.html_safe, { label: label })
+    ret = tmp.map do |label, groups|
+      content_tag('optgroup', groups.join.html_safe, { label: label })
     end
 
     ret.join
