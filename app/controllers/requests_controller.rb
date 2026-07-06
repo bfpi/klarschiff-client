@@ -140,7 +140,7 @@ class RequestsController < ApplicationController
     service = nil
     if (codes = params[:request][:service_code]).present?
       payload = permissable_params
-      (codes = Array.wrap(codes).map(&:to_i).reject { |code| code.zero? }).each do |service_code|
+      (codes = Array.wrap(codes).map(&:to_i).reject(&:zero?)).each do |service_code|
         service ||= Service[service_code]
         result =
           begin
