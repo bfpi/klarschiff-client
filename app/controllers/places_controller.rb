@@ -25,7 +25,7 @@ class PlacesController < ApplicationController
 
       uri = URI.parse(Settings::AddressSearch.url)
       query = if Settings::AddressSearch.localisator.present?
-                Settings::AddressSearch.localisator + ' ' + @pattern
+                "#{Settings::AddressSearch.localisator} #{@pattern}"
               else
                 @pattern
               end

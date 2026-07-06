@@ -78,12 +78,12 @@ module RequestsHelper
       places = ActiveSupport::JSON.decode(res.body)['features']
       places.each do |p|
         if p['properties']['objektgruppe'] == 'Adresse'
-          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
           housenumber = p['properties']['hausnummer']
           housenumber_addition = p['properties']['hausnummer_zusatz'] if p['properties']['hausnummer_zusatz']
           break
         elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
-          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
         end
       end
       street = t(:not_assignable) if street.blank?
