@@ -3,7 +3,7 @@
 module RequestsHelper
   def mark_trust(request)
     trust = request.extended_attributes.trust
-    return unless trust > 0
+    return unless trust.positive?
 
     content_tag(:span, class: 'label label-default') do
       content_tag(:span) do
