@@ -109,7 +109,7 @@ class Request < ApplicationResource
   end
 
   def icon_folder
-    if expected_datetime.try(:to_date) == Date.today && Settings::Client.login_required
+    if expected_datetime.try(:to_date) == Time.zone.today && Settings::Client.login_required
       "task-#{extended_attributes.respond_to?(:job_status) ? job_status.downcase.dasherize : 'unchecked'}"
     else
       'inactive'

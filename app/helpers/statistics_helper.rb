@@ -3,11 +3,11 @@
 module StatisticsHelper
   def start_dates
     ret = []
-    ret << content_tag('option', t('.12months'), value: l(Date.today - 12.months))
-    ret << content_tag('option', t('.6months'), value: l(Date.today - 6.months))
-    ret << content_tag('option', t('.3months'), value: l(Date.today - 3.months))
-    ret << content_tag('option', t('.1months'), value: l(Date.today - 1.month))
-    ret << content_tag('option', t('.1week'), value: l(Date.today - 1.week))
+    ret << content_tag('option', t('.12months'), value: l(Time.zone.today - 12.months))
+    ret << content_tag('option', t('.6months'), value: l(Time.zone.today - 6.months))
+    ret << content_tag('option', t('.3months'), value: l(Time.zone.today - 3.months))
+    ret << content_tag('option', t('.1months'), value: l(Time.zone.today - 1.month))
+    ret << content_tag('option', t('.1week'), value: l(Time.zone.today - 1.week))
     ret.join.html_safe
   end
 
