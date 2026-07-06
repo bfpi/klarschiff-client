@@ -22,7 +22,7 @@ module RequestsHelper
 
   def status(request, show_currently: true)
     status = t(request.detailed_status.downcase, scope: :status)
-    if date = request.extended_attributes.detailed_status_datetime
+    if (date = request.extended_attributes.detailed_status_datetime)
       status << " (#{t('requests.status.since')} #{l(date.to_date)})"
     end
     status << ", #{t('requests.status.currently')} #{request.agency_responsible}" if show_currently

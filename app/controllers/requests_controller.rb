@@ -2,7 +2,7 @@
 
 class RequestsController < ApplicationController
   def index
-    unless @back = params[:back]
+    unless (@back = params[:back])
       conditions = if login_required?
                      { agency_responsible: @user.field_service_team,
                        negation: 'agency_responsible' }
@@ -75,7 +75,7 @@ class RequestsController < ApplicationController
       if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
         conditions[:also_archived] = true
       end
-      return head(:not_found) unless @request = Request.where(conditions).first
+      return head(:not_found) unless (@request = Request.where(conditions).first)
 
       @direct = true
     else
