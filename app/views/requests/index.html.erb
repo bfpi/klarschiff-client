@@ -1,10 +1,8 @@
-<%
-  spread = 3
-  start = @page - spread
-  start = 1 if start < 1
-  ending = @page + spread + 1
-  ending = @pages if ending > @pages
--%>
+<% spread = 3
+   start = @page - spread
+   start = 1 if start < 1
+   ending = @page + spread + 1
+   ending = @pages if ending > @pages -%>
 <ul class="pagination mt-3">
   <% if @page != 1 -%>
     <li class="page-item">
