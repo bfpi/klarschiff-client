@@ -67,7 +67,7 @@ class Request < ApplicationResource
   end
 
   def media_required?
-    !media_url.present? || extended_attributes.photo_required
+    media_url.blank? || extended_attributes.photo_required
   end
 
   def flag_color_class

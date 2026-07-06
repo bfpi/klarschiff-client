@@ -65,7 +65,7 @@ class RequestsController < ApplicationController
   end
 
   def show
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     if params[:direct] || login_required?
       conditions = { service_request_id: id }
@@ -121,7 +121,7 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     @request = Request.find(id)
     @id_list = params[:id_list].try(:map, &:to_i).presence
@@ -160,7 +160,7 @@ class RequestsController < ApplicationController
           ids << req.id
         else
           (@errors ||= []) << result.errors
-          break unless ids.present?
+          break if ids.blank?
         end
       end
     else
@@ -198,7 +198,7 @@ class RequestsController < ApplicationController
   end
 
   def update
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     result =
       begin
