@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ProtocolMailer < ActionMailer::Base
   default from: Settings::ProtocolMail.sender
 

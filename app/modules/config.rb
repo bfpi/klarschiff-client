@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Config
   class << self
     def for(key, env: Rails.env || :development)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CommentsController < ApplicationController
   def new
     @request = Request.find(params[:request_id])

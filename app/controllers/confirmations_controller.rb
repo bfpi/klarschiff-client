@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ConfirmationsController < ApplicationController
   def issue
     confirm(nil, params[:confirmation_id])

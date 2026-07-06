@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Settings
   # Defines accessors for application configuration with values
   # defined in config/settings.yml

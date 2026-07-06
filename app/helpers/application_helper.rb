@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationHelper
   def map_icon(icon)
     overlay_path = "overlay/#{icon}"

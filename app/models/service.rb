@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Service < ApplicationResource
 
   cattr_reader :collection, instance_reader: false do
