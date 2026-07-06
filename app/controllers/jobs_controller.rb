@@ -25,7 +25,7 @@ class JobsController < ApplicationController
 
   def update
     jobs = Request.where(@conditions).to_a
-    job = jobs.select { |req| req.id == params[:id].to_i }.first
+    job = jobs.find { |req| req.id == params[:id].to_i }
 
     jobs.delete_at jobs.index(job)
     jobs.insert params[:index].to_i, job

@@ -18,7 +18,8 @@
               <div class="has-clear">
                 <div class="input-group">
                   <span class="input-group-text">@</span>
-                  <%= email_field_tag(:author, nil, class: 'form-control', placeholder: t('placeholder.email')) %>
+                  <%= email_field_tag(:author, nil, class: 'form-control', placeholder: t('placeholder.email'),
+                                                    autocomplete: 'off') %>
                   <i class="far fa-times-circle form-control-clear"></i>
                 </div>
               </div>

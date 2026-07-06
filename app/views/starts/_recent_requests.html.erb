@@ -2,7 +2,7 @@
   <div class="card-header">
     <h5 class="card-title">
       <%= t('.recent_requests') %>
-      <%= link_to [:observations, format: :xml], target: '_blank', title: t('.subscribe_requests_feed') do %>
+      <%= link_to [:observations, { format: :xml }], target: '_blank', rel: 'noopener', title: t('.subscribe_requests_feed') do %>
         <%= image_tag('rss.png', class: 'img-margin-bottom') %>
       <% end -%>
     </h5>
@@ -14,12 +14,12 @@
           <% @recent_requests.each.with_index(1) do |req, i| -%>
             <div class="<%= @recent_requests_col %>">
               <div class="recent-request">
-                <%= link_to [:map, request: req.id], title: t('buttons.perma_link', req_id: req.id),
-                  data: { turbolinks: false } do %>
+                <%= link_to [:map, { request: req.id }], title: t('buttons.perma_link', req_id: req.id),
+                                                         data: { turbolinks: false } do %>
                   <% if (url = req.media_url).present? -%>
                     <div class="img-box rounded" style="background-image: url('<%= url %>')">
                       <span class="img-overlay-bottom"><%= image_tag req.icon_list %></span>
-                      <span class="img-overlay-top">&#35;<%= req.id %><br/><%= req.service.to_s.gsub(/\//, '/ ') %></span>
+                      <span class="img-overlay-top">&#35;<%= req.id %><br><%= req.service.to_s.gsub('/', '/ ') %></span>
                     </div>
                   <% end -%>
                 <% end -%>

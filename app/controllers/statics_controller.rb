@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StaticsController < ApplicationController
   def api
     @file_name = 'api'
@@ -30,7 +32,7 @@ class StaticsController < ApplicationController
   end
 
   def requests
-    @page_number = params[:page].to_i || 1
+    @page_number = params[:page].to_i
   end
 
   def contact

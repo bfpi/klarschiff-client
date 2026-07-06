@@ -1,5 +1,6 @@
-class Service < ApplicationResource
+# frozen_string_literal: true
 
+class Service < ApplicationResource
   cattr_reader :collection, instance_reader: false do
     Service.all.to_a
   end
@@ -18,6 +19,7 @@ class Service < ApplicationResource
 
   def type
     return nil unless keywords
+
     keyword = (t = keywords.split(';').first) && case t
                                                  when 'idee'
                                                    'idea'

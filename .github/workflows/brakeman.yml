@@ -45,7 +45,7 @@ jobs:
     - name: Scan
       continue-on-error: true
       run: |
-        bundle exec brakeman --format sarif --output tmp/output.sarif.json
+        bundle exec brakeman --ignore-config config/brakeman.ignore --format sarif --output tmp/output.sarif.json
 
     # Upload the SARIF file generated in the previous step
     - name: Upload SARIF

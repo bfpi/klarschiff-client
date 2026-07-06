@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AbusesController < ApplicationController
   def new
     @request = Request.find(params[:request_id])

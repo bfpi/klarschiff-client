@@ -67,7 +67,7 @@ class Request < ApplicationResource
   end
 
   def media_required?
-    !media_url.present? || extended_attributes.photo_required
+    media_url.blank? || extended_attributes.photo_required
   end
 
   def flag_color_class
@@ -109,7 +109,7 @@ class Request < ApplicationResource
   end
 
   def icon_folder
-    if expected_datetime.try(:to_date) == Date.today && Settings::Client.login_required
+    if expected_datetime.try(:to_date) == Time.zone.today && Settings::Client.login_required
       "task-#{extended_attributes.respond_to?(:job_status) ? job_status.downcase.dasherize : 'unchecked'}"
     else
       'inactive'
@@ -129,7 +129,6 @@ class Request < ApplicationResource
   end
 
   class ExtendedAttributes < ApplicationResource
-
     # Overwrite Object#trust, #job_status
     %i[trust job_status].each do |tmp|
       define_method(tmp) { attributes[tmp] }

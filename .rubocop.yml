@@ -14,8 +14,8 @@ AllCops:
     - 'vendor/**/**'
   NewCops: enable
 
-Minitest/EmptyLineBeforeAssertionMethods:
-  Enabled: false
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude: ['config/environments/*']
 
 Metrics/BlockLength:
   Exclude:
@@ -24,6 +24,12 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*'
+
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Exclude:
@@ -51,3 +57,7 @@ Style/StringLiterals:
     - 'config/environments/*'
     - 'config/initializers/assets.rb'
     - 'config/puma.rb'
+
+Style/SymbolArray:
+  Exclude:
+    - 'config/initializers/filter_parameter_logging.rb'

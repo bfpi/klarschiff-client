@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
   def index
-    unless @back = params[:back]
+    unless (@back = params[:back])
       conditions = if login_required?
                      { agency_responsible: @user.field_service_team,
                        negation: 'agency_responsible' }
@@ -63,7 +65,7 @@ class RequestsController < ApplicationController
   end
 
   def show
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     if params[:direct] || login_required?
       conditions = { service_request_id: id }
@@ -73,7 +75,7 @@ class RequestsController < ApplicationController
       if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
         conditions[:also_archived] = true
       end
-      return head(:not_found) unless @request = Request.where(conditions).first
+      return head(:not_found) unless (@request = Request.where(conditions).first)
 
       @direct = true
     else
@@ -119,7 +121,7 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     @request = Request.find(id)
     @id_list = params[:id_list].try(:map, &:to_i).presence
@@ -138,7 +140,7 @@ class RequestsController < ApplicationController
     service = nil
     if (codes = params[:request][:service_code]).present?
       payload = permissable_params
-      (codes = Array.wrap(codes).map(&:to_i).reject { |code| code == 0 }).each do |service_code|
+      (codes = Array.wrap(codes).map(&:to_i).reject(&:zero?)).each do |service_code|
         service ||= Service[service_code]
         result =
           begin
@@ -158,7 +160,7 @@ class RequestsController < ApplicationController
           ids << req.id
         else
           (@errors ||= []) << result.errors
-          break unless ids.present?
+          break if ids.blank?
         end
       end
     else
@@ -196,7 +198,7 @@ class RequestsController < ApplicationController
   end
 
   def update
-    return head(:not_found) unless (id = params[:id]).present?
+    return head(:not_found) if (id = params[:id]).blank?
 
     result =
       begin

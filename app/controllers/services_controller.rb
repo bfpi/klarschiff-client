@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ServicesController < ApplicationController
   clear_respond_to
   respond_to :json
@@ -5,10 +7,10 @@ class ServicesController < ApplicationController
   def index
     services = Service.collection.to_a.dup
     if (type = params[:type]).present?
-      services.reject! { |s| s.type != type }
+      services.select! { |s| s.type == type }
     end
     if (category = params[:category]).present?
-      services.reject! { |s| s.group != category }
+      services.select! { |s| s.group == category }
     end
     respond_with services
   rescue ActionController::UnknownFormat

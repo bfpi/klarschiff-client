@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 xml.instruct!
 xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss': 'http://www.georss.org/georss' do
   xml.channel do
@@ -14,7 +16,7 @@ xml.rss version: '2.0', 'xmlns:atom': 'http://w3.org/2005/Atom', 'xmlns:georss':
           html_cont = <<-HTML
             <b>#{Request.human_attribute_name(:status)}:</b> #{status(r)}<br/>
             <b>#{Request.human_attribute_name(:status_notes)}:</b> #{!r.status_notes.to_s == '' ? r.status_notes : t('.status_notes_not_available')}<br/>
-            <b>#{Request.human_attribute_name(:votes)}:</b> #{r.votes > 0 ? r.votes : t('.no_votes')}<br/>
+            <b>#{Request.human_attribute_name(:votes)}:</b> #{r.votes.positive? ? r.votes : t('.no_votes')}<br/>
             <b>#{Request.human_attribute_name(:description)}:</b> #{r.description}<br/>
             <b>#{Request.human_attribute_name(Request.human_attribute_name(:media_url))}:</b>
           HTML

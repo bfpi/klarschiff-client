@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module RequestsHelper
   def mark_trust(request)
     trust = request.extended_attributes.trust
-    return unless trust > 0
+    return unless trust.positive?
 
     content_tag(:span, class: 'label label-default') do
       content_tag(:span) do
@@ -20,7 +22,7 @@ module RequestsHelper
 
   def status(request, show_currently: true)
     status = t(request.detailed_status.downcase, scope: :status)
-    if date = request.extended_attributes.detailed_status_datetime
+    if (date = request.extended_attributes.detailed_status_datetime)
       status << " (#{t('requests.status.since')} #{l(date.to_date)})"
     end
     status << ", #{t('requests.status.currently')} #{request.agency_responsible}" if show_currently
@@ -79,16 +81,16 @@ module RequestsHelper
             Net::HTTP
           end.get_response uri
 
-    if res && res.message.include?('OK')
+    if res&.message&.include?('OK')
       places = ActiveSupport::JSON.decode(res.body)['features']
       places.each do |p|
         if p['properties']['objektgruppe'] == 'Adresse'
-          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
           housenumber = p['properties']['hausnummer']
           housenumber_addition = p['properties']['hausnummer_zusatz'] if p['properties']['hausnummer_zusatz']
           break
         elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
-          street = p['properties']['strasse_name'] + ' (' + p['properties']['strasse_schluessel'] + ' – ' + p['properties']['gemeindeteil_name'] + ')'
+          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
         end
       end
       street = t(:not_assignable) if street.blank?

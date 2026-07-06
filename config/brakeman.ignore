@@ -1,0 +1,70 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "32ea586fcef640f60945ff20c084a412ed5fe5a7a03ca65a80bb6980c77284b5",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/requests_controller.rb",
+      "line": 43,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "FileUtils.rm_rf(Rails.root.join(Settings::Client.resources_overview_path))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RequestsController",
+        "method": "index"
+      },
+      "user_input": "Settings::Client.resources_overview_path",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "resources_overview_path is read from config/settings.yml, no user defined content possible."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "a6c1f01a977526e7686d7946cebad7c9bc67d975b1247133b0ddade447d078f0",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "config/initializers/i18n.rb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "Dir[Rails.root.join(Settings::Client.resources_path, \"locales/*.yml\")]",
+      "render_path": null,
+      "location": null,
+      "user_input": "Settings::Client.resources_path",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "resources_path is read from config/settings.yml, no user defined content possible."
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "ea362d276acdbcd40535203eac78f887adeaa7751c964926a073e840821499dd",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/requests_controller.rb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "FileUtils.mkdir_p(Rails.root.join(Settings::Client.resources_overview_path))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RequestsController",
+        "method": "index"
+      },
+      "user_input": "Settings::Client.resources_overview_path",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "resources_overview_path is read from config/settings.yml, no user defined content possible."
+    }
+  ],
+  "brakeman_version": "8.0.5"
+}
