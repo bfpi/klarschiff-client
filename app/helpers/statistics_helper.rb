@@ -8,7 +8,7 @@ module StatisticsHelper
     ret << content_tag('option', t('.3months'), value: l(Date.today - 3.months))
     ret << content_tag('option', t('.1months'), value: l(Date.today - 1.month))
     ret << content_tag('option', t('.1week'), value: l(Date.today - 1.week))
-    ret.join('').html_safe
+    ret.join.html_safe
   end
 
   def service_list
@@ -21,9 +21,9 @@ module StatisticsHelper
 
     ret = []
     tmp.each do |label, groups|
-      ret << content_tag('optgroup', groups.join('').html_safe, { label: label })
+      ret << content_tag('optgroup', groups.join.html_safe, { label: label })
     end
 
-    ret.join('')
+    ret.join
   end
 end
