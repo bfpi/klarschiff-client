@@ -17,7 +17,6 @@ class Coordinate
       response = uri.read('Accept-Charset' => 'UTF-8', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
     rescue StandardError
       Rails.logger.error "Exception: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n  " << $ERROR_INFO.backtrace.join("\n  ")
-      return true
     end
 
     @result = JSON.parse(response.force_encoding('UTF-8'))
