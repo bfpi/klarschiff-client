@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'English'
 require 'open-uri'
 
 class Coordinate
@@ -16,13 +15,13 @@ class Coordinate
 
     begin
       response = uri.read('Accept-Charset' => 'UTF-8', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
-    rescue Exception
+    rescue StandardError
       Rails.logger.error "Exception: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n  " << $ERROR_INFO.backtrace.join("\n  ")
       return true
     end
 
     @result = JSON.parse(response.force_encoding('UTF-8'))
-  rescue Exception
+  rescue StandardError
     Rails.logger.error "Exception: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n  " << $ERROR_INFO.backtrace.join("\n  ")
   end
 
