@@ -45,7 +45,7 @@ class RequestsController < ApplicationController
         all_requests = @requests
         all_requests.each_slice(@per_page) do |requests|
           @requests = requests
-          File.write path.join("#{@page}.html"), render_to_string(layout: !Settings::Client.resources_overview_remote)
+          File.write path.join("#{@page}.html"), render_to_string(layout: false)
           @page += 1
         end
         return head :ok
