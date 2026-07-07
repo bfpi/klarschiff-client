@@ -14,6 +14,9 @@ AllCops:
     - 'vendor/**/**'
   NewCops: enable
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude: ['config/environments/*']
 
