@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProtocolMailer < ApplicationMailer
+class ProtocolMailer < ActionMailer::Base
   default from: Settings::ProtocolMail.sender
 
   def protocol(protocol)

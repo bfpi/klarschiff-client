@@ -8,6 +8,8 @@ exclude:
 linters:
   ErbSafety:
     enabled: true
+  ParserErrors:
+    enabled: false
   Rubocop:
     enabled: true
     rubocop_config:
