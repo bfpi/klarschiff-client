@@ -40,7 +40,7 @@
       "cwe_id": [
         22
       ],
-      "note": "resources_overview_path is read from config/settings.yml, no user defined content possible."
+      "note": "esources_overview_path is read from config/settings.yml, no user defined content possible."
     },
     {
       "warning_type": "File Access",
