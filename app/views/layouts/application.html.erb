@@ -150,7 +150,7 @@
       <img id="aerial" src="<%= image_path 'icons/menu/png/aerial.png' %>">
       <img id="map" src="<%= image_path 'icons/menu/png/map.png' %>">
     </div>
-    <% unless !Settings::Client.additional_content %>
+    <% if Settings::Client.additional_content.present? %>
       <%= Settings::Client.additional_content.html_safe -%>
     <% end %>
   </body>

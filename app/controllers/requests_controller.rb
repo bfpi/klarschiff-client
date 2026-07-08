@@ -40,12 +40,12 @@ class RequestsController < ApplicationController
         @requests.sort_by!(&:requested_datetime).reverse!
         @pages = (@requests.count / @per_page.to_f).ceil
         path = Rails.root.join(Settings::Client.resources_overview_path)
-        FileUtils.rm_rf path
         FileUtils.mkdir_p path
+        FileUtils.rm_rf Dir.glob(path.join('*.html'))
         all_requests = @requests
         all_requests.each_slice(@per_page) do |requests|
           @requests = requests
-          File.write path.join("#{@page}.html"), render_to_string(layout: !Settings::Client.resources_overview_remote)
+          File.write path.join("#{@page}.html"), render_to_string(layout: false)
           @page += 1
         end
         return head :ok

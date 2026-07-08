@@ -3,9 +3,8 @@
 class StartsController < ApplicationController
   def show
     @request_id = params[:request]
-    return redirect_to "#{Settings::Url.ks_server_url}#{map_path request: @request_id, mobile: true}" if login_required?
-    return redirect_to "#{Settings::Url.ks_server_url}#{map_path}" if Settings::Client.skip_extra_homepage && !@mobile
-
+    return redirect_to map_url(request: @request_id, mobile: true) if login_required?
+    return redirect_to map_url unless @mobile
     recent_requests
   end
 
