@@ -33,10 +33,10 @@
         <div class="col-12">
           <div class="btn-group d-flex col-12" role="group">
             <%= f.submit(t('buttons.submit'), class: 'btn btn-primary col-6') %>
-            <%= link_to(t('buttons.cancel'), [@request, id_list: @id_list, mobile: @mobile], remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button) %>
+            <%= link_to(t('buttons.cancel'), [@request, { id_list: @id_list, mobile: @mobile }], remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button) %>
           </div>
           <% @id_list.each do |idl| -%>
-            <%= f.hidden_field "id_list][", :value => idl, id: nil %>
+            <%= f.hidden_field 'id_list][', value: idl, id: nil %>
           <% end if @id_list -%>
         </div>
       <% end -%>

@@ -26,7 +26,7 @@ module KlarschiffClient
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -36,11 +36,13 @@ module KlarschiffClient
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.time_zone = 'Europe/Berlin'
+
     config.i18n.default_locale = :de
-    config.time_zone = 'Berlin'
+    config.i18n.available_locales = %i[de en]
 
     ActionView::RecordIdentifier.send(:remove_const, "JOIN")
-    ActionView::RecordIdentifier.const_set("JOIN", "-")
+    ActionView::RecordIdentifier.const_set(:JOIN, "-")
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -54,17 +56,19 @@ module KlarschiffClient
         YAML.load file, aliases: true
       end.with_indifferent_access[Rails.env]
 
-      relative_url_root = settings.dig(:client, :relative_url_root)
-      config.relative_url_root = relative_url_root if relative_url_root.present?
+      if settings
+        relative_url_root = settings.dig(:client, :relative_url_root)
+        config.relative_url_root = relative_url_root if relative_url_root.present?
 
-      # Configuration for SMTP-Server
-      smtp_settings = settings.dig(:protocol_mail, :smtp)
-      config.action_mailer.smtp_settings = {
-        :address => smtp_settings[:host],
-        :enable_starttls_auto => smtp_settings[:starttls_enabled],
-        :user_name => smtp_settings[:username],
-        :password => smtp_settings[:password]
-      }
+        # Configuration for SMTP-Server
+        smtp_settings = settings.dig(:protocol_mail, :smtp)
+        config.action_mailer.smtp_settings = {
+          address: smtp_settings[:host],
+          enable_starttls_auto: smtp_settings[:starttls_enabled],
+          user_name: smtp_settings[:username],
+          password: smtp_settings[:password]
+        }
+      end
     end
   end
 end

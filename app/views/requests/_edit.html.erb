@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title">
-        <%= image_tag(image_path(@request.icon_list), alt: "#{ @request.service.type }, #{ @request.extended_attributes.detailed_status }") %>
+        <%= image_tag(image_path(@request.icon_list), alt: "#{@request.service.type}, #{@request.extended_attributes.detailed_status}") %>
         <%= @request.service.type.humanize %>
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="request_category" class="col-form-label"><%= Service.human_attribute_name(:group) %></label>
           <div class="col-12">
-            <%= select_tag(:request_category, categories(@request.service.type, @request.service.group), 
+            <%= select_tag(:request_category, categories(@request.service.type, @request.service.group),
                            class: 'form-control', data: { update: :request_service_code }) %>
           </div>
         </div>
@@ -26,8 +26,8 @@
           <%= f.label(:service_code, Service.human_attribute_name(:service_name), class: 'col-form-label') %>
           <div class="col-12">
             <%= f.select(:service_code, services(@request.service.group), {}, class: 'form-select',
-                         data: { src: services_path(type: @request.service.type),
-                           placeholder: t('placeholder.select.service') }) %>
+                                                                              data: { src: services_path(type: @request.service.type),
+                                                                                      placeholder: t('placeholder.select.service') }) %>
           </div>
         </div>
         <% if display?(:email) -%>
@@ -78,7 +78,7 @@
               <%= link_to(t('buttons.cancel'), request_path(@request, id_list: @id_list, mobile: @mobile), remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button) %>
             </div>
             <% @id_list.each do |idl| -%>
-              <%= f.hidden_field "id_list][", :value => idl, id: nil %>
+              <%= f.hidden_field 'id_list][', value: idl, id: nil %>
             <% end if @id_list -%>
           </div>
         </div>

@@ -6,7 +6,7 @@
       </h4>
     </div>
     <div class="col-2">
-      <%= link_to [:requests, back: true], class: 'back', data: { type: 'script', remote: true }, title: t('buttons.close') do %>
+      <%= link_to [:requests, { back: true }], class: 'back', data: { type: 'script', remote: true }, title: t('buttons.close') do %>
         <i class="fas fa-times"></i>
       <% end -%>
     </div>
@@ -19,8 +19,8 @@
         <%= mark_trust(@request) %>
       <% end -%>
       <b>
-        <%= link_to [:map, request: @request.id], title: t('buttons.perma_link', req_id: @request.id),
-          data: { turbolinks: false } do %>
+        <%= link_to [:map, { request: @request.id }], title: t('buttons.perma_link', req_id: @request.id),
+                                                      data: { turbolinks: false } do %>
           <i class="fas fa-link"></i>
         <% end -%>
       </b>
@@ -34,7 +34,7 @@
       <div class="col-12">
         <div class="shariff" data-button-style="icon"
              data-title="<%= Settings::Client.name %> #<%= @request.id %> <%= @request.service %>"
-             data-url="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, request: @request.id])) %>"
+             data-url="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, { request: @request.id }])) %>"
              data-services="['facebook', 'twitter', 'whatsapp', 'xing', 'linkedin', 'pinterest', 'googleplus', 'diaspora']"></div>
       </div>
     </div>

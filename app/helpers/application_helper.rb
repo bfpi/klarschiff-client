@@ -1,5 +1,6 @@
-module ApplicationHelper
+# frozen_string_literal: true
 
+module ApplicationHelper
   def map_icon(icon)
     overlay_path = "overlay/#{icon}"
     asset_exists?(overlay_path) ? overlay_path : "icons/map/active/png/#{icon}"
@@ -14,12 +15,12 @@ module ApplicationHelper
   end
 
   def statistic_newest_count
-    Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea', start_date: Date.today - 30)
+    Request.count(also_archived: true, detailed_status: states, keyword: 'problem, idea', start_date: Time.zone.today - 30)
   end
 
   def statistic_processed_count
     Request.count(also_archived: true, detailed_status: 'PROCESSED', keyword: 'problem, idea',
-                  start_date: Date.today - 30)
+                  start_date: Time.zone.today - 30)
   end
 
   def states

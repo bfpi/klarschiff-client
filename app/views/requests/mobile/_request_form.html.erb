@@ -17,7 +17,7 @@
                  data-lat="<%= req.lat %>" data-long="<%= req.long %>"
                  data-type="<%= service&.type %>" />
             <div class="col-6">
-              <img id="request-preview" src="" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid" />
+              <img id="request-preview" src="" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid">
             </div>
           <% else -%>
             <div class="col-12" id="ol-minimap"
@@ -42,9 +42,9 @@
         <div class="row">
           <div class="btn-group d-flex col-12" role="group">
             <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                        data: { current: '5', next: '4' }) %>
+                                                data: { current: '5', next: '4' }) %>
             <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
-                        data: { current: '5', next: 'submit' }) %>
+                                                    data: { current: '5', next: 'submit' }) %>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
         <div class="row">
           <div class="btn-group d-flex col-12" role="group">
             <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                        data: { current: 'submit', next: '5' }) %>
+                                                data: { current: 'submit', next: '5' }) %>
             <%= f.submit(t('buttons.save'), class: 'btn btn-primary col-6') %>
           </div>
         </div>

@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-12">
         <div class="alert alert-danger" role="alert">
-          <strong><%= t("#{ controller_name }.desktop.create.error") %></strong>
+          <strong><%= t("#{controller_name}.desktop.create.error") %></strong>
           <ul>
-            <% messages = @errors.try(:full_messages) || @errors.map { |err| err[:base] }.flatten -%>
+            <% messages = @errors.try(:full_messages) || @errors.pluck(:base).flatten -%>
             <% messages.each do |msg| -%>
               </li><%= msg.html_safe %></li>
             <% end -%>

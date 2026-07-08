@@ -5,27 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <% if @og_request.present? -%>
-      <meta name="title" content="<%= Settings::Client.name %> #<%= @og_request.id %> <%= @og_request.service %>" />
-      <meta name="description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %> - <%= @og_request.description %>" />
-      <meta name="keywords" content="<%= Settings::Client.name %>, <%= Settings::Client.city_long %>, <%= @og_request.id %> - <%= @og_request.service %>" />
-      <meta property="og:title" content="#<%= @og_request.id %> <%= @og_request.service %>" />
-      <meta property="og:url" content="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, request: @og_request.id])) %>" />
-      <meta property="og:description" content="<%= @og_request.description %>" />
+      <meta name="title" content="<%= Settings::Client.name %> #<%= @og_request.id %> <%= @og_request.service %>">
+      <meta name="description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %> - <%= @og_request.description %>">
+      <meta name="keywords" content="<%= Settings::Client.name %>, <%= Settings::Client.city_long %>, <%= @og_request.id %> - <%= @og_request.service %>">
+      <meta property="og:title" content="#<%= @og_request.id %> <%= @og_request.service %>">
+      <meta property="og:url" content="<%= URI.join(Settings::Url.ks_server_url, url_for([:map, { request: @og_request.id }])) %>">
+      <meta property="og:description" content="<%= @og_request.description %>">
     <% else -%>
       <meta name="title" content="<%= Settings::Client.name %>">
       <meta name="description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %>">
-      <meta name="keywords" content="<%= Settings::Client.name %>, <%= Settings::Client.city_long %>" />
-      <meta property="og:title" content="<%= Settings::Client.name %>" />
-      <meta property="og:url" content="<%= Settings::Url.ks_server_url %>" />
-      <meta property="og:description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %>" />
+      <meta name="keywords" content="<%= Settings::Client.name %>, <%= Settings::Client.city_long %>">
+      <meta property="og:title" content="<%= Settings::Client.name %>">
+      <meta property="og:url" content="<%= Settings::Url.ks_server_url %>">
+      <meta property="og:description" content="<%= t('page_meta_description', city_long: Settings::Client.city_long) %>">
     <% end -%>
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="de" />
-    <meta property="og:site_name" content="<%= Settings::Client.name %>" />
-    <meta property="og:image" content="<%= @og_request.present? && (url = @og_request.media_url).present? ? url : "#{URI.join(Settings::Url.ks_server_url, image_path('klarschiff.png'))}" %>" />
-    <title><%= t("pagetitle#{ '_mobile_client' unless login_required? }", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
-    <%= auto_discovery_link_tag(:atom, "observations.xml", { title: Settings::Client.name + "-" + t('requests.index.title') } ) %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de">
+    <meta property="og:site_name" content="<%= Settings::Client.name %>">
+    <meta property="og:image" content="<%= @og_request.present? && (url = @og_request.media_url).present? ? url : URI.join(Settings::Url.ks_server_url, image_path('klarschiff.png')).to_s %>">
+    <title><%= t("pagetitle#{'_mobile_client' unless login_required?}", name: Settings::Client.name, city_long: Settings::Client.city_long) %></title>
+    <%= auto_discovery_link_tag(:atom, 'observations.xml', { title: "#{Settings::Client.name}-#{t('requests.index.title')}" }) %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
 
@@ -47,8 +47,8 @@
             </div>
             <div class="col-8 text-center">
               <%= link_to [:root], data: { turbolinks: false } do %>
-                <% logo3_file_path = "#{ Settings::Client.resources_path }logo3.png" %>
-                <% logo3_file_url = "#{ Settings::Client.resources_url }logo3.png" %>
+                <% logo3_file_path = "#{Settings::Client.resources_path}logo3.png" %>
+                <% logo3_file_url = "#{Settings::Client.resources_url}logo3.png" %>
                 <%= image_tag(logo3_file_url, id: :logo3) if File.exist?(logo3_file_path) %>
                 <h1><%= Settings::Client.name %></h1>
               <% end -%>
@@ -88,7 +88,7 @@
               <%= render partial: 'menue_bottom' %>
             </div>
             <div class="text-center small">
-              <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: "_blank" %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: "_blank" %>)
+              <%= t(:font_attribution) %>, <%= link_to t(:font_origin), Settings::Url.font_origin_url, data: { turbolinks: false }, target: '_blank', rel: 'noopener' %>  (<%= link_to t(:license), Settings::Url.font_license_url, data: { turbolinks: false }, target: '_blank', rel: 'noopener' %>)
             </div>
           </div>
         </div>
@@ -102,8 +102,8 @@
                 <%= image_tag image_path('klarschiff.png'), id: 'logo1', class: 'float-start' %>
                 <%= image_tag Settings::Client.logo_url, id: 'logo2', class: 'float-end' %>
                 <%= link_to [:root], data: { turbolinks: false } do %>
-                  <% logo3_file_path = "#{ Settings::Client.resources_path }logo3.png" %>
-                  <% logo3_file_url = "#{ Settings::Client.resources_url }logo3.png" %>
+                  <% logo3_file_path = "#{Settings::Client.resources_path}logo3.png" %>
+                  <% logo3_file_url = "#{Settings::Client.resources_url}logo3.png" %>
                   <%= image_tag(logo3_file_url, id: :logo3) if File.exist?(logo3_file_path) %>
                   <h1 class="mt-3"><%= Settings::Client.name %></h1>
                 <% end -%>
@@ -121,7 +121,7 @@
             <div class="systray">
               <div class="text-center">
                 <% if Settings::Url.respond_to?(:external_privacy_url) -%>
-                  <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank' %> |
+                  <%= link_to t(:privacy), Settings::Url.external_privacy_url, target: '_blank', rel: 'noopener' %> |
                 <% else -%>
                   <%= link_to t(:privacy), privacy_static_path %> |
                 <% end -%>
@@ -134,21 +134,21 @@
       <% end -%>
     <% end -%>
     <div id="throbber">
-      <img id="throbber-img" src="<%= image_path 'throbber.gif' %>" />
+      <img id="throbber-img" src="<%= image_path 'throbber.gif' %>">
     </div>
     <div id="image-sources">
-      <% %w(problem idea).each do |type| -%>
+      <% %w[problem idea].each do |type| -%>
         <% if Settings::Client.send "service_type_#{ type }" %>
-          <img id="new-<%= type %>" src="<%= image_path map_icon("#{type}-gray.png") %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
+          <img id="new-<%= type %>" src="<%= image_path map_icon("#{type}-gray.png") %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>">
         <% end -%>
       <% end -%>
-      <img id="new-blank" src="<%= image_path map_icon('blank-gray.png') %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>" />
+      <img id="new-blank" src="<%= image_path map_icon('blank-gray.png') %>" data-anchor-x="<%= Settings::Client.new_icon_anchor_x %>" data-anchor-y="<%= Settings::Client.new_icon_anchor_y %>">
       <% if login_required? -%>
-        <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>" />
+        <img id="new-tip" src="<%= image_path 'icons/map/active/png/tip-gray.png' %>">
       <% end -%>
-      <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>" />
-      <img id="aerial" src="<%= image_path 'icons/menu/png/aerial.png' %>" />
-      <img id="map" src="<%= image_path 'icons/menu/png/map.png' %>" />
+      <img id="cluster" src="<%= image_path 'icons/map/cluster/png/cluster.png' %>">
+      <img id="aerial" src="<%= image_path 'icons/menu/png/aerial.png' %>">
+      <img id="map" src="<%= image_path 'icons/menu/png/map.png' %>">
     </div>
     <% unless !Settings::Client.additional_content %>
       <%= Settings::Client.additional_content.html_safe -%>

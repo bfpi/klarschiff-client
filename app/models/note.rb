@@ -1,6 +1,5 @@
-class Note < ActiveResource::Base
-  include ResourceClient
+# frozen_string_literal: true
 
-  self.set_server_connection :city_sdk
-  self.prefix = File.join(site.path, "/requests/notes/:service_request_id")
+class Note < ApplicationResource
+  self.prefix = File.join(site.path, '/requests/notes/:service_request_id')
 end

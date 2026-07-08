@@ -1,0 +1,27 @@
+name: Javascripts
+
+on:
+  - workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  eslint:
+    name: Plain JS files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+      - run: bin/eslint
+  coffeelint:
+    name: Coffee JS files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+      - run: bin/coffeelint

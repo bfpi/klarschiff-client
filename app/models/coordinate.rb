@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 class Coordinate
@@ -8,19 +10,18 @@ class Coordinate
     @long = long
     config = Settings::ResourceServer.city_sdk
 
-    uri = URI.join(config[:site], "coverage.json")
+    uri = URI.join(config[:site], 'coverage.json')
     uri.query = URI.encode_www_form(config.slice(:api_key).merge(lat: lat, long: long))
 
     begin
       response = uri.read('Accept-Charset' => 'UTF-8', ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
-    rescue Exception
-      Rails.logger.error "Exception: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
-      return true
+    rescue StandardError => e
+      Rails.logger.error "Exception: #{e.inspect}, #{e.message}\n  " << e.backtrace.join("\n  ")
     end
 
     @result = JSON.parse(response.force_encoding('UTF-8'))
-  rescue Exception
-    Rails.logger.error "Exception: #{ $!.inspect }, #{ $!.message }\n  " << $!.backtrace.join("\n  ")
+  rescue StandardError => e
+    Rails.logger.error "Exception: #{e.inspect}, #{e.message}\n  " << e.backtrace.join("\n  ")
   end
 
   def redirect_url

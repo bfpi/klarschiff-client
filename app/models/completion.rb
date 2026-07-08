@@ -1,6 +1,5 @@
-class Completion < ActiveResource::Base
-  include ResourceClient
+# frozen_string_literal: true
 
-  self.set_server_connection :city_sdk
+class Completion < ApplicationResource
   self.prefix = File.join(site.path, '/requests/completions/:service_request_id')
 end

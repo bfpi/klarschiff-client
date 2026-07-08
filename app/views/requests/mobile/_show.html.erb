@@ -3,7 +3,7 @@
     <div class="card-header">
       <h4 class="hidden-xs card-title mt-2">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
-        <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
+        <%= image_tag(image_path(@request.icon_list), alt: "#{type}, #{@request.detailed_status}") %>
         <%= type %>
         #<%= @request.id %>
         (<%= l(@request.requested_datetime.to_date) %>)
@@ -11,8 +11,8 @@
         <% if display?(:trust) -%>
           <%= mark_trust(@request) %>
         <% end -%>
-        <%= link_to [:map, request: @request.id],
-          data: { turbolinks: false } do %>
+        <%= link_to [:map, { request: @request.id }],
+                    data: { turbolinks: false } do %>
           <i class="fas fa-link"></i>
         <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
@@ -20,7 +20,7 @@
       <h4 class="visible-xs card-title">
         <div class="list-group-item-heading">
           <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
-          <%= image_tag(image_path(@request.icon_list), alt: "#{ type }, #{ @request.detailed_status }") %>
+          <%= image_tag(image_path(@request.icon_list), alt: "#{type}, #{@request.detailed_status}") %>
           #<%= @request.id %>
           <% if display?(:trust) -%>
             <%= mark_trust(@request) %>
@@ -39,15 +39,15 @@
         <div class="row map-image">
           <% if (url = @request.media_url).present? -%>
             <div class="col-6" id="ol-minimap"
-                 data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
-                 data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
+                 data-lat="<%= @request.lat %>" data-long="<%= @request.long %>"
+                 data-type="<%= @request.service.type %>" data-icon-map="<%= @request.icon_active_map %>" />
             <div class="col-6">
-              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid" />
+              <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="img-fluid">
             </div>
           <% else -%>
             <div class="col-12" id="ol-minimap"
-                 data-lat="<%= @request.lat%>" data-long="<%= @request.long%>"
-                 data-type="<%= @request.service.type%>" data-icon-map="<%= @request.icon_active_map%>" />
+                 data-lat="<%= @request.lat %>" data-long="<%= @request.long %>"
+                 data-type="<%= @request.service.type %>" data-icon-map="<%= @request.icon_active_map %>" />
           <% end -%>
         </div>
       </div>
@@ -68,10 +68,10 @@
       </div>
       <% end -%>
       <% if display?(:votes) -%>
-        <div id="request-show" class="<%="#{ @request.service.type } list-group-item"%>">
+        <div id="request-show" class="<%= "#{@request.service.type} list-group-item" %>">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:votes) %></h4>
           <p class="list-group-item-text">
-            <%= t(".votes#{ '_under_min_req' if @request.idea? && @request.under_req? }_html", votes: @request.votes) %>
+            <%= t(".votes#{'_under_min_req' if @request.idea? && @request.under_req?}_html", votes: @request.votes) %>
             <%= t('.votes_min_req', min_req: @request.min_req) if @request.idea? %>
           </p>
         </div>
@@ -103,7 +103,7 @@
           <p class="list-group-item-text">
             <div class="form-group">
               <% if (url = @request.media_url).present? -%>
-                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid" />
+                <img src="<%= url %>" alt="<%= Request.human_attribute_name(:media_url) %>" class="rounded img-fluid">
               <% else -%>
                 <i><%= t('.no_photo') %></i>
               <% end -%>
@@ -199,22 +199,26 @@
         <% options = { remote: true, class: 'btn btn-light btn-outline-secondary col-6', role: :button } -%>
         <% if display?(:abuses) || display?(:votes) -%>
           <div class="btn-group d-flex col-12" role="group">
-            <%= link_to(t('.actions.vote'), [:new, @request, :vote, id_list: @id_list, mobile: @mobile], options) if display?(:votes) %>
-            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, id_list: @id_list, mobile: @mobile], options) if display?(:abuses) %>
+            <%= link_to(t('.actions.vote'), [:new, @request, :vote, { id_list: @id_list, mobile: @mobile }], options) if display?(:votes) %>
+            <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, { id_list: @id_list, mobile: @mobile }], options) if display?(:abuses) %>
           </div>
         <% end -%>
         <div class="btn-group d-flex col-12" role="group">
-          <%= link_to(t('.actions.completion'), [:new, @request, :completion, id_list: @id_list, mobile: @mobile],
-                      options) if display?(:completions, @request) %>
+          <%= if display?(:completions, @request)
+                link_to(t('.actions.completion'), [:new, @request, :completion, { id_list: @id_list, mobile: @mobile }],
+                        options)
+              end %>
         </div>
         <div class="btn-group d-flex col-12" role="group">
-          <%= link_to(t('.actions.comment'), [:new, @request, :comment, id_list: @id_list, mobile: @mobile],
-                      options.merge(class: 'btn btn-light btn-outline-secondary col-6')) if display?(:create_comment) %>
+          <%= if display?(:create_comment)
+                link_to(t('.actions.comment'), [:new, @request, :comment, { id_list: @id_list, mobile: @mobile }],
+                        options.merge(class: 'btn btn-light btn-outline-secondary col-6'))
+              end %>
           <% if display?(:d3_document_url) && @request.service.document_url.present? -%>
             <%= link_to(t('.actions.d3_document'), d3_document_url(@request),
-                        options.merge(class: 'btn btn-light btn-outline-secondary col-6', target: '_blank', :remote => false)) %>
+                        options.merge(class: 'btn btn-light btn-outline-secondary col-6', target: '_blank', remote: false)) %>
           <% elsif display?(:protocol) -%>
-            <%= link_to(t('.actions.kod'), [:new, @request, :protocol, mobile: @mobile],
+            <%= link_to(t('.actions.kod'), [:new, @request, :protocol, { mobile: @mobile }],
                         options.merge(class: 'btn btn-light btn-outline-secondary col-6')) %>
           <% end -%>
         </div>

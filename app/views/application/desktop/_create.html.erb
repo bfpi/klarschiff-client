@@ -5,15 +5,15 @@
   <div class="row mb-3">
     <div class="col-12">
       <% if options -%>
-        <%= options.fetch :create_message, t("#{ controller_name }.#{ context }.create.success") %>
+        <%= options.fetch :create_message, t("#{controller_name}.#{context}.create.success") %>
         <%= t(:share_request) if options[:id] %>
       <% else -%>
-        <%= t("#{ controller_name }.#{ context }.create.success") %>
+        <%= t("#{controller_name}.#{context}.create.success") %>
       <% end -%>
     </div>
     <% if options && options[:id] -%>
       <div class="col-12">
-        <%= link_to [:map, request: options[:id]], title: t('buttons.perma_link', req_id: options[:id]), data: { turbolinks: false } do %>
+        <%= link_to [:map, { request: options[:id] }], title: t('buttons.perma_link', req_id: options[:id]), data: { turbolinks: false } do %>
           #<%= options[:id] %> <i class="fas fa-link"></i>
         <% end -%>
       </div>

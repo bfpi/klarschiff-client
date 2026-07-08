@@ -1,6 +1,5 @@
-class Photo < ActiveResource::Base
-  include ResourceClient
+# frozen_string_literal: true
 
-  self.set_server_connection :city_sdk
-  self.prefix = File.join(site.path, "/requests/photos/:service_request_id")
+class Photo < ApplicationResource
+  self.prefix = File.join(site.path, '/requests/photos/:service_request_id')
 end

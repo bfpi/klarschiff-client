@@ -1,5 +1,5 @@
 <% content_for :nav do -%>
-  <%= render partial: 'menue_top_left' %> 
+  <%= render partial: 'menue_top_left' %>
 <% end -%>
 <div id="content">
   <div id="ol-map" class="ol-map-desktop">
@@ -29,7 +29,7 @@
     <div class="card map-card map-filter">
       <div class="card-header bg-primary" id="map-heading" role="tab">
         <%= link_to '#map-body', data: { 'bs-toggle': 'collapse' }, class: 'collapsed',
-          aria: { expanded: false, controls: 'map-body' } do %>
+                                 aria: { expanded: false, controls: 'map-body' } do %>
           <span>
             <%= t('.filter') %>
           </span>
@@ -40,10 +40,10 @@
           <div class="row">
             <div class="col-6">
               <div class="row">
-                <% %i(pending received in_process processed rejected).each do |st| -%>
+                <% %i[pending received in_process processed rejected].each do |st| -%>
                   <div class="col-12">
-                    <%= check_box_tag "show_#{ st }", nil, true, class: 'show-feature', id: st, data: { key: 'status' } %>
-                    <%= label_tag st, t("status.#{ st }"), class: 'check-label' %>
+                    <%= check_box_tag "show_#{st}", nil, true, class: 'show-feature', id: st, data: { key: 'status' } %>
+                    <%= label_tag st, t("status.#{st}"), class: 'check-label' %>
                   </div>
                 <% end -%>
               </div>
@@ -51,15 +51,15 @@
             <% unless service_code -%>
               <div class="col-6">
                 <div class="row">
-                  <% %i(problem idea).each do |type| -%>
+                  <% %i[problem idea].each do |type| -%>
                     <div class="col-12">
-                      <%= check_box_tag "show_#{ type }", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
+                      <%= check_box_tag "show_#{type}", nil, true, class: 'show-feature', id: type, data: { key: 'typ' } %>
                       <%= label_tag type, t(type, scope: 'service.types', count: 1), class: 'check-label' %>
                     </div>
                   <% end -%>
                   <% if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived -%>
                     <div class="col-12 archive">
-                      <%= check_box_tag "also_archived", nil, false, class: 'show-feature', id: :archive, data: { key: 'archive' } %>
+                      <%= check_box_tag 'also_archived', nil, false, class: 'show-feature', id: :archive, data: { key: 'archive' } %>
                       <%= label_tag :archive, t('archive'), class: 'check-label' %>
                     </div>
                   <% end -%>

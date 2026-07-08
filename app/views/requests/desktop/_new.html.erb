@@ -1,9 +1,9 @@
 <div id="request-form" class="request-container">
   <%= render '/application/desktop/errors' %>
   <%= form_for(@request, remote: true, authenticity_token: true,
-               html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
+                         html: { class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
     <%= f.hidden_field(:lat, value: '') %>
     <%= f.hidden_field(:long, value: '') %>
-    <%= render partial: "requests/desktop/#{ service_code ? 'campaign' : 'standard' }_form", locals: { f: f } %> 
+    <%= render partial: "requests/desktop/#{service_code ? 'campaign' : 'standard'}_form", locals: { f: f } %>
   <% end %>
 </div>

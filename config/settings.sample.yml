@@ -9,7 +9,7 @@ development: &default
     not_content_two_url: https://polizei.mvnet.de/ssl/g8wache/cmswem/index.php?task=iw_anzeige
     not_content_three_url: http://rathaus.rostock.de/sixcms/detail.php?template=seite_umweltamt_wasser_boden_alarmdienst_de&_sid1=&_sid2=rostock_01.c.198934.de&_sid3=39237&_sid4=39245
 
-  client:
+  client: &default_client
     relative_url_root: /
     animate_refresh: 6
     service_code:
@@ -144,6 +144,9 @@ development: &default
 
 test:
   <<: *default
+  client:
+    <<: *default_client
+    login_required: false
 
 alpha:
   <<: *default

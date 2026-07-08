@@ -6,7 +6,7 @@ class CompletionsController < ApplicationController
   def new
     @request = Request.find(params[:request_id])
     @completion = Completion.new(service_request_id: @request.id, author: login_required? ? @user.email : nil,
-      comment: nil, privacy_policy_accepted: nil)
+                                 comment: nil, privacy_policy_accepted: nil)
     @id_list = params[:id_list].try(:map, &:to_i).presence
     render "/application/#{context}/new"
   end
@@ -16,6 +16,7 @@ class CompletionsController < ApplicationController
     set_redirect_path
     @errors = completion.errors unless completion.persisted?
     return render "application/#{context}/create" unless context.desktop? && @errors.present?
+
     @errors = Array.wrap(@errors).map(&:messages)
     render 'application/desktop/new'
   end
@@ -24,7 +25,7 @@ class CompletionsController < ApplicationController
 
   def permitted_completion_params
     params.require(:completion).permit(:author, :comment).merge(
-      service_request_id: params[:request_id],
+      service_request_id: params[:request_id]
     ).merge(privacy_policy_params)
   end
 

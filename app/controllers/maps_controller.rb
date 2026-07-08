@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class MapsController < ApplicationController
   def show
-    return if @cancel = params[:cancel]
+    return if (@cancel = params[:cancel])
+
     remove_tmp_images
-    @show_non_job_features = !params[:type].eql?("jobs")
-    @zoom_to_jobs = params[:type].eql?("jobs")
+    @show_non_job_features = !params[:type].eql?('jobs')
+    @zoom_to_jobs = params[:type].eql?('jobs')
     @bbox = params[:bbox] if params[:bbox].present?
   end
 
