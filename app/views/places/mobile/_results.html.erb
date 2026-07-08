@@ -3,11 +3,11 @@
     <div class="card-header"><%= t('.results') %></div>
     <div class="list-group">
       <% @places.each do |place| -%>
-        <% if place['transform_bbox'] %>
+        <% if place['transform_bbox'] -%>
           <% @transform = true -%>
-        <% else %>
+        <% else -%>
           <% @transform = false -%>
-        <% end %>
+        <% end -%>
         <%= link_to(map_path(bbox: place[:bbox], mobile: @mobile), remote: true, class: 'list-group-item', :data => { :transform => @transform }) do %>
           <%= place[:label] %>
           <span class="badge rounded-pill bg-secondary float-end"><i class="fas fa-chevron-right"></i></span>

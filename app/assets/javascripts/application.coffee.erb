@@ -123,10 +123,17 @@ $ ->
   $(document).on 'turbolinks:load', () ->
     $('#textsizer a').textresizer({ target: '#main-content' })
 
-  $(document).on 'click', '.check-all', () ->
-    checked = $(@).is(':checked')
-    $('.' + $(@).data('type')).each () ->
-      $(@).prop('checked', checked)
+  $(document).on 'click', 'body ul.nav a:not(.dropdown-toggle)', () ->
+    if $(this)[0].dataset and $(this)[0].dataset['bsToggle'] and $('.static-overlay').is(':visible')
+      $('.static-overlay').hide()
+    $('body ul.nav a').removeClass 'active'
+    $(this).addClass 'active'
+    $(this).parents('.dropdown').find('.dropdown-toggle').addClass 'active'
+
+    $(document).on 'click', '.check-all', () ->
+      checked = $(@).is(':checked')
+      $('.' + $(@).data('type')).each () ->
+        $(@).prop('checked', checked)
 
   $(document).on 'click', '.sidebar-toggler', () ->
     width = $('.sidebar').width()

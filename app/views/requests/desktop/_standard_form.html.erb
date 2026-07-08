@@ -24,11 +24,11 @@
     <div class="row mb-3 radio-btns" data-url="<%= new_request_path(switch_type: true) %>">
       <%= label_tag :what, t('.what'), class: 'col-12 col-form-label' %>
       <div class="col-12"><%= t('.problem_or_idea') %></div>
-      <% %i(problem idea).each do |type| -%>
-        <% if Settings::Client.send "service_type_#{ type }" %>
+      <% %i[problem idea].each do |type| -%>
+        <% if Settings::Client.send "service_type_#{type}" -%>
           <div class="col-6 div-margin-top">
-            <%= f.radio_button :type, type, class: 'radio-type' %> <%= label_tag "request_type_#{type}",
-              t(type, scope: 'service.types', count: 1), class: 'check-label' %>
+            <%= f.radio_button :type, type, class: 'radio-type' %>
+            <%= label_tag "request_type_#{type}", t(type, scope: 'service.types', count: 1), class: 'check-label' %>
           </div>
         <% end -%>
       <% end -%>
@@ -39,14 +39,14 @@
       </div>
     </div>
     <div class="row">
-        <div class="btn-group d-flex col-12" role="group">
-          <%= link_to(t('buttons.back'), '#', remote: true,
-                      class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                      data: { current: '2', next: '1' }) %>
-          <%= link_to(t('buttons.continue'), '#', remote: true,
-                      class: 'btn btn-primary btn-continue', role: :button,
-                      data: { current: '2', next: '3' }) %>
-        </div>
+      <div class="btn-group d-flex col-12" role="group">
+        <%= link_to(t('buttons.back'), '#', remote: true,
+                                            class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                                            data: { current: '2', next: '1' }) %>
+        <%= link_to(t('buttons.continue'), '#', remote: true,
+                                                class: 'btn btn-primary btn-continue', role: :button,
+                                                data: { current: '2', next: '3' }) %>
+      </div>
     </div>
   </div>
 <% end -%>
@@ -55,7 +55,8 @@
     <%= label_tag :step, t(Settings::Client.skip_type_selection ? '.step_two' : '.step_three'), class: 'col-form-label col-12' %>
   </div>
   <%= label_tag :what_exactly, t('.what_exactly') %>
-  <%= render partial: 'requests/desktop/category_select', locals: { type: @request.type, category: services_by_type(@request.type).first, service_code: nil } %> 
+  <%= render partial: 'requests/desktop/category_select',
+             locals: { type: @request.type, category: services_by_type(@request.type).first, service_code: nil } %> 
   <div class="row">
     <%= label_tag :description, Request.human_attribute_name(:description), class: 'col-12 col-form-label' %>
     <div class="col-12">
@@ -76,11 +77,11 @@
   </div>
   <div class="row" class="hidden-page">
     <div class="btn-group d-flex col-12" role="group">
-      <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+      <%= link_to(t('buttons.back'), '#',
+                  remote: true, class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                   data: { current: Settings::Client.skip_type_selection ? 2 : 3, next: Settings::Client.skip_type_selection ? 1 : 2 }) %>
-      <%= link_to(t('buttons.continue'), '#', remote: true,
-                  class: 'btn btn-primary btn-continue', role: :button,
+      <%= link_to(t('buttons.continue'), '#',
+                  remote: true, class: 'btn btn-primary btn-continue', role: :button,
                   data: { current: Settings::Client.skip_type_selection ? 2 : 3, next: 'submit' }) %>
     </div>
   </div>
@@ -118,8 +119,8 @@
   </div>
   <div class="row">
     <div class="btn-group d-flex col-12" role="group">
-      <%= link_to(t('buttons.back'), '#', remote: true,
-                  class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+      <%= link_to(t('buttons.back'), '#',
+                  remote: true, class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
                   data: { current: 'submit', next: Settings::Client.skip_type_selection ? 2 : 3 }) %>
       <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
     </div>
