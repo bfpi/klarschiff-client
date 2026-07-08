@@ -20,6 +20,40 @@
       "note": "resources_path is read from config/settings.yml, no user defined content possible."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "abf4a35cfbfdd26a1060a891953a7e3096d197bc748d50ccfde5e7baa1b988a7",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/layouts/application.html.erb",
+      "line": 154,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Settings::Client.additional_content",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ApplicationController",
+          "method": "set_mobile",
+          "line": 17,
+          "file": "app/controllers/application_controller.rb",
+          "rendered": {
+            "name": "layouts/application",
+            "file": "app/views/layouts/application.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "layouts/application"
+      },
+      "user_input": "Settings::Client.additional_content",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "addittional_content is read from config/settings.yml, no user defined content possible."
+    },
+    {
       "warning_type": "File Access",
       "warning_code": 16,
       "fingerprint": "e18e6b5206f491ab6e54022a8c36e2cf4a35990e913ef43b10e5fdbdbf56c432",
@@ -40,7 +74,7 @@
       "cwe_id": [
         22
       ],
-      "note": "esources_overview_path is read from config/settings.yml, no user defined content possible."
+      "note": "resources_overview_path is read from config/settings.yml, no user defined content possible."
     },
     {
       "warning_type": "File Access",
