@@ -92,6 +92,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@csstools/css-syntax-patches-for-csstree@npm:^1.1.5":
+  version: 1.1.6
+  resolution: "@csstools/css-syntax-patches-for-csstree@npm:1.1.6"
+  peerDependencies:
+    css-tree: ^3.2.1
+  peerDependenciesMeta:
+    css-tree:
+      optional: true
+  checksum: 10/8747268b42f1afbe450d38b7f388a4983c810883f8c0716fa24f5b1eef0f9cbaa3a0f4ea72d1e5cbd015dc4fd5af9cc96ade42792912ed2dcc1d4054de102163
+  languageName: node
+  linkType: hard
+
 "@csstools/css-tokenizer@npm:^4.0.0":
   version: 4.0.0
   resolution: "@csstools/css-tokenizer@npm:4.0.0"
@@ -572,7 +584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^9.0.1":
+"cosmiconfig@npm:^9.0.2":
   version: 9.0.2
   resolution: "cosmiconfig@npm:9.0.2"
   dependencies:
@@ -1059,8 +1071,8 @@ __metadata:
   linkType: hard
 
 "eslint@npm:^10.4.1":
-  version: 10.4.1
-  resolution: "eslint@npm:10.4.1"
+  version: 10.7.0
+  resolution: "eslint@npm:10.7.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -1099,7 +1111,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/5722bd0ec1a87f49ee4511c7549dcfa69df0076927b0290b0a3b145425fd357906ffe6dc1307214a0bd344131bf53795fa2cdebfd36ee9146c01d98147044679
+  checksum: 10/51cb70fbdd0de6586f0cb12625388faab18eb679cbdb523ecb631cae9f47fd9171d9ff02f570dc4d2e5700017908a81477511025ccb2a6603c5928fbfddcaebf
   languageName: node
   linkType: hard
 
@@ -1371,9 +1383,9 @@ __metadata:
   linkType: hard
 
 "globals@npm:^17.6.0":
-  version: 17.6.0
-  resolution: "globals@npm:17.6.0"
-  checksum: 10/2bf0febf31c942edee6f4eca7e939a9c885f8ecfb767048b1c4dd2a32008d0ab136e6076665d76b44b29c2571bbbc1681371caab05fd8ee0067c7618e841b89d
+  version: 17.7.0
+  resolution: "globals@npm:17.7.0"
+  checksum: 10/79304ccc4d2ca167ea15bdb25da346aa34ce3847b18fbd6c3cad182e152505305db3c9722fd5e292c62f6db97a8fa06e0c110a1e7703d7325498e5351d08cab4
   languageName: node
   linkType: hard
 
@@ -2030,6 +2042,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-selector-parser@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "postcss-selector-parser@npm:7.1.4"
+  dependencies:
+    cssesc: "npm:^3.0.0"
+    util-deprecate: "npm:^1.0.2"
+  checksum: 10/c6d36b37defd387d65b5e0b778cd441303d147eb4a4b7135c6a0452fa777310027218db3ff71a19fb831d067bcdf45a776c6ed71d83bd2ced8afc2e3d5b03385
+  languageName: node
+  linkType: hard
+
 "postcss-value-parser@npm:^4.2.0":
   version: 4.2.0
   resolution: "postcss-value-parser@npm:4.2.0"
@@ -2394,18 +2416,18 @@ __metadata:
   linkType: hard
 
 "stylelint@npm:^17.13.0":
-  version: 17.13.0
-  resolution: "stylelint@npm:17.13.0"
+  version: 17.14.0
+  resolution: "stylelint@npm:17.14.0"
   dependencies:
     "@csstools/css-calc": "npm:^3.2.1"
     "@csstools/css-parser-algorithms": "npm:^4.0.0"
-    "@csstools/css-syntax-patches-for-csstree": "npm:^1.1.4"
+    "@csstools/css-syntax-patches-for-csstree": "npm:^1.1.5"
     "@csstools/css-tokenizer": "npm:^4.0.0"
     "@csstools/media-query-list-parser": "npm:^5.0.0"
     "@csstools/selector-resolve-nested": "npm:^4.0.0"
     "@csstools/selector-specificity": "npm:^6.0.0"
     colord: "npm:^2.9.3"
-    cosmiconfig: "npm:^9.0.1"
+    cosmiconfig: "npm:^9.0.2"
     css-functions-list: "npm:^3.3.3"
     css-tree: "npm:^3.2.1"
     debug: "npm:^4.4.3"
@@ -2425,7 +2447,7 @@ __metadata:
     picocolors: "npm:^1.1.1"
     postcss: "npm:^8.5.15"
     postcss-safe-parser: "npm:^7.0.1"
-    postcss-selector-parser: "npm:^7.1.1"
+    postcss-selector-parser: "npm:^7.1.4"
     postcss-value-parser: "npm:^4.2.0"
     string-width: "npm:^8.2.1"
     supports-hyperlinks: "npm:^4.4.0"
@@ -2434,7 +2456,7 @@ __metadata:
     write-file-atomic: "npm:^7.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10/abba5f2e96ae9ce7648019d4ceb88ed863e6b14bab640fa8a38159fade034282966352eedff417de929c7ee04e0b401a60a8d9c3fe8b5619594d9b37bd9aed9c
+  checksum: 10/430e27faa7b4685d25d09b198888c8dc56c6a9a467c21a40ad5b0e603a5442bf20cf4f866c2a3359cb81d7a309fe4498d858efc6831a44731fc23f5d66df1599
   languageName: node
   linkType: hard
 
