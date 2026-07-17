@@ -32,6 +32,6 @@ class Service < ApplicationResource
   end
 
   def as_json(options = {})
-    super(options.merge(only: %i[service_code service_name], methods: %i[type category]))
+    super(options.merge(only: %i[service_code service_name photo_requested], methods: %i[type category]))
   end
 end
