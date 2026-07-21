@@ -8,7 +8,13 @@ $ ->
         target.html('').append "<option disabled='disabled' selected='selected' class='placeholder'>#{
           target.data('placeholder') }</option>"
         $(response).each ->
-          target.append "<option value='#{ @service_code }'>#{ @service_name }</option>"
+          target.append "<option value='#{ @service_code }' data-photo-requested='#{ @photo_requested }'>#{ @service_name }</option>"
+
+  KS.content().on 'change', 'select[data-check-photo-requested]', ->
+    if $(@).find('option:selected').data('photo-requested')
+      $('#photo_requested').show()
+    else
+      $('#photo_requested').hide()
 
   $(document).on 'click', '.radio-type', ->
     url = $(@).parents('.radio-btns').data('url')
