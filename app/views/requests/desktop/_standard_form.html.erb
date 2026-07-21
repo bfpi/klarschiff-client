@@ -68,6 +68,9 @@
       <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
     </div>
   </div>
+  <div id="photo_requested" class="row mb-3" style="display: none;">
+    <span class="text-success"><%= t('.photo_requested.text') %></span>
+  </div>
   <div class="row mb-3">
     <%= label_tag :hint, t('.hint.label'), class: 'col-12 col-form-label' %>
     <div class="col-12"><%= t('.hint.text') %></div>
