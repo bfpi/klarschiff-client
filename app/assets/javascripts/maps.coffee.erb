@@ -9,7 +9,6 @@ KS.projection = ->
   else
     console.log 'Proj4J ist nicht geladen!'
 
-KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 #KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
@@ -44,6 +43,17 @@ KS.GeolocationControl = () ->
 ol.inherits(KS.GeolocationControl, ol.control.Control)
 
 KS.ViewSwitcherControl = () ->
+  if <%= Settings::Map.overlap_layers %>
+    elem = KS.ViewSwitcherControlMultiple()
+  else
+    elem = KS.ViewSwitcherControlSingle()
+
+  new ol.control.Control
+    element: elem
+    target: {}.target
+ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
+
+KS.ViewSwitcherControlSingle = () ->
   span = document.createElement('span')
   span.className = 'image'
   image = document.createElement('img')
@@ -68,11 +78,119 @@ KS.ViewSwitcherControl = () ->
   elem = document.createElement('div')
   elem.className = 'view-switcher ol-control'
   elem.appendChild(btn)
+  elem
 
-  new ol.control.Control
-    element: elem
-    target: {}.target
-ol.inherits(KS.ViewSwitcherControl, ol.control.Control)
+KS.ViewSwitcherControlMultiple = () ->
+  elem = document.createElement('div')
+  elem.className = 'view-switcher ol-control multiple'
+  text_span = document.createElement('span')
+  text_span.className = 'text'
+  text_span.innerHTML = "<%= I18n.t(:map_settings) %>"
+  elem.appendChild(text_span)
+
+  switchLayers = []
+  for layer in <%= Settings::Map.wmts_layers.to_json %>
+    switchLayers.push layer
+  for layer in <%= Settings::Map.wms_layers.to_json %>
+    switchLayers.push layer
+
+  switchLayers.sort (a, b) ->
+    a.switcher_sorting - b.switcher_sorting
+
+  expand = document.createElement('div')
+  expand.className = 'expand'
+  expand.setAttribute 'style', 'display: none'
+  for layer in switchLayers
+    if layer.addbefore
+      for additional in layer.addbefore
+        if additional == 'hr_spacer'
+          expand.appendChild document.createElement('hr')
+        else
+          additional_text = document.createElement('span')
+          additional_text.className = 'text'
+          additional_text.innerHTML = additional 
+          expand.appendChild(additional_text)
+
+    child = KS.ViewSwitcherControlMultipleItem(layer)
+    expand.appendChild child if child
+
+  $(expand).on 'change', 'input[data-action=visibility]', (elem) ->
+    item = event.target
+    for l in KS.layers.layers
+      if l.get('id') == item.value
+        l.setVisible(item.checked)
+        if item.checked
+          $('#layer_opacity_' + item.value).show()
+        else
+          $('#layer_opacity_' + item.value).hide()
+
+  $(expand).on 'change', 'input[data-action=opacity]', (elem) ->
+    item = $(event.target)
+    for l in KS.layers.layers
+      if l.get('id') == item.data('layer')
+        l.setOpacity(parseFloat(item.val()))
+
+  elem.appendChild expand
+
+  toggler = document.createElement('div')
+  toggler.className = 'map-settings-toggler'
+  text_span = document.createElement('span')
+  toggler.appendChild(text_span)
+
+  toggleMapSettings = () ->
+    expand = $('.view-switcher .expand')
+    expand.toggle()
+    if expand.is(':visible')
+      expand.addClass('open')
+    else
+      expand.removeClass('open')
+    KS.positionViewSwitcher()
+
+  toggler.addEventListener('click', toggleMapSettings, false)
+  elem.appendChild toggler
+  elem
+
+KS.ViewSwitcherControlMultipleItem = (layer) ->
+  div = document.createElement('div')
+  div.classList.add('form-check')
+  if layer.parent
+    div.classList.add('offset-1')
+  label = document.createElement('label')
+  label.classList.add('form-check-label')
+  label_for = ''
+
+  label_for = 'layer_overlap_' + layer.id
+  check = document.createElement('input')
+  check.setAttribute('type', 'checkbox')
+  check.setAttribute('name', label_for)
+  check.setAttribute('id', label_for)
+  check.setAttribute('value', layer.id)
+  check.classList.add('form-check-input')
+  check.setAttribute('checked', 'checked') if layer.visible
+  check.setAttribute('data-action', 'visibility')
+  div.appendChild(check)
+
+  label.setAttribute('for', label_for)
+  label.appendChild document.createTextNode(layer.label)
+  div.appendChild(label)
+
+  if layer.opacity_adjustable
+    range_for = 'layer_opacity_' + layer.id
+    opacity_range = document.createElement('input')
+    opacity_range.setAttribute('name', range_for)
+    opacity_range.setAttribute('id', range_for)
+    opacity_range.setAttribute('type', 'range')
+    opacity_range.setAttribute('min', 0)
+    opacity_range.setAttribute('max', 1)
+    opacity_range.setAttribute('value', 1)
+    opacity_range.setAttribute('step', 0.01)
+    opacity_range.setAttribute('data-layer', layer.id)
+    opacity_range.setAttribute('data-action', 'opacity')
+    unless layer.visible
+      opacity_range.setAttribute('style', 'display: none;')
+    div.appendChild(opacity_range)
+
+  div
 
 class KS.Map
   constructor: (@projection = KS.projection()) ->
@@ -86,13 +204,30 @@ class KS.Map
     )
     KS.popupCloser = document.getElementById('popup-closer')
 
-    mapView = new ol.View
+    options = {
       projection: @projection
       center: <%= Settings::Map.center %>
-      zoom: <%= Settings::Map.zoom[:initial] %>
-      maxZoom: KS.maxZoom
-      minZoom: <%= Settings::Map.zoom[:min] %>
       enableRotation: false
+    }
+
+    minZoom = <%= Settings::Map.zoom[:min] if Settings::Map.zoom %>
+    maxZoom = <%= Settings::Map.zoom[:max] if Settings::Map.zoom %>
+    initialZoom = <%= Settings::Map.zoom[:initial] if Settings::Map.zoom %>
+
+    minResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:min] : false %>
+    maxResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:max] : false %>
+    initialResolution = <%= Settings::Map.resolution ? Settings::Map.resolution[:initial] : false %>
+
+    if minResolution && maxResolution && initialResolution
+      options['minResolution'] = minResolution
+      options['maxResolution'] = maxResolution
+      options['resolution'] = initialResolution
+    else
+      options['minZoom'] = minZoom if minZoom
+      options['maxZoom'] = maxZoom if maxZoom
+      options['zoom'] = initialZoom if initialZoom
+
+    mapView = new ol.View(options)
 
     if region = KS.getUrlParam('region')
       $.ajax(url: "#{KS.areas_path}&region=#{region}&search_class=authority", dataType: 'json').done (response) ->
@@ -112,7 +247,15 @@ class KS.Map
     return @olMap
 
   addControls = (map) ->
-    map.addControl new ol.control.ScaleLine
+    if <%= Settings::Map.scale_bar %>
+      scaleLineControl = new ol.control.ScaleLine(
+        bar: true
+        text: true
+        minWidth: 80
+      )
+      map.addControl scaleLineControl
+    else
+      map.addControl new ol.control.ScaleLine
 
     map.on 'pointermove', (e) ->
       pixel = map.getEventPixel(e.originalEvent)
@@ -349,10 +492,16 @@ class KS.Layers
   constructor: (map, overlay = true) ->
     @active = 0
     @layers = []
+
     for layer in <%= Settings::Map.wmts_layers.to_json %>
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
           id: layer.id
+          type: layer.type
+          label: layer.label
+          sorting: layer.sorting
+          switcher_sorting: layer.switcher_sorting || layer.sorting
+          opacity_adjustable: layer.opacity_adjustable
           extent: layer.extent
           source: new ol.source.WMTS
             url: layer.url
@@ -370,13 +519,22 @@ class KS.Layers
       do (layer, @layers) ->
         @layers.push new ol.layer.Image
           id: layer.id
+          type: layer.type
+          label: layer.label
+          switcher_sorting: layer.switcher_sorting || layer.sorting
+          opacity_adjustable: layer.opacity_adjustable
+          sorting: layer.sorting
           extent: layer.extent
           source: new ol.source.ImageWMS
             url: layer.url
             params:
               "LAYERS": layer.content
               "FORMAT": layer.format
+            attributions: if layer.attribution? then layer.attribution else null
           visible: layer.visible
+
+    @layers.sort (a, b) ->
+      a.get('sorting') - b.get('sorting')
 
     @layers.push new ol.layer.Vector
       id: "features"
@@ -683,8 +841,13 @@ if id = KS.getUrlParam('request')
     url += '&mobile=true'
   $.ajax(url: url, dataType: 'script')
 
+KS.positionViewSwitcher= () ->
+  if $('.view-switcher.multiple').size() > 0
+    $('.map-card').css('top', $('.view-switcher.multiple').height() + 60);
+
 $ ->
   KS.olMap = new KS.Map
+  KS.positionViewSwitcher()
 
   $(document).on('click', 'a.describe', (event) ->
     if (layer = KS.layers.findById('new_feature')) && (features = layer.getSource().getFeatures()).length > 0

@@ -33,7 +33,7 @@
     <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
     <div class="col-12"><%= t('.photo_hint') %></div>
     <div class="col-12">
-      <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+      <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
     </div>
   </div>
   <div class="row">
