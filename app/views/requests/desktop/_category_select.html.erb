@@ -9,7 +9,8 @@
                                                                               class: 'form-select', name: 'request[service_code][]',
                                                                               data: { src: services_path(type: type),
                                                                                       placeholder: t('placeholder.select.service'),
-                                                                                      'missing-message': t('requests.create.error.required.category') }) %>
+                                                                                      'missing-message': t('requests.create.error.required.category'),
+                                                                                      'check-photo-requested': true }) %>
     </div>
     <% if multi_requests_enabled? -%>
       <div class="col-12 mt-1">
