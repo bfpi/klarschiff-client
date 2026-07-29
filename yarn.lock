@@ -1301,7 +1301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"geotiff@npm:^3.0.5 || ^3.1.0-beta.0":
+"geotiff@npm:^3.1.0-beta.0":
   version: 3.1.0-beta.0
   resolution: "geotiff@npm:3.1.0-beta.0"
   dependencies:
@@ -1865,16 +1865,16 @@ __metadata:
   linkType: hard
 
 "ol@npm:^10.9.0":
-  version: 10.9.0
-  resolution: "ol@npm:10.9.0"
+  version: 10.10.0
+  resolution: "ol@npm:10.10.0"
   dependencies:
     "@types/rbush": "npm:4.0.0"
     earcut: "npm:^3.0.0"
-    geotiff: "npm:^3.0.5 || ^3.1.0-beta.0"
-    pbf: "npm:4.0.1"
+    geotiff: "npm:^3.1.0-beta.0"
+    pbf: "npm:5.1.2"
     rbush: "npm:^4.0.0"
     zarrita: "npm:^0.7.1"
-  checksum: 10/efd9419548e033169096848f7cb4df86adc79ec426004f66994315f88db350025c58baab0d3962d68d1a1a6a6b86bfccce7cd5f9c4b229b523b0b8584ed0fbbc
+  checksum: 10/a92725fce8253a00006a02aa4cb2e34586c8bd9edd5127be646352b4c4735be1af8684cc0e82bd218d7fdd03e490f1d85e8b0c292ff9a4a0222169cdd6bb14b2
   languageName: node
   linkType: hard
 
@@ -1975,14 +1975,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pbf@npm:4.0.1":
-  version: 4.0.1
-  resolution: "pbf@npm:4.0.1"
+"pbf@npm:5.1.2":
+  version: 5.1.2
+  resolution: "pbf@npm:5.1.2"
   dependencies:
     resolve-protobuf-schema: "npm:^2.1.0"
   bin:
     pbf: bin/pbf
-  checksum: 10/9e2821fec1511cdaacf205c1279a33991119a2b8469208071d22e6204162dc8a4d216f647ce92759601e3d685fa913d4739278a86aa9ac126d04a1a3ac66bf12
+  checksum: 10/add0663777f352c9432503e5fa18eb5be112a8ee4d32b233b8c7128bebddb013b874748f63d9db1a6f3050d077c70acdafda75fd8d4b66a75af627ec2db4b7a8
   languageName: node
   linkType: hard
 
