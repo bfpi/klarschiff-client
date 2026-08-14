@@ -5,15 +5,15 @@ class ServicesController < ApplicationController
   respond_to :json
 
   def index
-    services = Service.collection.to_a.dup
-    if (type = params[:type]).present?
-      services.select! { |s| s.type == type }
-    end
-    if (category = params[:category]).present?
-      services.select! { |s| s.group == category }
-    end
-    respond_with services
+    respond_with Service.where(permitted_params.slice(:lat, :long).merge(group: permitted_params[:category],
+                                                                         keywords: permitted_params[:type]))
   rescue ActionController::UnknownFormat
     head :not_acceptable
+  end
+
+  private
+
+  def permitted_params
+    params.permit(:lat, :long, :category, :type)
   end
 end
