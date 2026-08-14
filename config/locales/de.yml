@@ -368,7 +368,7 @@ de:
             description: Beschreibung muss angegeben werden
         photo_hint: Bitte vermeiden Sie, dass durch das Foto Persönlichkeitsrechte verletzt werden (z. B. wenn auf dem Foto Gesichter oder Kfz-Kennzeichen zu erkennen sind).
         photo_requested:
-          text: Ein Foto erleichtert die Bearbeitung und führ dazu, dass ihre Meldung besser bearbeitet werden kann.
+          text: Ein Foto erleichtert und verbessert die Bearbeitung.
         hint:
           label: Hinweis
           text: Vor der Veröffentlichung werden die Beschreibung und das Foto redaktionell überprüft.
