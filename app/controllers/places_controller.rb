@@ -11,7 +11,7 @@ class PlacesController < ApplicationController
     end
     if @pattern.present?
       @places = []
-      if Settings::AddressSearch.search_request_id_enabled && @pattern =~ /^(\d*)$/
+      if Settings::Geocodr.search_request_id_enabled && @pattern =~ /^(\d*)$/
         Request.where(
           detailed_status: Settings::Map.default_requests_states,
           service_request_id: ::Regexp.last_match(1)
