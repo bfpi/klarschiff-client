@@ -2105,8 +2105,8 @@ __metadata:
   linkType: hard
 
 "proj4@npm:^2.20.9":
-  version: 2.21.0
-  resolution: "proj4@npm:2.21.0"
+  version: 2.22.0
+  resolution: "proj4@npm:2.22.0"
   dependencies:
     mgrs: "npm:1.0.0"
     wkt-parser: "npm:^1.5.5"
@@ -2115,7 +2115,7 @@ __metadata:
   peerDependenciesMeta:
     geotiff:
       optional: true
-  checksum: 10/6581d7acee89ee2ba82044a4e523cd79d554daa7682ea4f03936080ee0c19143ee98c97b20f1f68798d7bab06b135b30ef1fff2c05817e910523692b517bcf4f
+  checksum: 10/10afb35c6e55777f1bdb23c488af18fa2295df4811b11e6573362fe869835fcb2fbaae6698d5cc28a6c8e58a6dd3524734ae0e9df36c852c2c8f0db59c3cf924
   languageName: node
   linkType: hard
 
