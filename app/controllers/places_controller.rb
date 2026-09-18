@@ -30,7 +30,7 @@ class PlacesController < ApplicationController
                 @pattern
               end
       uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search',
-                                      class: 'address', shape: 'bbox', limit: '5')
+                                      class: 'address', shape: 'bbox', out_epsg: '3857', limit: '5')
 
       uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
       if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
