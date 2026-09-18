@@ -8,7 +8,7 @@ unless $('#request').hasClass('active')
   $('#watch').removeClass('active')
 
 <% if @direct.present? -%>
-KS.olMap.getView().setZoom(11)
+KS.olMap.getView().setZoom(<%= Settings::Map.zoom[:max] %>)
 <% end -%>
 KS.olMap.getView().setCenter(coord)
 
