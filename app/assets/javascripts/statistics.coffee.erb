@@ -30,7 +30,6 @@ class KS.HeatmapLayers
       do (layer, @layers) ->
         @layers.push new ol.layer.Tile
           id: layer.id
-          extent: layer.extent
           source: new ol.source.XYZ
             url: layer.url_statistics
             attributions: if layer.attribution? then layer.attribution else null
