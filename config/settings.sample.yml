@@ -85,11 +85,11 @@ development: &default
     tile_layers:
       -
         id: karte
-        url: https://sgx.geodatenzentrum.de/wmts_basemapde/tile/1.0.0/de_basemapde_web_raster_farbe/default/GLOBAL_WEBMERCATOR/{z}/{y}/{x}.png
-        url_statistics: https://sgx.geodatenzentrum.de/wmts_basemapde/tile/1.0.0/de_basemapde_web_raster_grau/default/GLOBAL_WEBMERCATOR/{z}/{y}/{x}.png
+        url: https://www.orka-mv.de/geodienste/orkamv/tiles/1.0.0/orkamv/GLOBAL_WEBMERCATOR/{z}/{x}/{y}.png
+        url_statistics: https://www.orka-mv.de/geodienste/orkamv/tiles/1.0.0/orkamv-graustufen/GLOBAL_WEBMERCATOR/{z}/{x}/{y}.png
         visible: true
         attribution: >
-          Karte © <a rel="license" target="_blank" href="https://basemap.de/">GeoBasis-DE/BKG</a>
+          Kartenbild © Hanse- und Universitätsstadt Rostock (<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0</a>) | Kartendaten © OpenStreetMap (<a rel="license" target="_blank" href="https://opendatacommons.org/licenses/odbl/">ODbL</a>) und LkKfS-MV
       -
         id: luftbild
         url: https://geo.sv.rostock.de/geodienste/luftbild_mv-20/tiles/1.0.0/hro.luftbild_mv-20.luftbild_mv-20/GLOBAL_WEBMERCATOR/{z}/{x}/{y}.png
