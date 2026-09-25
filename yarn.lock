@@ -1683,7 +1683,6 @@ __metadata:
     jquery-ui-touch-punch: "npm:^0.2.3"
     ol: "npm:^10.9.0"
     ol-ext: "npm:^4.0.38"
-    proj4: "npm:^2.20.9"
     stylelint: "npm:^17.13.0"
     stylelint-config-standard-scss: "npm:^17.0.0"
   languageName: unknown
@@ -1761,13 +1760,6 @@ __metadata:
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
   checksum: 10/7268db63ed5169466540b6fb947aec313200bcf6d40c5ab722c22e242f651994619bcd85601602972d3c85bd2cc45a358a4c61937e9f11a061919a1da569b0c2
-  languageName: node
-  linkType: hard
-
-"mgrs@npm:1.0.0":
-  version: 1.0.0
-  resolution: "mgrs@npm:1.0.0"
-  checksum: 10/102f4a0decb474db88125a841a6b9eaac75d0efe0b0f84e603a48cf56ec1f53ae5b70a74171c2ce4abfa5d0399f626f038bba9d2ca901d5629192f24a76b09bc
   languageName: node
   linkType: hard
 
@@ -2066,21 +2058,6 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 10/0b9d2c76801ca652a7f64892dd37b7e3fab149a37d2424920099bf894acccc62abb4424af2155ab36dea8744843060a2d8ddc983518d0b1e22265a22324b72ed
-  languageName: node
-  linkType: hard
-
-"proj4@npm:^2.20.9":
-  version: 2.22.0
-  resolution: "proj4@npm:2.22.0"
-  dependencies:
-    mgrs: "npm:1.0.0"
-    wkt-parser: "npm:^1.5.5"
-  peerDependencies:
-    geotiff: "*"
-  peerDependenciesMeta:
-    geotiff:
-      optional: true
-  checksum: 10/10afb35c6e55777f1bdb23c488af18fa2295df4811b11e6573362fe869835fcb2fbaae6698d5cc28a6c8e58a6dd3524734ae0e9df36c852c2c8f0db59c3cf924
   languageName: node
   linkType: hard
 
@@ -2570,13 +2547,6 @@ __metadata:
   bin:
     node-which: ./bin/node-which
   checksum: 10/4782f8a1d6b8fc12c65e968fea49f59752bf6302dc43036c3bf87da718a80710f61a062516e9764c70008b487929a73546125570acea95c5b5dcc8ac3052c70f
-  languageName: node
-  linkType: hard
-
-"wkt-parser@npm:^1.5.5":
-  version: 1.5.5
-  resolution: "wkt-parser@npm:1.5.5"
-  checksum: 10/eeeb00f2d6a8a41359d529594a797dcdd18627aecfc2c4f4c96773b37beeaed1c03110aefca3834b671580f7f4b4d55c8209d208da4e717f619a2b34d1139345
   languageName: node
   linkType: hard
 
