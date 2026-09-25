@@ -1,7 +1,7 @@
 <div class="request">
   <div class="card">
     <div class="card-header">
-      <h4 class="hidden-xs card-title mt-2">
+      <h4 class="card-title mt-2">
         <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
         <%= image_tag(image_path(@request.icon_list), alt: "#{type}, #{@request.detailed_status}") %>
         <%= type %>
@@ -16,22 +16,6 @@
           <i class="fas fa-link"></i>
         <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
-      </h4>
-      <h4 class="visible-xs card-title">
-        <div class="list-group-item-heading">
-          <% type = t(@request.service.type, scope: 'service.types', count: 1) %>
-          <%= image_tag(image_path(@request.icon_list), alt: "#{type}, #{@request.detailed_status}") %>
-          #<%= @request.id %>
-          <% if display?(:trust) -%>
-            <%= mark_trust(@request) %>
-          <% end -%>
-          <%= label_photo_required = mark_photo_required(@request) %>
-          <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
-        </div>
-        <div class="list-group-item-text">
-          <%= type %>
-          (<%= l(@request.requested_datetime.to_date) %>)
-        </div>
       </h4>
     </div>
     <% if !login_required? -%>
