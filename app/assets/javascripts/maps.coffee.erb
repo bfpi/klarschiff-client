@@ -81,7 +81,7 @@ KS.ViewSwitcherControlMultiple = () ->
   elem.appendChild(text_span)
 
   switchLayers = []
-  for layer in <%= Settings::Map.wmts_layers.to_json %>
+  for layer in <%= Settings::Map.tile_layers.to_json %>
     switchLayers.push layer
   for layer in <%= Settings::Map.wms_layers.to_json %>
     switchLayers.push layer
