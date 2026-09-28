@@ -42,12 +42,9 @@ class Gaia
     end
 =end
     def search_places(pattern)
-      request_features(pattern, config.type).each do |place|
-        p place.inspect
-        p Place.new({ "geometry"=>{"coordinates"=>[p.long, p.lat], "type"=>"Point", "transform_bbox" => true},
-                    "properties"=>{ "_title_"=>"Meldung ##{ p.service_request_id }", "feature_id" => p.service_request_id },
-                    "type"=>"Feature" })
-
+      request_features(pattern, config.type).map do |place|
+        # p place.inspect
+        Place.new({ "bbox" => place['bbox'], "label"=> place['properties']['placeName'] })
       end
       # request_features(pattern, config.type).map { |p| Place.new(p).as_json }
     end
@@ -88,7 +85,7 @@ class Gaia
     end
 
     def request_feature_params(query, type)
-      { q: query, type:, n: 5, crs: 'EPSG:4326' }
+      { q: query, type:, n: 5, crs: 'EPSG:25833' }
     end
 
     def request_and_parse_features(uri)

@@ -3,7 +3,7 @@
 class Place
   include ActiveModel::Model
 
-  attr_accessor :type, :properties, :geometry
+  attr_accessor :bbox, :label, :type, :properties, :geometry
 
   def as_json(_options = {})
     {
@@ -17,6 +17,7 @@ class Place
   private
 
   def format_label(properties)
+    return label if label
     addr = if properties['objektgruppe'] == Settings::Geocodr.places_object_group || properties['abkuerzung'].blank?
              properties['_title_'].split(', ')[-1]
            else
@@ -27,6 +28,7 @@ class Place
   end
 
   def format_bbox(geometry)
+    return bbox if bbox
     return format_bbox_point(geometry) if geometry['type'] == 'Point'
     format_bbox_prectangl(geometry)
   end

@@ -73,8 +73,8 @@ development: &default
     search_request_id_enabled: true
 
   gaia:
-    type: Amt,Gemeinde,Ortsteil,Straße,Adresse,Gemarkung,Flur,Flurstück
-    url: https://www.geodaten-mv.de/geocoding-api/place/autocomplete?
+    type: Amt,Gemeinde,Ortsteil,Straße,Adresse
+    url: https://www.geodaten-mv.de/geocoding-api/place/search?
 
   geocodr:
     address_object_group: Adresse HRO
