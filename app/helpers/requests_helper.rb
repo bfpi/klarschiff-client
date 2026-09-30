@@ -36,7 +36,7 @@ module RequestsHelper
   end
 
   def categories(type, current = nil)
-    categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq
+    categories = services_by_type(type)
     unless current
       categories.insert 0,
                         [t('placeholder.select.category'),
@@ -48,7 +48,7 @@ module RequestsHelper
   def services(category = nil, current = nil)
     services = Service.collection.select { |s| s.group == category }.map do |s|
       [s.service_name, s.service_code]
-    end.insert 0, [t('placeholder.select.service'), { disabled: true, class: :placeholder }]
+    end.insert 0, [t('placeholder.select.service'), { disabled: true, class: :placeholder, selected: true }]
     options_for_select services, current
   end
 
@@ -56,14 +56,22 @@ module RequestsHelper
     Service.find(service_code) if service_code
   end
 
+  def multiple_main_categories?(type)
+    services_by_type(type).size > 1
+  end
+
+  def services_by_type(type)
+    Service.collection.select { |s| s.type == type }.map(&:group).uniq
+  end
+
   def d3_document_url(request)
     street = ''
     housenumber = ''
     housenumber_addition = ''
 
-    uri = URI(Settings::AddressSearch.url)
+    uri = URI(Settings::Geocodr.url)
     query = "#{request.long},#{request.lat}"
-    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse',
+    uri.query = URI.encode_www_form(key: Settings::Geocodr.api_key, query: query, type: 'reverse',
                                     class: 'address', radius: '100', in_epsg: '4326')
 
     res = if (proxy = ENV['HTTP_PROXY'] || ENV.fetch('http_proxy', nil)).present? # Workaround for open-uri https-proxy problem
