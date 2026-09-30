@@ -84,8 +84,12 @@ module RequestsHelper
     begin
       if (res = uri.open(uri_options)) && res.status.include?('OK')
         JSON.parse(res.read).fetch('features', []).each do |p|
-          street = "#{p['properties']['x_strassenname'][0]} (#{p['properties']['x_strassenschluessel'][0]} – #{p['properties']['x_bereich'][0]})"
-          housenumber, housenumber_addition = p['properties']['x_hausnummer'][0].match(/\A(\d+)([A-Za-z]*)\z/).captures
+          feature_street_name = p['properties']['x_strassenname'][0]
+          feature_street_key = p['properties']['x_strassenschluessel'][0][-5..]
+          feature_place_name = p['properties']['x_bereich'][0]
+          street = "#{feature_street_name} (#{feature_street_key} – #{feature_place_name})"
+          feature_housenumber = p['properties']['x_hausnummer'][0]
+          housenumber, housenumber_addition = feature_housenumber.match(/\A(\d+)([A-Za-z]*)\z/).captures
         end
         street = t(:not_assignable) if street.blank?
       else
