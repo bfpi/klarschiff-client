@@ -24,13 +24,20 @@ class PlacesController < ApplicationController
       end
 
       uri = URI.parse(Settings::AddressSearch.url)
-      query = if Settings::AddressSearch.localisator.present?
-                "#{Settings::AddressSearch.localisator} #{@pattern}"
-              else
-                @pattern
-              end
-      uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search',
-                                      class: 'address', shape: 'bbox', out_epsg: '3857', limit: '5')
+      query = @pattern
+      params = {
+        type: Settings::AddressSearch.result_classes,
+        q: query,
+        crs: 'EPSG:3857',
+        n: '5'
+      }
+      filter = Settings::AddressSearch.localisator
+      if filter && !filter.empty?
+        filter = filter.delete_prefix('[')
+        key, value = filter.split(']=', 2)
+        params["x_filter[#{key}]"] = value
+      end
+      uri.query = URI.encode_www_form(params)
 
       uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
       if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
@@ -43,7 +50,7 @@ class PlacesController < ApplicationController
           end
         end
       rescue OpenURI::HTTPError
-        Rails.logger.error "Geocodr Error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
+        Rails.logger.error "Geocoding error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
         Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
       end
     end

@@ -185,11 +185,15 @@ Konfiguration des entsprechenden Clients, den Außendienst-Client (Prüf- und Pr
 #### Block 'address_search'
 Konfiguration der Adressensuche:
   - `url` (Pflichtfeld):
-    - URL zur Adressensuche
-  - `api_key` (Pflichtfeld):
-    - API-Key für Adressensuche
+    - URL zum API-Endpunkt der Adressensuche
+  - `result_classes` (Pflichtfeld):
+    - Komma-separierte Angabe einer oder mehrerer Klasse(n) an Suchresultaten, die berücksichtigt werden soll(en) (z.B. `Straße,Adresse`, wenn Straßen und Adressen als Suchresultatklassen berücksichtigt werden sollen)
   - `localisator` (optional):
-    - String zur Voreingrenzung der Resultate der Adressensuche (z.B. `rostock`, um Resultate der Adressensuche auf Rostock voreinzugrenzen)
+    - String zur räumlichen Voreingrenzung der Suchresultate (z.B. `"[landkreis_id]=13003"`, um Suchresultate auf Rostock voreinzugrenzen)
+  - `search_request_id_enabled` (Pflichtfeld):
+    - Suche nach Meldungsnummern zusätzlich aktivieren (`true`) oder nicht (`false`)
+  - `proxy` (optional):
+    - Adressensuche läuft Server-seitig; daher hier ggf. Proxy nach dem Muster `"[Protokoll]://[IP-Adresse]:[Port]"` eintragen (z.B. `"http://10.11.12.13:9900"`)
 
 #### Block 'protocol_mail'
   - `recipient` (Pflichtfeld für PPC):
