@@ -8,6 +8,9 @@ class Place
   def label
     primary_type = properties['primaryType']
     place_description = properties['placeDescription']
+
+    return properties['_title_'] if place_description.nil?
+
     localisator = Settings::AddressSearch.localisator
 
     if localisator && !localisator.empty?
