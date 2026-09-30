@@ -64,10 +64,11 @@ development: &default
       api_key: <API-Key-Frontend>
 
   address_search:
-    url: https://geo.sv.rostock.de/geocodr/query?
-    api_key:
-    localisator: rostock
+    url: https://www.geodaten-mv.de/geocoding-api/place/search?
+    result_classes: Gemeinde,Ortsteil,Straße,Adresse
+    localisator: "[landkreis_id]=13003"
     search_request_id_enabled: true
+    proxy: "http://10.11.12.13:9900"
 
   protocol_mail:
     recipient: recipient@klarschiff.de
