@@ -25,7 +25,7 @@ class PlacesController < ApplicationController
 
       uri = URI.parse(Settings::AddressSearch.url)
       query = @pattern
-      params = {
+      query_params = {
         type: Settings::AddressSearch.result_classes,
         q: query,
         crs: 'EPSG:3857',
@@ -35,9 +35,9 @@ class PlacesController < ApplicationController
       if filter && !filter.empty?
         filter = filter.delete_prefix('[')
         key, value = filter.split(']=', 2)
-        params["x_filter[#{key}]"] = value
+        query_params["x_filter[#{key}]"] = value
       end
-      uri.query = URI.encode_www_form(params)
+      uri.query = URI.encode_www_form(query_params)
 
       uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
       if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
@@ -45,7 +45,7 @@ class PlacesController < ApplicationController
       end
       begin
         if (res = uri.open(uri_options)) && res.status.include?('OK')
-          Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
+          JSON.parse(res.read).fetch('features', []).each do |p|
             @places << Place.new(p)
           end
         end
