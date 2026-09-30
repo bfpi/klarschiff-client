@@ -19,6 +19,7 @@ class PlacesController < ApplicationController
           @places << Place.new({ 'geometry' => { 'coordinates' => [p.long, p.lat], 'type' => 'Point', 'transform_bbox' => true },
                                  'properties' => { '_title_' => "Meldung ##{p.service_request_id}",
                                                    'feature_id' => p.service_request_id },
+                                 'bbox' => [p.long, p.lat, p.long, p.lat],
                                  'type' => 'Feature' })
         end
       end
