@@ -61,41 +61,52 @@ module RequestsHelper
     housenumber = ''
     housenumber_addition = ''
 
-    uri = URI(Settings::AddressSearch.url)
-    query = "#{request.long},#{request.lat}"
-    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse',
-                                    class: 'address', radius: '100', in_epsg: '4326')
-
-    res = if (proxy = ENV['HTTP_PROXY'] || ENV.fetch('http_proxy', nil)).present? # Workaround for open-uri https-proxy problem
-            proxy = "http://#{proxy}" unless %r{^https?://}.match?(proxy)
-            p_uri = URI.parse(proxy)
-            Net::HTTP.Proxy p_uri.host, p_uri.port
-          else
-            Net::HTTP
-          end.get_response uri
-
-    if res&.message&.include?('OK')
-      places = ActiveSupport::JSON.decode(res.body)['features']
-      places.each do |p|
-        if p['properties']['objektgruppe'] == 'Adresse'
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-          housenumber = p['properties']['hausnummer']
-          housenumber_addition = p['properties']['hausnummer_zusatz'] if p['properties']['hausnummer_zusatz']
-          break
-        elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-        end
-      end
-      street = t(:not_assignable) if street.blank?
-    else
-      street = t(:not_assignable)
+    uri = URI.parse(Settings::AddressSearch.url)
+    query_params = {
+      type: 'Adresse',
+      coord: "#{request.long},#{request.lat}",
+      crs: 'EPSG:4326',
+      rm: '100',
+      sort: 'dist',
+      n: '1'
+    }
+    filter = Settings::AddressSearch.localisator
+    if filter && !filter.empty?
+      filter = filter.delete_prefix('[')
+      key, value = filter.split(']=', 2)
+      query_params["x_filter[#{key}]"] = value
     end
-    request.service.document_url
-           .gsub('{ks_id}', request.id.to_s)
-           .gsub('{ks_user}', @user.login)
-           .gsub('{ks_str}', street)
-           .gsub('{ks_hnr}', housenumber)
-           .gsub('{ks_hnr_z}', housenumber_addition)
-           .gsub('{ks_eigentuemer}', request.extended_attributes.property_owner.truncate(254, omission: '…'))
+    uri.query = URI.encode_www_form(query_params)
+
+    uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
+    if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
+      uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
+    end
+    begin
+      if (res = uri.open(uri_options)) && res.status.include?('OK')
+        JSON.parse(res.read).fetch('features', []).each do |p|
+          feature_street_name = p['properties']['x_strassenname'][0]
+          feature_street_key = p['properties']['x_strassenschluessel'][0][-5..]
+          feature_place_name = p['properties']['x_bereich'][0]
+          street = "#{feature_street_name} (#{feature_street_key} – #{feature_place_name})"
+          feature_housenumber = p['properties']['x_hausnummer'][0]
+          housenumber, housenumber_addition = feature_housenumber.match(/\A(\d+)([A-Za-z]*)\z/).captures
+          break
+        end
+        street = t(:not_assignable) if street.blank?
+      else
+        street = t(:not_assignable)
+      end
+      request.service.document_url
+             .gsub('{ks_id}', request.id.to_s)
+             .gsub('{ks_user}', @user.login)
+             .gsub('{ks_str}', street)
+             .gsub('{ks_hnr}', housenumber)
+             .gsub('{ks_hnr_z}', housenumber_addition)
+             .gsub('{ks_eigentuemer}', request.extended_attributes.property_owner.truncate(254, omission: '…'))
+    rescue OpenURI::HTTPError
+      Rails.logger.error "Geocoding error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
+      Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
+    end
   end
 end
