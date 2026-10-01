@@ -66,7 +66,8 @@ module RequestsHelper
       type: 'Adresse',
       coord: "#{request.long},#{request.lat}",
       crs: 'EPSG:4326',
-      rm: '50',
+      rm: '100',
+      sort: 'dist',
       n: '1'
     }
     filter = Settings::AddressSearch.localisator
@@ -90,6 +91,7 @@ module RequestsHelper
           street = "#{feature_street_name} (#{feature_street_key} – #{feature_place_name})"
           feature_housenumber = p['properties']['x_hausnummer'][0]
           housenumber, housenumber_addition = feature_housenumber.match(/\A(\d+)([A-Za-z]*)\z/).captures
+          break
         end
         street = t(:not_assignable) if street.blank?
       else
