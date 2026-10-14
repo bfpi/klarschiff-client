@@ -73,7 +73,7 @@ end
 module JsResponseTestHelper
   # JS responses embed escaped HTML, so tests compare the unescaped text.
   def response_text
-    CGI.unescapeHTML(response.body.gsub('\\"', '"').gsub('\\/', '/').gsub('\\n', "\n"))
+    CGI.unescapeHTML(response.body.gsub('\\"', '"').gsub("\\'", "'").gsub('\\/', '/').gsub('\\n', "\n"))
   end
 end
 

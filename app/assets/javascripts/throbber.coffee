@@ -14,7 +14,7 @@ KS.enableDisable = (currentElement, disable) ->
       newDiv = $('<div/>')
       newDiv.attr 'id', backdropId
       newDiv.attr 'class', 'modal-backdrop show'
-      $(newDiv).appendTo('body');
+      $(newDiv).appendTo('body')
     else
       $('#' + backdropId).remove()
 

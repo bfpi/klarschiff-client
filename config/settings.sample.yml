@@ -127,11 +127,6 @@ test:
   client:
     <<: *default_client
     login_required: false
-  resource_servers:
-    city_sdk:
-      site: https://klarschiff.de/citysdk/
-      format: :json
-      api_key: 1234567890abcdefghijklmnopqrstuv
 
 alpha:
   <<: *default

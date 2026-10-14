@@ -1,0 +1,15 @@
+/node_modules
+
+# Views with ERB control flow or ERB outside of strings, which CoffeeLint cannot parse
+app/views/application/desktop/new.js.coffee
+app/views/application/mobile/create.js.coffee
+app/views/areas/index.js.coffee
+app/views/jobs/notification.js.coffee
+app/views/maps/show.js.coffee
+app/views/requests/desktop/new.js.coffee
+app/views/requests/desktop/show.js.coffee
+app/views/requests/mobile/new.js.coffee
+app/views/requests/mobile/request_form.js.coffee
+app/views/requests/mobile/show.js.coffee
+app/views/requests/outside.js.coffee
+app/views/requests/update.js.coffee

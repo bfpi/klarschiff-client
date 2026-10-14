@@ -1,4 +1,4 @@
-$('#places_results').html('<%= j render("/places/mobile/results") %>');
+$('#places_results').html('<%= j render("/places/mobile/results") %>')
 $('a[data-transform=true]').each ->
   link = $(this).attr('href')
   match = link.match(/[0-9]+\.[0-9]+/gi)
