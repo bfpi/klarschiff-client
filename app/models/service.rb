@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Service < ApplicationResource
-  cattr_reader :collection, instance_reader: false do
-    Service.all.to_a
-  end
-
   alias_attribute :category, :group
 
   delegate :idea?, :problem?, :tipp?, to: :type
+
+  # Loaded on first use instead of when the class is loaded, so that the application also boots with eager loading
+  # while the backoffice is not available. The services are kept for the lifetime of the process.
+  def self.collection
+    @collection ||= all.to_a
+  end
 
   def self.[](code)
     collection.find { |s| s.service_code.to_s == code.to_s }
