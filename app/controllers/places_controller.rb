@@ -4,62 +4,68 @@ require 'open-uri'
 
 class PlacesController < ApplicationController
   def index
-    if (@pattern = params[:pattern]).nil?
-      @pattern = session[:places_filter]
-    else
-      session[:places_filter] = @pattern
-    end
-    if @pattern.present?
-      @places = []
-      if Settings::AddressSearch.search_request_id_enabled && @pattern =~ /^(\d*)$/
-        Request.where(
-          detailed_status: Settings::Map.default_requests_states,
-          service_request_id: ::Regexp.last_match(1)
-        ).try(:to_a).map do |p|
-          @places << Place.new({ 'geometry' => { 'coordinates' => [p.long, p.lat], 'type' => 'Point', 'transform_bbox' => true },
-                                 'properties' => { '_title_' => "Meldung ##{p.service_request_id}",
-                                                   'feature_id' => p.service_request_id },
-                                 'type' => 'Feature' })
-        end
-      end
-
-      uri = URI.parse(Settings::AddressSearch.url)
-      query = if Settings::AddressSearch.localisator.present?
-                "#{Settings::AddressSearch.localisator} #{@pattern}"
-              else
-                @pattern
-              end
-      uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search',
-                                      class: 'address', shape: 'bbox', out_epsg: '3857', limit: '5')
-
-      uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
-      if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
-        uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
-      end
-      begin
-        if (res = uri.open(uri_options)) && res.status.include?('OK')
-          Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
-            @places << Place.new(p)
-          end
-        end
-      rescue OpenURI::HTTPError
-        Rails.logger.error "Geocodr Error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
-        Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
-      end
-    end
-
+    @pattern = remember_pattern
+    @places = request_places + address_places if @pattern.present?
     respond_to do |format|
       format.html { head(:not_acceptable) }
-      format.js do
-        if params[:auto]
-          render "/places/#{context}/auto" # render partial: "/places/mobile/results"
-        else
-          render "/places/#{context}/index"
-        end
-      end
-      format.json do
-        render json: @places.to_json
-      end
+      format.js { render "/places/#{context}/#{params[:auto] ? 'auto' : 'index'}" }
+      format.json { render json: @places.to_json }
     end
+  end
+
+  private
+
+  def remember_pattern
+    return session[:places_filter] if params[:pattern].nil?
+
+    session[:places_filter] = params[:pattern]
+  end
+
+  # Requests can be found by their number
+  def request_places
+    return [] unless Settings::AddressSearch.search_request_id_enabled && (number = @pattern[/^(\d*)$/, 1])
+
+    Request.where(detailed_status: Settings::Map.default_requests_states, service_request_id: number).try(:to_a)
+           .map { |req| request_place(req) }
+  end
+
+  def request_place(req)
+    Place.new('geometry' => { 'coordinates' => [req.long, req.lat], 'type' => 'Point', 'transform_bbox' => true },
+      'properties' => { '_title_' => "Meldung ##{req.service_request_id}", 'feature_id' => req.service_request_id },
+      'type' => 'Feature')
+  end
+
+  def address_places
+    response = address_search_uri.open(address_search_options)
+    return [] unless response&.status&.include?('OK')
+
+    Array.wrap(JSON.parse(response.read).try(:[], 'features')).map { |feature| Place.new(feature) }
+  rescue OpenURI::HTTPError => e
+    log_address_search_error(e)
+    []
+  end
+
+  def log_address_search_error(error)
+    Rails.logger.error "Geocodr Error: #{error.inspect}, #{error.message}\n"
+    Rails.logger.error error.backtrace.join("\n  ")
+  end
+
+  def address_search_uri
+    URI.parse(Settings::AddressSearch.url).tap do |uri|
+      uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: address_query, type: 'search',
+        class: 'address', shape: 'bbox', out_epsg: '3857', limit: '5')
+    end
+  end
+
+  def address_query
+    [Settings::AddressSearch.localisator.presence, @pattern].compact.join(' ')
+  end
+
+  def address_search_options
+    options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
+    if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
+      options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
+    end
+    options
   end
 end

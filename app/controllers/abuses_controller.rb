@@ -1,27 +1,19 @@
 # frozen_string_literal: true
 
 class AbusesController < ApplicationController
+  include RequestFeedback
+
   def new
-    @request = Request.find(params[:request_id])
-    @abuse = Abuse.new(service_request_id: @request.id, author: login_required? ? @user.email : nil,
-                       comment: nil, privacy_policy_accepted: nil)
-    @id_list = params[:id_list].try(:map, &:to_i).presence
-    respond_to do |format|
-      format.html { head :forbidden }
-      format.js { render "/application/#{context}/new" }
-    end
+    load_request
+    @abuse = Abuse.new(service_request_id: @request.id, author: feedback_author, comment: nil,
+      privacy_policy_accepted: nil)
+    render_new_form
   end
 
   def create
-    abuse = Abuse.create(params.require(:abuse).permit(:author, :comment).merge(
-      service_request_id: params[:request_id]
-    ).merge(privacy_policy_params))
-    @redirect = request_path(params[:request_id], id_list: params[:abuse][:id_list], mobile: @mobile).html_safe
-    @errors = abuse.errors unless abuse.persisted?
-    if context == 'desktop' && @errors.present?
-      @errors = Array.wrap(@errors).map(&:messages)
-      return render 'application/desktop/new'
-    end
-    render "/application/#{context}/create"
+    abuse = Abuse.create(params.expect(abuse: %i[author comment])
+      .merge(service_request_id: params[:request_id]).merge(privacy_policy_params))
+    @redirect = request_redirect_path
+    render_create_result abuse
   end
 end

@@ -9,11 +9,11 @@
     <% if messages.size > 1 -%>
       <ul>
         <% messages.each do |message| -%>
-          </li><%= message.html_safe %></li>
+          <li><%= message %></li>
         <% end -%>
       </ul>
     <% else -%>
-      <p><%= messages.first.html_safe %></p>
+      <p><%= messages.first %></p>
     <% end -%>
   <% end -%>
   <% if @success.present? -%>

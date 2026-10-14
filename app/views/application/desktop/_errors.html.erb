@@ -7,7 +7,7 @@
           <ul>
             <% messages = @errors.try(:full_messages) || @errors.pluck(:base).flatten -%>
             <% messages.each do |msg| -%>
-              </li><%= msg.html_safe %></li>
+              <li><%= msg %></li>
             <% end -%>
           </ul>
         </div>

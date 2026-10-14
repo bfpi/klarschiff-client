@@ -19,7 +19,7 @@
         <% %w[checked unchecked not-checkable].each do |state| -%>
           <li>
             <%= link_to request_path(request, 'request[id_list]': id_list, mobile: @mobile, 'request[job_status]': state.underscore.upcase),
-                        method: :put, remote: true, class: 'dropdown-item' do %>
+                  method: :put, remote: true, class: 'dropdown-item' do %>
               <i class="fas fa-flag job-status <%= state %>"></i>
               <%= t(state.to_sym, scope: 'requests.job_status') %>
             <% end -%>

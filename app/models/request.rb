@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class Request < ApplicationResource
+  ICON_COLORS = { 'IN_PROCESS' => 'yellow', 'PENDING' => 'gray', 'PROCESSED' => 'green', 'RECEIVED' => 'red',
+                  'REJECTED' => 'yellowgreen' }.freeze
+  JOB_STATUS_CLASSES = { 'NOT_CHECKABLE' => 'not-checkable', 'CHECKED' => 'checked' }.freeze
+
   default_query_options[:extensions] = true
 
   alias_attribute :id, :service_request_id
 
   delegate :detailed_status, :detailed_status=, :job_status, :description_public,
-           :votes, :expected_closure,
-           to: :extended_attributes
+    :votes, :expected_closure,
+    to: :extended_attributes
 
   # Workaround, to overcome the missing foreign_key option when defining has_many
   %i[comments notes].each do |func|
@@ -71,18 +75,15 @@ class Request < ApplicationResource
   end
 
   def flag_color_class
-    'job-status ' + case job_status
-                    when 'NOT_CHECKABLE'
-                      'not-checkable'
-                    when 'CHECKED'
-                      'checked'
-                    else
-                      'unchecked'
-                    end
+    "job-status #{JOB_STATUS_CLASSES.fetch(job_status, 'unchecked')}"
   end
 
   def as_json(options = {})
     serializable_hash options.merge(methods: :icon_map)
+  end
+
+  def self.count(params)
+    where(params.merge({ just_count: true })).first.count
   end
 
   private
@@ -92,18 +93,7 @@ class Request < ApplicationResource
   end
 
   def icon_color
-    case detailed_status
-    when 'IN_PROCESS'
-      'yellow'
-    when 'PENDING'
-      'gray'
-    when 'PROCESSED'
-      'green'
-    when 'RECEIVED'
-      'red'
-    when 'REJECTED'
-      'yellowgreen'
-    end
+    ICON_COLORS[detailed_status]
   rescue StandardError
     'gray'
   end
@@ -116,6 +106,7 @@ class Request < ApplicationResource
     end
   end
 
+  # Missing attributes are read as nil
   def method_missing(name, *args, &)
     if /=$/.match?(name)
       super
@@ -124,8 +115,9 @@ class Request < ApplicationResource
     end
   end
 
-  def self.count(params)
-    where(params.merge({ just_count: true })).first.count
+  # Only actual attributes are reported, so that e.g. #to_str or #to_ary are not assumed for requests
+  def respond_to_missing?(name, include_private = false)
+    attributes.key?(name) || super
   end
 
   class ExtendedAttributes < ApplicationResource

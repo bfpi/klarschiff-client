@@ -8,6 +8,9 @@ exclude:
 linters:
   ErbSafety:
     enabled: true
+    exclude:
+      # client.additional_content from settings.yml is HTML of the installation, e.g. for web analytics
+      - '**/app/views/layouts/application.html.erb'
   ParserErrors:
     enabled: false
   Rubocop:
@@ -25,5 +28,8 @@ linters:
         Enabled: false
       Naming/VariableNumber:
         Enabled: false
+      Rails/OutputSafety:
+        Exclude:
+          - '**/app/views/layouts/application.html.erb'
       Style/FrozenStringLiteralComment:
         Enabled: false

@@ -28,23 +28,26 @@ class ConfirmationsController < ApplicationController
   private
 
   def confirm(action, confirmation_id)
-    uri = ['requests']
-    uri << action if action.present?
-    uri << confirmation_id
-    uri << 'confirm.json'
-    json = JSON.parse(JSON.parse(call(uri.join('/')).read_body.to_json))
-    return render_error(:confirm) if json.blank? || (json.first.is_a?(Hash) && json.first['code'].present?)
+    json = backoffice_response(['requests', action.presence, confirmation_id, 'confirm.json'].compact.join('/'))
+    return render_error(:confirm) if rejected?(json)
 
     @request = Request.find(json['service_request_id'].to_i)
     render_success(:confirm)
   end
 
   def revoke(confirmation_id)
-    uri = "requests/#{confirmation_id}/revoke.json"
-    json = JSON.parse(JSON.parse(call(uri).read_body.to_json))
-    return render_error(:revoke) if json.blank? || (json.first.is_a?(Hash) && json.first['code'].present?)
+    return render_error(:revoke) if rejected?(backoffice_response("requests/#{confirmation_id}/revoke.json"))
 
     render_success(:revoke)
+  end
+
+  def backoffice_response(path)
+    JSON.parse(call(path).read_body)
+  end
+
+  # The backoffice answers with a list of errors if the confirmation fails
+  def rejected?(json)
+    json.blank? || (json.first.is_a?(Hash) && json.first['code'].present?)
   end
 
   def call(path)

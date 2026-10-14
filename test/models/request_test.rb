@@ -104,6 +104,37 @@ class RequestModelTest < ActiveSupport::TestCase
     assert_equal 'value', req.custom_field
   end
 
+  test 'method_missing returns nil for blank and unknown attributes' do
+    req = Request.new(custom_field: '')
+
+    assert_nil req.custom_field
+    assert_nil req.unknown_field
+  end
+
+  test 'respond_to? reports the attributes only' do
+    req = Request.new(custom_field: 'value')
+
+    assert_respond_to req, :custom_field
+    assert_not_respond_to req, :unknown_field
+    assert_not_respond_to req, :to_str
+  end
+
+  test 'icon_color maps the detailed status' do
+    colors = %w[IN_PROCESS PENDING PROCESSED RECEIVED REJECTED].map do |status|
+      Request.new(extended_attributes: { detailed_status: status }).send(:icon_color)
+    end
+
+    assert_equal %w[yellow gray green red yellowgreen], colors
+  end
+
+  test 'icon_color is nil for unknown states' do
+    assert_nil Request.new(extended_attributes: { detailed_status: 'UNKNOWN' }).send(:icon_color)
+  end
+
+  test 'count is a public class method' do
+    assert_includes Request.public_methods, :count
+  end
+
   test 'self.count delegates to where and returns first.count' do
     fake_item = Class.new do
       attr_reader :count

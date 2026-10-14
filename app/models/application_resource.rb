@@ -3,5 +3,5 @@
 class ApplicationResource < ActiveResource::Base
   include ResourceClient
 
-  set_server_connection :city_sdk
+  connects_to :city_sdk
 end

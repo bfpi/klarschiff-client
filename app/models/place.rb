@@ -14,24 +14,22 @@ class Place
 
   def label(properties)
     title = properties['_title_']
-    title_without_community = title.split(', ')[-1]
     case properties['objektgruppe']
-    when 'Gemeinde'
-      title
-    when 'Gemeindeteil'
-      title_without_community
-    else
-      properties['abkuerzung'].blank? ? title_without_community : "#{title_without_community} (#{properties['abkuerzung']})"
+    when 'Gemeinde' then title
+    when 'Gemeindeteil' then title.split(', ').last
+    else label_with_abbreviation(title.split(', ').last, properties['abkuerzung'])
     end
   end
 
+  def label_with_abbreviation(title, abbreviation)
+    abbreviation.blank? ? title : "#{title} (#{abbreviation})"
+  end
+
+  # A point is its own bbox, a polygon is spanned by its first and third corner
   def bbox(geometry)
-    if geometry['type'] == 'Point'
-      [geometry['coordinates'][0], geometry['coordinates'][1], geometry['coordinates'][0],
-       geometry['coordinates'][1]]
-    else
-      [geometry['coordinates'][0][0][0], geometry['coordinates'][0][0][1],
-       geometry['coordinates'][0][2][0], geometry['coordinates'][0][2][1]]
-    end
+    coordinates = geometry['coordinates']
+    return coordinates.first(2) * 2 if geometry['type'] == 'Point'
+
+    [*coordinates[0][0].first(2), *coordinates[0][2].first(2)]
   end
 end

@@ -30,17 +30,18 @@ module RequestsHelper
   end
 
   def statuses(request)
-    Settings::Map.default_requests_states.split(', ').select do |st|
-      st.in?(Settings::Request.permissable_states | [request.detailed_status])
-    end.map { |st| [t(st.downcase, scope: :status), st] }
+    permitted = Settings::Request.permissable_states | [request.detailed_status]
+    Settings::Map.default_requests_states.split(', ').filter_map do |state|
+      [t(state.downcase, scope: :status), state] if state.in?(permitted)
+    end
   end
 
   def categories(type, current = nil)
     categories = Service.collection.select { |s| s.type == type }.map(&:group).uniq
     unless current
       categories.insert 0,
-                        [t('placeholder.select.category'),
-                         { disabled: true, selected: current.nil?, class: :placeholder }]
+        [t('placeholder.select.category'),
+         { disabled: true, selected: current.nil?, class: :placeholder }]
     end
     options_for_select categories, current
   end
@@ -56,46 +57,48 @@ module RequestsHelper
     Service.find(service_code) if service_code
   end
 
-  def d3_document_url(request)
-    street = ''
-    housenumber = ''
-    housenumber_addition = ''
+  def d3_document_url(request, user)
+    street, housenumber, housenumber_addition = d3_address(request)
+    placeholders = {
+      '{ks_id}' => request.id.to_s, '{ks_user}' => user.login, '{ks_str}' => street, '{ks_hnr}' => housenumber,
+      '{ks_hnr_z}' => housenumber_addition,
+      '{ks_eigentuemer}' => request.extended_attributes.property_owner.truncate(254, omission: '…')
+    }
+    request.service.document_url.gsub(/\{ks_\w+\}/) { |placeholder| placeholders.fetch(placeholder, placeholder) }
+  end
 
-    uri = URI(Settings::AddressSearch.url)
-    query = "#{request.long},#{request.lat}"
-    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'reverse',
-                                    class: 'address', radius: '100', in_epsg: '4326')
+  private
 
-    res = if (proxy = ENV['HTTP_PROXY'] || ENV.fetch('http_proxy', nil)).present? # Workaround for open-uri https-proxy problem
-            proxy = "http://#{proxy}" unless %r{^https?://}.match?(proxy)
-            p_uri = URI.parse(proxy)
-            Net::HTTP.Proxy p_uri.host, p_uri.port
-          else
-            Net::HTTP
-          end.get_response uri
-
-    if res&.message&.include?('OK')
-      places = ActiveSupport::JSON.decode(res.body)['features']
-      places.each do |p|
-        if p['properties']['objektgruppe'] == 'Adresse'
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-          housenumber = p['properties']['hausnummer']
-          housenumber_addition = p['properties']['hausnummer_zusatz'] if p['properties']['hausnummer_zusatz']
-          break
-        elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-        end
-      end
-      street = t(:not_assignable) if street.blank?
-    else
-      street = t(:not_assignable)
+  # Nearest address of the request, otherwise at least the nearest street
+  def d3_address(request)
+    places = d3_address_search(request)
+    if (address = places.find { |place| place['objektgruppe'] == 'Adresse' })
+      return [d3_street(address), address['hausnummer'], address['hausnummer_zusatz'] || '']
     end
-    request.service.document_url
-           .gsub('{ks_id}', request.id.to_s)
-           .gsub('{ks_user}', @user.login)
-           .gsub('{ks_str}', street)
-           .gsub('{ks_hnr}', housenumber)
-           .gsub('{ks_hnr_z}', housenumber_addition)
-           .gsub('{ks_eigentuemer}', request.extended_attributes.property_owner.truncate(254, omission: '…'))
+
+    street = places.find { |place| place['objektgruppe'] == 'Straße' }
+    [street ? d3_street(street) : t(:not_assignable), '', '']
+  end
+
+  def d3_street(place)
+    "#{place['strasse_name']} (#{place['strasse_schluessel']} – #{place['gemeindeteil_name']})"
+  end
+
+  def d3_address_search(request)
+    uri = URI(Settings::AddressSearch.url)
+    uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: "#{request.long},#{request.lat}",
+      type: 'reverse', class: 'address', radius: '100', in_epsg: '4326')
+    response = d3_http.get_response(uri)
+    return [] unless response&.message&.include?('OK')
+
+    ActiveSupport::JSON.decode(response.body)['features'].pluck('properties')
+  end
+
+  # Workaround for open-uri https-proxy problem
+  def d3_http
+    return Net::HTTP if (proxy = ENV['HTTP_PROXY'] || ENV.fetch('http_proxy', nil)).blank?
+
+    proxy_uri = URI.parse(%r{^https?://}.match?(proxy) ? proxy : "http://#{proxy}")
+    Net::HTTP.Proxy(proxy_uri.host, proxy_uri.port)
   end
 end

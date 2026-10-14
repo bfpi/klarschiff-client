@@ -6,7 +6,7 @@ class ServicesController < ApplicationController
 
   def index
     respond_with Service.where(permitted_params.slice(:lat, :long).merge(group: permitted_params[:category],
-                                                                         keywords: permitted_params[:type]))
+      keywords: permitted_params[:type]))
   rescue ActionController::UnknownFormat
     head :not_acceptable
   end

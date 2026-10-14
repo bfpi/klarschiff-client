@@ -21,7 +21,7 @@
             <% end %>
           <% end %>
         </li>
-        <% if login_required? && has_field_service_team? -%>
+        <% if login_required? && field_service_team? -%>
           <li class="nav-item">
             <%= link_to(jobs_path(mobile: @mobile), remote: true, class: 'nav-link jobs', title: t('nav.jobs')) do %>
               <i class="fas fa-tasks"></i>
@@ -29,7 +29,7 @@
           </li>
           <li class="nav-item">
             <%= link_to(map_path(mobile: @mobile), remote: true, class: 'nav-link map', title: t('nav.map'),
-                                                   id: :link_default_map, style: 'display: none;') do %>
+                  id: :link_default_map, style: 'display: none;') do %>
                 <i class="far fa-image"></i>
             <% end %>
             <%= link_to(map_path(type: :jobs, mobile: @mobile), remote: true, class: 'nav-link map', title: t('nav.job_map'), id: :link_job_map) do %>

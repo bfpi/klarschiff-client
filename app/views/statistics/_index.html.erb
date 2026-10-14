@@ -18,15 +18,15 @@
           <div class="col-3">
             <label for="start_date" class="col-form-label"><%= t('.filter_start_date') %></label>
             <%= select_tag(:start_date,
-                           start_dates,
-                           class: 'form-control map-parameter map-parameter-reload', data: { key: :start_date }) %>
+                  start_dates,
+                  class: 'form-control map-parameter map-parameter-reload', data: { key: :start_date }) %>
           </div>
           <div class="col-3">
             <label for="service_code" class="col-form-label"><%= t('.filter_service_code') %></label>
             <%= select_tag(:service_code,
-                           service_list,
-                           prompt: t('.all'),
-                           class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
+                  service_list,
+                  prompt: t('.all'),
+                  class: 'form-control map-parameter map-parameter-reload', data: { key: :service_code }) %>
           </div>
           <div class="col-3">
           </div>

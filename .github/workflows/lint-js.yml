@@ -1,10 +1,8 @@
 name: Javascripts
 
 on:
-  - workflow_dispatch
-
-permissions:
-  contents: read
+  - push
+  - workflow_call
 
 jobs:
   eslint:

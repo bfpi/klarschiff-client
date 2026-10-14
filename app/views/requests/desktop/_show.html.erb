@@ -42,8 +42,8 @@
               <div class="col-12">
                 <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
                 <%= link_to(t('buttons.upload'), '#', remote: true,
-                                                      class: 'btn btn-primary btn-continue', role: :button,
-                                                      data: { current: 'image', next: 'image-submit' }) %>
+                      class: 'btn btn-primary btn-continue', role: :button,
+                      data: { current: 'image', next: 'image-submit' }) %>
               </div>
             <% end -%>
           </div>
@@ -55,7 +55,7 @@
         <% if (notes = @request.status_notes).present? -%>
           <div class="row mb-3">
             <%= label_tag :status_notes, Request.human_attribute_name(:status_notes), class: 'col-12 col-form-label' %>
-            <div class="col-12"><em><%= notes.html_safe %></em></div>
+            <div class="col-12"><em><%= notes %></em></div>
           </div>
         <% end -%>
         <% if (expected_closure = @request.expected_closure).present? -%>
@@ -71,11 +71,11 @@
             <%= link_to(t('.actions.abuse'), [:new, @request, :abuse, { id_list: @id_list }], options) if display?(:abuses) %>
             <%= if display?(:completions, @request)
                   link_to(t('.actions.completion'), [:new, @request, :completion, { id_list: @id_list, mobile: @mobile }],
-                          options)
+                    options)
                 end %>
             <%= if display?(:create_comment)
                   link_to(t('.actions.comment'), [:new, @request, :comment, { id_list: @id_list }],
-                          options.merge(class: 'btn btn-primary'))
+                    options.merge(class: 'btn btn-primary'))
                 end %>
           </div>
         </div>
@@ -86,15 +86,15 @@
                 <%= link_to(content_tag(:i, '', class: 'fas fa-backward'), '#', class: 'btn btn-light btn-outline-secondary disabled') %>
               <% else -%>
                 <%= link_to(content_tag(:i, '', class: 'fas fa-backward'),
-                            request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
-                            remote: true, class: 'btn btn-light btn-outline-secondary backward') %>
+                      request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
+                      remote: true, class: 'btn btn-light btn-outline-secondary backward') %>
               <% end -%>
               <% if @id_list.last == @request.id -%>
                 <%= link_to(content_tag(:i, '', class: 'fas fa-forward'), '#', class: 'btn btn-light btn-outline-secondary disabled') %>
               <% else -%>
                 <%= link_to(content_tag(:i, '', class: 'fas fa-forward'),
-                            request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
-                            remote: true, class: 'btn btn-light btn-outline-secondary forward') %>
+                      request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
+                      remote: true, class: 'btn btn-light btn-outline-secondary forward') %>
               <% end -%>
             </div>
           </div>
@@ -124,8 +124,8 @@
       <div class="row">
         <div class="btn-group d-flex col-12" role="group">
           <%= link_to(t('buttons.back'), '#', remote: true,
-                                              class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                                              data: { current: 'image-submit', next: 'image' }) %>
+                class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                data: { current: 'image-submit', next: 'image' }) %>
           <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
         </div>
       </div>

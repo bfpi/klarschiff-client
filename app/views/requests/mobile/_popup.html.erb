@@ -19,6 +19,6 @@
 </div>
 <% if (description = @request.description).present? -%>
   <div class="row">
-    <div class="col-12"><em><%= truncate(description, length: 40).html_safe %></em></div>
+    <div class="col-12"><em><%= truncate(description, length: 40) %></em></div>
   </div>
 <% end -%>

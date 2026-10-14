@@ -5,16 +5,18 @@ class MapsController < ApplicationController
     return if (@cancel = params[:cancel])
 
     remove_tmp_images
-    @show_non_job_features = !params[:type].eql?('jobs')
-    @zoom_to_jobs = params[:type].eql?('jobs')
+    @zoom_to_jobs = params[:type] == 'jobs'
+    @show_non_job_features = !@zoom_to_jobs
     @bbox = params[:bbox] if params[:bbox].present?
   end
 
   private
 
   def remove_tmp_images
-    images = (Dir.glob('tmp/*.jpg') + Dir.glob('tmp/*.jpeg') + Dir.glob('tmp/*.png')).compact
-      .select { |image_name| (Time.current - File.mtime(image_name)) / 3600 / 24 >= 1 }
-    FileUtils.rm images if images.any?
+    Dir.glob('tmp/*.{jpg,jpeg,png}').each do |image|
+      FileUtils.rm_f(image) if File.mtime(image) <= 1.day.ago
+    rescue Errno::ENOENT
+      next # already removed by a concurrent request
+    end
   end
 end

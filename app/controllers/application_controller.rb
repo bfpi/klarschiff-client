@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate, if: :login_required?
   before_action :set_mobile, :set_og_request
-  helper_method :has_field_service_team?, :context
+  helper_method :field_service_team?, :context
   protect_from_forgery prepend: true
 
   protected
@@ -23,18 +23,12 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    @user ||= if (name = request.env['AUTHENTICATE_FULLNAME'].presence || request.env['AUTHENTICATE_DISPLAYNAME']).present?
-                User.where(login: name, api_key: User.api_key)&.first
-              else
-                authenticate_with_http_basic do |user, pwd|
-                  User.create(login: user, password: pwd, api_key: User.api_key)
-                end
-              end
+    @user ||= single_sign_on_name.present? ? single_sign_on_user : http_basic_user
     request_http_basic_authentication unless @user&.valid?
   end
 
-  def has_field_service_team?
-    (@user && @user.field_service_team).presence
+  def field_service_team?
+    @user&.field_service_team.present?
   end
 
   def context
@@ -43,8 +37,26 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def single_sign_on_name
+    request.env['AUTHENTICATE_FULLNAME'].presence || request.env['AUTHENTICATE_DISPLAYNAME']
+  end
+
+  def single_sign_on_user
+    User.where(login: single_sign_on_name, api_key: User.api_key)&.first
+  end
+
+  def http_basic_user
+    authenticate_with_http_basic do |user, pwd|
+      User.create(login: user, password: pwd, api_key: User.api_key)
+    end
+  end
+
   def privacy_policy_params(model_name = controller_name.singularize.to_sym)
     { privacy_policy_accepted: params[model_name][:privacy_policy_accepted].present? || login_required? }
+  end
+
+  def id_list_param
+    params[:id_list].try(:map, &:to_i).presence
   end
 
   def mobile_detected?

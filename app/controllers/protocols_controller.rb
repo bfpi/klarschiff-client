@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 class ProtocolsController < ApplicationController
+  include RequestFeedback
+
   def new
-    @request = Request.find(params[:request_id])
-    @protocol = Protocol.new message_number: @request.id
-    @protocol.user = @user ? @user.name : ''
-    @id_list = params[:id_list].try(:map, &:to_i).presence
-    respond_to do |format|
-      format.html { head :forbidden }
-      format.js { render "/application/#{context}/new" }
-    end
+    load_request
+    @protocol = Protocol.new(message_number: @request.id, user: @user ? @user.name : '')
+    render_new_form
   end
 
   def create
-    protocol = Protocol.new(params[:protocol])
-    ProtocolMailer.protocol(protocol).deliver_now
-    request_params = { id_list: params[:protocol][:id_list] }
-    request_params[:mobile] = true if context.mobile?
-    @redirect = request_path(params[:request_id], request_params)
+    ProtocolMailer.protocol(Protocol.new(protocol_params)).deliver_now
+    @redirect = request_path(params[:request_id], id_list: params[:protocol][:id_list], mobile: context.mobile? || nil)
     @success = I18n.t('protocols.create.success_text')
     render "/application/#{context}/create"
+  end
+
+  private
+
+  def protocol_params
+    params.expect(protocol: [:user, :process_number, :message_number, :text, { attachments: [] }])
   end
 end

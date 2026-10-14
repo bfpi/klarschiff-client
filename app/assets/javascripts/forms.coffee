@@ -4,11 +4,13 @@ $ ->
 
   KS.content().on 'change', 'select[data-update]', ->
     if (target = $("##{ $(@).data('update') }"))? && (url = target.data('src'))?
-      $.ajax(url: url, dataType: 'json', data: { category: $(@).val(), lat: $('#request_lat').val(), long: $('#request_long').val()}).done (response) ->
+      data = { category: $(@).val(), lat: $('#request_lat').val(), long: $('#request_long').val() }
+      $.ajax(url: url, dataType: 'json', data: data).done (response) ->
         target.html('').append "<option disabled='disabled' selected='selected' class='placeholder'>#{
           target.data('placeholder') }</option>"
         $(response).each ->
-          target.append "<option value='#{ @service_code }' data-photo-requested='#{ @photo_requested }'>#{ @service_name }</option>"
+          target.append "<option value='#{ @service_code }' data-photo-requested='#{ @photo_requested }'>" +
+            "#{ @service_name }</option>"
 
   KS.content().on 'change', 'select[data-check-photo-requested]', ->
     if $(@).find('option:selected').data('photo-requested')
@@ -67,7 +69,8 @@ $ ->
         coordinates = []
         if feature
           feature.getGeometry().getCoordinates()[0][0].forEach (coord) ->
-            coordinates[coordinates.length] = ol.proj.transform(coord, KS.projection(), KS.projectionWGS84).toString().replace(/,/g, ' ')
+            point = ol.proj.transform(coord, KS.projection(), KS.projectionWGS84)
+            coordinates[coordinates.length] = point.toString().replace(/,/g, ' ')
           geom_as_wkt = 'MULTIPOLYGON(((' + coordinates.join(',') + ')))'
           input = ($('<input>').attr({ 'type': 'hidden', 'name': 'geometry' }).val(geom_as_wkt))
           $('#areas-form').append(input)
@@ -78,4 +81,6 @@ $ ->
 
   KS.content().on 'change', '#new-photo input[type=file]', ->
     if $(@).val().length > 0
-      $('#new-photo a[data-next=image-submit], #confirmation_foto_text_privacy_html, #new-photo input[type=submit]').show()
+      elements = ['#new-photo a[data-next=image-submit]', '#confirmation_foto_text_privacy_html',
+                  '#new-photo input[type=submit]']
+      $(elements.join(', ')).show()

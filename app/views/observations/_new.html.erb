@@ -26,7 +26,7 @@
         <% service_names(type).each do |service| -%>
           <div class="col-12">
             <%= check_box_tag "#{type}_service[]", service[:id], false, class: type,
-                                                                        id: "#{type}_#{service[:id]}" %>
+                  id: "#{type}_#{service[:id]}" %>
             <%= label_tag "#{type}_#{service[:id]}", service[:name], class: 'check-label' %>
           </div>
         <% end -%>
@@ -41,7 +41,7 @@
         </div>
         <div class="col-12">
           <%= check_box_tag "#{type}_service_sub[]", (code = service.service_code), true, class: type,
-                                                                                          id: "#{type}_#{code}" %>
+                id: "#{type}_#{code}" %>
           <%= label_tag "#{type}_#{code}", service.service_name, class: 'check-label' %>
         </div>
       </div>

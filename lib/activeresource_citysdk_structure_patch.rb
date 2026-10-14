@@ -9,7 +9,7 @@ module ActiveresourceCitysdkStructurePatch
   module ValidationsWithCitySDKErrorResponseCodes
     def save(options = {})
       super
-    rescue BadRequest, UnauthorizedAccess => e
+    rescue ActiveResource::BadRequest, ActiveResource::UnauthorizedAccess => e
       @remote_errors = e
       load_remote_errors(@remote_errors, true)
       false
@@ -106,7 +106,7 @@ module ActiveresourceCitysdkStructurePatch
 
     def enhance_error_with_base_object(error)
       error.define_singleton_method(:base_object_with_errors) do
-        Base.new.tap { |base| base.load_remote_errors(self) }
+        ActiveResource::Base.new.tap { |base| base.load_remote_errors(self) }
       end
       Rails.logger.error("CitySDKError: #{error.base_object_with_errors.errors.full_messages.join(', ')}")
     end

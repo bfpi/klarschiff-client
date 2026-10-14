@@ -1,32 +1,27 @@
 # frozen_string_literal: true
 
 class VotesController < ApplicationController
+  include RequestFeedback
+
   def new
-    @request = Request.find(params[:request_id])
-    @vote = Vote.new(
-      service_request_id: @request.id, author: login_required? ? @user.email : nil,
-      privacy_policy_accepted: nil, status_updates_for_supporter: nil
-    )
-    @id_list = params[:id_list].try(:map, &:to_i).presence
-    respond_to do |format|
-      format.html { head :forbidden }
-      format.js { render "/application/#{context}/new" }
-    end
+    load_request
+    @vote = Vote.new(service_request_id: @request.id, author: feedback_author, privacy_policy_accepted: nil,
+      status_updates_for_supporter: nil)
+    render_new_form
   end
 
   def create
-    vote = Vote.create(
-      params.require(:vote).permit(:author).merge(
-        service_request_id: params[:request_id],
-        status_updates_for_supporter: params[:vote][:status_updates_for_supporter].present?
-      ).merge(privacy_policy_params)
-    )
-    @redirect = request_path(params[:request_id], id_list: params[:vote][:id_list], mobile: @mobile).html_safe
-    @errors = vote.errors unless vote.persisted?
-    if context == 'desktop' && @errors.present?
-      @errors = Array.wrap(@errors).map(&:messages)
-      return render 'application/desktop/new'
-    end
-    render "/application/#{context}/create"
+    vote = Vote.create(vote_params)
+    @redirect = request_redirect_path
+    render_create_result vote
+  end
+
+  private
+
+  def vote_params
+    params.expect(vote: [:author]).merge(
+      service_request_id: params[:request_id],
+      status_updates_for_supporter: params[:vote][:status_updates_for_supporter].present?
+    ).merge(privacy_policy_params)
   end
 end

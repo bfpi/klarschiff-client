@@ -1,33 +1,22 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  include RequestFeedback
+
   def new
-    @request = Request.find(params[:request_id])
-    @comment = Comment.new(service_request_id: @request.id, author: login_required? ? @user.email : nil,
-                           comment: nil, privacy_policy_accepted: nil)
-    @id_list = params[:id_list].try(:map, &:to_i).presence
-    respond_to do |format|
-      format.html { head :forbidden }
-      format.js { render "/application/#{context}/new" }
-    end
+    load_request
+    @comment = Comment.new(service_request_id: @request.id, author: feedback_author, comment: nil,
+      privacy_policy_accepted: nil)
+    render_new_form
   end
 
   def create
-    comment = Comment.create(
-      params.require(:comment).permit(:author, :comment).merge(
-        api_key: Comment.api_key, service_request_id: params[:request_id]
-      ).merge(privacy_policy_params)
-    )
+    comment = Comment.create(params.expect(comment: %i[author comment])
+      .merge(api_key: Comment.api_key, service_request_id: params[:request_id]).merge(privacy_policy_params))
     if comment.persisted?
-      @redirect = request_path(params[:request_id], id_list: params[:comment][:id_list], mobile: @mobile).html_safe
+      @redirect = request_redirect_path
       @success = I18n.t(:success_text, scope: "comments.#{context}.create")
-    else
-      @errors = comment.errors
     end
-    if context == 'desktop' && @errors.present?
-      @errors = Array.wrap(@errors).map(&:messages)
-      return render 'application/desktop/new'
-    end
-    render "/application/#{context}/create"
+    render_create_result comment
   end
 end

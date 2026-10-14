@@ -12,7 +12,7 @@
           <%= mark_trust(@request) %>
         <% end -%>
         <%= link_to [:map, { request: @request.id }],
-                    data: { turbolinks: false } do %>
+              data: { turbolinks: false } do %>
           <i class="fas fa-link"></i>
         <% end -%>
         <%= render partial: 'show_panel_title_buttons', locals: { request: @request, id_list: @id_list } %>
@@ -67,7 +67,7 @@
       <% if (notes = @request.status_notes).present? -%>
         <div class="list-group-item">
           <h4 class="list-group-item-heading"><%= Request.human_attribute_name(:status_notes) %></h4>
-          <p class="list-group-item-text"><em><%= notes.html_safe %></em></p>
+          <p class="list-group-item-text"><em><%= notes %></em></p>
         </div>
       <% end -%>
       <% if (expected_closure = @request.expected_closure).present? -%>
@@ -190,20 +190,20 @@
         <div class="btn-group d-flex col-12" role="group">
           <%= if display?(:completions, @request)
                 link_to(t('.actions.completion'), [:new, @request, :completion, { id_list: @id_list, mobile: @mobile }],
-                        options)
+                  options)
               end %>
         </div>
         <div class="btn-group d-flex col-12" role="group">
           <%= if display?(:create_comment)
                 link_to(t('.actions.comment'), [:new, @request, :comment, { id_list: @id_list, mobile: @mobile }],
-                        options.merge(class: 'btn btn-light btn-outline-secondary col-6'))
+                  options.merge(class: 'btn btn-light btn-outline-secondary col-6'))
               end %>
           <% if display?(:d3_document_url) && @request.service.document_url.present? -%>
-            <%= link_to(t('.actions.d3_document'), d3_document_url(@request),
-                        options.merge(class: 'btn btn-light btn-outline-secondary col-6', target: '_blank', remote: false)) %>
+            <%= link_to(t('.actions.d3_document'), d3_document_url(@request, @user),
+                  options.merge(class: 'btn btn-light btn-outline-secondary col-6', target: '_blank', remote: false)) %>
           <% elsif display?(:protocol) -%>
             <%= link_to(t('.actions.kod'), [:new, @request, :protocol, { mobile: @mobile }],
-                        options.merge(class: 'btn btn-light btn-outline-secondary col-6')) %>
+                  options.merge(class: 'btn btn-light btn-outline-secondary col-6')) %>
           <% end -%>
         </div>
       </div>
@@ -217,17 +217,17 @@
             <%= link_to(content_tag(:i, '', class: 'fas fa-backward'), '#', class: 'btn btn-light btn-outline-secondary disabled col-4') %>
           <% else -%>
             <%= link_to(content_tag(:i, '', class: 'fas fa-backward'),
-                        request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
-                        remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
+                  request_path(@id_list[@id_list.index(@request.id) - 1], id_list: @id_list, mobile: @mobile),
+                  remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
           <% end -%>
           <%= link_to(t('.actions.list'), url_for(session[:referer_params]),
-                      remote: true, class: 'btn btn-light btn-outline-secondary btn-xs col-4') %>
+                remote: true, class: 'btn btn-light btn-outline-secondary btn-xs col-4') %>
           <% if @id_list.last == @request.id -%>
             <%= link_to(content_tag(:i, '', class: 'fas fa-forward'), '#', class: 'btn btn-light btn-outline-secondary disabled col-4') %>
           <% else -%>
             <%= link_to(content_tag(:i, '', class: 'fas fa-forward'),
-                        request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
-                        remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
+                  request_path(@id_list[@id_list.index(@request.id) + 1], id_list: @id_list, mobile: @mobile),
+                  remote: true, class: 'btn btn-light btn-outline-secondary col-4') %>
           <% end -%>
         </div>
       </div>

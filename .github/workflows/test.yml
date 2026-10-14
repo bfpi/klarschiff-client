@@ -1,13 +1,11 @@
 name: Rails Tests
 
 on:
-  - workflow_dispatch
+  - push
+  - workflow_call
 
 env:
   RAILS_ENV: test
-
-permissions:
-  contents: read
 
 jobs:
   test:

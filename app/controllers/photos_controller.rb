@@ -1,32 +1,24 @@
 # frozen_string_literal: true
 
 class PhotosController < ApplicationController
+  include RequestFeedback
+
   # Foto melden
   # params:
   #   service_request_id  pflicht  - Vorgang-ID
   #   author              pflicht  - Autor-Email
   #   media               pflicht  - Bild
   def create
-    photo = Photo.create(permissable_params.merge(
-                           service_request_id: params[:request_id]
-                         ))
-    @redirect = request_path(params[:request_id], id_list: params[:photo][:id_list], mobile: @mobile).html_safe
-    @errors = photo.errors unless photo.persisted?
-    if context == 'desktop' && @errors.present?
-      @errors = Array.wrap(@errors).map(&:messages)
-      return render 'application/desktop/new'
-    end
-    render "/application/#{context}/create"
+    photo = Photo.create(photo_params.merge(service_request_id: params[:request_id]))
+    @redirect = request_redirect_path
+    render_create_result photo
   end
 
   private
 
-  def permissable_params
-    keys = %i[author media]
-    data = params.require(:photo).permit(keys)
-    if (img = params[:photo][:media]).present?
-      data[:media] = Base64.encode64(img.read)
+  def photo_params
+    params.expect(photo: %i[author media]).tap do |data|
+      data[:media] = Base64.encode64(data[:media].read) if data[:media].present?
     end
-    data
   end
 end

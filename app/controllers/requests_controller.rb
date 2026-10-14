@@ -1,122 +1,34 @@
 # frozen_string_literal: true
 
 class RequestsController < ApplicationController
+  include Requests::Creation
+  include Requests::NewForm
+  include Requests::StaticPages
+
   def index
-    unless (@back = params[:back])
-      conditions = if login_required?
-                     { agency_responsible: @user.field_service_team,
-                       negation: 'agency_responsible' }
-                   else
-                     {}
-                   end
-      conditions.update service_code: service_code if service_code
-      conditions[:area_code] = params[:area] if params[:area]
-      conditions[:map] = params[:map] if params[:map]
-      conditions[:service_code] = params[:service_code] if params[:service_code]
-      conditions[:service_request_id] = params[:ids].join(',') if params[:ids]
-      conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
-      if (center = params[:center]).present?
-        conditions.update lat: center[0], long: center[1]
-      end
-      conditions.update(keyword: params[:typ].select(&:presence).join(', ')) unless @mobile || params[:typ].nil?
-      if (states = Settings::Map.default_requests_states).present?
-        if @mobile || params[:status].nil?
-          conditions.update detailed_status: states
-        else
-          conditions.update(detailed_status: (states = params[:status].select(&:presence)).join(', '))
-          conditions.update(status: '') if states.blank?
-        end
-      end
-      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived && params[:archive].present?
-        conditions.update(also_archived: true)
-      end
-      @requests = Request.where(conditions.merge(radius: params[:radius])).try(:to_a)
-      session[:referer_params] = params.slice(:controller, :action, :mobile, :ids)
-    end
+    @requests = load_requests unless (@back = params[:back])
     respond_to do |format|
-      format.html do
-        @per_page = (params[:per_page].presence || 20).to_i
-        @page = 1
-        @requests.sort_by!(&:requested_datetime).reverse!
-        @pages = (@requests.count / @per_page.to_f).ceil
-        path = Rails.root.join(Settings::Client.resources_overview_path)
-        FileUtils.mkdir_p path
-        FileUtils.rm_rf Dir.glob(path.join('*.html'))
-        all_requests = @requests
-        all_requests.each_slice(@per_page) do |requests|
-          @requests = requests
-          File.write path.join("#{@page}.html"), render_to_string(layout: false)
-          @page += 1
-        end
-        return head :ok
-      end
-      format.js do
-        if @mobile
-          render '/requests/mobile/index'
-        elsif @back
-          render('/requests/desktop/index')
-        else
-          redirect_to("#{Settings::Url.ks_server_url}#{ request_path(@requests.first,
-                                                                     id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile) }")
-        end
-      end
+      format.html { write_static_pages }
+      format.js { render_index }
       format.json { render json: @requests }
     end
   end
 
   def show
     return head(:not_found) if (id = params[:id]).blank?
+    return head(:not_found) unless (@request = find_request(id))
 
-    if params[:direct] || login_required?
-      conditions = { service_request_id: id }
-      if (states = Settings::Map.default_requests_states).present?
-        conditions.update detailed_status: states
-      end
-      if Settings::Client.respond_to?(:also_archived) && Settings::Client.also_archived
-        conditions[:also_archived] = true
-      end
-      return head(:not_found) unless (@request = Request.where(conditions).first)
-
-      @direct = true
-    else
-      @request = Request.find(id)
-      @mobile_popup = true if params[:mobile_popup]
-    end
     @photo = Photo.new(service_request_id: @request.id, author: nil)
     @refresh = params[:refresh].presence
-    @id_list = params[:id_list].try(:map, &:to_i).presence
+    @id_list = id_list_param
     render "/requests/#{context}/show"
   end
 
   def new
     respond_to do |format|
       format.html { head(:forbidden) }
-      format.js do
-        return new_mobile_request if @mobile
-
-        if params[:switch_type]
-          @type = params[:type]
-        else
-          @service = Service.find(service_code) if service_code
-          @request = Request.new(type: @service&.type)
-        end
-        render "requests/#{context}/new"
-      end
-      format.json do
-        req = Request.new(position: params[:position])
-
-        coord = Coordinate.new(req.lat, req.long)
-        if coord.redirect_url.present?
-          response.headers['X-Redirect-Url'] = coord.redirect_url
-          return head :see_other
-        end
-        resp = { status: coord.covered_by_juristiction? ? 200 : 406 }
-        if resp[:status] == 406
-          req.errors.tap { |errors| errors.add :position, :outside }
-          resp[:error] = req.errors.full_messages.first
-        end
-        render json: resp
-      end
+      format.js { @mobile ? new_mobile_request : new_desktop_request }
+      format.json { check_position }
     end
   end
 
@@ -124,91 +36,24 @@ class RequestsController < ApplicationController
     return head(:not_found) if (id = params[:id]).blank?
 
     @request = Request.find(id)
-    @id_list = params[:id_list].try(:map, &:to_i).presence
+    @id_list = id_list_param
   end
 
   def create
     return summary if params[:confirm] == 'true'
 
-    if login_required?
-      cookies[:last_type] = params[:request][:type]
-      cookies[:last_service_code] = params[:request][:service_code].presence&.first
-      cookies[:last_group] = Service.find(cookies[:last_service_code]).group if cookies[:last_service_code]
-    end
-    ids = []
-    create_message = nil
-    service = nil
-    if (codes = params[:request][:service_code]).present?
-      payload = permissable_params
-      (codes = Array.wrap(codes).map(&:to_i).reject(&:zero?)).each do |service_code|
-        service ||= Service[service_code]
-        result =
-          begin
-            Request.connection.post(
-              Request.collection_path(nil, api_key: Request.api_key,
-                                           email: display?(:email) ? params[:request][:email] : @user.email),
-              Request.format.encode(
-                payload.merge(service_code: service_code).merge(privacy_policy_params)
-              )
-            )
-          rescue ActiveResource::ResourceInvalid => e
-            e.base_object_with_errors
-          end
-        if result.is_a?(Net::HTTPCreated)
-          req = Request.new.load(Request.format.decode(result.body))
-          create_message = req.create_message
-          ids << req.id
-        else
-          (@errors ||= []) << result.errors
-          break if ids.blank?
-        end
-      end
-    else
-      @errors = if @mobile
-                  Request.new.errors.tap { |errors| errors.add :service_code, :blank }
-                else
-                  Request.new.errors.tap { |errors| errors.add :base, :service_code_required }
-                end
-      @modal_title_options = { count: 1 }
-    end
-    if ids.present? && !service.nil?
-      @options = { id: ids.first, create_message: create_message } if context == 'desktop'
-      @redirect = requests_path(ids: ids, refresh: true, mobile: @mobile) unless context == 'desktop'
-      @modal_title_options = { count: ids.size } if @errors.blank?
-      @success = I18n.t('messages.success.request_create', count: ids.size,
-                                                           type: I18n.t(service.type, scope: 'service.types', count: ids.size))
-    end
-    if context == 'desktop' && @errors.present?
-      @errors = Array.wrap(@errors).map(&:messages)
-      return render 'requests/desktop/new'
-    end
-    @modal_title_options ||= { count: codes.size }
-    if (errors = @errors.try(:dup)).is_a? Array
-      @errors = Request.new.errors.tap do |e|
-        errors.map(&:messages).each do |messages|
-          messages.each do |key, values|
-            values.uniq.each do |message|
-              e.add(key, message) unless e.added? key, message
-            end
-          end
-        end
-      end
-    end
+    create_requests
+    return render_new_with_errors if context.desktop? && @errors.present?
+
     render "/application/#{context}/create"
   end
 
   def update
     return head(:not_found) if (id = params[:id]).blank?
 
-    result =
-      begin
-        Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
-                      Request.format.encode(permissable_params))
-      rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
-        e.base_object_with_errors
-      end
+    result = patch_request(id)
     if result.is_a?(Net::HTTPOK)
-      @redirect = request_path(id, id_list: params[:request][:id_list], mobile: @mobile).html_safe
+      @redirect = request_path(id, id_list: params[:request][:id_list], mobile: @mobile)
       @success = I18n.t('messages.success.request_update')
     else
       @errors = result.errors
@@ -218,55 +63,56 @@ class RequestsController < ApplicationController
 
   private
 
-  def summary
-    @request = Request.new(permissable_params)
-    @service = Service.find(params[:request][:service_code][0])
-    @request.service_code = params[:request][:service_code][0]
-    media = params[:request][:media]
-    if media.present?
-      @media_type = media.content_type
-      @media_size = media.size
-      FileUtils.cp media.path, 'tmp/'
-      @path = media.path.split('/').last
-    end
-    render 'requests/mobile/request_form'
+  def load_requests
+    session[:referer_params] = params.slice(:controller, :action, :mobile, :ids)
+    filter = RequestFilter.new(params, mobile: @mobile, user: (@user if login_required?), service_code: service_code)
+    Request.where(filter.conditions).try(:to_a)
   end
 
-  def new_mobile_request
-    if login_required?
-      @request = Request.new(type: cookies[:last_type], category: cookies[:last_group],
-                             service_code: Array.wrap(cookies[:last_service_code]))
-    else
-      @service = Service.find(service_code) if service_code
-      @request = Request.new(type: @service&.type)
-    end
-    if (pos = params[:position]).present?
-      @request.lat = pos[1]
-      @request.long = pos[0]
-      unless (@coord = Coordinate.new(@request.lat, @request.long)).covered_by_juristiction?
-        @errors = Request.new.errors.tap { |errors| errors.add :position, :outside }
-        @modal_title_options = { count: 1 }
-        return render :outside
-      end
-    end
-    if params[:switch_type]
-      @type = params[:type]
-      return render 'requests/mobile/new'
-    end
-    return render 'requests/mobile/new_position' if params[:position].blank?
+  def render_index
+    return render('/requests/mobile/index') if @mobile
+    return render('/requests/desktop/index') if @back
 
-    render 'requests/mobile/new'
+    path = request_path(@requests.first, id_list: @requests.map(&:id), refresh: params[:refresh], mobile: @mobile)
+    redirect_to "#{Settings::Url.ks_server_url}#{path}"
+  end
+
+  def find_request(id)
+    if params[:direct] || login_required?
+      @direct = true
+      Request.where(RequestFilter.single(id)).first
+    else
+      @mobile_popup = true if params[:mobile_popup]
+      Request.find(id)
+    end
+  end
+
+  def patch_request(id)
+    Request.patch(id, { api_key: Request.api_key, email: request_email }, Request.format.encode(permissable_params))
+  rescue ActiveResource::ResourceInvalid, ActiveResource::ForbiddenAccess => e
+    e.base_object_with_errors
+  end
+
+  def request_email
+    display?(:email) ? params[:request][:email] : @user.email
   end
 
   def permissable_params
+    data = params.expect(request: request_keys)
+    data[:media] = encode_media(params[:request][:media]) if params[:request][:media].present?
+    data
+  end
+
+  def request_keys
     keys = %i[service_code description email privacy_policy_accepted]
     keys += %i[detailed_status job_status] if action_name == 'update'
     keys |= %i[lat long] if %w[create new update].include?(action_name)
-    data = params.require(:request).permit(keys)
-    if (img = params[:request][:media]).present?
-      data[:media] = img.is_a?(String) ? encode_file_from_path(img) : Base64.encode64(img.tempfile.read)
-    end
-    data
+    keys
+  end
+
+  # Images uploaded in the summary of the mobile form are referenced by their file name
+  def encode_media(media)
+    media.is_a?(String) ? encode_file_from_path(media) : Base64.encode64(media.tempfile.read)
   end
 
   def encode_file_from_path(filename)

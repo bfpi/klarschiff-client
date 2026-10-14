@@ -1,55 +1,67 @@
 # frozen_string_literal: true
 
+# Delivers the static pages of the installation from the resources of the overlay
 class StaticsController < ApplicationController
   def api
-    @file_name = 'api'
+    render_resource 'api'
   end
 
   def help
-    @file_name = 'hilfe'
-    render :api
+    render_resource 'hilfe'
   end
 
   def imprint
-    @file_name = 'impressum'
-    render :api
+    render_resource 'impressum'
   end
 
   def privacy
-    @file_name = 'datenschutz'
-    render :api
+    render_resource 'datenschutz'
   end
 
   def promotion
     return head(:not_found) unless Settings::StaticPage.promotion
-    @file_name = 'werbung'
-    render :api
+
+    render_resource 'werbung'
   end
 
   def usage
-    @file_name = 'nutzungsbedingungen'
-    render :api
+    render_resource 'nutzungsbedingungen'
   end
 
+  # Pages of the request list, see Requests::StaticPages
   def requests
     @page_number = params[:page].to_i
+    respond_to do |format|
+      format.html { render file: Rails.root.join(Settings::Client.resources_overview_path, "#{@page_number}.html") }
+      format.js
+    end
   end
 
   def contact
     return head(:not_found) unless Settings::StaticPage.contact
-    @file_name = 'contact'
-    render :api
+
+    render_resource 'contact'
   end
 
   def news
     return head(:not_found) unless Settings::StaticPage.news
-    @file_name = 'news'
-    render :api
+
+    render_resource 'news'
   end
 
   def participation
     return head(:not_found) unless Settings::StaticPage.participation
-    @file_name = 'participation'
-    render :api
+
+    render_resource 'participation'
+  end
+
+  private
+
+  def render_resource(file_name)
+    @file_name = file_name
+    respond_to do |format|
+      format.html { render file: Rails.root.join(Settings::Client.resources_path, "#{file_name}.html") }
+      format.js { render :api }
+    end
   end
 end

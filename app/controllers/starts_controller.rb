@@ -10,8 +10,8 @@ class StartsController < ApplicationController
 
   def recent_requests
     @recent_requests = Request.where(max_requests: Settings::Client.recent_requests,
-                                     detailed_status: ApplicationController.helpers.states,
-                                     keyword: 'problem, idea', with_picture: true)
+      detailed_status: ApplicationController.helpers.states,
+      keyword: 'problem, idea', with_picture: true)
     @recent_requests_col = "col-#{12 / Settings::Client.recent_requests_per_row.to_i}"
   end
 end
