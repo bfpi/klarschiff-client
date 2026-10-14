@@ -38,7 +38,7 @@ class ConfirmationsControllerTest < ActionDispatch::IntegrationTest
     backoffice = confirm '/confirmations/abc/issue', { service_request_id: 53 }
 
     assert_equal(%w[PUT /citysdk/requests/abc/confirm.json], backoffice.sent_request.then { [it.method, it.path] })
-    assert_equal [URI(Settings::ResourceServer.city_sdk[:site]).host, 3001], [backoffice.host, backoffice.port]
+    assert_equal [URI(Settings::ResourceServer.city_sdk[:site]).host, 443], [backoffice.host, backoffice.port]
     assert_includes response.body, I18n.t('confirmations.confirm_success.accepted')
   end
 
