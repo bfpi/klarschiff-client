@@ -1,0 +1,10 @@
+<%# Dateiupload mit mehreren Feldern: Sobald im letzten Feld eine Datei gewählt wurde,
+    hängt forms.coffee (.multi-file-upload) ein weiteres leeres Feld an, bis client.max_upload_files erreicht ist.
+    Locals: form (FormBuilder), attribute (optional, Standard :media) -%>
+<% attribute = local_assigns.fetch(:attribute, :media) -%>
+<%# Fehlt der Schlüssel in der settings.yml oder ist er leer/0, gibt es kein Limit (data-max="0") -%>
+<% max_files = Settings::Client.respond_to?(:max_upload_files) ? Settings::Client.max_upload_files.to_s.to_i : 0 -%>
+<div class="multi-file-upload" data-max="<%= max_files %>">
+  <%= form.file_field(attribute, name: "#{form.object_name}[#{attribute}][]", class: 'd-block mb-1',
+                                 accept: Settings::Client.supported_file_types) %>
+</div>

@@ -68,7 +68,7 @@
     <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
     <div class="col-12"><%= t('.photo_hint') %></div>
     <div class="col-12">
-      <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
+      <%= render partial: 'file_upload', locals: { form: f } %>
     </div>
   </div>
   <div id="photo_requested" class="row mb-3" style="display: none;">
