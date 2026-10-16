@@ -57,56 +57,23 @@ module RequestsHelper
   end
 
   def d3_document_url(request)
-    street = ''
+    street = t(:not_assignable)
     housenumber = ''
     housenumber_addition = ''
 
-    uri = URI.parse(Settings::AddressSearch.url)
-    query_params = {
-      type: 'Adresse',
-      coord: "#{request.long},#{request.lat}",
-      crs: 'EPSG:4326',
-      rm: '100',
-      sort: 'dist',
-      n: '1'
-    }
-    filter = Settings::AddressSearch.localisator
-    if filter && !filter.empty?
-      filter = filter.delete_prefix('[')
-      key, value = filter.split(']=', 2)
-      query_params["x_filter[#{key}]"] = value
+    if (address = Geocoder.reverse(request.long, request.lat))
+      properties = address['properties']
+      street_key = properties['x_strassenschluessel'][0][-5..]
+      street = "#{properties['x_strassenname'][0]} (#{street_key} – #{properties['x_bereich'][0]})"
+      housenumber, housenumber_addition = properties['x_hausnummer'][0].match(/\A(\d+)([A-Za-z]*)\z/).captures
     end
-    uri.query = URI.encode_www_form(query_params)
 
-    uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
-    if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
-      uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
-    end
-    begin
-      if (res = uri.open(uri_options)) && res.status.include?('OK')
-        JSON.parse(res.read).fetch('features', []).each do |p|
-          feature_street_name = p['properties']['x_strassenname'][0]
-          feature_street_key = p['properties']['x_strassenschluessel'][0][-5..]
-          feature_place_name = p['properties']['x_bereich'][0]
-          street = "#{feature_street_name} (#{feature_street_key} – #{feature_place_name})"
-          feature_housenumber = p['properties']['x_hausnummer'][0]
-          housenumber, housenumber_addition = feature_housenumber.match(/\A(\d+)([A-Za-z]*)\z/).captures
-          break
-        end
-        street = t(:not_assignable) if street.blank?
-      else
-        street = t(:not_assignable)
-      end
-      request.service.document_url
-             .gsub('{ks_id}', request.id.to_s)
-             .gsub('{ks_user}', @user.login)
-             .gsub('{ks_str}', street)
-             .gsub('{ks_hnr}', housenumber)
-             .gsub('{ks_hnr_z}', housenumber_addition)
-             .gsub('{ks_eigentuemer}', request.extended_attributes.property_owner.truncate(254, omission: '…'))
-    rescue OpenURI::HTTPError
-      Rails.logger.error "Geocoding error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
-      Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
-    end
+    request.service.document_url
+           .gsub('{ks_id}', request.id.to_s)
+           .gsub('{ks_user}', @user&.login || '')
+           .gsub('{ks_str}', street)
+           .gsub('{ks_hnr}', housenumber)
+           .gsub('{ks_hnr_z}', housenumber_addition)
+           .gsub('{ks_eigentuemer}', request.extended_attributes&.property_owner&.truncate(254, omission: '…') || '')
   end
 end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-
 class PlacesController < ApplicationController
   def index
     if (@pattern = params[:pattern]).nil?
@@ -24,36 +22,7 @@ class PlacesController < ApplicationController
         end
       end
 
-      uri = URI.parse(Settings::AddressSearch.url)
-      query = @pattern
-      query_params = {
-        type: Settings::AddressSearch.result_classes,
-        q: query,
-        crs: 'EPSG:3857',
-        n: '5'
-      }
-      filter = Settings::AddressSearch.localisator
-      if filter && !filter.empty?
-        filter = filter.delete_prefix('[')
-        key, value = filter.split(']=', 2)
-        query_params["x_filter[#{key}]"] = value
-      end
-      uri.query = URI.encode_www_form(query_params)
-
-      uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
-      if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
-        uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
-      end
-      begin
-        if (res = uri.open(uri_options)) && res.status.include?('OK')
-          JSON.parse(res.read).fetch('features', []).each do |p|
-            @places << Place.new(p)
-          end
-        end
-      rescue OpenURI::HTTPError
-        Rails.logger.error "Geocoding error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
-        Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
-      end
+      @places.concat(Geocoder.search(@pattern).map { |p| Place.new(p) })
     end
 
     respond_to do |format|

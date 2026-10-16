@@ -68,7 +68,7 @@ development: &default
     result_classes: Gemeinde,Ortsteil,Straße,Adresse
     localisator: "[landkreis_id]=13003"
     search_request_id_enabled: true
-    proxy: "http://10.11.12.13:9900"
+    proxy:
 
   protocol_mail:
     recipient: recipient@klarschiff.de
