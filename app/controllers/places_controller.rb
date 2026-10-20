@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'open-uri'
-
 class PlacesController < ApplicationController
   def index
     if (@pattern = params[:pattern]).nil?
@@ -19,33 +17,12 @@ class PlacesController < ApplicationController
           @places << Place.new({ 'geometry' => { 'coordinates' => [p.long, p.lat], 'type' => 'Point', 'transform_bbox' => true },
                                  'properties' => { '_title_' => "Meldung ##{p.service_request_id}",
                                                    'feature_id' => p.service_request_id },
+                                 'bbox' => [p.long, p.lat, p.long, p.lat],
                                  'type' => 'Feature' })
         end
       end
 
-      uri = URI.parse(Settings::AddressSearch.url)
-      query = if Settings::AddressSearch.localisator.present?
-                "#{Settings::AddressSearch.localisator} #{@pattern}"
-              else
-                @pattern
-              end
-      uri.query = URI.encode_www_form(key: Settings::AddressSearch.api_key, query: query, type: 'search',
-                                      class: 'address', shape: 'bbox', out_epsg: '3857', limit: '5')
-
-      uri_options = { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE }
-      if Settings::AddressSearch.respond_to?(:proxy) && Settings::AddressSearch.proxy.present?
-        uri_options[:proxy] = URI.parse(Settings::AddressSearch.proxy)
-      end
-      begin
-        if (res = uri.open(uri_options)) && res.status.include?('OK')
-          Array.wrap(JSON.parse(res.read).try(:[], 'features')).map do |p|
-            @places << Place.new(p)
-          end
-        end
-      rescue OpenURI::HTTPError
-        Rails.logger.error "Geocodr Error: #{$ERROR_INFO.inspect}, #{$ERROR_INFO.message}\n"
-        Rails.logger.error $ERROR_INFO.backtrace.join("\n  ")
-      end
+      @places.concat(Geocoder.search(@pattern).map { |p| Place.new(p) })
     end
 
     respond_to do |format|
