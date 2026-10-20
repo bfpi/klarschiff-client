@@ -3,13 +3,13 @@
     <div class="card-header"><%= t('.results') %></div>
     <div class="list-group">
       <% @places.each do |place| -%>
-        <% if place['transform_bbox'] -%>
-          <% @transform = true -%>
-        <% else -%>
-          <% @transform = false -%>
-        <% end -%>
-        <%= link_to(map_path(bbox: place[:bbox], mobile: @mobile), remote: true, class: 'list-group-item', :data => { :transform => @transform }) do %>
-          <%= place[:label] %>
+        <%= link_to(
+          map_path(bbox: place.bbox, mobile: @mobile),
+          remote: true,
+          class: 'list-group-item',
+          data: { transform: place.transform_bbox? }
+        ) do %>
+          <%= place.label %>
           <span class="badge rounded-pill bg-secondary float-end"><i class="fas fa-chevron-right"></i></span>
         <% end %>
       <% end -%>
