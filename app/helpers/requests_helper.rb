@@ -65,45 +65,23 @@ module RequestsHelper
   end
 
   def d3_document_url(request)
-    street = ''
+    street = t(:not_assignable)
     housenumber = ''
     housenumber_addition = ''
 
-    uri = URI(Settings::Geocodr.url)
-    query = "#{request.long},#{request.lat}"
-    uri.query = URI.encode_www_form(key: Settings::Geocodr.api_key, query: query, type: 'reverse',
-                                    class: 'address', radius: '100', in_epsg: '4326')
-
-    res = if (proxy = ENV['HTTP_PROXY'] || ENV.fetch('http_proxy', nil)).present? # Workaround for open-uri https-proxy problem
-            proxy = "http://#{proxy}" unless %r{^https?://}.match?(proxy)
-            p_uri = URI.parse(proxy)
-            Net::HTTP.Proxy p_uri.host, p_uri.port
-          else
-            Net::HTTP
-          end.get_response uri
-
-    if res&.message&.include?('OK')
-      places = ActiveSupport::JSON.decode(res.body)['features']
-      places.each do |p|
-        if p['properties']['objektgruppe'] == 'Adresse'
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-          housenumber = p['properties']['hausnummer']
-          housenumber_addition = p['properties']['hausnummer_zusatz'] if p['properties']['hausnummer_zusatz']
-          break
-        elsif p['properties']['objektgruppe'] == 'Straße' && street.blank?
-          street = "#{p['properties']['strasse_name']} (#{p['properties']['strasse_schluessel']} – #{p['properties']['gemeindeteil_name']})"
-        end
-      end
-      street = t(:not_assignable) if street.blank?
-    else
-      street = t(:not_assignable)
+    if (address = Geocoder.reverse(request.long, request.lat))
+      properties = address['properties']
+      street_key = properties['x_strassenschluessel'][0][-5..]
+      street = "#{properties['x_strassenname'][0]} (#{street_key} – #{properties['x_bereich'][0]})"
+      housenumber, housenumber_addition = properties['x_hausnummer'][0].match(/\A(\d+)([A-Za-z]*)\z/).captures
     end
+
     request.service.document_url
            .gsub('{ks_id}', request.id.to_s)
-           .gsub('{ks_user}', @user.login)
+           .gsub('{ks_user}', @user&.login || '')
            .gsub('{ks_str}', street)
            .gsub('{ks_hnr}', housenumber)
            .gsub('{ks_hnr_z}', housenumber_addition)
-           .gsub('{ks_eigentuemer}', request.extended_attributes.property_owner.truncate(254, omission: '…'))
+           .gsub('{ks_eigentuemer}', request.extended_attributes&.property_owner&.truncate(254, omission: '…') || '')
   end
 end

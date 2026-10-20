@@ -16,7 +16,7 @@ class RequestsController < ApplicationController
       conditions[:service_request_id] = params[:ids].join(',') if params[:ids]
       conditions[:start_date] = I18n.l(DateTime.parse(params[:start_date]), format: :citysdk) if params[:start_date]
       if (center = params[:center]).present?
-        conditions.update lat: center[0], long: center[1]
+        conditions.update lat: center[1], long: center[0]
       end
       conditions.update(keyword: params[:typ].select(&:presence).join(', ')) unless @mobile || params[:typ].nil?
       if (states = Settings::Map.default_requests_states).present?
