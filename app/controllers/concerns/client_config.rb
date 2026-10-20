@@ -4,7 +4,8 @@ module ClientConfig
   extend ActiveSupport::Concern
 
   included do
-    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?, :max_image_size
+    helper_method :display?, :login_required?, :service_code, :multi_requests_enabled?, :max_image_size,
+                  :max_upload_files
   end
 
   def display?(par, req = nil)
@@ -27,6 +28,10 @@ module ClientConfig
 
   def max_image_size
     Settings::Client.max_image_size
+  end
+
+  def max_upload_files
+    Settings::Client.respond_to?(:max_upload_files) ? Settings::Client.max_upload_files.to_s.to_i : 0
   end
 
   private

@@ -139,7 +139,10 @@ class RequestsController < ApplicationController
     ids = []
     create_message = nil
     service = nil
-    if (codes = params[:request][:service_code]).present?
+    if too_many_media?(params[:request][:media])
+      @errors = too_many_media_errors(Request)
+      @modal_title_options = { count: 1 }
+    elsif (codes = params[:request][:service_code]).present?
       payload = permissable_params
       (codes = Array.wrap(codes).map(&:to_i).reject(&:zero?)).each do |service_code|
         service ||= Service[service_code]
@@ -201,6 +204,12 @@ class RequestsController < ApplicationController
   def update
     return head(:not_found) if (id = params[:id]).blank?
 
+    if too_many_media?(params[:request][:media])
+      @errors = too_many_media_errors(Request)
+      @modal_title_options = { count: 1 }
+      return
+    end
+
     result =
       begin
         Request.patch(id, { api_key: Request.api_key, email: display?(:email) ? params[:request][:email] : @user.email },
@@ -220,15 +229,23 @@ class RequestsController < ApplicationController
   private
 
   def summary
+    if too_many_media?(params[:request][:media])
+      @errors = too_many_media_errors(Request)
+      @modal_title_options = { count: 1 }
+      return render('/application/mobile/create')
+    end
+
     @request = Request.new(permissable_params)
     @service = Service.find(params[:request][:service_code][0])
     @request.service_code = params[:request][:service_code][0]
-    media = params[:request][:media]
-    if media.present?
-      @media_type = media.content_type
-      @media_size = media.size
-      FileUtils.cp media.path, 'tmp/'
-      @path = media.path.split('/').last
+    if (files = media_files(params[:request][:media])).present?
+      # Typ und Größe des ersten Fotos, für die Vorschau
+      @media_type = files.first.content_type
+      @media_size = files.first.size
+      @paths = files.map do |file|
+        FileUtils.cp file.path, 'tmp/'
+        file.path.split('/').last
+      end
     end
     render 'requests/mobile/request_form'
   end
@@ -264,8 +281,9 @@ class RequestsController < ApplicationController
     keys += %i[detailed_status job_status] if action_name == 'update'
     keys |= %i[lat long] if %w[create new update].include?(action_name)
     data = params.require(:request).permit(keys)
-    if (img = params[:request][:media]).present?
-      data[:media] = img.is_a?(String) ? encode_file_from_path(img) : Base64.encode64(img.tempfile.read)
+    if (files = media_files(params[:request][:media])).present?
+      encoded = files.map { |file| file.is_a?(String) ? encode_file_from_path(file) : Base64.encode64(file.tempfile.read) }
+      data[:media] = media_payload(encoded)
     end
     data
   end
