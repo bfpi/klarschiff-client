@@ -95,9 +95,7 @@ class RequestsController < ApplicationController
         return new_mobile_request if @mobile
 
         @type = params[:type] if params[:type]
-        if params[:switch_type]
-          @type = params[:type]
-        else
+        unless params[:switch_type]
           @service = Service.find(service_code) if service_code
           @request = Request.new(type: @service&.type || @type)
         end
