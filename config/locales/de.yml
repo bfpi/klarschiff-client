@@ -67,6 +67,9 @@ de:
     errors:
       messages:
         blank: muss angegeben werden
+        too_many_files:
+          one: Es darf höchstens %{count} Foto hochgeladen werden
+          other: Es dürfen höchstens %{count} Fotos hochgeladen werden
       models:
         request:
           attributes:
