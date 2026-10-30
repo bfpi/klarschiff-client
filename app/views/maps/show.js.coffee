@@ -21,7 +21,7 @@
   <% if @bbox.present? -%>
     $('#places_search').val('')
     extent = Array(<%= @bbox.join ', ' %>)
-    KS.olMap.getView().fit(extent, { size: KS.olMap.getSize(), maxZoom: KS.maxZoom - 1 })
+    KS.olMap.getView().fit(extent, { size: KS.olMap.getSize() })
 
     if KS.layers.findById('new_feature')
       KS.moveNewFeature()
