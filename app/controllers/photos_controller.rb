@@ -10,9 +10,7 @@ class PhotosController < ApplicationController
     if too_many_media?(params[:photo][:media])
       @errors = too_many_media_errors(Photo)
     else
-      photo = Photo.create(permissable_params.merge(
-                             service_request_id: params[:request_id]
-                           ))
+      photo = Photo.create(permissable_params.merge(                  service_request_id: params[:request_id]))
       @errors = photo.errors unless photo.persisted?
     end
     @redirect = request_path(params[:request_id], id_list: params[:photo][:id_list], mobile: @mobile).html_safe
