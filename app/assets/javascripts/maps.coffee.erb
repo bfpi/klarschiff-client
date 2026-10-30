@@ -115,6 +115,7 @@ KS.ViewSwitcherControlMultiple = () ->
           $('#layer_opacity_' + item.value).show()
         else
           $('#layer_opacity_' + item.value).hide()
+    KS.positionViewSwitcher()
 
   $(expand).on 'change', 'input[data-action=opacity]', (elem) ->
     item = $(event.target)
