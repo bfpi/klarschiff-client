@@ -236,8 +236,9 @@ class RequestsController < ApplicationController
       @request = Request.new(type: cookies[:last_type], category: cookies[:last_group],
                              service_code: Array.wrap(cookies[:last_service_code]))
     else
+      @type = params[:type] if params[:type]
       @service = Service.find(service_code) if service_code
-      @request = Request.new(type: @service&.type)
+      @request = Request.new(type: @service&.type || @type)
     end
     if (pos = params[:position]).present?
       @request.lat = pos[1]

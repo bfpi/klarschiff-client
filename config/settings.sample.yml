@@ -50,6 +50,7 @@ development: &default
     supported_file_types: image/png,image/jpeg
     max_image_size: 5242880
     show_privacy_policy: false
+    skip_email_confirmation: false
 
   static_pages:
     contact: false
