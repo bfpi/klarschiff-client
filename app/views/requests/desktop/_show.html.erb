@@ -114,12 +114,14 @@
         <div class="col-12">
           <%= t('.confirmation_foto_text_privacy_html') %>
         </div>
-        <div class="col-12 div-margin-top">
-          <%= t('.confirmation_foto_text_html') %>
-        </div>
-        <div class="col-12 div-margin-top">
-          <em class="text-danger"><%= t('.confirmation_foto_text_warning_html') %></em>
-        </div>
+        <% unless Settings::Client.skip_email_confirmation -%>
+          <div class="col-12 div-margin-top">
+            <%= t('.confirmation_foto_text_html') %>
+          </div>
+          <div class="col-12 div-margin-top">
+            <em class="text-danger"><%= t('.confirmation_foto_text_warning_html') %></em>
+          </div>
+        <% end -%>
       </div>
       <div class="row">
         <div class="btn-group d-flex col-12" role="group">
