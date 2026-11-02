@@ -67,6 +67,9 @@ de:
     errors:
       messages:
         blank: muss angegeben werden
+        too_many_files:
+          one: Es darf höchstens %{count} Foto hochgeladen werden
+          other: Es dürfen höchstens %{count} Fotos hochgeladen werden
       models:
         request:
           attributes:
@@ -359,7 +362,7 @@ de:
         step_three: Schritt 3/4
         step_two: Schritt 2/4
         where: Wo?
-        error: 
+        error:
           one: Fehler bei neuer Meldung
           other: Fehler bei neuen Meldungen
           required:
@@ -400,7 +403,7 @@ de:
           vote: Unterstützung
           d3_document: d.3-Akte
         confirmation_foto: Abschluss
-        confirmation_foto_text_privacy_html: "Mit Klick auf <em>Foto hochladen</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
+        confirmation_foto_text_privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
         confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
         confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
@@ -496,4 +499,3 @@ de:
       top5: "Top 5"
       request_count: "Meldungen (mit gewählten Filtern)"
       notice: "Für weiterführende Analysen nutzen Sie gerne unseren RSS-Feed, die API, oder kontaktieren Sie uns."
-

@@ -47,6 +47,22 @@ class ApplicationController < ActionController::Base
     { privacy_policy_accepted: params[model_name][:privacy_policy_accepted].present? || login_required? }
   end
 
+  def media_files(value)
+    Array.wrap(value).compact_blank
+  end
+
+  def media_payload(encoded)
+    encoded.one? ? encoded.first : encoded
+  end
+
+  def too_many_media?(value)
+    (max = max_upload_files).positive? && media_files(value).size > max
+  end
+
+  def too_many_media_errors(model)
+    model.new.errors.tap { |errors| errors.add :base, :too_many_files, count: max_upload_files }
+  end
+
   def mobile_detected?
     client = DeviceDetector.new(request.user_agent)
     client.known? && client.device_type != 'desktop'

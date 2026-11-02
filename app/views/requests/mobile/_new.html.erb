@@ -1,5 +1,5 @@
 <div class="request">
-  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do %>
+  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do |f| %>
     <div id="form-page-2">
       <div class="card">
         <div class="card-header">
@@ -90,7 +90,7 @@
             <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
             <% unless login_required? -%><div class="col-12"><%= t('.photo_hint') %></div><% end -%>
             <div class="col-12">
-              <%= file_field(:request, :media, multiple: false, accept: Settings::Client.supported_file_types) %>
+              <%= render partial: 'file_upload', locals: { form: f } %>
             </div>
           </div>
           <% unless login_required? -%>
