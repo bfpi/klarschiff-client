@@ -37,6 +37,44 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    target-branch: master # additional config for minor updates, see bundler above
+    schedule:
+      interval: "monthly"
+    labels:
+      - "manually"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-patch"]
+
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    target-branch: master # additional config for minor updates, see bundler above
+    schedule:
+      interval: "monthly"
+    labels:
+      - "manually"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-patch"]
+
   - package-ecosystem: "github-actions"
     directory: ".github/workflows"
     schedule:

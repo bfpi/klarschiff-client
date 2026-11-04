@@ -11,7 +11,6 @@
 .gitmodules
 .rubocop.yml
 .ruby-gemset
-.ruby-version
 .stylelintignore
 .stylelintrc.json
 Dockerfile

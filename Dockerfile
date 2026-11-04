@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM ruby:4.0-slim-bookworm AS base
+FROM ruby:4.0.9-slim-bookworm AS base
 
 LABEL org.opencontainers.image.source="https://github.com/bfpi/klarschiff-client"
 LABEL org.opencontainers.image.authors="BFPI GmbH"
@@ -41,7 +41,7 @@ RUN --mount=type=cache,id=yarn,target=/rails/.cache/yarn YARN_CACHE_FOLDER=/rail
    yarn install --immutable
 
 # Install application gems
-COPY Gemfile Gemfile.lock ./
+COPY .ruby-version Gemfile Gemfile.lock ./
 
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \

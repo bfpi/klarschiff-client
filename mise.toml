@@ -1,0 +1,9 @@
+[env]
+KS_SERVER_URL = "http://localhost:3000"
+_.path = "{{config_root}}/bin"
+
+[hooks]
+postinstall = [
+  'npx corepack enable',
+  "npx corepack prepare $(node -p \"require('./package.json').packageManager\")"
+]

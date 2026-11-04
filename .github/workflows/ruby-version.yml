@@ -1,0 +1,36 @@
+name: Ruby Version Consistency
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .ruby-version
+      - Dockerfile
+  push:
+    paths:
+      - .ruby-version
+      - Dockerfile
+
+permissions:
+  contents: read
+
+jobs:
+  ruby-version:
+    name: Check .ruby-version matches Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Compare versions
+        run: |
+          ruby_version=$(sed 's/^ruby-//' .ruby-version | tr -d '[:space:]')
+          docker_version=$(sed -nE 's/^FROM ruby:([0-9.]+)-.* AS base$/\1/p' Dockerfile)
+          echo ".ruby-version: ${ruby_version}"
+          echo "Dockerfile:    ${docker_version}"
+          if [ -z "${docker_version}" ]; then
+            echo "::error file=Dockerfile::Could not determine Ruby version from 'FROM ruby:<version>-... AS base'"
+            exit 1
+          fi
+          if [ "${ruby_version}" != "${docker_version}" ]; then
+            echo "::error file=.ruby-version::Ruby version mismatch: .ruby-version has ${ruby_version}, Dockerfile has ${docker_version}"
+            exit 1
+          fi
