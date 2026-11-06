@@ -40,7 +40,7 @@
             </div>
             <% if @request.media_required? -%>
               <div class="col-12">
-                <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+                <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
                 <%= link_to(t('buttons.upload'), '#', remote: true,
                                                       class: 'btn btn-primary btn-continue', role: :button,
                                                       data: { current: 'image', next: 'image-submit' }) %>
@@ -105,12 +105,12 @@
       <div class="row">
         <%= label_tag :confirmation, t('.confirmation_foto'), class: 'col-12 col-form-label' %>
       </div>
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-12">
           <%= f.email_field(:author, class: 'form-control', placeholder: t('placeholder.email')) %>
         </div>
       </div>
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-12">
           <%= t('.confirmation_foto_text_privacy_html') %>
         </div>

@@ -1,4 +1,4 @@
-<% if @type -%>
+<% if params[:switch_type] && @type -%>
 $('#type-select').replaceWith("<%= j render partial: 'requests/desktop/category_select', locals: { type: @type, category: nil, service_code: nil } %>")
 <% else -%>
 KS.clearNewFeature()

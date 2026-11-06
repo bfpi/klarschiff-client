@@ -94,11 +94,10 @@ class RequestsController < ApplicationController
       format.js do
         return new_mobile_request if @mobile
 
-        if params[:switch_type]
-          @type = params[:type]
-        else
+        @type = params[:type] if params[:type]
+        unless params[:switch_type]
           @service = Service.find(service_code) if service_code
-          @request = Request.new(type: @service&.type)
+          @request = Request.new(type: @service&.type || @type)
         end
         render "requests/#{context}/new"
       end
@@ -237,8 +236,9 @@ class RequestsController < ApplicationController
       @request = Request.new(type: cookies[:last_type], category: cookies[:last_group],
                              service_code: Array.wrap(cookies[:last_service_code]))
     else
+      @type = params[:type] if params[:type]
       @service = Service.find(service_code) if service_code
-      @request = Request.new(type: @service&.type)
+      @request = Request.new(type: @service&.type || @type)
     end
     if (pos = params[:position]).present?
       @request.lat = pos[1]

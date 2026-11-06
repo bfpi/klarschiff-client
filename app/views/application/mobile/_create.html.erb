@@ -1,2 +1,2 @@
-<% @success ||= t('messages.success.confirmation') unless @errors %>
+<% @success ||= t("messages.success.confirmation#{'_skip_email' if Settings::Client.skip_email_confirmation}") unless @errors %>
 <%= render '/application/mobile/modal' %>
