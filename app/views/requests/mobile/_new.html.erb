@@ -1,5 +1,5 @@
 <div class="request">
-  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do %>
+  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do |f| %>
     <%= hidden_field_tag :mobile, @mobile %>
     <%= hidden_field_tag :confirm, !login_required? %>
     <%= hidden_field_tag 'request[lat]', @request.lat %>
