@@ -114,7 +114,7 @@ de:
   messages:
     success:
       confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
-      confirmation_skip_email: Das Foto wurde erfolgreich hochgeladen.
+      confirmation_skip_email: Ihre Meldung wurde erfolgreich gesendet.
       request_update: Ihre Änderungen wurden erfolgreich übertragen.
       request_create:
         one: "1 %{type} wurde erfolgreich angelegt."
@@ -168,6 +168,7 @@ de:
       create:
         error: Fehler bei Missbrauchsmeldung
         success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Missbrauchsmeldung noch einmal bestätigen müssen.
+        success_skip_email: Die Missbrauchsmeldung wurde erfolgreich abgesetzt.
       new:
         title: Missbrauch
         text: Beschreibung
@@ -180,8 +181,8 @@ de:
     mobile:
       <<: *abuses
       create:
-        success: Missbrauchsmeldung erfolgreich abgesetzt
         error: Fehler bei Missbrauchsmeldung
+        success: Missbrauchsmeldung erfolgreich abgesetzt
 
   application:
     menue_top_left:
