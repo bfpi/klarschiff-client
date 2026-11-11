@@ -6,12 +6,26 @@
     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <%= link_to(new_request_path(mobile: @mobile), remote: true, class: 'nav-link', title: t('nav.request')) do %>
-            <i class="fas fa-map-marker-alt"></i>
-            <% unless login_required? -%>
-              <span><%= t('nav.request') %></span>
+
+          <% if Settings::Client.skip_type_selection && Settings::Client.default_type -%>
+            <%= link_to(new_request_path(mobile: @mobile, type: Settings::Client.default_type), remote: true, class: 'nav-link', title: t('nav.request')) do %>
+              <i class="fas fa-map-marker-alt"></i>
+              <% unless login_required? -%>
+                <span><%= t('nav.request') %></span>
+              <% end %>
             <% end %>
-          <% end %>
+          <% else -%>
+            <%= link_to(new_request_path(mobile: @mobile), remote: true, class: 'nav-link', title: t('nav.request')) do %>
+              <i class="fas fa-map-marker-alt"></i>
+              <% unless login_required? -%>
+                <span><%= t('nav.request') %></span>
+              <% end %>
+            <% end %>
+          <% end -%>
+
+
+
+
         </li>
         <li class="nav-item">
           <%= link_to(places_path(mobile: @mobile), remote: true, class: 'nav-link places', title: t('nav.places')) do %>

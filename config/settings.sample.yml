@@ -51,6 +51,7 @@ development: &default
     max_image_size: 5242880
     max_upload_files: 1
     show_privacy_policy: false
+    skip_email_confirmation: false
 
   static_pages:
     contact: false

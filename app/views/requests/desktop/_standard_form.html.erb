@@ -112,14 +112,16 @@
       </div>
     </div>
   <% end -%>
-  <div class="row mb-3">
-    <div class="col-12 div-margin-top">
-      <%= t('.confirmation_text_html') %>
+  <% unless Settings::Client.skip_email_confirmation -%>
+    <div class="row mb-3">
+      <div class="col-12 div-margin-top">
+        <%= t('.confirmation_text_html') %>
+      </div>
+      <div class="col-12 div-margin-top">
+        <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
+      </div>
     </div>
-    <div class="col-12 div-margin-top">
-      <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
-    </div>
-  </div>
+  <% end -%>
   <div class="row">
     <div class="btn-group d-flex col-12" role="group">
       <%= link_to(t('buttons.back'), '#',

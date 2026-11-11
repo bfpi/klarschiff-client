@@ -114,6 +114,7 @@ de:
   messages:
     success:
       confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
+      confirmation_skip_email: Das Foto wurde erfolgreich hochgeladen.
       request_update: Ihre Änderungen wurden erfolgreich übertragen.
       request_create:
         one: "1 %{type} wurde erfolgreich angelegt."
@@ -297,13 +298,12 @@ de:
 
   photos:
     desktop:
-      create:
+      create: &photo_create
         error: Fehler beim Hochladen eines Fotos
         success: Das Foto wurde erfolgreich hochgeladen. Sie erhalten in Kürze eine E-Mail, in der Sie Ihr Foto noch einmal bestätigen müssen.
+        success_skip_email: Das Foto wurde erfolgreich hochgeladen.
     mobile:
-      create:
-        error: Fehler beim Hochladen eines Fotos
-        success: Das Foto wurde erfolgreich hochgeladen. Sie erhalten in Kürze eine E-Mail, in der Sie Ihr Foto noch einmal bestätigen müssen.
+      create: *photo_create
 
   places:
     desktop: &places
