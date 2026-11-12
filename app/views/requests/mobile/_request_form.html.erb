@@ -1,5 +1,5 @@
 <%= form_for(req, remote: true, authenticity_token: true, html: { id: 'confirm-new-request', class: 'fileupload', data: { 'validation-error-headline': t('requests.create.error.one') } }) do |f| %>
-  <div id="form-page-5" class="hidden-page">
+  <div id="form-page-<%= Settings::Client.skip_type_selection ? 4 : 5 %>" class="hidden-page">
     <div class="card">
       <div class="card-header">
         <h4 class="card-title"><%= t('requests.mobile.new.confirm_data') %></h4>
@@ -42,9 +42,9 @@
         <div class="row">
           <div class="btn-group d-flex col-12" role="group">
             <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                                                data: { current: '5', next: '4' }) %>
+                                                data: { current: Settings::Client.skip_type_selection ? 4 : 5, next: Settings::Client.skip_type_selection ? 3 : 4 }) %>
             <%= link_to(t('buttons.continue'), '#', class: 'btn btn-primary btn-continue col-6', role: :button,
-                                                    data: { current: '5', next: 'submit' }) %>
+                                                    data: { current: Settings::Client.skip_type_selection ? 4 : 5, next: 'submit' }) %>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
       </div>
       <div class="card-body">
         <% if display?(:email) -%>
-          <div class="row">
+          <div class="row mb-3">
             <div class="col-12">
               <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
             </div>
@@ -71,23 +71,25 @@
             <div class="col-12"><%= t('requests.mobile.new.confirmation_text_privacy_html') %></div>
           </div>
         <% end -%>
-        <div class="row">
-          <div class="col-12"><%= t('requests.mobile.new.confirmation_text_html') %></div>
-        </div>
-        <div class="row">
-          <div class="col-12"><em class="text-danger"><%= t('requests.mobile.new.confirmation_text_warning_html') %></em></div>
-        </div>
+        <% unless Settings::Client.skip_email_confirmation -%>
+          <div class="row">
+            <div class="col-12"><%= t('requests.mobile.new.confirmation_text_html') %></div>
+          </div>
+          <div class="row">
+            <div class="col-12"><em class="text-danger"><%= t('requests.mobile.new.confirmation_text_warning_html') %></em></div>
+          </div>
+        <% end -%>
       </div>
       <div class="card-footer">
         <div class="row">
           <div class="btn-group d-flex col-12" role="group">
             <%= link_to(t('buttons.back'), '#', class: 'btn btn-light btn-outline-secondary btn-continue back col-6', role: :button,
-                                                data: { current: 'submit', next: '5' }) %>
+                                                data: { current: 'submit', next: Settings::Client.skip_type_selection ? 4 : 5 }) %>
             <%= f.submit(t('buttons.save'), class: 'btn btn-primary col-6') %>
           </div>
         </div>
       </div>
     </div>
-    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: '5', nxt: nil, current: 'submit', step: '(4/4)', text: t('.close') } %>
+    <%= render partial: 'requests/mobile/nav_buttons', locals: { back: Settings::Client.skip_type_selection ? 4 : 5, nxt: nil, current: 'submit', step: '(4/4)', text: t('.close') } %>
   </div>
 <% end -%>

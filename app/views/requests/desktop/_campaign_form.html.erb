@@ -29,14 +29,14 @@
                                     data: { 'missing-message': t('requests.create.error.required.description') }) %>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-3">
     <%= f.label(:media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
     <div class="col-12"><%= t('.photo_hint') %></div>
     <div class="col-12">
-      <%= f.file_field(:media, multiple: false, accept: 'image/png,image/jpeg') %>
+      <%= f.file_field(:media, multiple: false, accept: Settings::Client.supported_file_types) %>
     </div>
   </div>
-  <div class="row">
+  <div class="row mb-3">
     <%= label_tag :hint, t('.hint.label'), class: 'col-12 col-form-label' %>
     <div class="col-12"><%= t('.hint.text') %></div>
   </div>
@@ -59,7 +59,7 @@
     <%= label_tag :confirmation, t('.confirmation'), class: 'col-12 col-form-label' %>
   </div>
   <% if display?(:email) -%>
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-12">
         <%= f.email_field(:email, class: 'form-control', placeholder: t('placeholder.email')) %>
       </div>
@@ -68,25 +68,27 @@
   <% if display?(:privacy_policy) -%>
     <%= render partial: 'privacy_policy_form', locals: { form: f } %>
   <% else -%>
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-12">
         <%= t('.confirmation_text_privacy_html') %>
       </div>
     </div>
   <% end -%>
-  <div class="row">
-    <div class="col-12 div-margin-top">
-      <%= t('.confirmation_text_html') %>
+  <% unless Settings::Client.skip_email_confirmation -%>
+    <div class="row mb-3">
+      <div class="col-12 div-margin-top">
+        <%= t('.confirmation_text_html') %>
+      </div>
+      <div class="col-12 div-margin-top">
+        <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
+      </div>
     </div>
-    <div class="col-12 div-margin-top">
-      <em class="text-danger"><%= t('.confirmation_text_warning_html') %></em>
-    </div>
-  </div>
+  <% end -%>
   <div class="row">
     <div class="btn-group d-flex col-12" role="group">
-      <%= link_to(t('buttons.back'), '#', remote: true,
-                                          class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
-                                          data: { current: 'submit', next: '3' }) %>
+      <%= link_to(t('buttons.back'), '#',
+                  remote: true, class: 'btn btn-light btn-outline-secondary btn-continue back', role: :button,
+                  data: { current: 'submit', next: '3' }) %>
       <%= f.submit(t('buttons.save'), class: 'btn btn-primary') %>
     </div>
   </div>
