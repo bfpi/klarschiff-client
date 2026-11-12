@@ -10,7 +10,9 @@
         <%= hidden_field_tag 'request[long]', @request.long %>
         <%= hidden_field_tag 'request[description]', @request.description %>
         <%= hidden_field_tag 'request[service_code][]', [@request.service_code] %>
-        <%= hidden_field_tag 'request[media]', @path %>
+        <% Array.wrap(@paths).each do |path| -%>
+          <%= hidden_field_tag 'request[media][]', path, id: nil %>
+        <% end -%>
         <div class="row map-image">
           <% if @request.media.present? && @media_size < max_image_size -%>
             <div class="col-6" id="ol-minimap"

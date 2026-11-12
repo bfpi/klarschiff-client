@@ -50,6 +50,13 @@ $ ->
       $($(@).attr('href')).addClass('invisible').find('select').val null
     return false
 
+  KS.content().on 'change', '.multi-file-upload input[type=file]', ->
+    container = $(@).closest('.multi-file-upload')
+    inputs = container.find('input[type=file]')
+    max = parseInt(container.data('max'), 10)
+    if @files.length > 0 && $(@).is(inputs.last()) && !(max > 0 && inputs.length >= max)
+      $(@).clone().val('').removeAttr('id').insertAfter(@)
+
   KS.content().on 'click', 'form .more_attachment a', (e) ->
     $('#attachments').append($('#attachment-prototype').children().clone())
     e.preventDefault()

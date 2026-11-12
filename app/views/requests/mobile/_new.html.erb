@@ -1,5 +1,5 @@
 <div class="request">
-  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do %>
+  <%= form_for(@request, remote: true, html: { enctype: 'multipart/form-data', class: 'fileupload' }, authenticity_token: true, data: { 'validation-error-headline': t('requests.create.error.one') }) do |f| %>
     <%= hidden_field_tag :mobile, @mobile %>
     <%= hidden_field_tag :confirm, !login_required? %>
     <%= hidden_field_tag 'request[lat]', @request.lat %>
@@ -13,10 +13,12 @@
           <div class="card-body">
             <div class="row radio-btns" data-url="<%= new_request_path(switch_type: true, mobile: true) %>">
               <% unless login_required? -%><div class="col-12"><%= t('.problem_or_idea') %></div><% end -%>
-              <div class="col-12 div-margin-top">
-                <%= radio_button :request, :type, 'problem', class: 'radio-type' %>
-                <%= label_tag :request_type_problem, t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
-              </div>
+              <% if Settings::Client.service_type_problem %>
+                <div class="col-12 div-margin-top">
+                  <%= radio_button :request, :type, 'problem', class: 'radio-type' %>
+                  <%= label_tag :request_type_problem, t('problem', scope: 'service.types', count: 1), class: 'check-label' %>
+                </div>
+              <% end -%>
               <% if Settings::Client.service_type_idea %>
                 <div class="col-12 div-margin-top">
                   <%= radio_button :request, :type, 'idea', class: 'radio-type' %>
@@ -97,7 +99,7 @@
             <%= label_tag(:request_media, Request.human_attribute_name(:media), class: 'col-12 col-form-label') %>
             <% unless login_required? -%><div class="col-12"><%= t('.photo_hint') %></div><% end -%>
             <div class="col-12">
-              <%= file_field(:request, :media, multiple: false, accept: Settings::Client.supported_file_types) %>
+              <%= render partial: 'file_upload', locals: { form: f } %>
             </div>
           </div>
           <% unless login_required? -%>

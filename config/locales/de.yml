@@ -67,6 +67,9 @@ de:
     errors:
       messages:
         blank: muss angegeben werden
+        too_many_files:
+          one: Es darf höchstens %{count} Foto hochgeladen werden
+          other: Es dürfen höchstens %{count} Fotos hochgeladen werden
       models:
         request:
           attributes:
@@ -111,7 +114,7 @@ de:
   messages:
     success:
       confirmation: Sie erhalten eine E-Mail, in der Sie Ihre Meldung noch einmal bestätigen müssen.
-      confirmation_skip_email: Das Foto wurde erfolgreich hochgeladen.
+      confirmation_skip_email: Ihre Meldung wurde erfolgreich gesendet.
       request_update: Ihre Änderungen wurden erfolgreich übertragen.
       request_create:
         one: "1 %{type} wurde erfolgreich angelegt."
@@ -165,6 +168,7 @@ de:
       create:
         error: Fehler bei Missbrauchsmeldung
         success: Die Missbrauchsmeldung wurde erfolgreich abgesetzt. Sie erhalten in Kürze eine E-Mail, in der Sie Ihre Missbrauchsmeldung noch einmal bestätigen müssen.
+        success_skip_email: Die Missbrauchsmeldung wurde erfolgreich abgesetzt.
       new:
         title: Missbrauch
         text: Beschreibung
@@ -177,8 +181,8 @@ de:
     mobile:
       <<: *abuses
       create:
-        success: Missbrauchsmeldung erfolgreich abgesetzt
         error: Fehler bei Missbrauchsmeldung
+        success: Missbrauchsmeldung erfolgreich abgesetzt
 
   application:
     menue_top_left:
@@ -359,7 +363,7 @@ de:
         step_three: Schritt 3/4
         step_two: Schritt 2/4
         where: Wo?
-        error: 
+        error:
           one: Fehler bei neuer Meldung
           other: Fehler bei neuen Meldungen
           required:
@@ -400,7 +404,7 @@ de:
           vote: Unterstützung
           d3_document: d.3-Akte
         confirmation_foto: Abschluss
-        confirmation_foto_text_privacy_html: "Mit Klick auf <em>Foto hochladen</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
+        confirmation_foto_text_privacy_html: "Mit Klick auf <em>Speichern</em> wird ein personenbezogenes Datum (die von Ihnen eingetragene E-Mail-Adresse) übermittelt und für die in der Datenschutzerklärung beschriebenen Zwecke verwendet."
         confirmation_foto_text_html: "Nach Klick auf <em>Speichern</em> erhalten Sie an die angegebene Adresse eine <strong>E-Mail,</strong> in der Sie Ihr Foto noch einmal <strong>bestätigen</strong> müssen."
         confirmation_foto_text_warning_html: "Wenn Sie nicht innerhalb von <strong>24 Stunden</strong> bestätigen, wird Ihr Foto automatisch wieder <strong>gelöscht.</strong>"
         hint_photo_required: "Für diese Meldung wird ein (neues) Foto gewünscht."
