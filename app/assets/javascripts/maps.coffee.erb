@@ -646,6 +646,7 @@ class KS.FeatureData
         features.push f
       vector.addFeatures features
 
+
 class KS.Geolocation
   constructor: (map) ->
     @geolocation = new ol.Geolocation
@@ -654,20 +655,24 @@ class KS.Geolocation
         enableHighAccuracy: <%= Settings::Map.tracking_options[:enable_high_accuracy] %>
         timeout: <%= Settings::Map.tracking_options[:timeout] %>
         maximumAge: <%= Settings::Map.tracking_options[:maximum_age] %>
-      projection: map.getView().getProjection().getCode()
+      projection: map.getView().getProjection()
 
-    @geolocation.on 'change', ->
+    @geolocation.on 'change', =>
       feature_array = []
-      if KS.getUrlParam('mobile')
+
+      position = @geolocation.getPosition()
+
+      if position?
+        position_feature = new ol.Feature
+          geometry: new ol.geom.Point(position)
+        position_feature.setStyle KS.styles.location()
+        feature_array.push(position_feature)
+
+      if KS.getUrlParam('mobile') && @geolocation.getAccuracyGeometry()?
         accuracy_feature = new ol.Feature
-        accuracy_feature.setGeometry(this.getAccuracyGeometry())
+        accuracy_feature.setGeometry(@geolocation.getAccuracyGeometry())
         accuracy_feature.setStyle KS.styles.location()
         feature_array.push(accuracy_feature)
-
-      position_feature = new ol.Feature
-        geometry: new ol.geom.Point(this.getPosition())
-      position_feature.setStyle KS.styles.location()
-      feature_array.push(position_feature)
 
       featuresOverlay = new ol.layer.Vector
         id: 'geolocation'
@@ -675,18 +680,20 @@ class KS.Geolocation
           features: feature_array
 
       if layer = KS.layers.findById('geolocation')
-        layer.getSource().clear(true)
         map.removeLayer layer
 
       map.addLayer featuresOverlay
 
       unless KS.position
-        KS.geolocation.center(map) if KS.geolocation?
-      KS.position = this.getPosition()
+        @center(map) if position?
+
+      KS.position = position if position?
 
   center: (map) ->
-    if(layer = KS.layers.findById('geolocation')) && (features = layer.getSource().getFeatures()).length > 0
-      KS.olMap.getView().fit(features[0].getGeometry().getExtent(), { size: KS.olMap.getSize(), maxZoom: KS.maxZoom - 1 })
+    position = @geolocation.getPosition()
+
+    if position? && isFinite(position[0]) && isFinite(position[1])
+      map.getView().setCenter(position)
       KS.moveNewFeature()
 
 KS.map =
