@@ -1,6 +1,7 @@
 KS.projection = ->
   ol.proj.get 'EPSG:3857'
 
+KS.maxZoom = <%= Settings::Map.zoom[:max] %>
 KS.projectionWGS84 = ol.proj.get 'EPSG:4326'
 #KS.zoomEvent = false
 KS.requests_path = "<%= Settings::Route.requests_path %>/"
