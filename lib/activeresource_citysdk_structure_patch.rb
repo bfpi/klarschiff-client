@@ -9,7 +9,7 @@ module ActiveresourceCitysdkStructurePatch
   module ValidationsWithCitySDKErrorResponseCodes
     def save(options = {})
       super
-    rescue BadRequest, UnauthorizedAccess => e
+    rescue ::ActiveResource::BadRequest, ::ActiveResource::UnauthorizedAccess => e
       @remote_errors = e
       load_remote_errors(@remote_errors, true)
       false
